@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bbrtkqa42u3ak"]
+
+[ext_resource type="FontFile" uid="uid://bbdu7b4qn6agm" path="res://addons/panku_console/res/fonts/RobotoMono-Regular.ttf" id="1_op3ab"]
+[ext_resource type="FontFile" uid="uid://b5tnqyd3eepqk" path="res://addons/panku_console/res/fonts/RobotoMono-Bold.ttf" id="1_rkmvy"]
+[ext_resource type="FontFile" uid="uid://c8n22jb2xn5b1" path="res://addons/panku_console/res/fonts/RobotoMono-BoldItalic.ttf" id="2_sa17a"]
+[ext_resource type="FontFile" uid="uid://cp76rdpahjeuo" path="res://addons/panku_console/res/fonts/RobotoMono-Italic.ttf" id="3_148s2"]
+
+[resource]
+default_font = ExtResource("1_op3ab")
+default_font_size = 12
+RichTextLabel/fonts/bold_font = ExtResource("1_rkmvy")
+RichTextLabel/fonts/bold_italics_font = ExtResource("2_sa17a")
+RichTextLabel/fonts/italics_font = ExtResource("3_148s2")

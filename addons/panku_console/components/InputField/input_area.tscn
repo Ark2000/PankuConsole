@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnwpxye8p0d7b"]
+
+[ext_resource type="Theme" uid="uid://bbrtkqa42u3ak" path="res://addons/panku_console/res/panku_theme.tres" id="1_uf08w"]
+[ext_resource type="Script" path="res://addons/panku_console/components/InputField/input_area.gd" id="2_6g40s"]
+[ext_resource type="FontFile" uid="uid://bbdu7b4qn6agm" path="res://addons/panku_console/res/fonts/RobotoMono-Regular.ttf" id="3_tymei"]
+[ext_resource type="Script" path="res://addons/panku_console/components/InputField/input_field.gd" id="4_xjt2l"]
+[ext_resource type="Texture2D" uid="uid://b3sjdxexisig6" path="res://addons/panku_console/res/pics/icons8-enter-key-32.png" id="5_0m8mk"]
+
+[node name="InputArea" type="HBoxContainer"]
+offset_right = 277.0
+offset_bottom = 24.0
+theme = ExtResource("1_uf08w")
+theme_override_constants/separation = 0
+script = ExtResource("2_6g40s")
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 2
+offset_right = 94.0
+offset_bottom = 24.0
+item_count = 1
+selected = 0
+popup/item_0/text = "default"
+popup/item_0/id = 0
+
+[node name="InputField" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 94.0
+offset_right = 253.0
+offset_bottom = 24.0
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_tymei")
+theme_override_font_sizes/font_size = 12
+placeholder_text = "Input expression..."
+clear_button_enabled = true
+caret_blink = true
+script = ExtResource("4_xjt2l")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+offset_left = 253.0
+offset_right = 277.0
+offset_bottom = 24.0
+icon = ExtResource("5_0m8mk")
+icon_alignment = 1
+expand_icon = true

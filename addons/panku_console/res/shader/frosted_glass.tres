@@ -1,0 +1,16 @@
+[gd_resource type="Shader" format=3 uid="uid://b68lpjnldit2k"]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float amount: hint_range(0.0, 5.0);
+uniform float noise: hint_range(0.0, 1.0);
+uniform float sz: hint_range(0.0, 0.5);
+
+void fragment() {
+	vec3 col1 = textureLod(SCREEN_TEXTURE, SCREEN_UV, amount).rgb;
+	float m = step(fract((sz / SCREEN_PIXEL_SIZE.x)*SCREEN_UV.x), 0.5) * step(fract((sz / SCREEN_PIXEL_SIZE.y)*SCREEN_UV.y), 0.5);
+	col1 = col1 * (m * noise + (1.0 - noise));
+	COLOR.rgb = col1;
+}
+"

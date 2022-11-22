@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvrxhy3rxiqgy"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/ConsoleLogs/console_logs.gd" id="1_3r4hk"]
+
+[node name="ConsoleLogs" type="MarginContainer"]
+offset_right = 365.0
+offset_bottom = 357.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_3r4hk")
+
+[node name="R" type="RichTextLabel" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 357.0
+offset_bottom = 349.0
+bbcode_enabled = true
+scroll_following = true
