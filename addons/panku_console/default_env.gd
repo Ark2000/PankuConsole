@@ -5,10 +5,13 @@ extends Node
 
 const help = "available methods: say_hi(), enable_in_game_logs(bool), cls()"
 
-func say_hi():
-	return "[color=blue][b]Hello world![/b][/color]"
+func _ready():
+	await get_parent().ready
+	Panku.register_env("default",self)
 
-#by default, resident logs is disabled, you can enable it.
+func say_hi():
+	return "[color=orange][b]Hello world![/b][/color]"
+
 func enable_in_game_logs(b:bool):
 	get_parent()._resident_logs.visible = b
 
