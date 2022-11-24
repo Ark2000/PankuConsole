@@ -1,5 +1,8 @@
 class_name PankuImpl extends CanvasLayer
 
+signal opened
+signal closed
+
 const CONSOLE_KEY = KEY_QUOTELEFT
 
 @onready var _resident_logs = $ResidentLogs
@@ -10,6 +13,9 @@ const CONSOLE_KEY = KEY_QUOTELEFT
 
 var _envs = {}
 var _expression = Expression.new()
+
+func is_open() -> bool:
+	return _window.is_visible
 
 func register_env(env_name:String, env):
 	_envs[env_name] = env
@@ -64,3 +70,10 @@ func _ready():
 			else:
 				output("[color=red]Execution failed![/color]")
 	)
+	_window.visibility_changed.connect(_on_window_visibility_changed.bind())
+
+func _on_window_visibility_changed():
+	if _window.is_visible:
+		emit_signal("opened")
+	else:
+		emit_signal("closed")
