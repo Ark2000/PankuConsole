@@ -4,6 +4,9 @@ extends ColorRect
 @onready var resize_btn:Button = $ResizeButton
 @onready var exit_btn:Button = $Title/ExitButton
 
+@export var draggable := true
+@export var resizable := true
+
 var _is_dragging := false
 var _drag_start_position:Vector2
 var _is_resizing := false
@@ -51,10 +54,10 @@ func _input(e):
 			self.is_visible = false
 
 func _process(delta):
-	if _is_dragging:
+	if draggable and _is_dragging:
 		var tp = position + get_local_mouse_position() - _drag_start_position
 		position = lerp(position, tp, 0.4)
-	elif _is_resizing:
+	elif resizable and _is_resizing:
 		var ts = size + resize_btn.get_local_mouse_position() - _resize_start_position
 		ts.x = min(ts.x, get_viewport_rect().size.x)
 		ts.y = min(ts.y, get_viewport_rect().size.y)

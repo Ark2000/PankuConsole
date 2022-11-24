@@ -8,6 +8,21 @@ const CONSOLE_KEY = KEY_QUOTELEFT
 @onready var _input_area = $LynxWindow/Content/InputArea
 @onready var _glow = $GlowEffect/ColorRect
 
+@export var draggable_window := true:
+	get:
+		return draggable_window
+	set(value):
+		if _window != null:
+			_window.draggable = value
+		draggable_window = value
+@export var resizable_window := true:
+	get:
+		return resizable_window
+	set(value):
+		if _window != null:
+			_window.resizable = value
+		resizable_window = value
+
 var _envs = {}
 var _expression = Expression.new()
 
@@ -64,3 +79,5 @@ func _ready():
 			else:
 				output("[color=red]Execution failed![/color]")
 	)
+	_window.draggable = draggable_window
+	_window.resizable = resizable_window
