@@ -1,6 +1,6 @@
 class_name PankuImpl extends CanvasLayer
 
-const CONSOLE_KEY = KEY_QUOTELEFT
+@export var console_key = "open_console"
 
 @onready var _resident_logs = $ResidentLogs
 @onready var _console_logs = $LynxWindow/Content/ConsoleLogs
@@ -32,7 +32,7 @@ func notify(bbcode:String):
 	print(bbcode)
 
 func _input(e):
-	if e is InputEventKey and e.keycode == CONSOLE_KEY and e.pressed:
+	if Input.is_action_just_pressed(console_key):
 		_input_area.input.editable = !_window.is_visible
 		await get_tree().process_frame
 		_window.is_visible = !_window.is_visible
