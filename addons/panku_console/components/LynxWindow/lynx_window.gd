@@ -40,7 +40,6 @@ func _ready():
 		func():
 			self.is_visible = false
 	)
-	is_visible = visible
 
 func _input(e):
 	#release focus when you click outside of the window
