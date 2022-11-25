@@ -33,6 +33,7 @@ func notify(bbcode:String):
 
 func _input(e):
 	if e is InputEventKey and e.keycode == CONSOLE_KEY and e.pressed:
+		_input_area.input.editable = !_window.is_visible
 		await get_tree().process_frame
 		_window.is_visible = !_window.is_visible
 
