@@ -16,3 +16,10 @@ offset_right = 244.0
 offset_bottom = 386.0
 size_flags_vertical = 3
 color = Color(1, 0, 0, 0.117647)
+
+[node name="Label" type="Label" parent="AreaIndicator"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(1.5, 1.5)
+text = "Notifications Area"
