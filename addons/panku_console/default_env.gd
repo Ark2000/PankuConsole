@@ -27,7 +27,7 @@ var hints:
 			"[color=orange][Tip][/color]You can change the position of notifications in panku.tscn"
 		]
 		words.shuffle()
-		Panku.notify(words[0])
+		Console.notify(words[0])
 
 #clear console logs
 var cls:
@@ -43,12 +43,12 @@ var performance_info:
 
 var w_plans:
 	get:
-		var c = Panku._config["widgets_system"]
+		var c = Console._config["widgets_system"]
 		return "[b]Current Plan[/b]: %s\n[b]All Plans[/b]: %s" %[c["current_plan"], ",".join(PackedStringArray(c["plans"].keys()))]
 
 var w_perf:
 	get:
-		Panku.add_widget(
+		Console.add_widget(
 			1.0,
 			"default",
 			"performance_info",
@@ -58,17 +58,17 @@ var w_perf:
 
 func _ready():
 	await get_parent().ready
-	Panku.register_env("default",self)
+	Console.register_env("default",self)
 
 func enable_notifications(b:bool):
 	get_parent()._resident_logs.visible = b
 
 func notify(s:String):
-	Panku.notify(s)
+	Console.notify(s)
 	
 #Add a widget to watch an expression
 func w_watch(env:String, exp:String):
-	Panku.add_widget(
+	Console.add_widget(
 		0.1,
 		env,
 		"'[%s.%s]'+str(%s)" %[env, exp, exp],
@@ -80,7 +80,7 @@ func w_watch(env:String, exp:String):
 
 #Add an expression widget button
 func w_button(display_name:String, env:String, exp:String):
-	Panku.add_widget(
+	Console.add_widget(
 		9223372036854775807,
 		env,
 		var_to_str(display_name),
@@ -91,16 +91,16 @@ func w_button(display_name:String, env:String, exp:String):
 #w_button("test", "default", "notify('fuck')")
 
 func w_save_as(plan:String):
-	Panku.save_current_widgets_as(plan)
+	Console.save_current_widgets_as(plan)
 
 func w_delete(plan:String):
-	if Panku._config["widgets_system"]["current_plan"] == plan:
+	if Console._config["widgets_system"]["current_plan"] == plan:
 		return "failed"
-	Panku.delete_widgets_plan(plan)
+	Console.delete_widgets_plan(plan)
 
 func w_load(plan:String):
-	if !Panku.load_widgets_plan(plan):
+	if !Console.load_widgets_plan(plan):
 		(func():
 			await get_tree().process_frame
-			Panku.output("failed!")
+			Console.output("failed!")
 		).call()

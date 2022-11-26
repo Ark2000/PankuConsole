@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://dp5scckgpkty"]
 
 [ext_resource type="Theme" uid="uid://bbrtkqa42u3ak" path="res://addons/panku_console/res/panku_theme.tres" id="1_uf08w"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_area.gd" id="2_6g40s"]
