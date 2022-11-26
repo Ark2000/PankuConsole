@@ -152,7 +152,8 @@ func delete_widgets_plan(plan:String):
 	return true
 
 func _input(_e):
-	if Input.is_action_just_pressed(open_console_action) and !_input_area.input.has_focus():
+	if Input.is_action_just_pressed(open_console_action):
+		_input_area.input.editable = !_window.visible
 		await get_tree().process_frame
 		_window.visible = !_window.visible
 
