@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/panku_console/panku.gd" id="1_v8wt3"]
 [ext_resource type="PackedScene" uid="uid://dcd4du25y6v7k" path="res://addons/panku_console/components/ResidentLogs/resident_logs.tscn" id="2_ko54g"]
-[ext_resource type="PackedScene" path="res://addons/panku_console/components/LynxWindow/lynx_window.tscn" id="3_rdf0s"]
+[ext_resource type="PackedScene" uid="uid://bvr63gqoi6rmt" path="res://addons/panku_console/components/LynxWindow/lynx_window.tscn" id="3_rdf0s"]
 [ext_resource type="PackedScene" uid="uid://bvrxhy3rxiqgy" path="res://addons/panku_console/components/ConsoleLogs/console_logs.tscn" id="4_0dbm3"]
 [ext_resource type="Theme" uid="uid://bbrtkqa42u3ak" path="res://addons/panku_console/res/panku_theme.tres" id="4_vbbum"]
 [ext_resource type="FontFile" uid="uid://b5tnqyd3eepqk" path="res://addons/panku_console/res/fonts/RobotoMono-Bold.ttf" id="5_lil01"]
