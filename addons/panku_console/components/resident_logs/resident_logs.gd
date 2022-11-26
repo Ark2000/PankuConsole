@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const logitem2_proto := preload("res://addons/panku_console/components/ResidentLogs/log_item.tscn")
+const logitem2_proto := preload("res://addons/panku_console/components/resident_logs/log_item.tscn")
 
 const MAX_LOGS = 10
 

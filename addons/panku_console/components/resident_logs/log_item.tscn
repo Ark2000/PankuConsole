@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://2omqgci61tru"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/ResidentLogs/log_item.gd" id="1_ddump"]
+[ext_resource type="Script" path="res://addons/panku_console/components/resident_logs/log_item.gd" id="1_ddump"]
 
 [node name="LogItem" type="HBoxContainer"]
 offset_top = 487.0

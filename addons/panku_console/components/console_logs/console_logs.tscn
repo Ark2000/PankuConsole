@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvrxhy3rxiqgy"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/ConsoleLogs/console_logs.gd" id="1_3r4hk"]
+[ext_resource type="Script" path="res://addons/panku_console/components/console_logs/console_logs.gd" id="1_3r4hk"]
 
 [node name="ConsoleLogs" type="MarginContainer"]
 offset_right = 365.0

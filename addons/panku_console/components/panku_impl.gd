@@ -19,7 +19,7 @@ signal console_window_visibility_changed(is_visible:bool)
 @onready var _glow = $GlowEffect/ColorRect
 @onready var _widgets = $Widgets
 
-const _floating_widget_pck = preload("res://addons/panku_console/components/FloatingWidget/floating_widget.tscn")
+const _floating_widget_pck = preload("res://addons/panku_console/components/floating_widget/floating_widget.tscn")
 
 var _envs = {}
 var _expression = Expression.new()
