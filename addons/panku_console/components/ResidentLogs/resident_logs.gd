@@ -34,6 +34,7 @@ func add_log(bbcode:String):
 	else:
 		if get_child_count() >= MAX_LOGS:
 			get_child(0).queue_free()
+		await get_tree().process_frame
 		var new_node = logitem2_proto.instantiate()
 		add_child(new_node)
 		new_node.content_label.text = bbcode
