@@ -12,11 +12,6 @@ var _drag_start_position:Vector2
 var _is_resizing := false
 var _resize_start_position:Vector2
 
-var is_visible := false:
-	set(v):
-		is_visible = v
-		visible = is_visible
-
 func _ready():
 	title_btn.button_down.connect(
 		func():
@@ -38,9 +33,8 @@ func _ready():
 	)
 	exit_btn.pressed.connect(
 		func():
-			self.is_visible = false
+			hide()
 	)
-	is_visible = visible
 
 func _input(e):
 	#release focus when you click outside of the window
@@ -51,7 +45,7 @@ func _input(e):
 				if f and is_ancestor_of(f):
 					f.release_focus()
 		if e is InputEventKey and e.keycode == KEY_ESCAPE and e.pressed and get_global_rect().has_point(get_global_mouse_position()):
-			self.is_visible = false
+			hide()
 
 func _process(delta):
 	if draggable and _is_dragging:

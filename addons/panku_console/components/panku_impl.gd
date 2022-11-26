@@ -1,9 +1,16 @@
 class_name PankuImpl extends CanvasLayer
 
-signal opened
-signal closed
+signal console_window_visibility_changed(is_visible:bool)
 
-@export var console_key = "open_console"
+@export var open_console_action = "open_console"
+@export var draggable_window := true:
+	set(v):
+		draggable_window = v
+		if _window: _window.draggable = v
+@export var resizable_window := true:
+	set(v):
+		resizable_window = v
+		if _window: _window.resizable = v
 
 @onready var _resident_logs = $ResidentLogs
 @onready var _console_logs = $LynxWindow/Content/ConsoleLogs
@@ -11,26 +18,11 @@ signal closed
 @onready var _input_area = $LynxWindow/Content/InputArea
 @onready var _glow = $GlowEffect/ColorRect
 
-@export var draggable_window := true:
-	get:
-		return draggable_window
-	set(value):
-		if _window != null:
-			_window.draggable = value
-		draggable_window = value
-@export var resizable_window := true:
-	get:
-		return resizable_window
-	set(value):
-		if _window != null:
-			_window.resizable = value
-		resizable_window = value
-
 var _envs = {}
 var _expression = Expression.new()
 
-func is_open() -> bool:
-	return _window.is_visible
+func is_console_window_opened():
+	return _window.visible
 
 func register_env(env_name:String, env):
 	_envs[env_name] = env
@@ -52,19 +44,16 @@ func notify(bbcode:String):
 	_console_logs.add_log(bbcode)
 	print(bbcode)
 
-func _input(e):
-	if Input.is_action_just_pressed(console_key):
-		_input_area.input.editable = !_window.is_visible
+func _input(_e):
+	if Input.is_action_just_pressed(open_console_action) and !_input_area.input.has_focus():
 		await get_tree().process_frame
-		_window.is_visible = !_window.is_visible
+		_window.visible = !_window.visible
 
 func _process(d):
 	_glow.size = _console_logs.size
 	_glow.position = _console_logs.global_position
 
 func _ready():
-	_window.hide()
-	
 	output("[b][color=burlywood][ Panku Console ][/color][/b]")
 	output("[color=burlywood][b][color=burlywood]Version 1.0.1[/color][/b][/color]")
 	output("[color=burlywood][b]Check [color=green]default_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
@@ -86,12 +75,15 @@ func _ready():
 			else:
 				output("[color=red]Execution failed![/color]")
 	)
+
+	_window.hide()
 	_window.draggable = draggable_window
 	_window.resizable = resizable_window
-	_window.visibility_changed.connect(_on_window_visibility_changed.bind())
-
-func _on_window_visibility_changed():
-	if _window.is_visible:
-		emit_signal("opened")
-	else:
-		emit_signal("closed")
+	_window.visibility_changed.connect(
+		func():
+			console_window_visibility_changed.emit(_window.visible)
+	)
+	
+	#check the action key
+	#the open console action can be change in the export options of panku.tscn
+	assert(InputMap.has_action(open_console_action), "Please specify an action to open the console!")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://bvr63gqoi6rmt"]
 
 [ext_resource type="Shader" uid="uid://b68lpjnldit2k" path="res://addons/panku_console/res/shader/frosted_glass.tres" id="1_vslvu"]
 [ext_resource type="Script" path="res://addons/panku_console/components/LynxWindow/lynx_window.gd" id="2_5uhes"]
