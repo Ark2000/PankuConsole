@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv4qwdl127mvm"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/FloatingWidget/floating_widget.gd" id="1_y2e24"]
+[ext_resource type="Script" path="res://addons/panku_console/components/floating_widget/floating_widget.gd" id="1_y2e24"]
 [ext_resource type="Texture2D" uid="uid://cg4cjiaaowtdb" path="res://addons/panku_console/res/pics/icons8-multiply-32.png" id="2_kckdl"]
 
 [node name="FloatingWidget" type="MarginContainer"]

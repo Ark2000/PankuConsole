@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcd4du25y6v7k"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/ResidentLogs/resident_logs.gd" id="1_4ktw4"]
+[ext_resource type="Script" path="res://addons/panku_console/components/resident_logs/resident_logs.gd" id="1_4ktw4"]
 
 [node name="ResidentLogs" type="VBoxContainer"]
 offset_top = 150.0

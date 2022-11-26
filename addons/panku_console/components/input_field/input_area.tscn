@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnwpxye8p0d7b"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Theme" uid="uid://bbrtkqa42u3ak" path="res://addons/panku_console/res/panku_theme.tres" id="1_uf08w"]
-[ext_resource type="Script" path="res://addons/panku_console/components/InputField/input_area.gd" id="2_6g40s"]
+[ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_area.gd" id="2_6g40s"]
 [ext_resource type="FontFile" uid="uid://bbdu7b4qn6agm" path="res://addons/panku_console/res/fonts/RobotoMono-Regular.ttf" id="3_tymei"]
-[ext_resource type="Script" path="res://addons/panku_console/components/InputField/input_field.gd" id="4_xjt2l"]
+[ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_field.gd" id="4_xjt2l"]
 [ext_resource type="Texture2D" uid="uid://b3sjdxexisig6" path="res://addons/panku_console/res/pics/icons8-enter-key-32.png" id="5_0m8mk"]
 
 [node name="InputArea" type="HBoxContainer"]

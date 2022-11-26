@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvr63gqoi6rmt"]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Shader" uid="uid://b68lpjnldit2k" path="res://addons/panku_console/res/shader/frosted_glass.tres" id="1_vslvu"]
-[ext_resource type="Script" path="res://addons/panku_console/components/LynxWindow/lynx_window.gd" id="2_5uhes"]
+[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window/lynx_window.gd" id="2_5uhes"]
 [ext_resource type="Texture2D" uid="uid://cg4cjiaaowtdb" path="res://addons/panku_console/res/pics/icons8-multiply-32.png" id="3_3vmkx"]
 [ext_resource type="Texture2D" uid="uid://dlyws6x2sy7n5" path="res://addons/panku_console/res/pics/drop_shadow.png" id="4_fd5qw"]
 [ext_resource type="Texture2D" uid="uid://cctd4p2wyly50" path="res://addons/panku_console/res/pics/icons8-triangle-32.png" id="5_sml72"]
