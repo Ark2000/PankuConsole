@@ -26,24 +26,33 @@ layer = 128
 script = ExtResource("1_v8wt3")
 
 [node name="ResidentLogs" parent="." instance=ExtResource("2_ko54g")]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 115.0
+offset_right = 267.0
+offset_bottom = -154.0
+grow_vertical = 2
+
+[node name="Widgets" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="LynxWindow" parent="." instance=ExtResource("3_rdf0s")]
-offset_left = 362.0
-offset_top = 257.0
-offset_right = 662.0
-offset_bottom = 457.0
+offset_left = 331.0
+offset_top = 153.0
+offset_right = 815.0
+offset_bottom = 492.0
 grow_horizontal = 1
 grow_vertical = 1
 theme = ExtResource("4_vbbum")
 
 [node name="Title" parent="LynxWindow" index="0"]
-layout_mode = 1
+layout_mode = 3
 
 [node name="ExitButton" parent="LynxWindow/Title" index="0"]
-layout_mode = 1
+layout_mode = 3
 
 [node name="Label" type="Label" parent="LynxWindow/Title" index="1"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -57,11 +66,10 @@ label_settings = SubResource("LabelSettings_vhcvy")
 vertical_alignment = 1
 
 [node name="Content" parent="LynxWindow" index="1"]
-layout_mode = 1
+layout_mode = 3
 color = Color(0, 0, 0, 0.25098)
 
 [node name="ConsoleLogs" parent="LynxWindow/Content" index="0" instance=ExtResource("4_0dbm3")]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -72,7 +80,6 @@ grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="LynxWindow/Content" index="1"]
 custom_minimum_size = Vector2(0, 24)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -83,7 +90,6 @@ grow_vertical = 0
 color = Color(0, 0, 0, 0.12549)
 
 [node name="InputArea" parent="LynxWindow/Content" index="2" instance=ExtResource("6_bho71")]
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -95,13 +101,13 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Shadow" parent="LynxWindow" index="2"]
-layout_mode = 1
+layout_mode = 3
 
 [node name="ResizeButton" parent="LynxWindow" index="3"]
-layout_mode = 1
+layout_mode = 3
 
 [node name="TextureRect" parent="LynxWindow/ResizeButton" index="0"]
-layout_mode = 1
+layout_mode = 3
 
 [node name="DefaultEnv" type="Node" parent="."]
 script = ExtResource("7_23f2e")

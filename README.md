@@ -1,6 +1,6 @@
 # Panku Console ![](https://badgen.net/badge/Godot%20Compatible/4.0%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole) ![](https://badgen.net/github/license/Ark2000/PankuConsole)
 
-[Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your can just ran any script expression in your game!
+[Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your can just run any script expression in your game!
 
 [![z1GFnH.png](https://s1.ax1x.com/2022/11/22/z1GFnH.png)](https://imgse.com/i/z1GFnH)
 
@@ -33,7 +33,7 @@ For more detailed information, please visit [Installing plugins](https://docs.go
    1. The title, drag this to move the window around.
    2. Exit button, click to close the window.
    3. Env options, use `Panku.register_env()` to add more envs.
-   4. Input field, press enter to submit.
+   4. Input field, press enter to submit, up/down to navigate history input.
    5. Resize button, drag this to resize the window.
 
 4. Try to type 'abs(cos(PI))', you will see the result `1`.
@@ -52,11 +52,11 @@ For more detailed information, please visit [Installing plugins](https://docs.go
     Once it's done, suppose there is a variable called `hp` in your player script, you can type `hp` (The left option button should be `player`) in the console, then you will get the actual value of player's hp. 
     What's more, you can type `set("hp", 100)` to change the value(Note that you can't use `hp=100` since this is not a valid expression).
 
-    For more information about what is `Expression`, please visit [class_expression](https://docs.godotengine.org/en/stable/classes/class_expression.html)
+    For more information about what is `Expression`, please visit [Evaluating expressions](https://docs.godotengine.org/en/stable/tutorials/scripting/evaluating_expressions.html)
 
 7. Check `panku.gd` to see what you can do with the global singleton `Panku`
 
-At last, please pay attention that while this plugin is powerful, it's not ready for players since `Expression` is unsafe and exposed lots of internal structure.
+At last, please pay attention that while this plugin is powerful, it's not ready for players since `Expression` is unsafe and exposes lots of internal structure.
 
 A safer command system is being actively developed which can be used by the players, see the Roadmap part below.
 

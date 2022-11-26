@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv4qwdl127mvm"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/FloatingWidget/floating_widget.gd" id="1_y2e24"]
+[ext_resource type="Texture2D" uid="uid://cg4cjiaaowtdb" path="res://addons/panku_console/res/pics/icons8-multiply-32.png" id="2_kckdl"]
+
+[node name="FloatingWidget" type="MarginContainer"]
+offset_right = 29.0
+offset_bottom = 24.0
+script = ExtResource("1_y2e24")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+offset_right = 37.0
+offset_bottom = 24.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 37.0
+offset_bottom = 24.0
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+anchors_preset = 0
+offset_right = 4.0
+offset_bottom = 24.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+offset_left = 8.0
+offset_right = 9.0
+offset_bottom = 24.0
+size_flags_vertical = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+self_modulate = Color(1, 0.219608, 0.211765, 0.25098)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+offset_left = 13.0
+offset_right = 37.0
+offset_bottom = 24.0
+size_flags_horizontal = 10
+icon = ExtResource("2_kckdl")
+icon_alignment = 1
+expand_icon = true

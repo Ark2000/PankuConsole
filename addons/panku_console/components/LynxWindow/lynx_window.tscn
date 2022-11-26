@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://b68lpjnldit2k" path="res://addons/panku_console/res/shader/frosted_glass.tres" id="1_vslvu"]
 [ext_resource type="Script" path="res://addons/panku_console/components/LynxWindow/lynx_window.gd" id="2_5uhes"]
-[ext_resource type="Texture2D" uid="uid://y7llb04plue0" path="res://addons/panku_console/res/pics/icons8-logout-32.png" id="3_ii86x"]
+[ext_resource type="Texture2D" uid="uid://cg4cjiaaowtdb" path="res://addons/panku_console/res/pics/icons8-multiply-32.png" id="3_3vmkx"]
 [ext_resource type="Texture2D" uid="uid://dlyws6x2sy7n5" path="res://addons/panku_console/res/pics/drop_shadow.png" id="4_fd5qw"]
 [ext_resource type="Texture2D" uid="uid://cctd4p2wyly50" path="res://addons/panku_console/res/pics/icons8-triangle-32.png" id="5_sml72"]
 
@@ -26,6 +26,7 @@ metadata/_edit_group_ = true
 
 [node name="Title" type="Button" parent="."]
 custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 8.0
@@ -33,6 +34,7 @@ grow_horizontal = 2
 
 [node name="ExitButton" type="Button" parent="Title"]
 custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -40,11 +42,12 @@ anchor_bottom = 1.0
 offset_left = -8.0
 grow_horizontal = 0
 grow_vertical = 2
-icon = ExtResource("3_ii86x")
+icon = ExtResource("3_3vmkx")
 icon_alignment = 1
 expand_icon = true
 
 [node name="Content" type="ColorRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -55,6 +58,7 @@ color = Color(0, 0, 0, 0.12549)
 
 [node name="Shadow" type="NinePatchRect" parent="."]
 self_modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -72,6 +76,7 @@ patch_margin_bottom = 81
 
 [node name="ResizeButton" type="Button" parent="."]
 custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -87,6 +92,7 @@ flat = true
 [node name="TextureRect" type="TextureRect" parent="ResizeButton"]
 self_modulate = Color(1, 1, 1, 0.501961)
 custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
