@@ -1,4 +1,4 @@
-class_name PankuImpl extends CanvasLayer
+class_name PankuConsole extends CanvasLayer
 
 signal console_window_visibility_changed(is_visible:bool)
 
