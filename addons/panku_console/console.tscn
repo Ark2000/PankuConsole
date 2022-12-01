@@ -10,13 +10,13 @@
 [ext_resource type="Shader" uid="uid://b68lpjnldit2k" path="res://addons/panku_console/res/shader/frosted_glass.tres" id="8_bpw5w"]
 [ext_resource type="Script" path="res://addons/panku_console/default_env.gd" id="8_xaqop"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_aic3x"]
+[sub_resource type="LabelSettings" id="LabelSettings_nth2r"]
 resource_local_to_scene = true
 font = ExtResource("5_8kb3r")
 font_size = 12
 shadow_color = Color(0, 0, 0, 0.501961)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjca7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ui6f0"]
 resource_local_to_scene = true
 shader = ExtResource("8_bpw5w")
 shader_parameter/amount = 0.1
@@ -59,7 +59,7 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Panku Console"
-label_settings = SubResource("LabelSettings_aic3x")
+label_settings = SubResource("LabelSettings_nth2r")
 vertical_alignment = 1
 
 [node name="Content" parent="LynxWindow" index="1"]
@@ -99,14 +99,11 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="DefaultEnv" type="Node" parent="."]
-script = ExtResource("8_xaqop")
-
 [node name="GlowEffect" type="CanvasLayer" parent="."]
-layer = 128
 
 [node name="ColorRect" type="ColorRect" parent="GlowEffect"]
-material = SubResource("ShaderMaterial_qjca7")
+visible = false
+material = SubResource("ShaderMaterial_ui6f0")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -117,5 +114,8 @@ offset_bottom = -144.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="DefaultEnv" type="Node" parent="."]
+script = ExtResource("8_xaqop")
 
 [editable path="LynxWindow"]

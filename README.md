@@ -1,4 +1,4 @@
-# Panku Console ![](https://badgen.net/badge/Godot%20Compatible/4.0%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole) ![](https://badgen.net/github/license/Ark2000/PankuConsole)
+# Panku Console ![](https://badgen.net/badge/Godot%20Compatible/4.0Beta6%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole) ![](https://badgen.net/github/license/Ark2000/PankuConsole)
 
 [Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your can just run any script expression in your game!
 

@@ -179,6 +179,7 @@ func _ready():
 		func():
 			console_window_visibility_changed.emit(_window.visible)
 	)
+	console_window_visibility_changed.connect(_glow.set_visible)
 
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
