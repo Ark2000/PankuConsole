@@ -1,6 +1,10 @@
 extends HBoxContainer
 
 signal submitted(env:String, exp:String)
+signal update_hints(env:String, exp:String)
+signal env_changed(env:String)
+signal next_hint()
+signal prev_hint()
 
 @onready var opt:OptionButton = $OptionButton
 @onready var input:LineEdit = $InputField
@@ -10,6 +14,10 @@ func _ready():
 	input.text_submitted.connect(
 		func(s):
 			submitted.emit(opt.get_item_text(opt.selected), s)
+	)
+	input.text_changed.connect(
+		func(s):
+			update_hints.emit(opt.get_item_text(opt.selected), s)
 	)
 	btn.pressed.connect(
 		func():
@@ -21,6 +29,10 @@ func _ready():
 		func():
 			if visible:
 				input.grab_focus()
+	)
+	opt.item_selected.connect(
+		func(i:int):
+			env_changed.emit(opt.get_item_text(i))
 	)
 
 var options = {}

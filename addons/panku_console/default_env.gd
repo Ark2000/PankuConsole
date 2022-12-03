@@ -1,24 +1,13 @@
 #This script will always be loaded as first env.
 #You can add your own methods or variables to play around.
+#Panku will generate hints for thoses constants, variables and functions that don't begin with _
 extends Node
 
-const help = """[color=orange][b]available methods[/b][/color]:
-[color=orange][b]- Misc[/b][/color]
-[b]help[/b] - [i]You are currently using it[/i]
-[b]cls[/b] - [i]Clear console logs[/i]
-[b]hints[/b] - [i]Random words[/i]
-[b]notify(s:String)[/b] - [i]Add a notification[/i]
-[b]enable_notifications(b:bool)[/b] - [i]Enable notifications[/i]
-[color=orange][b]- Widgets[/b][/color]
-[b]w_watch(env:String, exp:String)[/b] - [i]Add a widget to watch an expression[/i]
-[b]w_button(text:String, env:String, exp:String)[/b] - [i]Add an expression widget button[/i]
-[b]w_perf[/b] - [i]Add a widget to monitor performance[/i]
-[b]w_plans[/b] - [i]Show all widgets plans[/i]
-[b]w_save_as(plan:String)[/b] - [i]Save current widgets as a new plan[/i]
-[b]w_load(plan:String)[/b] - [i]Clear current widgets and load a plan[/i]
-[b]w_delete(plan:String)[/b] - [i]Delete a widgets plan (Except for current plan)[/i]
-"""
+#you can add const _HELP_xxx to provide help info which will be extracted by panku.
+const _HELP_help = "Provide some information you may need"
+var help:String = PankuUtils.generate_help_text_from_script(get_script())
 
+const _HELP_hints = "Get a random hint!"
 var hints:
 	get:
 		var words = [
@@ -29,7 +18,7 @@ var hints:
 		words.shuffle()
 		get_parent().notify(words[0])
 
-#clear console logs
+const _HELP_cls = "clear console logs"
 var cls:
 	get:
 		(func():
@@ -37,15 +26,19 @@ var cls:
 			get_parent()._console_logs.clear()
 		).call()
 
+
+const _HELP_performance_info = "show performance info"
 var performance_info:
 	get:
 		return "FPS: %d | Mem: %.2fMB | Objs: %d" % [Engine.get_frames_per_second(), OS.get_static_memory_usage()/1048576.0, Performance.get_monitor(Performance.OBJECT_COUNT)]
 
+const _HELP_w_plans = "Show all widgets plans"
 var w_plans:
 	get:
 		var c = get_parent()._config["widgets_system"]
 		return "[b]Current Plan[/b]: %s\n[b]All Plans[/b]: %s" %[c["current_plan"], ",".join(PackedStringArray(c["plans"].keys()))]
 
+const _HELP_w_perf = "Add a widget to monitor performance"
 var w_perf:
 	get:
 		get_parent().add_widget(
@@ -60,13 +53,22 @@ func _ready():
 	await get_parent().ready
 	get_parent().register_env("default",self)
 
+const _HELP_fullscreen = "toggle [fullscreen / window] mode"
+func fullscreen(b:bool):
+	if b:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+const _HELP_enable_notifications = "toggle notification system"
 func enable_notifications(b:bool):
 	get_parent()._resident_logs.visible = b
 
+const _HELP_notify = "Send a notification"
 func notify(s:String):
 	get_parent().notify(s)
 
-#Add a widget to watch an expression
+const _HELP_w_watch = "Add a widget to watch an expression"
 func w_watch(env:String, exp:String):
 	get_parent().add_widget(
 		0.1,
@@ -75,10 +77,8 @@ func w_watch(env:String, exp:String):
 		"",
 		Vector2(0, 0)
 	)
-#w_watch("player", "position")
 
-
-#Add an expression widget button
+const _HELP_w_button = "Add an expression widget button"
 func w_button(display_name:String, env:String, exp:String):
 	get_parent().add_widget(
 		9223372036854775807,
@@ -88,16 +88,17 @@ func w_button(display_name:String, env:String, exp:String):
 		Vector2(0, 0)
 	)
 
-#w_button("test", "default", "notify('fuck')")
-
+const _HELP_w_save_as = "Save current widgets as a new plan"
 func w_save_as(plan:String):
 	get_parent().save_current_widgets_as(plan)
 
+const _HELP_w_delete = "Delete a widgets plan (Except for current plan)"
 func w_delete(plan:String):
 	if get_parent()._config["widgets_system"]["current_plan"] == plan:
 		return "failed"
 	get_parent().delete_widgets_plan(plan)
 
+const _HELP_w_load = "Clear current widgets and load a plan"
 func w_load(plan:String):
 	if !get_parent().load_widgets_plan(plan):
 		(func():

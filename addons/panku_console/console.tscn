@@ -2,17 +2,16 @@
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
-[ext_resource type="PackedScene" path="res://addons/panku_console/components/lynx_window/lynx_window.tscn" id="3_31oow"]
+[ext_resource type="PackedScene" uid="uid://xdco13uda1w" path="res://addons/panku_console/components/lynx_window/lynx_window.tscn" id="3_31oow"]
 [ext_resource type="Theme" uid="uid://bbrtkqa42u3ak" path="res://addons/panku_console/res/panku_theme.tres" id="4_bqu35"]
-[ext_resource type="FontFile" uid="uid://b5tnqyd3eepqk" path="res://addons/panku_console/res/fonts/RobotoMono-Bold.ttf" id="5_8kb3r"]
-[ext_resource type="PackedScene" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="6_5deu3"]
+[ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="6_5deu3"]
+[ext_resource type="PackedScene" uid="uid://b3jf18wonocnv" path="res://addons/panku_console/components/hints_list/hints_list.tscn" id="7_n7sin"]
 [ext_resource type="PackedScene" uid="uid://dp5scckgpkty" path="res://addons/panku_console/components/input_field/input_area.tscn" id="7_olqdb"]
 [ext_resource type="Shader" uid="uid://b68lpjnldit2k" path="res://addons/panku_console/res/shader/frosted_glass.tres" id="8_bpw5w"]
 [ext_resource type="Script" path="res://addons/panku_console/default_env.gd" id="8_xaqop"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nth2r"]
 resource_local_to_scene = true
-font = ExtResource("5_8kb3r")
 font_size = 12
 shadow_color = Color(0, 0, 0, 0.501961)
 
@@ -40,10 +39,10 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="LynxWindow" parent="." instance=ExtResource("3_31oow")]
-offset_left = 331.0
-offset_top = 153.0
-offset_right = 815.0
-offset_bottom = 492.0
+offset_left = 330.703
+offset_top = 154.189
+offset_right = 814.703
+offset_bottom = 493.189
 grow_horizontal = 1
 grow_vertical = 1
 theme = ExtResource("4_bqu35")
@@ -75,19 +74,7 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="LynxWindow/Content" index="1"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -24.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0, 0, 0, 0.12549)
-
-[node name="InputArea" parent="LynxWindow/Content" index="2" instance=ExtResource("7_olqdb")]
+[node name="InputArea" parent="LynxWindow/Content" index="1" instance=ExtResource("7_olqdb")]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -98,6 +85,33 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="HintsList" parent="LynxWindow/Content" index="2" instance=ExtResource("7_n7sin")]
+layout_mode = 1
+offset_bottom = -43.0
+
+[node name="HelpBar" type="PanelContainer" parent="LynxWindow/Content" index="3"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -43.189
+offset_bottom = -25.189
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="LynxWindow/Content/HelpBar"]
+layout_mode = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 0.882353)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LynxWindow/Content/HelpBar"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+bbcode_enabled = true
+text = " [Hint] Use TAB or up/down to autocomplete!"
+autowrap_mode = 0
+shortcut_keys_enabled = false
 
 [node name="GlowEffect" type="CanvasLayer" parent="."]
 

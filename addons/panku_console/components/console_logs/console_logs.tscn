@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://bcfn2f7rjd5vl"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/console_logs/console_logs.gd" id="1_3r4hk"]
 
@@ -12,6 +12,7 @@ theme_override_constants/margin_bottom = 8
 script = ExtResource("1_3r4hk")
 
 [node name="R" type="RichTextLabel" parent="."]
+layout_mode = 2
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 357.0

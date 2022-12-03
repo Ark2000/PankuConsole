@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbtn0x604fx5o"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/hints_list/hint.gd" id="1_sa53g"]
+[ext_resource type="Texture2D" uid="uid://rw3f3qftj2ql" path="res://addons/panku_console/res/pics/icons8-formula-fx-32.png" id="2_jtb1m"]
+
+[node name="Hints" type="Button"]
+custom_minimum_size = Vector2(0, 24)
+offset_right = 1152.0
+offset_bottom = 24.0
+flat = true
+script = ExtResource("1_sa53g")
+
+[node name="Bg" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.101961, 0.101961, 0.101961, 0.882353)
+
+[node name="Bg2" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1)
+color = Color(0, 0.501961, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 24.0
+mouse_filter = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/MarginContainer"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = ExtResource("2_jtb1m")
+ignore_texture_size = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+offset_left = 28.0
+offset_right = 1152.0
+offset_bottom = 24.0
+size_flags_horizontal = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "[color=cyan]w_button[/color][color=gray]([/color]display_name:[color=green]String[/color], env:[color=green]String[/color], exp:[color=green]String[/color][color=gray])[/color]"
+fit_content_height = true
+autowrap_mode = 0

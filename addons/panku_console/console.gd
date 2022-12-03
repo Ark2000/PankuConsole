@@ -18,24 +18,44 @@ signal console_window_visibility_changed(is_visible:bool)
 @onready var _input_area = $LynxWindow/Content/InputArea
 @onready var _glow = $GlowEffect/ColorRect
 @onready var _widgets = $Widgets
+@onready var _hints = $LynxWindow/Content/HintsList
+@onready var _helpbar = $LynxWindow/Content/HelpBar
+@onready var _helpbar_label = $LynxWindow/Content/HelpBar/RichTextLabel
 
 const _floating_widget_pck = preload("res://addons/panku_console/components/floating_widget/floating_widget.tscn")
 
 var _envs = {}
 var _expression = Expression.new()
 var _config = PankuConfig.get_config()
+var _current_hints := {}
+var _hint_idx := 0
+var _current_env := "default"
+func set_hint_idx(v):
+		_hint_idx = v
+		if _current_hints["hints_value"].size() > 0:
+			v = wrapi(v, 0, _current_hints["hints_value"].size())
+			var k = _current_hints["hints_value"][v]
+			_hint_idx = v
+			_hints.selected = v
+			_input_area.input.text = k
+			_input_area.input.caret_column = k.length()
+			var env_info = _envs[_current_env].get_meta("panku_env_info")
+			_helpbar_label.text = " [b][color=green][Help][/color][/b] [i]%s[/i]" %  env_info[k]["help"]
 
 func is_console_window_opened():
 	return _window.visible
 
-func register_env(env_name:String, env:Node):
+func register_env(env_name:String, env:Object):
 	_envs[env_name] = env
 	_input_area.add_option(env_name)
 	notify("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
-	env.tree_exiting.connect(
-		func(): remove_env(env_name)
-	)
-	
+	if env is Node:
+		env.tree_exiting.connect(
+			func(): remove_env(env_name)
+		)
+	if env.get_script():
+		env.set_meta("panku_env_info", PankuUtils.extract_info_from_script(env.get_script()))
+
 func get_env(env_name:String) -> Node:
 	return _envs.get(env_name)
 
@@ -47,35 +67,39 @@ func remove_env(env_name:String):
 
 func output(bbcode:String):
 	_console_logs.add_log(bbcode)
-	print(bbcode)
+#	print(bbcode)
 
 func notify(bbcode:String):
 	_resident_logs.add_log(bbcode)
 	_console_logs.add_log(bbcode)
-	print(bbcode)
+#	print(bbcode)
 	
 func execute(env:String, exp:String):
 	var result = _execute(env, exp)
 	output("[%s] %s"%[env, exp])
-	if !_failed_flag:
-		output("%s"%result)
+	if !result["failed"]:
+		output("> %s"%str(result["result"]))
 	else:
-		output("[color=red]%s[/color]"%result)
+		output("> [color=red]%s[/color]"%(result["result"]))
 
-var _failed_flag = false
-func _execute(env:String, exp:String) -> String:
-	_failed_flag = false
+#this return the expression result
+func _execute(env:String, exp:String) -> Dictionary:
+	var failed := false
+	var result
 	var obj = _envs[env]
 	var error = _expression.parse(exp)
 	if error != OK:
-		_failed_flag = true
-		return _expression.get_error_text()
-	var result = _expression.execute([], obj)
-	if not _expression.has_execute_failed():
-		return str(result)
+		failed = true
+		result = _expression.get_error_text()
 	else:
-		_failed_flag = true
-		return "failed"
+		result = _expression.execute([], obj)
+		if _expression.has_execute_failed():
+			failed = true
+			result = _expression.get_error_text()
+	return {
+		"failed": failed,
+		"result": result
+	}
 
 #update config when adding a widget
 func add_widget(update_delay:float, env:String, update_exp:String, pressed_exp:String, position:Vector2):
@@ -87,7 +111,7 @@ func _add_widget(update_delay:float, env:String, update_exp:String, pressed_exp:
 	var new_widget = _floating_widget_pck.instantiate()
 	_widgets.add_child(new_widget)
 	new_widget.update_delay = update_delay
-	new_widget.get_widget_text = func(): return _execute(env, update_exp)
+	new_widget.get_widget_text = func(): return _execute(env, update_exp)["result"]
 	new_widget.btn_pressed = func(): if !pressed_exp.is_empty(): execute(env, pressed_exp)
 	new_widget.position = position
 	new_widget.start()
@@ -172,6 +196,35 @@ func _ready():
 
 	_input_area.clear_options()
 	_input_area.submitted.connect(execute)
+	_input_area.update_hints.connect(
+		func(env:String, exp:String):
+			var info = _envs[env].get_meta("panku_env_info")
+			_current_hints = PankuUtils.parse_exp(info, exp)
+			_hints.visible = _current_hints["hints_value"].size() > 0
+			_helpbar.visible = _hints.visible
+			_input_area.input.hints = _current_hints["hints_value"]
+			_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
+			_hint_idx = -1
+			_helpbar_label.text = " [b][color=green][Hint][/color][/b] Use [b]TAB[/b] or [b]up/down[/b] to autocomplete!"
+	)
+	_input_area.env_changed.connect(
+		func(env:String):
+			_current_env = env
+	)
+	_input_area.next_hint.connect(
+		func():
+			set_hint_idx(_hint_idx + 1)
+	)
+	_input_area.prev_hint.connect(
+		func():
+			if _hint_idx == -1:
+				_hint_idx = 0
+			set_hint_idx(_hint_idx - 1)
+	)
+	_hints.hint_button_clicked.connect(
+		func(i:int):
+			set_hint_idx(i)
+	)
 	_window.hide()
 	_window.draggable = draggable_window
 	_window.resizable = resizable_window
@@ -180,6 +233,8 @@ func _ready():
 			console_window_visibility_changed.emit(_window.visible)
 	)
 	console_window_visibility_changed.connect(_glow.set_visible)
+	_helpbar.hide()
+	_hints.hide()
 
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
