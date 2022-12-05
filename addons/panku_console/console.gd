@@ -232,7 +232,7 @@ func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
 
 	output("[b][color=burlywood][ Panku Console ][/color][/b]")
-	output("[color=burlywood][b][color=burlywood]Version 1.0.1[/color][/b][/color]")
+	output("[color=burlywood][b][color=burlywood]Version 1.1.23[/color][/b][/color]")
 	output("[color=burlywood][b]Check [color=green]default_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
 	output("[color=burlywood][b]For more info, please visit: [color=green][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color]")
 	output("")
