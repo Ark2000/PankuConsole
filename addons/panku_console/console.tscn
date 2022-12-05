@@ -1,13 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://diwtnxl41ygfr"]
+[gd_scene load_steps=12 format=3 uid="uid://c6neu5ea7cfpg"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
-[ext_resource type="PackedScene" uid="uid://xdco13uda1w" path="res://addons/panku_console/components/lynx_window/lynx_window.tscn" id="3_31oow"]
+[ext_resource type="PackedScene" uid="uid://c74omggfq20i5" path="res://addons/panku_console/components/lynx_window/lynx_window.tscn" id="3_31oow"]
 [ext_resource type="Theme" uid="uid://bbrtkqa42u3ak" path="res://addons/panku_console/res/panku_theme.tres" id="4_bqu35"]
 [ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="6_5deu3"]
 [ext_resource type="PackedScene" uid="uid://b3jf18wonocnv" path="res://addons/panku_console/components/hints_list/hints_list.tscn" id="7_n7sin"]
 [ext_resource type="PackedScene" uid="uid://dp5scckgpkty" path="res://addons/panku_console/components/input_field/input_area.tscn" id="7_olqdb"]
-[ext_resource type="Shader" uid="uid://b68lpjnldit2k" path="res://addons/panku_console/res/shader/frosted_glass.tres" id="8_bpw5w"]
+[ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="8_bpw5w"]
 [ext_resource type="Script" path="res://addons/panku_console/default_env.gd" id="8_xaqop"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nth2r"]
@@ -18,13 +18,16 @@ shadow_color = Color(0, 0, 0, 0.501961)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ui6f0"]
 resource_local_to_scene = true
 shader = ExtResource("8_bpw5w")
-shader_parameter/amount = 0.1
-shader_parameter/noise = 0.0
+shader_parameter/amount = 0.2
+shader_parameter/fancy = 0.0
+shader_parameter/noise = null
 shader_parameter/sz = null
 
 [node name="Console" type="CanvasLayer"]
+process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
+pause_when_active = false
 
 [node name="ResidentLogs" parent="." instance=ExtResource("2_th8we")]
 anchors_preset = 9
@@ -47,8 +50,17 @@ grow_horizontal = 1
 grow_vertical = 1
 theme = ExtResource("4_bqu35")
 
+[node name="Title" parent="LynxWindow" index="0"]
+layout_mode = 3
+
+[node name="ExitButton" parent="LynxWindow/Title" index="0"]
+layout_mode = 3
+offset_left = -22.703
+offset_top = -0.188995
+offset_right = 1.297
+offset_bottom = -0.188995
+
 [node name="Label" type="Label" parent="LynxWindow/Title" index="1"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -62,10 +74,10 @@ label_settings = SubResource("LabelSettings_nth2r")
 vertical_alignment = 1
 
 [node name="Content" parent="LynxWindow" index="1"]
+layout_mode = 3
 color = Color(0, 0, 0, 0.25098)
 
 [node name="ConsoleLogs" parent="LynxWindow/Content" index="0" instance=ExtResource("6_5deu3")]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,7 +87,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InputArea" parent="LynxWindow/Content" index="1" instance=ExtResource("7_olqdb")]
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -87,11 +98,9 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HintsList" parent="LynxWindow/Content" index="2" instance=ExtResource("7_n7sin")]
-layout_mode = 1
 offset_bottom = -43.0
 
 [node name="HelpBar" type="PanelContainer" parent="LynxWindow/Content" index="3"]
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -102,18 +111,30 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="ColorRect" type="ColorRect" parent="LynxWindow/Content/HelpBar"]
-layout_mode = 2
+offset_right = 484.0
+offset_bottom = 18.0
 color = Color(0.0470588, 0.0470588, 0.0470588, 0.882353)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="LynxWindow/Content/HelpBar"]
 custom_minimum_size = Vector2(0, 18)
-layout_mode = 2
+offset_right = 484.0
+offset_bottom = 18.0
 bbcode_enabled = true
 text = " [Hint] Use TAB or up/down to autocomplete!"
 autowrap_mode = 0
 shortcut_keys_enabled = false
 
+[node name="Shadow" parent="LynxWindow" index="2"]
+layout_mode = 3
+
+[node name="ResizeButton" parent="LynxWindow" index="3"]
+layout_mode = 3
+
+[node name="TextureRect" parent="LynxWindow/ResizeButton" index="0"]
+layout_mode = 3
+
 [node name="GlowEffect" type="CanvasLayer" parent="."]
+layer = 128
 
 [node name="ColorRect" type="ColorRect" parent="GlowEffect"]
 visible = false

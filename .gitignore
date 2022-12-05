@@ -2,6 +2,7 @@
 .godot/
 
 # Others
+stats/
 test/
 icon.svg
 icon.svg.import

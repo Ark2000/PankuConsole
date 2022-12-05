@@ -5,6 +5,7 @@ signal update_hints(env:String, exp:String)
 signal env_changed(env:String)
 signal next_hint()
 signal prev_hint()
+signal navigate_histories(histories:Array, cur:int)
 
 @onready var opt:OptionButton = $OptionButton
 @onready var input:LineEdit = $InputField

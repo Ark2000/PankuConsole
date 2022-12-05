@@ -8,6 +8,8 @@ const hint_pck = preload("res://addons/panku_console/components/hints_list/hint.
 
 var hints_count = 0
 
+var disable_buttons := false
+
 var selected:int = 0:
 	set(v):
 		if !container: return
@@ -41,13 +43,17 @@ func set_hints(texts:Array, icons:Array):
 			h = hint_pck.instantiate()
 			container.add_child(h)
 			h.set_meta("idx", i)
-			h.button_down.connect(
-				func():
-					hint_button_clicked.emit(i)
-			)
+			h.button_down.connect(func(): _on_btn_clicked(i))
 		h.label.text = texts[i]
-		h.icon2.texture = icons[i]
+		if i < icons.size():
+			h.icon2.texture = icons[i]
+		else:
+			h.icon2.texture = null
 		h.set_highlight(false)
 	if texts.size() < container.get_child_count():
 		for i in range(texts.size(), container.get_child_count()):
 			container.get_child(i).hide()
+
+func _on_btn_clicked(i:int):
+	if !disable_buttons:
+		hint_button_clicked.emit(i)

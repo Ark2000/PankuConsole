@@ -9,7 +9,7 @@ func _enter_tree():
 	add_autoload_singleton("Console", "res://addons/panku_console/console.tscn")
 	var default_open_console_event = InputEventKey.new()
 	default_open_console_event.physical_keycode = KEY_QUOTELEFT
-	ProjectSettings.set_setting("input/open_console", {"deadzone":0.5,"events":[default_open_console_event]})
+	ProjectSettings.set_setting("input/toggle_console", {"deadzone":0.5,"events":[default_open_console_event]})
 	ProjectSettings.save()
 	print("Panku Console was initialized!")
 	print("Project page: https://github.com/Ark2000/PankuConsole")
@@ -17,6 +17,6 @@ func _enter_tree():
 func _exit_tree():
 	# Clean-up of the plugin goes here.
 	remove_autoload_singleton("Console")
-	ProjectSettings.clear("input/open_console")
+	ProjectSettings.clear("input/toggle_console")
 	ProjectSettings.save()
 	print("Panku Console was unloaded!")

@@ -1,18 +1,31 @@
-# Panku Console ![](https://badgen.net/badge/Godot%20Compatible/4.0Beta6%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole) ![](https://badgen.net/github/license/Ark2000/PankuConsole)
+# Panku Console ![](https://badgen.net/badge/Godot%20Compatible/4.0Beta7%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole) ![](https://badgen.net/github/license/Ark2000/PankuConsole)
 
-[Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your can just run any script expression in your game!
+![zr5DqU.md.png](https://s1.ax1x.com/2022/12/04/zr5DqU.md.png)
 
-[![z1GFnH.png](https://s1.ax1x.com/2022/11/22/z1GFnH.png)](https://imgse.com/i/z1GFnH)
+A [Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your can run any script expression in your game!
+
 
 # ✨Features
 
-  ✅ Resizable conosle with edge snapping.
+  ✅ Flexible conosle window with edge snapping, resizing and dragging.
 
-  ✅ No need to define complex commands, extremely easy to run code in your game.
+  ✅ No need to define complex commands, extremely easy to run code in your game directly.
 
-  ✅ Nice-looking blur effect (Not sure if this is a point).
+  ✅ Simple but reliable notification system. Send notifications whenerver you want.
 
-  ✅ Provide a notification panel that may help.
+  ✅ Floating widgets system. Monitor variables or performance, add buttons and save them in runtime .
+
+  ✅ Auto-complete your expression using `tab` with help information extracted from your code.
+
+  ✅ Navigate throught submit histories using `up`/`down`.
+
+  ✅ You can always press F1 and search `PankuConsole` in your editor to get the coding documentation.
+
+  <img src="https://github.com/Ark2000/Files/blob/main/F2.gif?raw=true" width = "640" height = "360" alt="f2"/>
+
+  ![f1](https://github.com/Ark2000/Files/blob/main/F1.gif?raw=true)
+
+  ![f3](https://github.com/Ark2000/Files/blob/main/F3.gif?raw=true)
 
 # 📦Installation
 
@@ -44,7 +57,8 @@ For more detailed information, please visit [Installing plugins](https://docs.go
 
     How is this implemented? Well, it's EXTREMELY easy, just define a variable or constant like this in the `default_env.gd`, more details will be explained in the next step.
     ```gdscript
-    const help = "available methods: say_hi(), enable_in_game_logs(bool), cls()"
+    const _HELP_help = "this string will be used as help info in auto-completion"
+    var help = "available methods: say_hi(), enable_in_game_logs(bool), cls()"
     ```
 6. The core execution procedure is implemented by `Expression` which is a class that stores an expression you can execute.
 
@@ -54,7 +68,7 @@ For more detailed information, please visit [Installing plugins](https://docs.go
 
     For more information about what is `Expression`, please visit [Evaluating expressions](https://docs.godotengine.org/en/stable/tutorials/scripting/evaluating_expressions.html)
 
-7. Check `panku.gd` to see what you can do with the global singleton `Panku`
+7. Check `panku.gd` or type `F1` and search `PankuConsole` to see what you can do with the global singleton `Console`
 
 At last, please pay attention that while this plugin is powerful, it's not ready for players since `Expression` is unsafe and exposes lots of internal structure.
 

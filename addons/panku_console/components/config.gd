@@ -13,7 +13,7 @@ static func get_default_configs():
 					"position": Vector2(80, 0),
 					"update_delay": 0.5,
 					"env": "default",
-					"update_exp": 'performance_info',
+					"update_exp": 'engine_performance_info',
 					"pressed_exp": "",
 				},
 				{
@@ -21,7 +21,7 @@ static func get_default_configs():
 					"update_delay": 9223372036854775807,
 					"env": "default",
 					"update_exp": '"Hint!"',
-					"pressed_exp": 'hints'
+					"pressed_exp": 'console_hints'
 				},
 			],
 			"empty": []

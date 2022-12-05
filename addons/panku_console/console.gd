@@ -1,16 +1,37 @@
+## Panku Console. Provide a runtime console so your can run any script expressions in your game!
+##
+## This class will be an autoload ([code] Console [/code] by default) if you enable the plugin. The basic idea is that you can run [Expression] based on an environment(or base instance) by [method execute]. You can view [code]default_env.gd[/code] to see how to prepare your own environment.
+## [br]
+## [br] What's more, you can...
+## [br]
+## [br] ● Send in-game notifications by [method notify]
+## [br] ● Output something to the console window by [method output]
+## [br] ● Manage widgets plans by [method add_widget], [method save_current_widgets_as], etc.
+## [br] ● Lot's of useful expressions defined in [code]default_env.gd[/code].
+##
+## @tutorial:            https://github.com/Ark2000/PankuConsole
 class_name PankuConsole extends CanvasLayer
 
+## Emitted when the visibility (hidden/visible) of console window changes.
 signal console_window_visibility_changed(is_visible:bool)
 
-@export var open_console_action = "open_console"
+## The input action used to toggle console. By default it is KEY_QUOTELEFT.
+@export var toggle_console_action := "toggle_console"
+
+## If [code]true[/code], the user can drag the console window.
 @export var draggable_window := true:
 	set(v):
 		draggable_window = v
 		if _window: _window.draggable = v
+
+## If [code]true[/code], the user can resize the console window.
 @export var resizable_window := true:
 	set(v):
 		resizable_window = v
 		if _window: _window.resizable = v
+
+## If [code]true[/code], pause the game when the console window is active.
+@export var pause_when_active := true
 
 @onready var _resident_logs = $ResidentLogs
 @onready var _console_logs = $LynxWindow/Content/ConsoleLogs
@@ -30,7 +51,7 @@ var _config = PankuConfig.get_config()
 var _current_hints := {}
 var _hint_idx := 0
 var _current_env := "default"
-func set_hint_idx(v):
+func _set_hint_idx(v):
 		_hint_idx = v
 		if _current_hints["hints_value"].size() > 0:
 			v = wrapi(v, 0, _current_hints["hints_value"].size())
@@ -42,9 +63,13 @@ func set_hint_idx(v):
 			var env_info = _envs[_current_env].get_meta("panku_env_info")
 			_helpbar_label.text = " [b][color=green][Help][/color][/b] [i]%s[/i]" %  env_info[k]["help"]
 
+## Returns whether the console window is opened.
 func is_console_window_opened():
 	return _window.visible
 
+## Register an environment that run expressions.
+## [br][code]env_name[/code]: the name of the environment
+## [br][code]env[/code]: The base instance that runs the expressions. For exmaple your player node.
 func register_env(env_name:String, env:Object):
 	_envs[env_name] = env
 	_input_area.add_option(env_name)
@@ -56,24 +81,27 @@ func register_env(env_name:String, env:Object):
 	if env.get_script():
 		env.set_meta("panku_env_info", PankuUtils.extract_info_from_script(env.get_script()))
 
+## Return the environment object or [code]null[/code] by its name.
 func get_env(env_name:String) -> Node:
 	return _envs.get(env_name)
 
+## Remove the environment named [code]env_name[/code]
 func remove_env(env_name:String):
 	if _envs.has(env_name):
 		_envs.erase(env_name)
 	_input_area.remove_option(env_name)
 	notify("[color=green][Info][/color] [b]%s[/b] env unloaded!"%env_name)
 
+## Output [code]bbcode[/code] to the console window
 func output(bbcode:String):
 	_console_logs.add_log(bbcode)
-#	print(bbcode)
 
-func notify(bbcode:String):
+## Generate a notification
+func notify(bbcode:String) -> void:
 	_resident_logs.add_log(bbcode)
 	_console_logs.add_log(bbcode)
-#	print(bbcode)
-	
+
+## This is exactly what happened when you submit something in the console window.
 func execute(env:String, exp:String):
 	var result = _execute(env, exp)
 	output("[%s] %s"%[env, exp])
@@ -82,7 +110,7 @@ func execute(env:String, exp:String):
 	else:
 		output("> [color=red]%s[/color]"%(result["result"]))
 
-#this return the expression result
+#This only return the expression result
 func _execute(env:String, exp:String) -> Dictionary:
 	var failed := false
 	var result
@@ -101,7 +129,9 @@ func _execute(env:String, exp:String) -> Dictionary:
 		"result": result
 	}
 
-#update config when adding a widget
+## Add a new widget to current widgets plan.
+## [br]The [code]update_exp[/code] will be executed every [code]update_delay[/code] seconds and the result will be used as display text.
+## [br]The [code]pressed_exp[/code] will be executed when the widget is clicked.
 func add_widget(update_delay:float, env:String, update_exp:String, pressed_exp:String, position:Vector2):
 	var w = _add_widget(update_delay, env, update_exp, pressed_exp, position)
 	save_current_widgets_as(_config["widgets_system"]["current_plan"])
@@ -131,15 +161,20 @@ func _add_widget(update_delay:float, env:String, update_exp:String, pressed_exp:
 	)
 	return new_widget
 
+## Return a Dictionary contains all widgets plans.
+func get_widgets_plans() -> Dictionary:
+	return _config["widgets_system"]
+
+## Load a widgets plan
 func load_widgets_plan(plan:String):
 	var plans = _config["widgets_system"]["plans"]
-	
+
 	#do not have this plan
 	if !plans.has(plan):
 		return false
 
 	#prepare to load this plan
-	
+
 	#save current
 	if _config["widgets_system"]["current_plan"] != plan:
 		save_current_widgets_as(_config["widgets_system"]["current_plan"])
@@ -151,17 +186,20 @@ func load_widgets_plan(plan:String):
 	#load widgets
 	for winfo in plans[plan]:
 		_add_widget(
-			winfo.get("update_delay", 1.0), 
-			winfo.get("env", "default"), 
-			winfo.get("update_exp", ""), 
-			winfo.get("pressed_exp", ""), 
+			winfo.get("update_delay", 1.0),
+			winfo.get("env", "default"),
+			winfo.get("update_exp", ""),
+			winfo.get("pressed_exp", ""),
 			winfo.get("position", Vector2(0, 0))
 		)
 
 	_config["widgets_system"]["current_plan"] = plan
-	
+
+	notify("[color=green][Info][/color] [b]%s[/b] widgets plan loaded!" % plan)
+
 	return true
 
+## Save current widgets plan as a new plan.
 func save_current_widgets_as(plan:String):
 	var d = []
 	for w in _widgets.get_children():
@@ -169,14 +207,19 @@ func save_current_widgets_as(plan:String):
 	_config["widgets_system"]["plans"][plan] = d
 	_config["widgets_system"]["current_plan"] = plan
 
+## Delete a widgets plan(except current)
 func delete_widgets_plan(plan:String):
 	if plan == _config["widgets_system"]["current_plan"]:
 		return false
 	_config["widgets_system"]["plans"].erase(plan)
 	return true
 
+## Let's dance!
+func party_time():
+	_window.material.set("shader_parameter/fancy", 0.1)
+
 func _input(_e):
-	if Input.is_action_just_pressed(open_console_action):
+	if Input.is_action_just_pressed(toggle_console_action):
 		_input_area.input.editable = !_window.visible
 		await get_tree().process_frame
 		_window.visible = !_window.visible
@@ -203,6 +246,7 @@ func _ready():
 			_hints.visible = _current_hints["hints_value"].size() > 0
 			_helpbar.visible = _hints.visible
 			_input_area.input.hints = _current_hints["hints_value"]
+			_hints.disable_buttons = false
 			_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
 			_hint_idx = -1
 			_helpbar_label.text = " [b][color=green][Hint][/color][/b] Use [b]TAB[/b] or [b]up/down[/b] to autocomplete!"
@@ -213,17 +257,30 @@ func _ready():
 	)
 	_input_area.next_hint.connect(
 		func():
-			set_hint_idx(_hint_idx + 1)
+			_set_hint_idx(_hint_idx + 1)
 	)
 	_input_area.prev_hint.connect(
 		func():
 			if _hint_idx == -1:
 				_hint_idx = 0
-			set_hint_idx(_hint_idx - 1)
+			_set_hint_idx(_hint_idx - 1)
+	)
+	_input_area.navigate_histories.connect(
+		func(histories, id):
+			if histories.size() > 0:
+				_hints.disable_buttons = true
+				_hints.set_hints(histories, [])
+				_hints.selected = id
+				_hints.visible = true
+			else:
+				_hints.visible = false
+			_helpbar.visible = _hints.visible
+			_helpbar_label.text = "[b][color=green][Hint][/color][/b] Use [b]up/down[/b] to navigate through submit histories!"
+
 	)
 	_hints.hint_button_clicked.connect(
 		func(i:int):
-			set_hint_idx(i)
+			_set_hint_idx(i)
 	)
 	_window.hide()
 	_window.draggable = draggable_window
@@ -231,6 +288,8 @@ func _ready():
 	_window.visibility_changed.connect(
 		func():
 			console_window_visibility_changed.emit(_window.visible)
+			if pause_when_active:
+				get_tree().paused = _window.visible
 	)
 	console_window_visibility_changed.connect(_glow.set_visible)
 	_helpbar.hide()
@@ -238,10 +297,10 @@ func _ready():
 
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
-	assert(InputMap.has_action(open_console_action), "Please specify an action to open the console!")
+	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
 
 	#load widgets plan last time
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.0).timeout
 	load_widgets_plan(_config["widgets_system"]["current_plan"])
 
 func _notification(what):

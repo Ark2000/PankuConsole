@@ -50,7 +50,9 @@ const type_names = {
 static func generate_help_text_from_script(script:Script):
 	var result = ["[color=cyan][b]User script defined identifiers[/b][/color]: "]
 	var env_info = extract_info_from_script(script)
-	for k in env_info.keys().sort():
+	var keys = env_info.keys()
+	keys.sort()
+	for k in keys:
 		result.push_back("%s - [i]%s[/i]"%[k + env_info[k]["bbcode_postfix"], env_info[k]["help"]])
 	return "\n".join(PackedStringArray(result))
 
@@ -66,7 +68,7 @@ static func extract_info_from_script(script:Script):
 		if m["name"] != "" and m["name"].is_valid_identifier() and !m["name"].begins_with("_"):
 			var args = []
 			for a in m["args"]:
-				args.push_back("%s[color=gray]:[/color][color=orange]%s[/color]"%[a["name"], type_names[a["type"]]])
+				args.push_back("[color=cyan]%s[/color][color=gray]:[/color][color=orange]%s[/color]"%[a["name"], type_names[a["type"]]])
 			result[m["name"]] = {
 				"type": "method",
 				"bbcode_postfix": "(%s)"%("[color=gray], [/color]".join(PackedStringArray(args)))

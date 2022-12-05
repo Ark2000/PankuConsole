@@ -25,17 +25,17 @@ func _gui_input(e):
 	#navigate through histories
 	if hints.is_empty():
 		if e is InputEventKey and e.keycode == KEY_UP and e.pressed:
-			if !histories.is_empty() and history_idx > 0:
-				history_idx -= 1
-				history_idx = clamp(history_idx, 0, histories.size() - 1)
+			if !histories.is_empty() :
+				history_idx = wrapi(history_idx-1, 0, histories.size())
 				text = histories[history_idx]
+				get_parent().navigate_histories.emit(histories, history_idx)
 				await get_tree().process_frame
 				caret_column = text.length()
 		elif e is InputEventKey and e.keycode == KEY_DOWN and e.pressed:
-			if !histories.is_empty() and history_idx < histories.size() - 1:
-				history_idx += 1
-				history_idx = clamp(history_idx, 0, histories.size() - 1)
+			if !histories.is_empty():
+				history_idx = wrapi(history_idx+1, 0, histories.size())
 				text = histories[history_idx]
+				get_parent().navigate_histories.emit(histories, history_idx)
 				await get_tree().process_frame
 				caret_column = text.length()
 	#navigate through hints

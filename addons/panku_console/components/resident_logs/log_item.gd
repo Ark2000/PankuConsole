@@ -20,6 +20,11 @@ func amount_pop_anim():
 	tween2.tween_property(amount_panel, "scale", Vector2(1, 1), 0.05)
 
 func _ready():
+	content_label.meta_clicked.connect(
+		func(meta):
+			OS.shell_open(str(meta))
+	)
+
 	await get_tree().process_frame
 	var tween = get_tree().create_tween()
 	modulate.a = 0.0
