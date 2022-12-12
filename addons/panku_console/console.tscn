@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6neu5ea7cfpg"]
+[gd_scene load_steps=15 format=3 uid="uid://c6neu5ea7cfpg"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -8,7 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://b3jf18wonocnv" path="res://addons/panku_console/components/hints_list/hints_list.tscn" id="7_n7sin"]
 [ext_resource type="PackedScene" uid="uid://dp5scckgpkty" path="res://addons/panku_console/components/input_field/input_area.tscn" id="7_olqdb"]
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="8_bpw5w"]
-[ext_resource type="Script" path="res://addons/panku_console/default_env.gd" id="8_xaqop"]
+[ext_resource type="Script" path="res://addons/panku_console/base_instance.gd" id="10_ik817"]
+[ext_resource type="Script" path="res://addons/panku_console/widgets_env.gd" id="11_fn3g5"]
+[ext_resource type="Script" path="res://addons/panku_console/engine_env.gd" id="12_rbugt"]
+[ext_resource type="Script" path="res://addons/panku_console/console_env.gd" id="13_qpcmc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nth2r"]
 resource_local_to_scene = true
@@ -50,17 +53,14 @@ grow_horizontal = 1
 grow_vertical = 1
 theme = ExtResource("4_bqu35")
 
-[node name="Title" parent="LynxWindow" index="0"]
-layout_mode = 3
-
 [node name="ExitButton" parent="LynxWindow/Title" index="0"]
-layout_mode = 3
 offset_left = -22.703
 offset_top = -0.188995
 offset_right = 1.297
 offset_bottom = -0.188995
 
 [node name="Label" type="Label" parent="LynxWindow/Title" index="1"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,10 +74,10 @@ label_settings = SubResource("LabelSettings_nth2r")
 vertical_alignment = 1
 
 [node name="Content" parent="LynxWindow" index="1"]
-layout_mode = 3
 color = Color(0, 0, 0, 0.25098)
 
 [node name="ConsoleLogs" parent="LynxWindow/Content" index="0" instance=ExtResource("6_5deu3")]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -87,6 +87,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InputArea" parent="LynxWindow/Content" index="1" instance=ExtResource("7_olqdb")]
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -98,9 +99,11 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HintsList" parent="LynxWindow/Content" index="2" instance=ExtResource("7_n7sin")]
+layout_mode = 1
 offset_bottom = -43.0
 
 [node name="HelpBar" type="PanelContainer" parent="LynxWindow/Content" index="3"]
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -111,27 +114,16 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="ColorRect" type="ColorRect" parent="LynxWindow/Content/HelpBar"]
-offset_right = 484.0
-offset_bottom = 18.0
+layout_mode = 2
 color = Color(0.0470588, 0.0470588, 0.0470588, 0.882353)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="LynxWindow/Content/HelpBar"]
 custom_minimum_size = Vector2(0, 18)
-offset_right = 484.0
-offset_bottom = 18.0
+layout_mode = 2
 bbcode_enabled = true
 text = " [Hint] Use TAB or up/down to autocomplete!"
 autowrap_mode = 0
 shortcut_keys_enabled = false
-
-[node name="Shadow" parent="LynxWindow" index="2"]
-layout_mode = 3
-
-[node name="ResizeButton" parent="LynxWindow" index="3"]
-layout_mode = 3
-
-[node name="TextureRect" parent="LynxWindow/ResizeButton" index="0"]
-layout_mode = 3
 
 [node name="GlowEffect" type="CanvasLayer" parent="."]
 layer = 128
@@ -150,7 +142,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="DefaultEnv" type="Node" parent="."]
-script = ExtResource("8_xaqop")
+[node name="BaseInstance" type="Node" parent="."]
+script = ExtResource("10_ik817")
+
+[node name="widgets" type="Node" parent="."]
+script = ExtResource("11_fn3g5")
+
+[node name="engine" type="Node" parent="."]
+script = ExtResource("12_rbugt")
+
+[node name="console" type="Node" parent="."]
+script = ExtResource("13_qpcmc")
 
 [editable path="LynxWindow"]

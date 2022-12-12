@@ -1,4 +1,4 @@
-## Panku Console. Provide a runtime console so your can run any script expressions in your game!
+## Panku Console. Provide a runtime GDScript REPL so your can run any script expressions in your game!
 ##
 ## This class will be an autoload ([code] Console [/code] by default) if you enable the plugin. The basic idea is that you can run [Expression] based on an environment(or base instance) by [method execute]. You can view [code]default_env.gd[/code] to see how to prepare your own environment.
 ## [br]
@@ -42,15 +42,16 @@ signal console_window_visibility_changed(is_visible:bool)
 @onready var _hints = $LynxWindow/Content/HintsList
 @onready var _helpbar = $LynxWindow/Content/HelpBar
 @onready var _helpbar_label = $LynxWindow/Content/HelpBar/RichTextLabel
+@onready var _base_instance = $BaseInstance
 
 const _floating_widget_pck = preload("res://addons/panku_console/components/floating_widget/floating_widget.tscn")
 
 var _envs = {}
+var _envs_info = {}
 var _expression = Expression.new()
 var _config = PankuConfig.get_config()
 var _current_hints := {}
 var _hint_idx := 0
-var _current_env := "default"
 func _set_hint_idx(v):
 		_hint_idx = v
 		if _current_hints["hints_value"].size() > 0:
@@ -60,8 +61,7 @@ func _set_hint_idx(v):
 			_hints.selected = v
 			_input_area.input.text = k
 			_input_area.input.caret_column = k.length()
-			var env_info = _envs[_current_env].get_meta("panku_env_info")
-			_helpbar_label.text = " [b][color=green][Help][/color][/b] [i]%s[/i]" %  env_info[k]["help"]
+			_helpbar_label.text = " [b][color=green][Help][/color][/b] [i]%s[/i]" %  _envs_info[k]["help"]
 
 ## Returns whether the console window is opened.
 func is_console_window_opened():
@@ -72,14 +72,16 @@ func is_console_window_opened():
 ## [br][code]env[/code]: The base instance that runs the expressions. For exmaple your player node.
 func register_env(env_name:String, env:Object):
 	_envs[env_name] = env
-	_input_area.add_option(env_name)
 	notify("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
 	if env is Node:
 		env.tree_exiting.connect(
 			func(): remove_env(env_name)
 		)
 	if env.get_script():
-		env.set_meta("panku_env_info", PankuUtils.extract_info_from_script(env.get_script()))
+		var env_info = PankuUtils.extract_info_from_script(env.get_script())
+		for k in env_info:
+			var keyword = "%s.%s" % [env_name, k]
+			_envs_info[keyword] = env_info[k]
 
 ## Return the environment object or [code]null[/code] by its name.
 func get_env(env_name:String) -> Node:
@@ -89,7 +91,9 @@ func get_env(env_name:String) -> Node:
 func remove_env(env_name:String):
 	if _envs.has(env_name):
 		_envs.erase(env_name)
-	_input_area.remove_option(env_name)
+		for k in _envs_info.keys():
+			if k.begins_with(env_name + "."):
+				_envs_info.erase(k)
 	notify("[color=green][Info][/color] [b]%s[/b] env unloaded!"%env_name)
 
 ## Output [code]bbcode[/code] to the console window
@@ -102,25 +106,25 @@ func notify(bbcode:String) -> void:
 	_console_logs.add_log(bbcode)
 
 ## This is exactly what happened when you submit something in the console window.
-func execute(env:String, exp:String):
-	var result = _execute(env, exp)
-	output("[%s] %s"%[env, exp])
+func execute(exp:String):
+	var result = _execute(exp)
+	output(exp)
 	if !result["failed"]:
 		output("> %s"%str(result["result"]))
 	else:
 		output("> [color=red]%s[/color]"%(result["result"]))
 
 #This only return the expression result
-func _execute(env:String, exp:String) -> Dictionary:
+func _execute(exp:String) -> Dictionary:
+	print(exp)
 	var failed := false
 	var result
-	var obj = _envs[env]
-	var error = _expression.parse(exp)
+	var error = _expression.parse(exp, _envs.keys())
 	if error != OK:
 		failed = true
 		result = _expression.get_error_text()
 	else:
-		result = _expression.execute([], obj)
+		result = _expression.execute(_envs.values(), _base_instance, false)
 		if _expression.has_execute_failed():
 			failed = true
 			result = _expression.get_error_text()
@@ -132,22 +136,21 @@ func _execute(env:String, exp:String) -> Dictionary:
 ## Add a new widget to current widgets plan.
 ## [br]The [code]update_exp[/code] will be executed every [code]update_delay[/code] seconds and the result will be used as display text.
 ## [br]The [code]pressed_exp[/code] will be executed when the widget is clicked.
-func add_widget(update_delay:float, env:String, update_exp:String, pressed_exp:String, position:Vector2):
-	var w = _add_widget(update_delay, env, update_exp, pressed_exp, position)
+func add_widget(update_delay:float, update_exp:String, pressed_exp:String, position:Vector2):
+	var w = _add_widget(update_delay, update_exp, pressed_exp, position)
 	save_current_widgets_as(_config["widgets_system"]["current_plan"])
 	return w
 
-func _add_widget(update_delay:float, env:String, update_exp:String, pressed_exp:String, position:Vector2):
+func _add_widget(update_delay:float, update_exp:String, pressed_exp:String, position:Vector2):
 	var new_widget = _floating_widget_pck.instantiate()
 	_widgets.add_child(new_widget)
 	new_widget.update_delay = update_delay
-	new_widget.get_widget_text = func(): return _execute(env, update_exp)["result"]
-	new_widget.btn_pressed = func(): if !pressed_exp.is_empty(): execute(env, pressed_exp)
+	new_widget.get_widget_text = func(): return _execute(update_exp)["result"]
+	new_widget.btn_pressed = func(): if !pressed_exp.is_empty(): execute(pressed_exp)
 	new_widget.position = position
 	new_widget.start()
 	new_widget.set_meta("info",{
 		"update_delay": update_delay,
-		"env": env,
 		"update_exp": update_exp,
 		"pressed_exp": pressed_exp,
 		"position": position
@@ -157,7 +160,6 @@ func _add_widget(update_delay:float, env:String, update_exp:String, pressed_exp:
 		func():
 			await get_tree().process_frame
 			save_current_widgets_as(_config["widgets_system"]["current_plan"])
-			print("saved!")
 	)
 	return new_widget
 
@@ -187,7 +189,6 @@ func load_widgets_plan(plan:String):
 	for winfo in plans[plan]:
 		_add_widget(
 			winfo.get("update_delay", 1.0),
-			winfo.get("env", "default"),
 			winfo.get("update_exp", ""),
 			winfo.get("pressed_exp", ""),
 			winfo.get("position", Vector2(0, 0))
@@ -237,12 +238,10 @@ func _ready():
 	output("[color=burlywood][b]For more info, please visit: [color=green][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color]")
 	output("")
 
-	_input_area.clear_options()
 	_input_area.submitted.connect(execute)
 	_input_area.update_hints.connect(
-		func(env:String, exp:String):
-			var info = _envs[env].get_meta("panku_env_info")
-			_current_hints = PankuUtils.parse_exp(info, exp)
+		func(exp:String):
+			_current_hints = PankuUtils.parse_exp(_envs_info, exp)
 			_hints.visible = _current_hints["hints_value"].size() > 0
 			_helpbar.visible = _hints.visible
 			_input_area.input.hints = _current_hints["hints_value"]
@@ -250,10 +249,6 @@ func _ready():
 			_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
 			_hint_idx = -1
 			_helpbar_label.text = " [b][color=green][Hint][/color][/b] Use [b]TAB[/b] or [b]up/down[/b] to autocomplete!"
-	)
-	_input_area.env_changed.connect(
-		func(env:String):
-			_current_env = env
 	)
 	_input_area.next_hint.connect(
 		func():
@@ -298,6 +293,10 @@ func _ready():
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
 	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
+	
+	#add info of base instance
+	var env_info = PankuUtils.extract_info_from_script(_base_instance.get_script())
+	for k in env_info: _envs_info[k] = env_info[k]
 
 	#load widgets plan last time
 	await get_tree().create_timer(1.0).timeout
