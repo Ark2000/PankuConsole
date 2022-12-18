@@ -30,6 +30,10 @@ func enable_notifications(b:bool):
 const _HELP_notify = "Send a notification"
 func notify(s:String):
 	get_parent().notify(s)
+	
+const _HELP_set_transparency = "Set the transparency of console window"
+func set_transparency(a:float):
+	get_parent().set_window_transparency(a)
 
 const _HELP_party_time = "Let's dance!"
 var party_time:

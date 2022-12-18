@@ -8,6 +8,7 @@ signal navigate_histories(histories:Array, cur:int)
 
 @onready var input:LineEdit = $InputField
 @onready var btn:Button = $Button
+@onready var menubtn:MenuButton = $MenuButton
 
 func _ready():
 	input.text_submitted.connect(
@@ -28,4 +29,23 @@ func _ready():
 		func():
 			if visible:
 				input.grab_focus()
+	)
+
+	menubtn.mouse_entered.connect(
+		func():
+			menubtn.modulate = Color.GREEN
+	)
+	menubtn.mouse_exited.connect(
+		func():
+			menubtn.modulate = Color.WHITE
+	)
+	menubtn.get_popup().id_pressed.connect(
+		func(id:int):
+			#watch
+			var exp = input.text.lstrip(" ").rstrip(" ")
+			if id == 0:
+				Console.execute("widgets.watch('%s')"%exp)
+			#add button
+			elif id == 1:
+				Console.execute("widgets.button('%s', '%s')"%[exp, exp])
 	)

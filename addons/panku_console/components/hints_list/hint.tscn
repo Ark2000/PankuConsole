@@ -6,38 +6,43 @@
 [node name="Hints" type="Button"]
 custom_minimum_size = Vector2(0, 24)
 offset_right = 1152.0
-offset_bottom = 24.0
+offset_bottom = 18.0
 flat = true
 script = ExtResource("1_sa53g")
 
 [node name="Bg" type="ColorRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.101961, 0.101961, 0.101961, 0.882353)
+color = Color(0.239216, 0.258824, 0.278431, 0.882353)
 
 [node name="Bg2" type="ColorRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1)
-color = Color(0, 0.501961, 0, 1)
+color = Color(0.294118, 0.309804, 0.329412, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_right = 1152.0
-offset_bottom = 24.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(24, 24)
-offset_right = 24.0
-offset_bottom = 24.0
+layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -45,18 +50,13 @@ theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
 [node name="Icon" type="TextureRect" parent="HBoxContainer/MarginContainer"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 20.0
-offset_bottom = 20.0
+layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_jtb1m")
 ignore_texture_size = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
-offset_left = 28.0
-offset_right = 1152.0
-offset_bottom = 24.0
+layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 bbcode_enabled = true

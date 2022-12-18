@@ -37,11 +37,10 @@ signal console_window_visibility_changed(is_visible:bool)
 @onready var _console_logs = $LynxWindow/Content/ConsoleLogs
 @onready var _window = $LynxWindow
 @onready var _input_area = $LynxWindow/Content/InputArea
-@onready var _glow = $GlowEffect/ColorRect
 @onready var _widgets = $Widgets
 @onready var _hints = $LynxWindow/Content/HintsList
 @onready var _helpbar = $LynxWindow/Content/HelpBar
-@onready var _helpbar_label = $LynxWindow/Content/HelpBar/RichTextLabel
+@onready var _helpbar_label = $LynxWindow/Content/HelpBar/Label
 @onready var _base_instance = $BaseInstance
 
 const _floating_widget_pck = preload("res://addons/panku_console/components/floating_widget/floating_widget.tscn")
@@ -61,7 +60,7 @@ func _set_hint_idx(v):
 			_hints.selected = v
 			_input_area.input.text = k
 			_input_area.input.caret_column = k.length()
-			_helpbar_label.text = " [b][color=green][Help][/color][/b] [i]%s[/i]" %  _envs_info[k]["help"]
+			_helpbar_label.text = "[Help] %s" %  _envs_info[k]["help"]
 
 ## Returns whether the console window is opened.
 func is_console_window_opened():
@@ -72,7 +71,7 @@ func is_console_window_opened():
 ## [br][code]env[/code]: The base instance that runs the expressions. For exmaple your player node.
 func register_env(env_name:String, env:Object):
 	_envs[env_name] = env
-	notify("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
+#	notify("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
 	if env is Node:
 		env.tree_exiting.connect(
 			func(): remove_env(env_name)
@@ -116,7 +115,7 @@ func execute(exp:String):
 
 #This only return the expression result
 func _execute(exp:String) -> Dictionary:
-	print(exp)
+#	print(exp)
 	var failed := false
 	var result
 	var error = _expression.parse(exp, _envs.keys())
@@ -217,7 +216,17 @@ func delete_widgets_plan(plan:String):
 
 ## Let's dance!
 func party_time():
-	_window.material.set("shader_parameter/fancy", 0.1)
+	$LynxWindow/Bg.material.set("shader_parameter/fancy", 0.5)
+
+func set_window_transparency(a:=1.0):
+	[
+		$LynxWindow/Title/Bg,
+		$LynxWindow/Content
+	].all(
+		func(c:Control):
+			c.self_modulate.a = a
+			return true
+	)
 
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
@@ -225,13 +234,8 @@ func _input(_e):
 		await get_tree().process_frame
 		_window.visible = !_window.visible
 
-func _process(d):
-	_glow.size = _console_logs.size
-	_glow.position = _console_logs.global_position
-
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
-
 	output("[b][color=burlywood][ Panku Console ][/color][/b]")
 	output("[color=burlywood][b][color=burlywood]Version 1.1.23[/color][/b][/color]")
 	output("[color=burlywood][b]Check [color=green]default_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
@@ -248,7 +252,7 @@ func _ready():
 			_hints.disable_buttons = false
 			_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
 			_hint_idx = -1
-			_helpbar_label.text = " [b][color=green][Hint][/color][/b] Use [b]TAB[/b] or [b]up/down[/b] to autocomplete!"
+			_helpbar_label.text = "[Hint] Use TAB or up/down to autocomplete!"
 	)
 	_input_area.next_hint.connect(
 		func():
@@ -270,7 +274,7 @@ func _ready():
 			else:
 				_hints.visible = false
 			_helpbar.visible = _hints.visible
-			_helpbar_label.text = "[b][color=green][Hint][/color][/b] Use [b]up/down[/b] to navigate through submit histories!"
+			_helpbar_label.text = "[Hint] Use up/down to navigate through submit histories!"
 
 	)
 	_hints.hint_button_clicked.connect(
@@ -286,13 +290,13 @@ func _ready():
 			if pause_when_active:
 				get_tree().paused = _window.visible
 	)
-	console_window_visibility_changed.connect(_glow.set_visible)
 	_helpbar.hide()
 	_hints.hide()
-
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
 	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
+	
+	set_window_transparency(0.9)
 	
 	#add info of base instance
 	var env_info = PankuUtils.extract_info_from_script(_base_instance.get_script())
