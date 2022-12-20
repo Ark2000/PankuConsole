@@ -18,29 +18,13 @@ signal console_window_visibility_changed(is_visible:bool)
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
 @export var toggle_console_action := "toggle_console"
 
-## If [code]true[/code], the user can drag the console window.
-@export var draggable_window := true:
-	set(v):
-		draggable_window = v
-		if _window: _window.draggable = v
-
-## If [code]true[/code], the user can resize the console window.
-@export var resizable_window := true:
-	set(v):
-		resizable_window = v
-		if _window: _window.resizable = v
-
 ## If [code]true[/code], pause the game when the console window is active.
 @export var pause_when_active := true
 
 @onready var _resident_logs = $ResidentLogs
-@onready var _console_logs = $LynxWindow/Content/ConsoleLogs
-@onready var _window = $LynxWindow
-@onready var _input_area = $LynxWindow/Content/InputArea
+@onready var _console_window = $LynxWindows/ConsoleWindow
+@onready var _console_ui = $LynxWindows/ConsoleWindow/Body/Content/PankuConsoleUI
 @onready var _widgets = $Widgets
-@onready var _hints = $LynxWindow/Content/HintsList
-@onready var _helpbar = $LynxWindow/Content/HelpBar
-@onready var _helpbar_label = $LynxWindow/Content/HelpBar/Label
 @onready var _base_instance = $BaseInstance
 
 const _floating_widget_pck = preload("res://addons/panku_console/components/floating_widget/floating_widget.tscn")
@@ -49,29 +33,17 @@ var _envs = {}
 var _envs_info = {}
 var _expression = Expression.new()
 var _config = PankuConfig.get_config()
-var _current_hints := {}
-var _hint_idx := 0
-func _set_hint_idx(v):
-		_hint_idx = v
-		if _current_hints["hints_value"].size() > 0:
-			v = wrapi(v, 0, _current_hints["hints_value"].size())
-			var k = _current_hints["hints_value"][v]
-			_hint_idx = v
-			_hints.selected = v
-			_input_area.input.text = k
-			_input_area.input.caret_column = k.length()
-			_helpbar_label.text = "[Help] %s" %  _envs_info[k]["help"]
 
 ## Returns whether the console window is opened.
 func is_console_window_opened():
-	return _window.visible
+	return _console_window.visible
 
 ## Register an environment that run expressions.
 ## [br][code]env_name[/code]: the name of the environment
 ## [br][code]env[/code]: The base instance that runs the expressions. For exmaple your player node.
 func register_env(env_name:String, env:Object):
 	_envs[env_name] = env
-#	notify("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
+	output("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
 	if env is Node:
 		env.tree_exiting.connect(
 			func(): remove_env(env_name)
@@ -95,26 +67,17 @@ func remove_env(env_name:String):
 				_envs_info.erase(k)
 	notify("[color=green][Info][/color] [b]%s[/b] env unloaded!"%env_name)
 
-## Output [code]bbcode[/code] to the console window
-func output(bbcode:String):
-	_console_logs.add_log(bbcode)
-
 ## Generate a notification
-func notify(bbcode:String) -> void:
-	_resident_logs.add_log(bbcode)
-	_console_logs.add_log(bbcode)
+func notify(any) -> void:
+	var text = str(any)
+	_resident_logs.add_log(text)
+	output(text)
 
-## This is exactly what happened when you submit something in the console window.
-func execute(exp:String):
-	var result = _execute(exp)
-	output(exp)
-	if !result["failed"]:
-		output("> %s"%str(result["result"]))
-	else:
-		output("> [color=red]%s[/color]"%(result["result"]))
+func output(any) -> void:
+	_console_ui.output(any)
 
 #This only return the expression result
-func _execute(exp:String) -> Dictionary:
+func execute(exp:String) -> Dictionary:
 #	print(exp)
 	var failed := false
 	var result
@@ -123,7 +86,7 @@ func _execute(exp:String) -> Dictionary:
 		failed = true
 		result = _expression.get_error_text()
 	else:
-		result = _expression.execute(_envs.values(), _base_instance, false)
+		result = _expression.execute(_envs.values(), _base_instance, true)
 		if _expression.has_execute_failed():
 			failed = true
 			result = _expression.get_error_text()
@@ -144,7 +107,7 @@ func _add_widget(update_delay:float, update_exp:String, pressed_exp:String, posi
 	var new_widget = _floating_widget_pck.instantiate()
 	_widgets.add_child(new_widget)
 	new_widget.update_delay = update_delay
-	new_widget.get_widget_text = func(): return _execute(update_exp)["result"]
+	new_widget.get_widget_text = func(): return execute(update_exp)["result"]
 	new_widget.btn_pressed = func(): if !pressed_exp.is_empty(): execute(pressed_exp)
 	new_widget.position = position
 	new_widget.start()
@@ -214,89 +177,25 @@ func delete_widgets_plan(plan:String):
 	_config["widgets_system"]["plans"].erase(plan)
 	return true
 
-## Let's dance!
-func party_time():
-	$LynxWindow/Bg.material.set("shader_parameter/fancy", 0.5)
-
-func set_window_transparency(a:=1.0):
-	[
-		$LynxWindow/Title/Bg,
-		$LynxWindow/Content
-	].all(
-		func(c:Control):
-			c.self_modulate.a = a
-			return true
-	)
-
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
-		_input_area.input.editable = !_window.visible
+		_console_ui._input_area.input.editable = !_console_window.visible
 		await get_tree().process_frame
-		_window.visible = !_window.visible
+		_console_window.visible = !_console_window.visible
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
-	output("[b][color=burlywood][ Panku Console ][/color][/b]")
-	output("[color=burlywood][b][color=burlywood]Version 1.1.23[/color][/b][/color]")
-	output("[color=burlywood][b]Check [color=green]default_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
-	output("[color=burlywood][b]For more info, please visit: [color=green][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color]")
-	output("")
 
-	_input_area.submitted.connect(execute)
-	_input_area.update_hints.connect(
-		func(exp:String):
-			_current_hints = PankuUtils.parse_exp(_envs_info, exp)
-			_hints.visible = _current_hints["hints_value"].size() > 0
-			_helpbar.visible = _hints.visible
-			_input_area.input.hints = _current_hints["hints_value"]
-			_hints.disable_buttons = false
-			_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
-			_hint_idx = -1
-			_helpbar_label.text = "[Hint] Use TAB or up/down to autocomplete!"
-	)
-	_input_area.next_hint.connect(
+	_console_window.hide()
+	_console_window.visibility_changed.connect(
 		func():
-			_set_hint_idx(_hint_idx + 1)
-	)
-	_input_area.prev_hint.connect(
-		func():
-			if _hint_idx == -1:
-				_hint_idx = 0
-			_set_hint_idx(_hint_idx - 1)
-	)
-	_input_area.navigate_histories.connect(
-		func(histories, id):
-			if histories.size() > 0:
-				_hints.disable_buttons = true
-				_hints.set_hints(histories, [])
-				_hints.selected = id
-				_hints.visible = true
-			else:
-				_hints.visible = false
-			_helpbar.visible = _hints.visible
-			_helpbar_label.text = "[Hint] Use up/down to navigate through submit histories!"
-
-	)
-	_hints.hint_button_clicked.connect(
-		func(i:int):
-			_set_hint_idx(i)
-	)
-	_window.hide()
-	_window.draggable = draggable_window
-	_window.resizable = resizable_window
-	_window.visibility_changed.connect(
-		func():
-			console_window_visibility_changed.emit(_window.visible)
+			console_window_visibility_changed.emit(_console_window.visible)
 			if pause_when_active:
-				get_tree().paused = _window.visible
+				get_tree().paused = _console_window.visible
 	)
-	_helpbar.hide()
-	_hints.hide()
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
 	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
-	
-	set_window_transparency(0.9)
 	
 	#add info of base instance
 	var env_info = PankuUtils.extract_info_from_script(_base_instance.get_script())

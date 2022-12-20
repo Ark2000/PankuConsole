@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8yh1l5qboc2v"]
+
+[ext_resource type="Theme" uid="uid://dbu7c46eki45f" path="res://addons/panku_console/res/breeze_dark_theme.tres" id="1_6hjho"]
+[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_window.gd" id="2_3c7ie"]
+[ext_resource type="Texture2D" uid="uid://cg4cjiaaowtdb" path="res://addons/panku_console/res/pics/icons8-multiply-32.png" id="3_feqgg"]
+[ext_resource type="Texture2D" uid="uid://dlyws6x2sy7n5" path="res://addons/panku_console/res/pics/drop_shadow.png" id="4_h0qww"]
+[ext_resource type="Texture2D" uid="uid://cctd4p2wyly50" path="res://addons/panku_console/res/pics/icons8-triangle-32.png" id="5_cydsf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65knu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.396078, 0.396078, 0.396078, 1)
+
+[node name="LynxWindow" type="ColorRect"]
+custom_minimum_size = Vector2(100, 27)
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_6hjho")
+color = Color(0.133333, 0.141176, 0.152941, 0)
+script = ExtResource("2_3c7ie")
+metadata/_edit_group_ = true
+
+[node name="Body" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="HBoxContainer" parent="Body"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="TitleButton" type="Button" parent="Body/Title"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Window Title"
+clip_text = true
+alignment = 0
+
+[node name="ExitButton" type="Button" parent="Body/Title"]
+custom_minimum_size = Vector2(28, 20)
+layout_mode = 2
+icon = ExtResource("3_feqgg")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Content" type="ColorRect" parent="Body"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.133333, 0.141176, 0.152941, 1)
+
+[node name="Shadow" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -59.0
+offset_top = -41.0
+offset_right = 59.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_h0qww")
+patch_margin_left = 59
+patch_margin_top = 41
+patch_margin_right = 59
+patch_margin_bottom = 81
+
+[node name="ResizeButton" type="Button" parent="."]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_default_cursor_shape = 12
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="ResizeButton"]
+self_modulate = Color(1, 1, 1, 0.501961)
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("5_cydsf")
+ignore_texture_size = true
+
+[node name="Border" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_65knu")

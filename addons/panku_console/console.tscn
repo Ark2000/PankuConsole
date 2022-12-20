@@ -1,29 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://ceyq4okocp1bq"]
+[gd_scene load_steps=10 format=3 uid="uid://d03b5eda1vtys"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
-[ext_resource type="PackedScene" uid="uid://c74omggfq20i5" path="res://addons/panku_console/components/lynx_window/lynx_window.tscn" id="3_31oow"]
-[ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="4_d3keb"]
-[ext_resource type="Theme" uid="uid://dbu7c46eki45f" path="res://addons/panku_console/res/breeze_dark_theme.tres" id="4_lia7k"]
-[ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="6_5deu3"]
-[ext_resource type="PackedScene" uid="uid://b3jf18wonocnv" path="res://addons/panku_console/components/hints_list/hints_list.tscn" id="7_n7sin"]
-[ext_resource type="PackedScene" uid="uid://bme8twac4ick5" path="res://addons/panku_console/components/input_field/input_area.tscn" id="7_olqdb"]
+[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows.gd" id="3_7pj6w"]
+[ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="4_x6krx"]
+[ext_resource type="PackedScene" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
 [ext_resource type="Script" path="res://addons/panku_console/base_instance.gd" id="10_ik817"]
 [ext_resource type="Script" path="res://addons/panku_console/widgets_env.gd" id="11_fn3g5"]
 [ext_resource type="Script" path="res://addons/panku_console/engine_env.gd" id="12_rbugt"]
 [ext_resource type="Script" path="res://addons/panku_console/console_env.gd" id="13_qpcmc"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_nth2r"]
-resource_local_to_scene = true
-font_size = 12
-shadow_color = Color(0, 0, 0, 0.501961)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gsab8"]
-shader = ExtResource("4_d3keb")
-shader_parameter/amount = 2.0
-shader_parameter/fancy = null
-shader_parameter/noise = 0.1
-shader_parameter/sz = 0.25
 
 [node name="Console" type="CanvasLayer"]
 process_mode = 3
@@ -43,167 +28,23 @@ grow_vertical = 2
 layout_mode = 3
 anchors_preset = 0
 
-[node name="LynxWindow" parent="." instance=ExtResource("3_31oow")]
-material = null
-offset_left = 330.703
-offset_top = 154.189
-offset_right = 814.703
-offset_bottom = 493.189
+[node name="LynxWindows" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("3_7pj6w")
+
+[node name="ConsoleWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
+layout_mode = 0
+offset_right = 421.0
+offset_bottom = 304.0
 grow_horizontal = 1
 grow_vertical = 1
-theme = ExtResource("4_lia7k")
-color = Color(0.168627, 0.180392, 0.196078, 0)
-metadata/_edit_lock_ = true
 
-[node name="Title" parent="LynxWindow" index="0"]
-custom_minimum_size = Vector2(0, 25)
-flat = true
+[node name="Content" parent="LynxWindows/ConsoleWindow/Body" index="1"]
+clip_children = 2
 
-[node name="Bg" type="ColorRect" parent="LynxWindow/Title" index="0"]
+[node name="PankuConsoleUI" parent="LynxWindows/ConsoleWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.168627, 0.180392, 0.196078, 1)
-
-[node name="ExitButton" parent="LynxWindow/Title" index="1"]
-offset_left = -12.0
-flat = true
-
-[node name="Label" type="Label" parent="LynxWindow/Title" index="2"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = 94.0
-grow_vertical = 2
-text = "Panku Console"
-label_settings = SubResource("LabelSettings_nth2r")
-vertical_alignment = 1
-
-[node name="Content" parent="LynxWindow" index="1"]
-offset_top = 25.0
-color = Color(0.133333, 0.141176, 0.152941, 1)
-
-[node name="Menu" type="ColorRect" parent="LynxWindow/Content" index="0"]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 25.0
-grow_horizontal = 2
-color = Color(0.239216, 0.258824, 0.278431, 1)
-
-[node name="MenuBar" type="MenuBar" parent="LynxWindow/Content/Menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-start_index = 1
-
-[node name="Scene" type="PopupMenu" parent="LynxWindow/Content/Menu/MenuBar"]
-title = "Scenes"
-item_count = 3
-item_0/text = "Item 1"
-item_0/id = 0
-item_0/separator = true
-item_1/text = "Item 2"
-item_1/id = 1
-item_2/text = "Item 3"
-item_2/id = 2
-
-[node name="Project" type="PopupMenu" parent="LynxWindow/Content/Menu/MenuBar"]
-title = "Scenes"
-item_count = 2
-item_0/text = "Item 1"
-item_0/id = 0
-item_1/text = "Item 2"
-item_1/id = 1
-
-[node name="Debug" type="PopupMenu" parent="LynxWindow/Content/Menu/MenuBar"]
-title = "Scenes"
-
-[node name="Editor" type="PopupMenu" parent="LynxWindow/Content/Menu/MenuBar"]
-title = "Scenes"
-
-[node name="Help" type="PopupMenu" parent="LynxWindow/Content/Menu/MenuBar"]
-item_count = 4
-item_0/text = "New Scene"
-item_0/id = 0
-item_1/text = "Open Scene"
-item_1/id = 1
-item_2/text = "Save Scene"
-item_2/id = 2
-item_3/text = "Quit"
-item_3/id = 3
-
-[node name="ConsoleLogs" parent="LynxWindow/Content" index="1" instance=ExtResource("6_5deu3")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = -26.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HintsList" parent="LynxWindow/Content" index="2" instance=ExtResource("7_n7sin")]
-layout_mode = 1
-offset_bottom = -46.0
-
-[node name="HelpBar" type="ColorRect" parent="LynxWindow/Content" index="3"]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -47.189
-offset_bottom = -27.189
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.180392, 0.32549, 0.403922, 1)
-
-[node name="Label" type="Label" parent="LynxWindow/Content/HelpBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "[Help] This is hint!"
-vertical_alignment = 1
-
-[node name="InputArea" parent="LynxWindow/Content" index="4" instance=ExtResource("7_olqdb")]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -26.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Bg" type="ColorRect" parent="LynxWindow"]
-z_index = -1
-material = SubResource("ShaderMaterial_gsab8")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.168627, 0.180392, 0.196078, 1)
 
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("10_ik817")
@@ -217,4 +58,4 @@ script = ExtResource("12_rbugt")
 [node name="console" type="Node" parent="."]
 script = ExtResource("13_qpcmc")
 
-[editable path="LynxWindow"]
+[editable path="LynxWindows/ConsoleWindow"]

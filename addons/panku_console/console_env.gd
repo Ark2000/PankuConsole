@@ -20,7 +20,7 @@ var cls:
 	get:
 		(func():
 			await get_tree().process_frame
-			get_parent()._console_logs.clear()
+			get_parent()._console_ui.clear_output()
 		).call()
 
 const _HELP_enable_notifications = "Toggle notification system"
@@ -28,14 +28,5 @@ func enable_notifications(b:bool):
 	get_parent()._resident_logs.visible = b
 
 const _HELP_notify = "Send a notification"
-func notify(s:String):
-	get_parent().notify(s)
-	
-const _HELP_set_transparency = "Set the transparency of console window"
-func set_transparency(a:float):
-	get_parent().set_window_transparency(a)
-
-const _HELP_party_time = "Let's dance!"
-var party_time:
-	get:
-		get_parent().party_time()
+func notify(any):
+	get_parent().notify(any)

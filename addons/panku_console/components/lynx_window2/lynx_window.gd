@@ -1,11 +1,23 @@
 extends ColorRect
 
-@onready var title_btn:Button = $Title
+@onready var title_btn:Button = $Body/Title/TitleButton
 @onready var resize_btn:Button = $ResizeButton
-@onready var exit_btn:Button = $Title/ExitButton
+@onready var title = $Body/Title
+@onready var exit_btn:Button = $Body/Title/ExitButton
+@onready var border = $Border
+@onready var shadow = $Shadow
 
-@export var draggable := true
-@export var resizable := true
+@export var no_resize := false
+@export var no_move := false
+@export var no_shadow := false:
+	set(v):
+		no_shadow = v
+		shadow.visible = !v
+@export var no_snap := false
+@export var no_title := false:
+	set(v):
+		no_title = v
+		title.visible = !v
 
 var _is_dragging := false
 var _drag_start_position:Vector2
@@ -48,15 +60,15 @@ func _input(e):
 			hide()
 
 func _process(delta):
-	if draggable and _is_dragging:
+	if !no_move and _is_dragging:
 		var tp = position + get_local_mouse_position() - _drag_start_position
 		position = lerp(position, tp, 0.4)
-	elif resizable and _is_resizing:
+	elif !no_resize and _is_resizing:
 		var ts = size + resize_btn.get_local_mouse_position() - _resize_start_position
 		ts.x = min(ts.x, get_viewport_rect().size.x)
 		ts.y = min(ts.y, get_viewport_rect().size.y)
 		size = lerp(size, ts, 0.4)
-	else:
+	elif !no_snap:
 		var window_rect = get_rect()
 		var screen_rect = get_viewport_rect()
 		var target_position = window_rect.position
