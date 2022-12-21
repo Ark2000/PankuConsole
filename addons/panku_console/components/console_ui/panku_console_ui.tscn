@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://bqfm16y5vcgl3"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/console_ui/panku_console_ui.gd" id="1_aab8v"]
 [ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="1_jb1ae"]
@@ -12,6 +12,7 @@ bg_color = Color(0.239216, 0.258824, 0.278431, 1)
 
 [node name="PankuConsoleUI" type="Control"]
 clip_contents = true
+custom_minimum_size = Vector2(0, 1)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +31,7 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="Menu" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xn58i")
 

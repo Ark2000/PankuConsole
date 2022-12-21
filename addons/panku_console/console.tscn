@@ -14,7 +14,6 @@
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
-pause_when_active = false
 
 [node name="ResidentLogs" parent="." instance=ExtResource("2_th8we")]
 anchors_preset = 9
@@ -39,9 +38,11 @@ offset_right = 421.0
 offset_bottom = 304.0
 grow_horizontal = 1
 grow_vertical = 1
+no_border = true
+transparency = 0.9
 
-[node name="Content" parent="LynxWindows/ConsoleWindow/Body" index="1"]
-clip_children = 2
+[node name="TitleButton" parent="LynxWindows/ConsoleWindow/Body/Title" index="0"]
+text = " "
 
 [node name="PankuConsoleUI" parent="LynxWindows/ConsoleWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1

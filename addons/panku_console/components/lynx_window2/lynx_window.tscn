@@ -8,16 +8,16 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65knu"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.396078, 0.396078, 0.396078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [node name="LynxWindow" type="ColorRect"]
 custom_minimum_size = Vector2(100, 27)
-offset_right = 300.0
-offset_bottom = 200.0
+offset_right = 263.0
+offset_bottom = 158.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_6hjho")
@@ -43,12 +43,24 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Window Title"
+button_mask = 3
 clip_text = true
 alignment = 0
 
+[node name="TitleLabel" type="Label" parent="Body/Title/TitleButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Window Title"
+vertical_alignment = 1
+clip_text = true
+
 [node name="ExitButton" type="Button" parent="Body/Title"]
-custom_minimum_size = Vector2(28, 20)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = ExtResource("3_feqgg")
 icon_alignment = 1
@@ -110,7 +122,7 @@ texture = ExtResource("5_cydsf")
 ignore_texture_size = true
 
 [node name="Border" type="Panel" parent="."]
-visible = false
+self_modulate = Color(1, 1, 1, 0.25098)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -10,6 +10,8 @@ func _enter_tree():
 	var default_open_console_event = InputEventKey.new()
 	default_open_console_event.physical_keycode = KEY_QUOTELEFT
 	ProjectSettings.set_setting("input/toggle_console", {"deadzone":0.5,"events":[default_open_console_event]})
+	ProjectSettings.set_setting("panku/toggle_console_action", "toggle_console")
+	ProjectSettings.set_setting("panku/pause_when_active", true)
 	ProjectSettings.save()
 	print("Panku Console was initialized!")
 	print("Project page: https://github.com/Ark2000/PankuConsole")
@@ -18,5 +20,7 @@ func _exit_tree():
 	# Clean-up of the plugin goes here.
 	remove_autoload_singleton("Console")
 	ProjectSettings.clear("input/toggle_console")
+	ProjectSettings.clear("panku/toggle_console_action")
+	ProjectSettings.clear("panku/pause_when_active")
 	ProjectSettings.save()
 	print("Panku Console was unloaded!")

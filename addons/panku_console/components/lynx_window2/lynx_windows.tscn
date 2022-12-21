@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://cm6vvayeh3yme"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows.gd" id="1_1cn4l"]
-[ext_resource type="PackedScene" uid="uid://c74omggfq20i5" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="2_edm3a"]
+[ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="2_edm3a"]
 
 [node name="LynxWindows" type="Control"]
 layout_mode = 3
