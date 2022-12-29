@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsyo2s7lvdf3u"]
+
+[ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="1_gbja0"]
+[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/export_widget.gd" id="2_6an3s"]
+[ext_resource type="Texture2D" uid="uid://bn28nywx5byva" path="res://addons/panku_console/res/pics/icons8-info-16.png" id="3_4ee2q"]
+
+[node name="ExportWidget" instance=ExtResource("1_gbja0")]
+offset_right = 346.0
+offset_bottom = 265.0
+script = ExtResource("2_6an3s")
+transparency = 0.8
+
+[node name="TitleLabel" parent="Body/Title/TitleButton" index="0"]
+text = "Export Panel"
+
+[node name="Button" type="Button" parent="Body/Title" index="1"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("3_4ee2q")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Content" parent="Body" index="1"]
+clip_contents = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Body/Content" index="0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Hint" type="ColorRect" parent="Body/Content" index="1"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.141176, 0.152941, 1)
+
+[node name="Label" type="RichTextLabel" parent="Body/Content/Hint" index="0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Supported export types:[/b]
+- @export var simple_int:int = 0
+- @export var simple_float:float = 0.0
+- @export_range(0, 10) var int_with_range:int = 0
+- @export_range(1.0, 3.0, 0.02) var float_with_range:float = 1.0
+- @export var color:Color = Color.WHITE
+- @export var bool_val:bool = false
+- @export var str_val:String = \"\"
+- @export_enum(\"a\",\"b\",\"c\") var e = 0
+[b]Note:[/b]
+- If an export property's value is changed in code anywhere outside of the GUI, the new value won't be reflected here. Use [b]monitor widget[/b] to listen values."

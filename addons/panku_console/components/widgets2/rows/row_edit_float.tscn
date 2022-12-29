@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/rows/row_edit_float.gd" id="1_nmey8"]
+[ext_resource type="Texture2D" uid="uid://dnrsp5fe57cd2" path="res://addons/panku_console/res/pics/icons8-double-arrow-16.png" id="2_hsfij"]
+
+[node name="RowEditFloat" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nmey8")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "IntValue"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Hold and drag to adjust the value"
+icon = ExtResource("2_hsfij")

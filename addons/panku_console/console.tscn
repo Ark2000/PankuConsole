@@ -1,14 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://d03b5eda1vtys"]
+[gd_scene load_steps=10 format=3 uid="uid://8bhilcmjci5i"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows.gd" id="3_7pj6w"]
 [ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="4_x6krx"]
-[ext_resource type="PackedScene" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
-[ext_resource type="Script" path="res://addons/panku_console/base_instance.gd" id="10_ik817"]
-[ext_resource type="Script" path="res://addons/panku_console/widgets_env.gd" id="11_fn3g5"]
-[ext_resource type="Script" path="res://addons/panku_console/engine_env.gd" id="12_rbugt"]
-[ext_resource type="Script" path="res://addons/panku_console/console_env.gd" id="13_qpcmc"]
+[ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
+[ext_resource type="Script" path="res://addons/panku_console/repl_base_instance.gd" id="6_lo6t5"]
+[ext_resource type="Script" path="res://addons/panku_console/repl_widgets_env.gd" id="7_knpss"]
+[ext_resource type="Script" path="res://addons/panku_console/repl_engine_env.gd" id="8_p840s"]
+[ext_resource type="Script" path="res://addons/panku_console/repl_console_env.gd" id="9_2li8n"]
 
 [node name="Console" type="CanvasLayer"]
 process_mode = 3
@@ -44,19 +44,22 @@ transparency = 0.9
 [node name="TitleButton" parent="LynxWindows/ConsoleWindow/Body/Title" index="0"]
 text = " "
 
+[node name="TitleLabel" parent="LynxWindows/ConsoleWindow/Body/Title/TitleButton" index="0"]
+text = "Panku REPL"
+
 [node name="PankuConsoleUI" parent="LynxWindows/ConsoleWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1
 
 [node name="BaseInstance" type="Node" parent="."]
-script = ExtResource("10_ik817")
+script = ExtResource("6_lo6t5")
 
 [node name="widgets" type="Node" parent="."]
-script = ExtResource("11_fn3g5")
+script = ExtResource("7_knpss")
 
 [node name="engine" type="Node" parent="."]
-script = ExtResource("12_rbugt")
+script = ExtResource("8_p840s")
 
 [node name="console" type="Node" parent="."]
-script = ExtResource("13_qpcmc")
+script = ExtResource("9_2li8n")
 
 [editable path="LynxWindows/ConsoleWindow"]

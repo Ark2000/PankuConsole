@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddnycomhdr81v"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/rows/row_edit_bool.gd" id="1_i68o4"]
+
+[node name="RowEditBool" type="HBoxContainer"]
+offset_right = 118.0
+offset_bottom = 26.0
+script = ExtResource("1_i68o4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Title"
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+flat = true

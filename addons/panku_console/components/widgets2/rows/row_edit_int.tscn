@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/rows/row_edit_int.gd" id="1_aokou"]
+[ext_resource type="Texture2D" uid="uid://bfguymykihsgl" path="res://addons/panku_console/res/pics/icons8-subtract-16.png" id="2_ebe4v"]
+[ext_resource type="Texture2D" uid="uid://bw3ft08sktkce" path="res://addons/panku_console/res/pics/icons8-plus-math-16.png" id="3_oh1uo"]
+
+[node name="RowEditInt" type="HBoxContainer"]
+offset_right = 358.0
+offset_bottom = 40.0
+script = ExtResource("1_aokou")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "IntValue"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+icon = ExtResource("2_ebe4v")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 2
+icon = ExtResource("3_oh1uo")

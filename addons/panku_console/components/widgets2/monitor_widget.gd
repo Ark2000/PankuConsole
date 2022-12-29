@@ -29,7 +29,6 @@ func _ready():
 	title_label.text = title_text
 	tsp_group.append(settings_btn)
 
-
 	close_window.connect(
 		func():
 			queue_free()
@@ -68,6 +67,10 @@ func _ready():
 			title_label.text = title_ledit.text
 			title_text = title_label.text
 	)
+	
+	await get_tree().process_frame
+	print(label.get_minimum_size())
+	
 
 func _process(delta):
 	super._process(delta)
@@ -75,3 +78,16 @@ func _process(delta):
 	if t <= 0.0:
 		label.text = str(Console.execute(update_exp)["result"])
 		t += update_period
+
+func _notification(what):
+	#quit event
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		var cfg = PankuConfig.get_config()
+		cfg["widgets_data"].push_back({
+			"exp": update_exp,
+			"position": position,
+			"size": size,
+			"period": update_period,
+			"title": title_text
+		})
+		PankuConfig.set_config(cfg)

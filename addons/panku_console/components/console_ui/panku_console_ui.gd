@@ -29,6 +29,17 @@ func output(any):
 
 func clear_output():
 	_console_logs.clear()
+	
+func execute(exp:String):
+	exp = exp.lstrip(" ").rstrip(" ")
+	if exp.is_empty():
+		return
+	var result = Console.execute(exp)
+	output(exp)
+	if !result["failed"]:
+		output("> %s"%str(result["result"]))
+	else:
+		output("> [color=red]%s[/color]"%(result["result"]))
 
 func _ready():
 	output("[b][color=burlywood][ Panku Console ][/color][/b]")
@@ -37,18 +48,7 @@ func _ready():
 	output("[color=burlywood][b]For more info, please visit: [color=green][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color]")
 	output("")
 
-	_input_area.submitted.connect(
-		func(exp:String):
-			exp = exp.lstrip(" ").rstrip(" ")
-			if exp.is_empty():
-				return
-			var result = Console.execute(exp)
-			output(exp)
-			if !result["failed"]:
-				output("> %s"%str(result["result"]))
-			else:
-				output("> [color=red]%s[/color]"%(result["result"]))
-	)
+	_input_area.submitted.connect(execute)
 	_input_area.update_hints.connect(
 		func(exp:String):
 			_current_hints = PankuUtils.parse_exp(Console._envs_info, exp)

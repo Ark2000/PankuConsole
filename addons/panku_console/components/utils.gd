@@ -171,6 +171,15 @@ static func search_and_sort_and_highlight(s:String, li:Array):
 
 	return matched
 
+static func get_export_properties_from_script(script:Script):
+	var result = []
+	var data = script.get_script_property_list()
+	for d in data:
+		if !(d.usage == PROPERTY_USAGE_SCRIPT_VARIABLE | PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_STORAGE):
+			continue
+		result.append(d)
+	return result
+
 #func _run():
 #	generate_help_text_from_script(get_script())
 #	var s = load("res://addons/panku_console/default_env.gd")
@@ -179,3 +188,4 @@ static func search_and_sort_and_highlight(s:String, li:Array):
 #	print(hints)
 #	print(search_and_sort_and_highlight("h", hints))
 #	print(parse_exp(info, "t"))
+#	get_export_properties_from_script(load("res://test/Player.gd"))

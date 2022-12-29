@@ -8,14 +8,7 @@
 offset_right = 379.0
 offset_bottom = 348.0
 script = ExtResource("2_edoyc")
-no_resize = null
-no_resize_x = null
-no_resize_y = null
-no_move = null
 no_shadow = true
-no_snap = null
-no_title = null
-no_border = null
 transparency = 0.6
 
 [node name="Title" parent="Body" index="0"]
@@ -50,6 +43,7 @@ theme_override_font_sizes/bold_font_size = 14
 theme_override_font_sizes/italics_font_size = 14
 theme_override_font_sizes/bold_italics_font_size = 14
 theme_override_font_sizes/mono_font_size = 14
+text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 scroll_active = false
 
 [node name="SettingsUI" type="ColorRect" parent="Body/Content" index="1"]

@@ -14,5 +14,6 @@ static func get_config() -> Dictionary:
 		var config = file.get_var()
 		if config: return config
 	return {
-		"widgets_data": []
+		"widgets_data": [],
+		"init_exp": []
 	}

@@ -28,6 +28,7 @@ var pause_when_active:bool
 @onready var _windows = $LynxWindows
 
 const _monitor_widget_pck = preload("res://addons/panku_console/components/widgets2/monitor_widget.tscn")
+const _export_widget_pck = preload("res://addons/panku_console/components/widgets2/export_widget.tscn")
 
 var _envs = {}
 var _envs_info = {}
@@ -93,8 +94,8 @@ func execute(exp:String) -> Dictionary:
 		"failed": failed,
 		"result": result
 	}
-	
-func add_widget2(exp:String, update_period:= 999999.0, position:Vector2 = Vector2(0, 0), size:Vector2 = Vector2(100, 20), title_text := ""):
+
+func add_widget2(exp:String, update_period:= 999999.0, position:Vector2 = Vector2(0, 0), size:Vector2 = Vector2(160, 60), title_text := ""):
 	if title_text == "": title_text = exp
 	var w = _monitor_widget_pck.instantiate()
 	w.position = position
@@ -103,6 +104,24 @@ func add_widget2(exp:String, update_period:= 999999.0, position:Vector2 = Vector
 	w.update_period = update_period
 	w.title_text = title_text
 	_windows.add_child(w)
+
+func add_export_widget(obj:Object):
+	var obj_name = _envs.find_key(obj)
+	if obj_name == null:
+		return
+	if !obj.get_script():
+		return
+	var export_properties = PankuUtils.get_export_properties_from_script(obj.get_script())
+	if export_properties.is_empty():
+		return
+	var w = _export_widget_pck.instantiate()
+	_windows.add_child(w)
+	w.setup(obj, export_properties)
+	w.position = Vector2(0, 0)
+	w.size = Vector2(160, 60)
+	w.title_label.text = "Export Properties (%s)"%str(obj)
+	w.set_meta("obj_name", obj_name)
+	return w
 
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
@@ -123,6 +142,9 @@ func _ready():
 			console_window_visibility_changed.emit(_console_window.visible)
 			if pause_when_active:
 				get_tree().paused = _console_window.visible
+				_console_window.title_label.text = "Panku REPL (Paused)"
+			else:
+				_console_window.title_label.text = "Panku REPL"
 	)
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
@@ -131,24 +153,22 @@ func _ready():
 	#add info of base instance
 	var env_info = PankuUtils.extract_info_from_script(_base_instance.get_script())
 	for k in env_info: _envs_info[k] = env_info[k]
+	
+	#load widgets from config
+	var cfg = PankuConfig.get_config()
 
-	var w_data = PankuConfig.get_config()["widgets_data"]
-	for w in w_data:
-		add_widget2(w["exp"], w["period"], w["position"], w["size"], w["title"])
-
-func _notification(what):
-	#quit event
-	if what == 1006:
-		var widgets_data = []
-		for w in _windows.get_children():
-			if w is MonitorWidget:
-				widgets_data.push_back({
-					"exp": w.update_exp,
-					"position": w.position,
-					"size": w.size,
-					"period": w.update_period,
-					"title": w.title_text
-				})
-		var cfg = PankuConfig.get_config()
-		cfg["widgets_data"] = widgets_data
-		PankuConfig.set_config(cfg)
+	if cfg.has("widgets_data"):
+		var w_data = cfg["widgets_data"]
+		for w in w_data:
+			add_widget2(w["exp"], w["period"], w["position"], w["size"], w["title"])
+		cfg["widgets_data"] = []
+	
+	await get_tree().process_frame
+	
+	if cfg.has("init_exp"):
+		var init_exp = cfg["init_exp"]
+		for e in init_exp:
+			_console_ui.execute(e)
+		cfg["init_exp"] = []
+	
+	PankuConfig.set_config(cfg)

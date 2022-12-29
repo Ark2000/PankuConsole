@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/rows/row_edit_enum.gd" id="1_bgfb5"]
+
+[node name="RowEditEnum" type="HBoxContainer"]
+offset_right = 350.0
+offset_bottom = 40.0
+script = ExtResource("1_bgfb5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Value"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

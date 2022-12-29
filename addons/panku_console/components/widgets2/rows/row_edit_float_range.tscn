@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/rows/row_edit_float_range.gd" id="1_nyt4h"]
+
+[node name="RowEditFloatRange" type="HBoxContainer"]
+offset_right = 253.0
+offset_bottom = 31.0
+script = ExtResource("1_nyt4h")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "IntValue"
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.01
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
