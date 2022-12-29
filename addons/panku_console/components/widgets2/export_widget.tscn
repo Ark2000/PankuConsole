@@ -10,6 +10,9 @@ offset_bottom = 265.0
 script = ExtResource("2_6an3s")
 transparency = 0.8
 
+[node name="Title" parent="Body" index="0"]
+custom_minimum_size = Vector2(0, 26)
+
 [node name="TitleLabel" parent="Body/Title/TitleButton" index="0"]
 text = "Export Panel"
 

@@ -1,14 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqfm16y5vcgl3"]
+[gd_scene load_steps=9 format=3 uid="uid://bqfm16y5vcgl3"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/console_ui/panku_console_ui.gd" id="1_aab8v"]
 [ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="1_jb1ae"]
+[ext_resource type="Theme" uid="uid://dbu7c46eki45f" path="res://addons/panku_console/res/breeze_dark_theme.tres" id="1_ogb8m"]
 [ext_resource type="Texture2D" uid="uid://bn28nywx5byva" path="res://addons/panku_console/res/pics/icons8-info-16.png" id="2_csdh4"]
 [ext_resource type="PackedScene" uid="uid://bme8twac4ick5" path="res://addons/panku_console/components/input_field/input_area.tscn" id="2_w7j54"]
 [ext_resource type="Texture2D" uid="uid://cnmg3787j72hs" path="res://addons/panku_console/res/pics/icons8-linking-16.png" id="3_eho7e"]
 [ext_resource type="PackedScene" uid="uid://b3jf18wonocnv" path="res://addons/panku_console/components/hints_list/hints_list.tscn" id="3_qw8p4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn58i"]
-bg_color = Color(0.239216, 0.258824, 0.278431, 1)
+bg_color = Color(0.239216, 0.258824, 0.278431, 0.25098)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.25098)
 
 [node name="PankuConsoleUI" type="Control"]
 clip_contents = true
@@ -19,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ogb8m")
 script = ExtResource("1_aab8v")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -31,7 +38,6 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="Menu" type="PanelContainer" parent="VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xn58i")
 
@@ -40,21 +46,53 @@ layout_mode = 2
 flat = true
 start_index = 1
 
-[node name="Widget" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar"]
-item_count = 4
-item_0/text = "Widgets Manager"
+[node name="Tools" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar"]
+size = Vector2i(163, 116)
+item_count = 3
+item_0/text = "Clear REPL Output"
 item_0/id = 0
-item_1/text = "Add Profiler"
+item_1/text = "Add Profiler Widget"
 item_1/id = 1
-item_2/text = "Add Exp Monitor"
+item_2/text = "Add Export Properties Widget"
 item_2/id = 2
-item_3/text = "Add Exp Button"
-item_3/id = 3
 
-[node name="Help" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar"]
+[node name="ExportTargets" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar/Tools"]
+
+[node name="Options" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar"]
 position = Vector2i(-1, 0)
 size = Vector2i(198, 175)
-item_count = 7
+item_count = 4
+item_0/text = "Pause When Active"
+item_0/checkable = 1
+item_0/checked = true
+item_0/id = 0
+item_1/text = "No Resize"
+item_1/checkable = 1
+item_1/id = 2
+item_2/text = "No Move"
+item_2/checkable = 1
+item_2/id = 3
+item_3/text = "Transparency"
+item_3/id = 1
+
+[node name="Transparency" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar/Options"]
+size = Vector2i(100, 113)
+item_count = 5
+item_0/text = "0%"
+item_0/id = 0
+item_1/text = "25%"
+item_1/id = 1
+item_2/text = "50%"
+item_2/id = 2
+item_3/text = "75%"
+item_3/id = 3
+item_4/text = "100%"
+item_4/id = 4
+
+[node name="Info" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar"]
+position = Vector2i(-1, 0)
+size = Vector2i(198, 175)
+item_count = 5
 item_0/text = "Show Intro"
 item_0/icon = ExtResource("2_csdh4")
 item_0/id = 0
@@ -70,19 +108,34 @@ item_3/id = 3
 item_4/text = "Community"
 item_4/icon = ExtResource("3_eho7e")
 item_4/id = 4
-item_5/text = ""
-item_5/id = 5
-item_5/separator = true
-item_6/text = "About"
-item_6/icon = ExtResource("2_csdh4")
-item_6/id = 6
 
 [node name="ConsoleLogs" parent="VBoxContainer" instance=ExtResource("1_jb1ae")]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InputArea" parent="VBoxContainer" instance=ExtResource("2_w7j54")]
+[node name="Bottom" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
+
+[node name="InputArea" parent="VBoxContainer/Bottom" instance=ExtResource("2_w7j54")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/Bottom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xn58i")
 
 [node name="HintsList" parent="." instance=ExtResource("3_qw8p4")]
 layout_mode = 1

@@ -7,6 +7,7 @@ const row_edit_bool = preload("res://addons/panku_console/components/widgets2/ro
 const row_edit_str = preload("res://addons/panku_console/components/widgets2/rows/row_edit_str.tscn")
 const row_edit_color = preload("res://addons/panku_console/components/widgets2/rows/row_edit_color.tscn")
 const row_edit_enum = preload("res://addons/panku_console/components/widgets2/rows/row_edit_enum.tscn")
+const row_placeholder = preload("res://addons/panku_console/components/widgets2/rows/row_placeholder.tscn")
 
 @onready var container := $Body/Content/VBoxContainer
 @onready var helpbtn := $Body/Title/Button
@@ -55,6 +56,9 @@ func setup(obj:Object, data:Array):
 			var params = data[i].hint_string.split(",", false)
 			for p in params:
 				row.option_button.add_item(p)
+		#unsupported export property
+		else:
+			row = row_placeholder.instantiate()
 		if row:
 			container.add_child(row)
 			row.title = data[i].name

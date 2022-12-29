@@ -1,14 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://8bhilcmjci5i"]
+[gd_scene load_steps=12 format=3 uid="uid://8bhilcmjci5i"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows.gd" id="3_7pj6w"]
 [ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="4_x6krx"]
+[ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="5_daswg"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
 [ext_resource type="Script" path="res://addons/panku_console/repl_base_instance.gd" id="6_lo6t5"]
 [ext_resource type="Script" path="res://addons/panku_console/repl_widgets_env.gd" id="7_knpss"]
 [ext_resource type="Script" path="res://addons/panku_console/repl_engine_env.gd" id="8_p840s"]
 [ext_resource type="Script" path="res://addons/panku_console/repl_console_env.gd" id="9_2li8n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_adv20"]
+shader = ExtResource("5_daswg")
+shader_parameter/amount = 2.0
+shader_parameter/noise = 0.1
+shader_parameter/sz = 0.25
+shader_parameter/fancy = null
 
 [node name="Console" type="CanvasLayer"]
 process_mode = 3
@@ -33,13 +41,19 @@ anchors_preset = 0
 script = ExtResource("3_7pj6w")
 
 [node name="ConsoleWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
-layout_mode = 0
-offset_right = 421.0
-offset_bottom = 304.0
-grow_horizontal = 1
-grow_vertical = 1
-no_border = true
-transparency = 0.9
+material = SubResource("ShaderMaterial_adv20")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 387.5
+offset_top = 180.0
+offset_right = 808.5
+offset_bottom = 484.0
+color = Color(0.133333, 0.141176, 0.152941, 1)
+transparency = 0.75
 
 [node name="TitleButton" parent="LynxWindows/ConsoleWindow/Body/Title" index="0"]
 text = " "

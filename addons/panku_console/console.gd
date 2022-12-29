@@ -123,6 +123,25 @@ func add_export_widget(obj:Object):
 	w.set_meta("obj_name", obj_name)
 	return w
 
+func get_available_export_objs() -> Array:
+	var result = []
+	for obj_name in _envs:
+		var obj = _envs[obj_name]
+		if !obj.get_script():
+			continue
+		var export_properties = PankuUtils.get_export_properties_from_script(obj.get_script())
+		if export_properties.is_empty():
+			continue
+		result.push_back(obj_name)
+	return result
+
+func show_intro():
+	output("[b][color=burlywood][ Panku Console ][/color][/b]")
+	output("[color=burlywood][b][color=burlywood]Version 1.2.31[/color][/b][/color]")
+	output("[color=burlywood][b]Check [color=green]repl_console_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
+	output("[color=burlywood][b]For more info, please visit: [color=green][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color]")
+	output("")
+
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
 		_console_ui._input_area.input.editable = !_console_window.visible
@@ -142,9 +161,9 @@ func _ready():
 			console_window_visibility_changed.emit(_console_window.visible)
 			if pause_when_active:
 				get_tree().paused = _console_window.visible
-				_console_window.title_label.text = "Panku REPL (Paused)"
+				_console_window.title_label.text = "> Panku REPL (Paused)"
 			else:
-				_console_window.title_label.text = "Panku REPL"
+				_console_window.title_label.text = "> Panku REPL"
 	)
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
@@ -154,7 +173,7 @@ func _ready():
 	var env_info = PankuUtils.extract_info_from_script(_base_instance.get_script())
 	for k in env_info: _envs_info[k] = env_info[k]
 	
-	#load widgets from config
+	#load configs
 	var cfg = PankuConfig.get_config()
 
 	if cfg.has("widgets_data"):
@@ -170,5 +189,29 @@ func _ready():
 		for e in init_exp:
 			_console_ui.execute(e)
 		cfg["init_exp"] = []
+		
+	await get_tree().process_frame
 	
+	if cfg.has("repl"):
+		_console_window.visible = cfg.repl.visible
+		_console_window.position = cfg.repl.position
+		_console_window.size = cfg.repl.size
+
 	PankuConfig.set_config(cfg)
+	
+	show_intro()
+
+func _notification(what):
+	#quit event
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		var cfg = PankuConfig.get_config()
+		if !cfg.has("repl"):
+			cfg["repl"] = {
+				"visible":false,
+				"position":Vector2(0, 0),
+				"size":Vector2(200, 200)
+			}
+		cfg.repl.visible = _console_window.visible
+		cfg.repl.position = _console_window.position
+		cfg.repl.size = _console_window.size
+		PankuConfig.set_config(cfg)

@@ -1,12 +1,15 @@
 extends Control
 
 @onready var _console_logs = $VBoxContainer/ConsoleLogs
-@onready var _input_area = $VBoxContainer/InputArea
+@onready var _input_area = $VBoxContainer/Bottom/InputArea
 @onready var _hints = $HintsList
 @onready var _helpbar = $HelpBar
 @onready var _helpbar_label = $HelpBar/Label
-@onready var _menu_widget:PopupMenu = $VBoxContainer/Menu/MenuBar/Widget
-@onready var _menu_help:PopupMenu = $VBoxContainer/Menu/MenuBar/Help
+@onready var _menu_tools := $VBoxContainer/Menu/MenuBar/Tools
+@onready var _menu_tools_exporttargets := $VBoxContainer/Menu/MenuBar/Tools/ExportTargets
+@onready var _menu_options := $VBoxContainer/Menu/MenuBar/Options
+@onready var _menu_info := $VBoxContainer/Menu/MenuBar/Info
+@onready var _menu_options_transparency := $VBoxContainer/Menu/MenuBar/Options/Transparency
 
 var _current_hints := {}
 var _hint_idx := 0
@@ -42,11 +45,6 @@ func execute(exp:String):
 		output("> [color=red]%s[/color]"%(result["result"]))
 
 func _ready():
-	output("[b][color=burlywood][ Panku Console ][/color][/b]")
-	output("[color=burlywood][b][color=burlywood]Version 1.1.23[/color][/b][/color]")
-	output("[color=burlywood][b]Check [color=green]engine_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
-	output("[color=burlywood][b]For more info, please visit: [color=green][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color]")
-	output("")
 
 	_input_area.submitted.connect(execute)
 	_input_area.update_hints.connect(
@@ -90,13 +88,83 @@ func _ready():
 	
 	_helpbar.hide()
 	_hints.hide()
-
-	_menu_widget.id_pressed.connect(
-		func(id):
-			output("Sorry, WIP!")
-			output("But you can use exp to manage widgets currently!")
+	
+	_menu_info.index_pressed.connect(
+		func(index:int):
+			#Show Intro
+			if index == 0:
+				Console.show_intro()
+			#Report a Bug
+			elif index == 2:
+				OS.shell_open("https://github.com/Ark2000/PankuConsole/issues")
+			#Suggest a Feature
+			elif index == 3:
+				OS.shell_open("https://github.com/Ark2000/PankuConsole/issues")
+			#Community
+			elif index == 4:
+				OS.shell_open("https://github.com/Ark2000/PankuConsole/discussions")
 	)
-	_menu_help.id_pressed.connect(
-		func(id):
-			output("Sorry, WIP!")
+	_menu_options.index_pressed.connect(
+		func(index:int):
+			#Pause when Active
+			if index == 0:
+				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
+				Console.pause_when_active = _menu_options.is_item_checked(index)
+				get_tree().paused = Console.pause_when_active
+				Console._console_window.title_label.text = "> Panku REPL"
+				if Console.pause_when_active:
+					Console._console_window.title_label.text += " (Paused)"
+			#No Resize
+			elif index == 1:
+				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
+				Console._console_window.no_resize = _menu_options.is_item_checked(index)
+			#No Move
+			elif index == 2:
+				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
+				Console._console_window.no_move = _menu_options.is_item_checked(index)
+	)
+	_menu_options.set_item_submenu(3, "Transparency")
+	#Not sure what is the cause of the error.
+	#window_get_popup_safe_rect: Condition "!windows.has(p_window)" is true. Returning: Rect2i()
+	_menu_options_transparency.index_pressed.connect(
+		func(index:int):
+			if index == 0:
+				Console._console_window.transparency = 1.0
+			elif index == 1:
+				Console._console_window.transparency = 0.75
+			elif index == 2:
+				Console._console_window.transparency = 0.5
+			elif index == 3:
+				Console._console_window.transparency = 0.25
+			elif index == 4:
+				Console._console_window.transparency = 0.0
+	)
+	_menu_tools.index_pressed.connect(
+		func(index:int):
+			#Clear REPL Output
+			if index == 0:
+				execute("console.cls")
+			#Add Profiler Widget
+			elif index == 1:
+				execute("widgets.profiler")
+			#Add Export Properties Widget
+			elif index == 2:
+				pass
+	)
+	_menu_tools.set_item_submenu(2, "ExportTargets")
+	_menu_tools.about_to_popup.connect(
+		func():
+			_menu_tools_exporttargets.clear()
+			var objs = Console.get_available_export_objs()
+			if objs.is_empty():
+				_menu_tools_exporttargets.add_item("Not available")
+				_menu_tools_exporttargets.set_item_disabled(0, true)
+			else:
+				for i in range(objs.size()):
+					_menu_tools_exporttargets.add_item(objs[i])
+	)
+	_menu_tools_exporttargets.index_pressed.connect(
+		func(index:int):
+			var obj_name = _menu_tools_exporttargets.get_item_text(index)
+			execute("widgets.export_panel(%s)"%obj_name)
 	)

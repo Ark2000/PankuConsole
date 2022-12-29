@@ -15,5 +15,10 @@ static func get_config() -> Dictionary:
 		if config: return config
 	return {
 		"widgets_data": [],
-		"init_exp": []
+		"init_exp": [],
+		"repl": {
+			"visible":false,
+			"position":Vector2(0, 0),
+			"size":Vector2(200, 200),
+		}
 	}
