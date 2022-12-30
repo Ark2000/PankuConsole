@@ -13,9 +13,5 @@ script = ExtResource("1_3r4hk")
 
 [node name="R" type="RichTextLabel" parent="."]
 layout_mode = 2
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 357.0
-offset_bottom = 349.0
 bbcode_enabled = true
 scroll_following = true

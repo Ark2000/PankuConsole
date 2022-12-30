@@ -12,36 +12,27 @@ metadata/amount_label = NodePath("Amount/MarginContainer/Label")
 metadata/amount_panel = NodePath("Amount")
 
 [node name="Content" type="PanelContainer" parent="."]
-offset_right = 290.0
-offset_bottom = 26.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Content"]
-offset_right = 290.0
-offset_bottom = 26.0
+layout_mode = 2
 theme_override_constants/margin_left = 8
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Content/MarginContainer"]
-offset_left = 8.0
-offset_right = 290.0
-offset_bottom = 26.0
+layout_mode = 2
 bbcode_enabled = true
 fit_content_height = true
 
 [node name="Amount" type="PanelContainer" parent="."]
-offset_left = 294.0
-offset_right = 320.0
-offset_bottom = 26.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Amount"]
-offset_right = 26.0
-offset_bottom = 26.0
+layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 
 [node name="Label" type="Label" parent="Amount/MarginContainer"]
-offset_left = 4.0
-offset_right = 22.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "x6"
 metadata/amount = 1

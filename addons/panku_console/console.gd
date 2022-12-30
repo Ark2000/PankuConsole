@@ -136,6 +136,7 @@ func get_available_export_objs() -> Array:
 	return result
 
 func show_intro():
+	output("[center][img=96]res://addons/panku_console/logo.svg[/img][/center]")
 	output("[b][color=burlywood][ Panku Console ][/color][/b]")
 	output("[color=burlywood][b][color=burlywood]Version 1.2.31[/color][/b][/color]")
 	output("[color=burlywood][b]Check [color=green]repl_console_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
@@ -150,6 +151,8 @@ func _input(_e):
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
+
+	show_intro()
 
 	pause_when_active = ProjectSettings.get("panku/pause_when_active")
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
@@ -198,8 +201,6 @@ func _ready():
 		_console_window.size = cfg.repl.size
 
 	PankuConfig.set_config(cfg)
-	
-	show_intro()
 
 func _notification(what):
 	#quit event

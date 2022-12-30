@@ -1,9 +1,8 @@
-# Panku Console ![](https://badgen.net/badge/Godot%20Compatible/4.0Beta7%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole) ![](https://badgen.net/github/license/Ark2000/PankuConsole)
+# Panku Console ![](https://badgen.net/badge/Godot%20Compatible/4.0Beta10%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole) ![](https://badgen.net/github/license/Ark2000/PankuConsole)
 
-![zr5DqU.md.png](https://s1.ax1x.com/2022/12/04/zr5DqU.md.png)
+[![pSpJEjK.png](https://s1.ax1x.com/2022/12/30/pSpJEjK.png)](https://imgse.com/i/pSpJEjK)
 
-A [Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your can run any script expression in your game!
-
+A [Godot 4](https://godotengine.org/) Plugin. Panku Conosle is a set of tools to help you troubleshoot and iterate on game ideas on your target platform in realtime. On-device access to the GDScript REPL console and its many tools in any game build allows you to investigate bugs without deploying a debug build specific to your machine.
 
 # ✨Features
 
@@ -13,7 +12,9 @@ A [Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your 
 
   ✅ Simple but reliable notification system. Send notifications whenerver you want.
 
-  ✅ Floating widgets system. Monitor variables or performance, add buttons and save them in runtime .
+  ✅ Create expression monitors and buttons widgets in one click.
+
+  ✅ Exported properties panel can help you find the perfect parameters for gameplay features in realtime.
 
   ✅ Auto-complete your expression using `tab` with help information extracted from your code.
 
@@ -21,11 +22,10 @@ A [Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your 
 
   ✅ You can always press F1 and search `PankuConsole` in your editor to get the coding documentation.
 
-  <img src="https://github.com/Ark2000/Files/blob/main/F2.gif?raw=true" width = "640" height = "360" alt="f2"/>
+  ✅ A lot of useful expressions are prefined to suite your need.
 
-  ![f1](https://github.com/Ark2000/Files/blob/main/F1.gif?raw=true)
-
-  ![f3](https://github.com/Ark2000/Files/blob/main/F3.gif?raw=true)
+[![pSpJ6DU.png](https://s1.ax1x.com/2022/12/30/pSpJ6DU.png)](https://imgse.com/i/pSpJ6DU)
+*Plugin screenshot. The demo game here is OpenTTD.*
 
 # 📦Installation
 
@@ -35,50 +35,123 @@ A [Godot 4](https://godotengine.org/) Plugin. Provide a runtime console so your 
 
 For more detailed information, please visit [Installing plugins](https://docs.godotengine.org/en/latest/tutorials/plugins/editor/installing_plugins.html)
 
-# 🤔How does it work?
+# 🌊Getting Started
 
-1. Enable this plugin, it will add an autoload singleton which named `Panku` in your project.
-2. Run any scene, press `~` key, and the console window will pop up. (The key can be changed in the script)
-3. The console window explanation:
+Quick setup and easy configuration were important goals when designing Panku Console.
 
-    [![z1NQGq.png](https://s1.ax1x.com/2022/11/22/z1NQGq.png)](https://imgse.com/i/z1NQGq)
+After the installation, Panku Console will be accessible in all scenes of your project automatically.
 
-   1. The title, drag this to move the window around.
-   2. Exit button, click to close the window.
-   3. Env options, use `Panku.register_env()` to add more envs.
-   4. Input field, press enter to submit, up/down to navigate history input.
-   5. Resize button, drag this to resize the window.
+## Opening the REPL Window
 
-4. Try to type 'abs(cos(PI))', you will see the result `1`.
+Panku Console is currently only designed for platforms with a keyboard and a mouse. The plugin will define an input action called "toggle_console" which is corresponding to the `~` key. You can change the way to call the REPL window later.
 
-5. Now, try to type `help` and you will get some basic hints.
+All Panku windows you created will be remembered so you don't have to open the windows again and again.
 
-    [![z1DXHf.png](https://s1.ax1x.com/2022/11/22/z1DXHf.png)](https://imgse.com/i/z1DXHf)
+## What can you do in the default REPL environment?
 
-    How is this implemented? Well, it's EXTREMELY easy, just define a variable or constant like this in the `default_env.gd`, more details will be explained in the next step.
-    ```gdscript
-    const _HELP_help = "this string will be used as help info in auto-completion"
-    var help = "available methods: say_hi(), enable_in_game_logs(bool), cls()"
-    ```
-6. The core execution procedure is implemented by `Expression` which is a class that stores an expression you can execute.
+Panku REPL can only execute GDScript expressions. An expression can be made of any arithmetic operation, built-in math function call, method call of environment objects, or built-in type construction call. For more information, please visit [Godot Docs](https://docs.godotengine.org/en/stable/tutorials/scripting/evaluating_expressions.html)
 
-    For example, you can add `Panku.regiter_env("player", self)` in the `_ready()` function of your player script. 
-    Once it's done, suppose there is a variable called `hp` in your player script, you can type `hp` (The left option button should be `player`) in the console, then you will get the actual value of player's hp. 
-    What's more, you can type `set("hp", 100)` to change the value(Note that you can't use `hp=100` since this is not a valid expression).
+Here are some example expressions.
 
-    For more information about what is `Expression`, please visit [Evaluating expressions](https://docs.godotengine.org/en/stable/tutorials/scripting/evaluating_expressions.html)
+```gdscript
+#A simple math expression with built-in math function calls that you can find in @GlobalScope and @GDScript
+round(sin(2*PI+1.7*4.2+0.6))
+> 1
 
-7. Check `panku.gd` or type `F1` and search `PankuConsole` to see what you can do with the global singleton `Console`
+#Below are some predefined environment scripts. You can try to add some properties in <repl_base_instance.gd> to play around.
 
-At last, please pay attention that while this plugin is powerful, it's not ready for players since `Expression` is unsafe and exposes lots of internal structure.
+#Call a get method defined in <repl_base_instance.gd>
+help
+> ...
 
-A safer command system is being actively developed which can be used by the players, see the Roadmap part below.
+#Call a method defined in <repl_console_env.gd>
+console.notify("[color=red]Hello![/color]")
+> <null>
 
-# 🗺Roadmap
+#Call a get method defined in <repl_engine_env.gd>
+engine.snap_screenshot
+> <null>
 
-We're planning to add more features to this plugin in the future, stay tuned!
+#Call a method defined in <repl_widgets_env.gd>
+widgets.profiler
+> <null>
 
-Roadmap: [Panku Console Roadmap](https://github.com/users/Ark2000/projects/1)
+#Invalid expression, since assignment is not allowed.
+player.scale = Vector2(2, 2)
+> Expected '='
+
+#But you can use set method instead.
+player.set("scale", Vector2(2, 2))
+> <null>
+```
+
+By the way, the REPL input box provides auto completion and histories functionalities which means you only need to type `snap` and then press `TAB` to run `engine.snap_screenshot`.
+
+[![pSpg26S.png](https://s1.ax1x.com/2022/12/30/pSpg26S.png)](https://imgse.com/i/pSpg26S)
+
+## How to add your own objects in the REPL environment?
+
+Panku Console provides an API to register objects in the REPL environment, so the process should be very easy.
+
+Suppose the code below is your player script.
+
+```gdscript
+extends Node2D
+
+func _ready():
+    Console.register_env("player", self)
+
+#the help info is optional
+const _HELP_hello = "sample function"
+func hello(name):
+    return "hello! %s" % name
+
+#...
+```
+
+And now you can type `player.hello("Jason")` in the REPL to call the function you have just defined.
+
+
+## How to monitor an expression or add an expression button?
+
+The monitor widgets defined in `repl_widgets_env.gd` are very useful if you are instersted in some expressions.
+
+For example, this predefined expression `engine.performance_info` will return a string shows the current performance information. It's very simple to monitor this expression, just type the expression you want to keep watching in the **input box** and then click the **hammer icon** right next to the input box and select `Make Monitor`, done! The monitor widget will pop up at the top left corner, and you may want to adjust its size to fit the output.
+
+That's the monitor part. sometimes you want to create a button that execute an expression such as summon an enemy or recharge the health so you don't have to type it tediously, then you can create an expression button widget.
+
+The process is exactly the same as creating a monitor widget, the only difference is that you have to select `Make Button` option.
+
+In fact, the two widgets are the same thing, the only difference is their's update frenquency which you can change later in the widget settings tab.
+
+## How to create an export properties panel?
+
+It can be incredible useful to be able to modify gameplay parameters while on the target device. The export properties panel enables this by scanning for export properties.
+
+The target object should be registered in the REPL environemnt.
+
+As the picture below depicts, valid objects will be listed in the tool menu and you can select the target object to create its export properties panel.
+
+[![pSpWlwQ.png](https://s1.ax1x.com/2022/12/30/pSpWlwQ.png)](https://imgse.com/i/pSpWlwQ)
+
+This is the export properties defined in player script.
+
+```gdscript
+@export var simple_float_value:float = 123.0
+@export_range(10, 30) var int_range:int = 1
+@export var simple_int_value:int = 456
+@export_range(400, 700, 0.1) var speed:float = 400.0
+@export var bool1:bool = false
+@export var player_name:String = "player"
+@export var player_color:Color = Color.WHITE
+@export_enum("Warrior", "Magician", "Thief") var character_class=0
+```
+
+And the result export properties panel will be like this.
+
+[![pSpWwmF.png](https://s1.ax1x.com/2022/12/30/pSpWwmF.png)](https://imgse.com/i/pSpWwmF)
+
+**Note**: Not all export variables are supported now. And if an export property's value is changed in code anywhere outside of the GUI, the new value won't be reflected there. Use monitor widget to listen values.
 
 # 🏗Contrubuting
 

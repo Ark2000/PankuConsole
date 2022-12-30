@@ -25,9 +25,9 @@ func _ready():
 			OS.shell_open(str(meta))
 	)
 
-	await get_tree().process_frame
-	var tween = get_tree().create_tween()
-	modulate.a = 0.0
-	position.x -= size.x / 2
-	tween.tween_property(self, "position:x", size.x / 2, 0.2).as_relative().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tween.set_parallel().tween_property(self, "modulate:a", 1.0, 0.2).as_relative().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+#	await get_tree().process_frame
+#	var tween = get_tree().create_tween()
+#	modulate.a = 0.0
+#	position.x -= size.x / 2
+#	tween.tween_property(self, "position:x", size.x / 2, 0.2).as_relative().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+#	tween.set_parallel().tween_property(self, "modulate:a", 1.0, 0.2).as_relative().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
