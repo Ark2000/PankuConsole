@@ -15,6 +15,10 @@ class_name PankuConsole extends CanvasLayer
 ## Emitted when the visibility (hidden/visible) of console window changes.
 signal console_window_visibility_changed(is_visible:bool)
 
+#Help class
+const Config = preload("res://addons/panku_console/components/config.gd")
+const Utils = preload("res://addons/panku_console/components/utils.gd")
+
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
 var toggle_console_action:String
 
@@ -49,7 +53,7 @@ func register_env(env_name:String, env:Object):
 			func(): remove_env(env_name)
 		)
 	if env.get_script():
-		var env_info = PankuUtils.extract_info_from_script(env.get_script())
+		var env_info = Utils.extract_info_from_script(env.get_script())
 		for k in env_info:
 			var keyword = "%s.%s" % [env_name, k]
 			_envs_info[keyword] = env_info[k]
@@ -111,7 +115,7 @@ func add_export_widget(obj:Object):
 		return
 	if !obj.get_script():
 		return
-	var export_properties = PankuUtils.get_export_properties_from_script(obj.get_script())
+	var export_properties = Utils.get_export_properties_from_script(obj.get_script())
 	if export_properties.is_empty():
 		return
 	var w = _export_widget_pck.instantiate()
@@ -129,7 +133,7 @@ func get_available_export_objs() -> Array:
 		var obj = _envs[obj_name]
 		if !obj.get_script():
 			continue
-		var export_properties = PankuUtils.get_export_properties_from_script(obj.get_script())
+		var export_properties = Utils.get_export_properties_from_script(obj.get_script())
 		if export_properties.is_empty():
 			continue
 		result.push_back(obj_name)
@@ -157,7 +161,7 @@ func _ready():
 	pause_when_active = ProjectSettings.get("panku/pause_when_active")
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
 	
-	print(PankuConfig.get_config())
+	print(Config.get_config())
 	_console_window.hide()
 	_console_window.visibility_changed.connect(
 		func():
@@ -173,11 +177,11 @@ func _ready():
 	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
 
 	#add info of base instance
-	var env_info = PankuUtils.extract_info_from_script(_base_instance.get_script())
+	var env_info = Utils.extract_info_from_script(_base_instance.get_script())
 	for k in env_info: _envs_info[k] = env_info[k]
 	
 	#load configs
-	var cfg = PankuConfig.get_config()
+	var cfg = Config.get_config()
 
 	if cfg.has("widgets_data"):
 		var w_data = cfg["widgets_data"]
@@ -200,12 +204,12 @@ func _ready():
 		_console_window.position = cfg.repl.position
 		_console_window.size = cfg.repl.size
 
-	PankuConfig.set_config(cfg)
+	Config.set_config(cfg)
 
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		var cfg = PankuConfig.get_config()
+		var cfg = Config.get_config()
 		if !cfg.has("repl"):
 			cfg["repl"] = {
 				"visible":false,
@@ -215,4 +219,4 @@ func _notification(what):
 		cfg.repl.visible = _console_window.visible
 		cfg.repl.position = _console_window.position
 		cfg.repl.size = _console_window.size
-		PankuConfig.set_config(cfg)
+		Config.set_config(cfg)

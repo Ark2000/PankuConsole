@@ -1,5 +1,4 @@
 #@tool
-class_name PankuUtils
 #extends EditorScript
 
 const icon_method = preload("res://addons/panku_console/res/pics/icons8-formula-fx-32.png")

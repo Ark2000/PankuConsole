@@ -1,4 +1,3 @@
-class_name LynxWindow
 extends ColorRect
 
 signal title_clicked_left

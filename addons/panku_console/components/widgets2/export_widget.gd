@@ -1,4 +1,4 @@
-extends LynxWindow
+extends "res://addons/panku_console/components/lynx_window2/lynx_window.gd"
 
 const row_edit_int = preload("res://addons/panku_console/components/widgets2/rows/row_edit_int.tscn")
 const row_edit_float = preload("res://addons/panku_console/components/widgets2/rows/row_edit_float.tscn")
@@ -83,11 +83,11 @@ func set_s(v:Vector2):
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		var cfg = PankuConfig.get_config()
+		var cfg = PankuConsole.Config.get_config()
 		var obj_name = get_meta("obj_name")
 		if obj_name:
 			var exp = "widgets.export_panel(%s).set_p(Vector2(%d,%d)).set_s(Vector2(%d,%d))"%[obj_name,position.x,position.y,size.x,size.y]
 			if !cfg.has("init_exp"):
 				cfg["init_exp"] = []
 			cfg["init_exp"].push_back(exp)
-		PankuConfig.set_config(cfg)
+		PankuConsole.Config.set_config(cfg)

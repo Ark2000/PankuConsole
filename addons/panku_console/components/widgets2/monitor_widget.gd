@@ -1,5 +1,4 @@
-class_name MonitorWidget
-extends LynxWindow
+extends "res://addons/panku_console/components/lynx_window2/lynx_window.gd"
 
 @onready var label:RichTextLabel = $Body/Content/RichTextLabel
 @onready var settings_btn:Button = $Body/Title/SettingsBtn
@@ -82,7 +81,7 @@ func _process(delta):
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		var cfg = PankuConfig.get_config()
+		var cfg = PankuConsole.Config.get_config()
 		cfg["widgets_data"].push_back({
 			"exp": update_exp,
 			"position": position,
@@ -90,4 +89,4 @@ func _notification(what):
 			"period": update_period,
 			"title": title_text
 		})
-		PankuConfig.set_config(cfg)
+		PankuConsole.Config.set_config(cfg)

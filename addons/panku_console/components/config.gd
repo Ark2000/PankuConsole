@@ -1,5 +1,3 @@
-class_name PankuConfig
-
 const FILE_NAME = "panku_config"
 
 static func set_config(config:Dictionary):

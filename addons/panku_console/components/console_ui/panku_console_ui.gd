@@ -49,7 +49,7 @@ func _ready():
 	_input_area.submitted.connect(execute)
 	_input_area.update_hints.connect(
 		func(exp:String):
-			_current_hints = PankuUtils.parse_exp(Console._envs_info, exp)
+			_current_hints = PankuConsole.Utils.parse_exp(Console._envs_info, exp)
 			_hints.visible = _current_hints["hints_value"].size() > 0
 			_helpbar.visible = _hints.visible
 			_input_area.input.hints = _current_hints["hints_value"]
