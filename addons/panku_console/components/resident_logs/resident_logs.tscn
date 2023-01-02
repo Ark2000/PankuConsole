@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://dwh2jx3emcfsc"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/resident_logs/resident_logs.gd" id="1_4ktw4"]
 
@@ -12,8 +12,6 @@ script = ExtResource("1_4ktw4")
 
 [node name="AreaIndicator" type="ColorRect" parent="."]
 layout_mode = 2
-offset_right = 244.0
-offset_bottom = 386.0
 size_flags_vertical = 3
 color = Color(1, 0, 0, 0.117647)
 
