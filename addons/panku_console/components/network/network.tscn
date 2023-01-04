@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://kweu8gpwvj7h"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/network/network.gd" id="1_1k3hw"]
+
+[node name="Network" type="HTTPRequest"]
+script = ExtResource("1_1k3hw")

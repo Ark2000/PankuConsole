@@ -10,6 +10,7 @@ extends Control
 @onready var _menu_options := $VBoxContainer/Menu/MenuBar/Options
 @onready var _menu_info := $VBoxContainer/Menu/MenuBar/Info
 @onready var _menu_options_transparency := $VBoxContainer/Menu/MenuBar/Options/Transparency
+@onready var _network := $Network
 
 var _current_hints := {}
 var _hint_idx := 0
@@ -94,6 +95,10 @@ func _ready():
 			#Show Intro
 			if index == 0:
 				Console.show_intro()
+			#Check Update
+			elif index == 1:
+				Console.output("[color=green][info][/color] Checking latest release...")
+				_network.check_latest_release()
 			#Report a Bug
 			elif index == 2:
 				OS.shell_open("https://github.com/Ark2000/PankuConsole/issues")
@@ -167,4 +172,11 @@ func _ready():
 		func(index:int):
 			var obj_name = _menu_tools_exporttargets.get_item_text(index)
 			execute("widgets.export_panel(%s)"%obj_name)
+	)
+	_network.response_received.connect(
+		func(msg:Dictionary):
+			if !msg["success"]:
+				Console.output("[color=red][Error][/color] Failed! " + msg["msg"])
+				return
+			Console.output("[color=green][info][/color] Latest: [%s] [url=%s]%s[/url]" % [msg["published_at"], msg["html_url"], msg["name"]])
 	)
