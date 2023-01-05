@@ -49,8 +49,6 @@ const type_names = {
 static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
 	var failed := false
 	var result = null
-	
-	#[TODO] Check assignment
 
 	var error = expression.parse(exp_str, env.keys())
 	if error != OK:

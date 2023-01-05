@@ -94,6 +94,7 @@ func _input(e):
 					f.release_focus()
 		if e is InputEventKey and e.keycode == KEY_ESCAPE and e.pressed and get_global_rect().has_point(get_global_mouse_position()):
 			hide()
+			close_window.emit()
 
 func _process(delta):
 	if !no_move and _is_dragging:

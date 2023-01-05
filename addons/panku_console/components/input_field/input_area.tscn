@@ -91,11 +91,14 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_3u7vb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_xd3mn")
 icon = ExtResource("4_av8s6")
 expand_icon = true
-item_count = 2
-popup/item_0/text = "Make Monitor"
-popup/item_0/id = 0
-popup/item_1/text = "Make Button"
-popup/item_1/id = 1
+item_count = 3
+popup/item_0/text = "Mini Mode"
+popup/item_0/checkable = 1
+popup/item_0/id = 2
+popup/item_1/text = "Make Monitor"
+popup/item_1/id = 0
+popup/item_2/text = "Make Button"
+popup/item_2/id = 1
 
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(24, 0)

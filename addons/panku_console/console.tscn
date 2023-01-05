@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c2pmik86eeu05"]
+[gd_scene load_steps=14 format=3 uid="uid://c2pmik86eeu05"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="5_daswg"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
+[ext_resource type="PackedScene" uid="uid://d1hadn1bmjmj6" path="res://addons/panku_console/components/mini_repl/minimal_repl.tscn" id="7_mv5t6"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_widgets_env.gd" id="8_odu6x"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
@@ -45,10 +46,15 @@ anchors_preset = 0
 
 [node name="LynxWindows" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("3_7pj6w")
 
-[node name="ConsoleWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
+[node name="FullREPLWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
+visible = false
 material = SubResource("ShaderMaterial_adv20")
 layout_mode = 1
 anchors_preset = 8
@@ -56,24 +62,43 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 387.5
-offset_top = 180.0
-offset_right = 808.5
-offset_bottom = 484.0
+offset_left = -210.5
+offset_top = -152.0
+offset_right = 210.5
+offset_bottom = 152.0
 color = Color(0.133333, 0.141176, 0.152941, 1)
+no_resize = false
+no_resize_x = false
+no_resize_y = false
+no_move = false
+no_shadow = false
+no_snap = false
+no_title = false
+no_border = false
 transparency = 0.75
 
-[node name="TitleButton" parent="LynxWindows/ConsoleWindow/Body/Title" index="0"]
+[node name="TitleButton" parent="LynxWindows/FullREPLWindow/Body/Title" index="0"]
 text = " "
 
-[node name="TitleLabel" parent="LynxWindows/ConsoleWindow/Body/Title/TitleButton" index="0"]
+[node name="TitleLabel" parent="LynxWindows/FullREPLWindow/Body/Title/TitleButton" index="0"]
 text = "Panku REPL"
 
-[node name="PankuConsoleUI" parent="LynxWindows/ConsoleWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
+[node name="PankuConsoleUI" parent="LynxWindows/FullREPLWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1
 
-[node name="Border" parent="LynxWindows/ConsoleWindow" index="3"]
+[node name="Border" parent="LynxWindows/FullREPLWindow" index="3"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdaw1")
+
+[node name="MiniREPLWindow" parent="LynxWindows" instance=ExtResource("7_mv5t6")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -261.0
+offset_top = 160.0
+offset_right = 261.0
+offset_bottom = 52.0
 
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("7_kolcm")
@@ -87,4 +112,4 @@ script = ExtResource("9_fav7q")
 [node name="console" type="Node" parent="."]
 script = ExtResource("10_h26u7")
 
-[editable path="LynxWindows/ConsoleWindow"]
+[editable path="LynxWindows/FullREPLWindow"]

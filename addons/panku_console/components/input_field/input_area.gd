@@ -48,4 +48,21 @@ func _ready():
 			#add button
 			elif id == 1:
 				Console.execute("widgets.button('%s', '%s')"%[exp, exp])
+			#mini mode
+			elif id == 2:
+				Console.mini_repl_mode = !Console.mini_repl_mode
+	)
+	menubtn.about_to_popup.connect(
+		func():
+			var popup = menubtn.get_popup()
+			popup.set_item_checked(popup.get_item_index(2), Console.mini_repl_mode)
+	)
+
+	Console.repl_visible_about_to_change.connect(
+		func(_is_visible:bool):
+			input.editable = false
+	)
+	Console.repl_visible_changed.connect(
+		func(_is_visible:bool):
+			input.editable = true
 	)

@@ -1,30 +1,13 @@
 extends Control
 
 @onready var _console_logs = $VBoxContainer/ConsoleLogs
-@onready var _input_area = $VBoxContainer/Bottom/InputArea
-@onready var _hints = $HintsList
-@onready var _helpbar = $HelpBar
-@onready var _helpbar_label = $HelpBar/Label
 @onready var _menu_tools := $VBoxContainer/Menu/MenuBar/Tools
 @onready var _menu_tools_exporttargets := $VBoxContainer/Menu/MenuBar/Tools/ExportTargets
 @onready var _menu_options := $VBoxContainer/Menu/MenuBar/Options
 @onready var _menu_info := $VBoxContainer/Menu/MenuBar/Info
 @onready var _menu_options_transparency := $VBoxContainer/Menu/MenuBar/Options/Transparency
 @onready var _network := $Network
-
-var _current_hints := {}
-var _hint_idx := 0
-func _set_hint_idx(v):
-		_hint_idx = v
-		if _current_hints["hints_value"].size() > 0:
-			v = wrapi(v, 0, _current_hints["hints_value"].size())
-			var k = _current_hints["hints_value"][v]
-			_hint_idx = v
-			_hints.selected = v
-			_input_area.input.text = k
-			_input_area.input.caret_column = k.length()
-			_helpbar_label.text = "[Help] %s" %  Console._envs_info[k]["help"]
-
+@onready var _repl := $REPL
 
 ## Output [code]any[/code] to the console
 func output(any):
@@ -33,68 +16,12 @@ func output(any):
 
 func clear_output():
 	_console_logs.clear()
-	
-func execute(exp:String):
-	exp = exp.lstrip(" ").rstrip(" ")
-	if exp.is_empty():
-		return
-	output(exp)
-	var result = Console.execute(exp)
-	if !result["failed"]:
-		output("> %s"%str(result["result"]))
-	else:
-		output("> [color=red]%s[/color]"%(result["result"]))
 
 func check_latest_release():
 	_network.check_latest_release()
 	return "Checking latest release..."
 
-
 func _ready():
-
-	_input_area.submitted.connect(execute)
-	_input_area.update_hints.connect(
-		func(exp:String):
-			_current_hints = PankuConsole.Utils.parse_exp(Console._envs_info, exp)
-			_hints.visible = _current_hints["hints_value"].size() > 0
-			_helpbar.visible = _hints.visible
-			_input_area.input.hints = _current_hints["hints_value"]
-			_hints.disable_buttons = false
-			_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
-			_hint_idx = -1
-			_helpbar_label.text = "[Hint] Use TAB or up/down to autocomplete!"
-	)
-	_input_area.next_hint.connect(
-		func():
-			_set_hint_idx(_hint_idx + 1)
-	)
-	_input_area.prev_hint.connect(
-		func():
-			if _hint_idx == -1:
-				_hint_idx = 0
-			_set_hint_idx(_hint_idx - 1)
-	)
-	_input_area.navigate_histories.connect(
-		func(histories, id):
-			if histories.size() > 0:
-				_hints.disable_buttons = true
-				_hints.set_hints(histories, [])
-				_hints.selected = id
-				_hints.visible = true
-			else:
-				_hints.visible = false
-			_helpbar.visible = _hints.visible
-			_helpbar_label.text = "[Hint] Use up/down to navigate through submit histories!"
-
-	)
-	_hints.hint_button_clicked.connect(
-		func(i:int):
-			_set_hint_idx(i)
-	)
-	
-	_helpbar.hide()
-	_hints.hide()
-	
 	_menu_info.index_pressed.connect(
 		func(index:int):
 			#Show Intro
@@ -113,10 +40,11 @@ func _ready():
 			elif index == 4:
 				OS.shell_open("https://github.com/Ark2000/PankuConsole/discussions")
 	)
-	_menu_options.index_pressed.connect(
-		func(index:int):
+	_menu_options.id_pressed.connect(
+		func(id:int):
+			var index = _menu_options.get_item_index(id)
 			#Pause when Active
-			if index == 0:
+			if id == 0:
 				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
 				Console.pause_when_active = _menu_options.is_item_checked(index)
 				get_tree().paused = Console.pause_when_active
@@ -124,15 +52,15 @@ func _ready():
 				if Console.pause_when_active:
 					Console._console_window.title_label.text += " (Paused)"
 			#No Resize
-			elif index == 1:
+			elif id == 2:
 				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
 				Console._console_window.no_resize = _menu_options.is_item_checked(index)
 			#No Move
-			elif index == 2:
+			elif id == 3:
 				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
 				Console._console_window.no_move = _menu_options.is_item_checked(index)
 	)
-	_menu_options.set_item_submenu(3, "Transparency")
+	_menu_options.set_item_submenu(_menu_options.get_item_index(1), "Transparency")
 	#Not sure what is the cause of the error.
 	#window_get_popup_safe_rect: Condition "!windows.has(p_window)" is true. Returning: Rect2i()
 	_menu_options_transparency.index_pressed.connect(
@@ -152,10 +80,10 @@ func _ready():
 		func(index:int):
 			#Clear REPL Output
 			if index == 0:
-				execute("console.cls")
+				_repl.execute("console.cls")
 			#Add Profiler Widget
 			elif index == 1:
-				execute("widgets.profiler")
+				_repl.execute("widgets.profiler")
 			#Add Export Properties Widget
 			elif index == 2:
 				pass
@@ -175,12 +103,12 @@ func _ready():
 	_menu_tools_exporttargets.index_pressed.connect(
 		func(index:int):
 			var obj_name = _menu_tools_exporttargets.get_item_text(index)
-			execute("widgets.export_panel(%s)"%obj_name)
+			_repl.execute("widgets.export_panel(%s)"%obj_name)
 	)
 	_network.response_received.connect(
 		func(msg:Dictionary):
 			if !msg["success"]:
-				Console.output("[color=red][Error][/color] Failed! " + msg["msg"])
+				Console.notify("[color=red][Error][/color] Failed! " + msg["msg"])
 				return
-			Console.output("[color=green][info][/color] Latest: [%s] [url=%s]%s[/url]" % [msg["published_at"], msg["html_url"], msg["name"]])
+			Console.notify("[color=green][info][/color] Latest: [%s] [url=%s]%s[/url]" % [msg["published_at"], msg["html_url"], msg["name"]])
 	)

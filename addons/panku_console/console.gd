@@ -13,7 +13,8 @@
 class_name PankuConsole extends CanvasLayer
 
 ## Emitted when the visibility (hidden/visible) of console window changes.
-signal console_window_visibility_changed(is_visible:bool)
+signal repl_visible_about_to_change(is_visible:bool)
+signal repl_visible_changed(is_visible:bool)
 
 #Helper class
 const Config = preload("res://addons/panku_console/components/config.gd")
@@ -25,11 +26,35 @@ var toggle_console_action:String
 ## If [code]true[/code], pause the game when the console window is active.
 var pause_when_active:bool
 
+var mini_repl_mode = false:
+	set(v):
+		mini_repl_mode = v
+		if is_repl_window_opened:
+			_mini_repl_window.visible = v
+			_full_repl_window.visible = !v
+
+var is_repl_window_opened := false:
+	set(v):
+		repl_visible_about_to_change.emit(v)
+		await get_tree().process_frame
+		is_repl_window_opened = v
+		if mini_repl_mode:
+			_mini_repl_window.visible = v
+		else:
+			_full_repl_window.visible = v
+		if pause_when_active:
+			get_tree().paused = v
+			_full_repl_window.title_label.text = "> Panku REPL (Paused)"
+		else:
+			_full_repl_window.title_label.text = "> Panku REPL"
+		repl_visible_changed.emit(v)
+
 @onready var _resident_logs = $ResidentLogs
-@onready var _console_window = $LynxWindows/ConsoleWindow
-@onready var _console_ui = $LynxWindows/ConsoleWindow/Body/Content/PankuConsoleUI
 @onready var _base_instance = $BaseInstance
 @onready var _windows = $LynxWindows
+@onready var _mini_repl_window = $LynxWindows/MiniREPLWindow
+@onready var _full_repl_window = $LynxWindows/FullREPLWindow
+@onready var _full_repl = $LynxWindows/FullREPLWindow/Body/Content/PankuConsoleUI
 
 const _monitor_widget_pck = preload("res://addons/panku_console/components/widgets2/monitor_widget.tscn")
 const _export_widget_pck = preload("res://addons/panku_console/components/widgets2/export_widget.tscn")
@@ -37,10 +62,6 @@ const _export_widget_pck = preload("res://addons/panku_console/components/widget
 var _envs = {}
 var _envs_info = {}
 var _expression = Expression.new()
-
-## Returns whether the console window is opened.
-func is_console_window_opened():
-	return _console_window.visible
 
 ## Register an environment that run expressions.
 ## [br][code]env_name[/code]: the name of the environment
@@ -78,9 +99,9 @@ func notify(any) -> void:
 	output(text)
 
 func output(any) -> void:
-	_console_ui.output(any)
+	_full_repl.output(any)
 
-#This only return the expression result
+#Execute an expression in a preset environment.
 func execute(exp:String) -> Dictionary:
 	return Utils.execute_exp(exp, _expression, _base_instance, _envs)
 
@@ -132,9 +153,7 @@ func show_intro():
 
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
-		_console_ui._input_area.input.editable = !_console_window.visible
-		await get_tree().process_frame
-		_console_window.visible = !_console_window.visible
+		is_repl_window_opened = !is_repl_window_opened
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
@@ -144,17 +163,15 @@ func _ready():
 	pause_when_active = ProjectSettings.get("panku/pause_when_active")
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
 	
-	print(Config.get_config())
-	_console_window.hide()
-	_console_window.visibility_changed.connect(
+#	print(Config.get_config())
+	_full_repl_window.hide()
+	_mini_repl_window.hide()
+	
+	_full_repl_window.close_window.connect(
 		func():
-			console_window_visibility_changed.emit(_console_window.visible)
-			if pause_when_active:
-				get_tree().paused = _console_window.visible
-				_console_window.title_label.text = "> Panku REPL (Paused)"
-			else:
-				_console_window.title_label.text = "> Panku REPL"
+			is_repl_window_opened = false
 	)
+
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
 	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
@@ -177,17 +194,19 @@ func _ready():
 	if cfg.has("init_exp"):
 		var init_exp = cfg["init_exp"]
 		for e in init_exp:
-			_console_ui.execute(e)
+			execute(e)
 		cfg["init_exp"] = []
-		
+
 	await get_tree().process_frame
-	
+
 	if cfg.has("repl"):
-		_console_window.visible = cfg.repl.visible
-		_console_window.position = cfg.repl.position
-		_console_window.size = cfg.repl.size
+		is_repl_window_opened = cfg.repl.visible
+		_full_repl_window.position = cfg.repl.position
+		_full_repl_window.size = cfg.repl.size
 
 	Config.set_config(cfg)
+
+#	register_env("panku", self)
 
 func _notification(what):
 	#quit event
@@ -199,7 +218,7 @@ func _notification(what):
 				"position":Vector2(0, 0),
 				"size":Vector2(200, 200)
 			}
-		cfg.repl.visible = _console_window.visible
-		cfg.repl.position = _console_window.position
-		cfg.repl.size = _console_window.size
+		cfg.repl.visible = is_repl_window_opened
+		cfg.repl.position = _full_repl_window.position
+		cfg.repl.size = _full_repl_window.size
 		Config.set_config(cfg)

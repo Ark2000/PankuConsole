@@ -21,7 +21,7 @@ const REQUEST_RESULT = {
 	RESULT_TIMEOUT: "TIMEOUT"
 }
 
-func dget(dict:Dictionary, key, default_value=""):
+static func dget(dict:Dictionary, key, default_value=""):
 	return default_value if !dict.has(key) else dict[key]
 
 var is_busy := false

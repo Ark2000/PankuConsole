@@ -111,6 +111,8 @@ func hello(name):
 
 And now you can type `player.hello("Jason")` in the REPL to call the function you have just defined.
 
+By default, all properties that start with `_` will be ignored by hinting system but you can still access them anyway.
+
 
 ## How to monitor an expression or add an expression button?
 
