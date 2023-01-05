@@ -38,12 +38,17 @@ func execute(exp:String):
 	exp = exp.lstrip(" ").rstrip(" ")
 	if exp.is_empty():
 		return
-	var result = Console.execute(exp)
 	output(exp)
+	var result = Console.execute(exp)
 	if !result["failed"]:
 		output("> %s"%str(result["result"]))
 	else:
 		output("> [color=red]%s[/color]"%(result["result"]))
+
+func check_latest_release():
+	_network.check_latest_release()
+	return "Checking latest release..."
+
 
 func _ready():
 
@@ -97,8 +102,7 @@ func _ready():
 				Console.show_intro()
 			#Check Update
 			elif index == 1:
-				Console.output("[color=green][info][/color] Checking latest release...")
-				_network.check_latest_release()
+				Console.output(check_latest_release())
 			#Report a Bug
 			elif index == 2:
 				OS.shell_open("https://github.com/Ark2000/PankuConsole/issues")

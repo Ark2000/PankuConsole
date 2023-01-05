@@ -46,6 +46,27 @@ const type_names = {
 	TYPE_PACKED_COLOR_ARRAY: "PackedColorArray",
 }
 
+static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
+	var failed := false
+	var result = null
+	
+	#[TODO] Check assignment
+
+	var error = expression.parse(exp_str, env.keys())
+	if error != OK:
+		failed = true
+		result = expression.get_error_text()
+	else:
+		result = expression.execute(env.values(), base_instance, true)
+		if expression.has_execute_failed():
+			failed = true
+			result = expression.get_error_text()
+
+	return {
+		"failed": failed,
+		"result": result
+	}
+
 static func generate_help_text_from_script(script:Script):
 	var result = ["[color=cyan][b]User script defined identifiers[/b][/color]: "]
 	var env_info = extract_info_from_script(script)

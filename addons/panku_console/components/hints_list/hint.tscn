@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbtn0x604fx5o"]
+[gd_scene load_steps=8 format=3 uid="uid://dbtn0x604fx5o"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/hints_list/hint.gd" id="1_sa53g"]
 [ext_resource type="Texture2D" uid="uid://rw3f3qftj2ql" path="res://addons/panku_console/res/pics/icons8-formula-fx-32.png" id="2_jtb1m"]
+
+[sub_resource type="SystemFont" id="SystemFont_odf8u"]
+font_names = PackedStringArray("Consolas")
+
+[sub_resource type="SystemFont" id="SystemFont_my2jf"]
+font_names = PackedStringArray("", "Consolas")
+font_weight = 900
+
+[sub_resource type="SystemFont" id="SystemFont_16w7e"]
+font_italic = true
+
+[sub_resource type="SystemFont" id="SystemFont_gfdnq"]
+font_italic = true
+font_weight = 900
+
+[sub_resource type="SystemFont" id="SystemFont_wfl17"]
 
 [node name="Hints" type="Button"]
 custom_minimum_size = Vector2(0, 24)
@@ -58,7 +74,18 @@ ignore_texture_size = true
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 mouse_filter = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_odf8u")
+theme_override_fonts/bold_font = SubResource("SystemFont_my2jf")
+theme_override_fonts/italics_font = SubResource("SystemFont_16w7e")
+theme_override_fonts/bold_italics_font = SubResource("SystemFont_gfdnq")
+theme_override_fonts/mono_font = SubResource("SystemFont_wfl17")
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
 text = "[color=cyan]w_button[/color][color=gray]([/color]display_name:[color=green]String[/color], env:[color=green]String[/color], exp:[color=green]String[/color][color=gray])[/color]"
 fit_content_height = true

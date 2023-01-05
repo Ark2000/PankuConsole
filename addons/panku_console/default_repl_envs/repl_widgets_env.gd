@@ -1,8 +1,4 @@
-extends Node
-
-func _ready():
-	await get_parent().ready
-	get_parent().register_env(name, self)
+extends "res://addons/panku_console/default_repl_envs/repl_env.gd"
 
 const _HELP_watch = "Add a widget to watch an expression"
 func watch(exp:String):

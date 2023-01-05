@@ -1,10 +1,63 @@
-[gd_scene load_steps=6 format=3 uid="uid://bme8twac4ick5"]
+[gd_scene load_steps=13 format=3 uid="uid://bme8twac4ick5"]
 
 [ext_resource type="Theme" uid="uid://dbu7c46eki45f" path="res://addons/panku_console/res/breeze_dark_theme.tres" id="1_qmgje"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_area.gd" id="2_6g40s"]
 [ext_resource type="Texture2D" uid="uid://btbhef35lls2t" path="res://addons/panku_console/res/pics/icons8-hammer-32.png" id="4_av8s6"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_field.gd" id="4_xjt2l"]
 [ext_resource type="Texture2D" uid="uid://b3sjdxexisig6" path="res://addons/panku_console/res/pics/icons8-enter-key-32.png" id="5_0m8mk"]
+
+[sub_resource type="SystemFont" id="SystemFont_104sb"]
+font_names = PackedStringArray("Consolas")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2ij0"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.168, 0.182, 0.196, 1)
+border_color = Color(0.132, 0.143, 0.154, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3u7vb"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.168, 0.182, 0.196, 1)
+border_color = Color(0.132, 0.143, 0.154, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xd3mn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.168, 0.182, 0.196, 1)
+border_color = Color(0.132, 0.143, 0.154, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jghb2"]
+bg_color = Color(0.168, 0.182, 0.196, 1)
+border_color = Color(0.132, 0.143, 0.154, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_74jv1"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.168, 0.182, 0.196, 1)
+border_color = Color(0.132, 0.143, 0.154, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgmsd"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.168, 0.182, 0.196, 1)
+border_color = Color(0.132, 0.143, 0.154, 1)
+anti_aliasing = false
 
 [node name="InputArea" type="HBoxContainer"]
 offset_right = 277.0
@@ -22,7 +75,8 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = SubResource("SystemFont_104sb")
+theme_override_font_sizes/font_size = 14
 placeholder_text = "Input expression here..."
 clear_button_enabled = true
 caret_blink = true
@@ -31,6 +85,10 @@ script = ExtResource("4_xjt2l")
 [node name="MenuButton" type="MenuButton" parent="."]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
+tooltip_text = "Tools"
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2ij0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3u7vb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xd3mn")
 icon = ExtResource("4_av8s6")
 expand_icon = true
 item_count = 2
@@ -43,6 +101,9 @@ popup/item_1/id = 1
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Confirm"
+theme_override_styles/normal = SubResource("StyleBoxFlat_jghb2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_74jv1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bgmsd")
 icon = ExtResource("5_0m8mk")
 flat = true
 icon_alignment = 1

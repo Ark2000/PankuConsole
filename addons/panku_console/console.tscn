@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://8bhilcmjci5i"]
+[gd_scene load_steps=13 format=3 uid="uid://c2pmik86eeu05"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="4_x6krx"]
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="5_daswg"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
-[ext_resource type="Script" path="res://addons/panku_console/repl_base_instance.gd" id="6_lo6t5"]
-[ext_resource type="Script" path="res://addons/panku_console/repl_widgets_env.gd" id="7_knpss"]
-[ext_resource type="Script" path="res://addons/panku_console/repl_engine_env.gd" id="8_p840s"]
-[ext_resource type="Script" path="res://addons/panku_console/repl_console_env.gd" id="9_2li8n"]
+[ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
+[ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_widgets_env.gd" id="8_odu6x"]
+[ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
+[ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_adv20"]
 shader = ExtResource("5_daswg")
@@ -17,6 +17,14 @@ shader_parameter/amount = 2.0
 shader_parameter/noise = 0.1
 shader_parameter/sz = 0.25
 shader_parameter/fancy = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdaw1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
 
 [node name="Console" type="CanvasLayer"]
 process_mode = 3
@@ -64,16 +72,19 @@ text = "Panku REPL"
 [node name="PankuConsoleUI" parent="LynxWindows/ConsoleWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1
 
+[node name="Border" parent="LynxWindows/ConsoleWindow" index="3"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdaw1")
+
 [node name="BaseInstance" type="Node" parent="."]
-script = ExtResource("6_lo6t5")
+script = ExtResource("7_kolcm")
 
 [node name="widgets" type="Node" parent="."]
-script = ExtResource("7_knpss")
+script = ExtResource("8_odu6x")
 
 [node name="engine" type="Node" parent="."]
-script = ExtResource("8_p840s")
+script = ExtResource("9_fav7q")
 
 [node name="console" type="Node" parent="."]
-script = ExtResource("9_2li8n")
+script = ExtResource("10_h26u7")
 
 [editable path="LynxWindows/ConsoleWindow"]

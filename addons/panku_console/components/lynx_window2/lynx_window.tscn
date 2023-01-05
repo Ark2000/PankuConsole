@@ -16,8 +16,8 @@ border_color = Color(1, 1, 1, 1)
 
 [node name="LynxWindow" type="ColorRect"]
 custom_minimum_size = Vector2(100, 27)
-offset_right = 263.0
-offset_bottom = 158.0
+offset_right = 323.0
+offset_bottom = 230.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_6hjho")
@@ -40,7 +40,7 @@ size_flags_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="TitleButton" type="Button" parent="Body/Title"]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 size_flags_horizontal = 3
 button_mask = 3
@@ -52,7 +52,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
+offset_left = 9.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Window Title"
@@ -60,7 +60,7 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="ExitButton" type="Button" parent="Body/Title"]
-custom_minimum_size = Vector2(24, 0)
+custom_minimum_size = Vector2(26, 0)
 layout_mode = 2
 icon = ExtResource("3_feqgg")
 icon_alignment = 1

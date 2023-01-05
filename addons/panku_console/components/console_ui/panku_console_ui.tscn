@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqfm16y5vcgl3"]
+[gd_scene load_steps=12 format=3 uid="uid://bqfm16y5vcgl3"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/console_ui/panku_console_ui.gd" id="1_aab8v"]
 [ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="1_jb1ae"]
@@ -12,11 +12,16 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn58i"]
 bg_color = Color(0.239216, 0.258824, 0.278431, 0.25098)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.25098)
+
+[sub_resource type="SystemFont" id="SystemFont_88y8w"]
+font_names = PackedStringArray("Sans-Serif")
+font_italic = true
+font_weight = 600
 
 [node name="PankuConsoleUI" type="Control"]
 clip_contents = true
@@ -144,7 +149,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xn58i")
 [node name="HintsList" parent="." instance=ExtResource("3_qw8p4")]
 layout_mode = 1
 offset_top = 25.0
-offset_bottom = -47.0
+offset_bottom = -50.0
 
 [node name="HelpBar" type="ColorRect" parent="."]
 layout_mode = 1
@@ -152,8 +157,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -47.0
-offset_bottom = -27.0
+offset_top = -50.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.180392, 0.32549, 0.403922, 1)
@@ -166,5 +171,7 @@ anchor_bottom = 1.0
 offset_left = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_88y8w")
+theme_override_font_sizes/font_size = 14
 text = "[Help] This is hint!"
 vertical_alignment = 1

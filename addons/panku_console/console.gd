@@ -15,7 +15,7 @@ class_name PankuConsole extends CanvasLayer
 ## Emitted when the visibility (hidden/visible) of console window changes.
 signal console_window_visibility_changed(is_visible:bool)
 
-#Help class
+#Helper class
 const Config = preload("res://addons/panku_console/components/config.gd")
 const Utils = preload("res://addons/panku_console/components/utils.gd")
 
@@ -82,22 +82,7 @@ func output(any) -> void:
 
 #This only return the expression result
 func execute(exp:String) -> Dictionary:
-#	print(exp)
-	var failed := false
-	var result
-	var error = _expression.parse(exp, _envs.keys())
-	if error != OK:
-		failed = true
-		result = _expression.get_error_text()
-	else:
-		result = _expression.execute(_envs.values(), _base_instance, true)
-		if _expression.has_execute_failed():
-			failed = true
-			result = _expression.get_error_text()
-	return {
-		"failed": failed,
-		"result": result
-	}
+	return Utils.execute_exp(exp, _expression, _base_instance, _envs)
 
 func add_widget2(exp:String, update_period:= 999999.0, position:Vector2 = Vector2(0, 0), size:Vector2 = Vector2(160, 60), title_text := ""):
 	if title_text == "": title_text = exp
@@ -140,11 +125,9 @@ func get_available_export_objs() -> Array:
 	return result
 
 func show_intro():
+	output("[center][b][color=#f5891d][ Panku Console ][/color][/b] [color=#f5f5f5][b]Version 1.2.32[/b][/color][/center]")
 	output("[center][img=96]res://addons/panku_console/logo.svg[/img][/center]")
-	output("[b][color=burlywood][ Panku Console ][/color][/b]")
-	output("[color=burlywood][b][color=burlywood]Version 1.2.32[/color][/b][/color]")
-	output("[color=burlywood][b]Check [color=green]repl_console_env.gd[/color] or simply type [color=green]help[/color] to see what you can do now![/b][/color]")
-	output("[color=burlywood][b]For more info, please visit: [color=green][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color]")
+	output("[color=#f5f5f5][b]Check [color=#f5891d]repl_console_env.gd[/color] or simply type [color=#f5891d]help[/color] to see what you can do now![/b][/color] [color=#f5f5f5][b]For more information, please visit: [color=#f5891d][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color].")
 	output("")
 
 func _input(_e):
