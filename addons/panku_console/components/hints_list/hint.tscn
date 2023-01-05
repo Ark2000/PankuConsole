@@ -1,23 +1,33 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbtn0x604fx5o"]
+[gd_scene load_steps=11 format=3 uid="uid://dbtn0x604fx5o"]
 
+[ext_resource type="Shader" path="res://addons/panku_console/res/shader/distort.gdshader" id="1_6j5dh"]
 [ext_resource type="Script" path="res://addons/panku_console/components/hints_list/hint.gd" id="1_sa53g"]
 [ext_resource type="Texture2D" uid="uid://rw3f3qftj2ql" path="res://addons/panku_console/res/pics/icons8-formula-fx-32.png" id="2_jtb1m"]
+[ext_resource type="Texture2D" uid="uid://bnj0oqfwfuluq" path="res://addons/panku_console/res/shader/noise_small.png" id="2_ubb65"]
 
-[sub_resource type="SystemFont" id="SystemFont_odf8u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3bxr6"]
+shader = ExtResource("1_6j5dh")
+shader_parameter/distort = 0.01
+shader_parameter/scale = 20.0
+shader_parameter/blur = 1.9
+shader_parameter/darken = 0.2
+shader_parameter/tex1 = ExtResource("2_ubb65")
+
+[sub_resource type="SystemFont" id="SystemFont_jqkn4"]
 font_names = PackedStringArray("Consolas")
 
-[sub_resource type="SystemFont" id="SystemFont_my2jf"]
+[sub_resource type="SystemFont" id="SystemFont_xbskk"]
 font_names = PackedStringArray("", "Consolas")
 font_weight = 900
 
-[sub_resource type="SystemFont" id="SystemFont_16w7e"]
+[sub_resource type="SystemFont" id="SystemFont_gfdpu"]
 font_italic = true
 
-[sub_resource type="SystemFont" id="SystemFont_gfdnq"]
+[sub_resource type="SystemFont" id="SystemFont_gdtm4"]
 font_italic = true
 font_weight = 900
 
-[sub_resource type="SystemFont" id="SystemFont_wfl17"]
+[sub_resource type="SystemFont" id="SystemFont_st8nn"]
 
 [node name="Hints" type="Button"]
 custom_minimum_size = Vector2(0, 24)
@@ -35,6 +45,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.239216, 0.258824, 0.278431, 0.882353)
+
+[node name="Blur" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_3bxr6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Bg2" type="ColorRect" parent="."]
 layout_mode = 1
@@ -76,11 +96,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 2
-theme_override_fonts/normal_font = SubResource("SystemFont_odf8u")
-theme_override_fonts/bold_font = SubResource("SystemFont_my2jf")
-theme_override_fonts/italics_font = SubResource("SystemFont_16w7e")
-theme_override_fonts/bold_italics_font = SubResource("SystemFont_gfdnq")
-theme_override_fonts/mono_font = SubResource("SystemFont_wfl17")
+theme_override_fonts/normal_font = SubResource("SystemFont_jqkn4")
+theme_override_fonts/bold_font = SubResource("SystemFont_xbskk")
+theme_override_fonts/italics_font = SubResource("SystemFont_gfdpu")
+theme_override_fonts/bold_italics_font = SubResource("SystemFont_gdtm4")
+theme_override_fonts/mono_font = SubResource("SystemFont_st8nn")
 theme_override_font_sizes/normal_font_size = 14
 theme_override_font_sizes/bold_font_size = 14
 theme_override_font_sizes/italics_font_size = 14

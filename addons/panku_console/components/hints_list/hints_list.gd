@@ -6,6 +6,8 @@ const hint_pck = preload("res://addons/panku_console/components/hints_list/hint.
 
 @onready var container = $VBoxContainer
 
+@export var blur_hint := false
+
 var hints_count = 0
 
 var disable_buttons := false
@@ -42,6 +44,7 @@ func set_hints(texts:Array, icons:Array):
 		else:
 			h = hint_pck.instantiate()
 			container.add_child(h)
+			h.blur.visible = blur_hint;
 			h.set_meta("idx", i)
 			h.button_down.connect(func(): _on_btn_clicked(i))
 		h.label.text = texts[i]

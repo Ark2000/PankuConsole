@@ -48,17 +48,17 @@ func _ready():
 				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
 				Console.pause_when_active = _menu_options.is_item_checked(index)
 				get_tree().paused = Console.pause_when_active
-				Console._console_window.title_label.text = "> Panku REPL"
+				Console._full_repl_window.title_label.text = "> Panku REPL"
 				if Console.pause_when_active:
-					Console._console_window.title_label.text += " (Paused)"
+					Console._full_repl_window.title_label.text += " (Paused)"
 			#No Resize
 			elif id == 2:
 				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
-				Console._console_window.no_resize = _menu_options.is_item_checked(index)
+				Console._full_repl_window.no_resize = _menu_options.is_item_checked(index)
 			#No Move
 			elif id == 3:
 				_menu_options.set_item_checked(index, !_menu_options.is_item_checked(index))
-				Console._console_window.no_move = _menu_options.is_item_checked(index)
+				Console._full_repl_window.no_move = _menu_options.is_item_checked(index)
 	)
 	_menu_options.set_item_submenu(_menu_options.get_item_index(1), "Transparency")
 	#Not sure what is the cause of the error.
@@ -66,15 +66,15 @@ func _ready():
 	_menu_options_transparency.index_pressed.connect(
 		func(index:int):
 			if index == 0:
-				Console._console_window.transparency = 1.0
+				Console._full_repl_window.transparency = 1.0
 			elif index == 1:
-				Console._console_window.transparency = 0.75
+				Console._full_repl_window.transparency = 0.75
 			elif index == 2:
-				Console._console_window.transparency = 0.5
+				Console._full_repl_window.transparency = 0.5
 			elif index == 3:
-				Console._console_window.transparency = 0.25
+				Console._full_repl_window.transparency = 0.25
 			elif index == 4:
-				Console._console_window.transparency = 0.0
+				Console._full_repl_window.transparency = 0.0
 	)
 	_menu_tools.index_pressed.connect(
 		func(index:int):

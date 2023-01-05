@@ -20,5 +20,6 @@ static func get_config() -> Dictionary:
 			"visible":false,
 			"position":Vector2(0, 0),
 			"size":Vector2(400, 400),
-		}
+		},
+		"mini_repl": false
 	}

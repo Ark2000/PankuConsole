@@ -203,6 +203,9 @@ func _ready():
 		is_repl_window_opened = cfg.repl.visible
 		_full_repl_window.position = cfg.repl.position
 		_full_repl_window.size = cfg.repl.size
+		
+	if cfg.has("mini_repl"):
+		mini_repl_mode = cfg.mini_repl
 
 	Config.set_config(cfg)
 
@@ -221,4 +224,7 @@ func _notification(what):
 		cfg.repl.visible = is_repl_window_opened
 		cfg.repl.position = _full_repl_window.position
 		cfg.repl.size = _full_repl_window.size
+		if !cfg.has("mini_repl"):
+			cfg["mini_repl"] = false
+		cfg.mini_repl = mini_repl_mode
 		Config.set_config(cfg)

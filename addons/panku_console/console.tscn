@@ -54,7 +54,6 @@ grow_vertical = 2
 script = ExtResource("3_7pj6w")
 
 [node name="FullREPLWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
-visible = false
 material = SubResource("ShaderMaterial_adv20")
 layout_mode = 1
 anchors_preset = 8
@@ -67,14 +66,6 @@ offset_top = -152.0
 offset_right = 210.5
 offset_bottom = 152.0
 color = Color(0.133333, 0.141176, 0.152941, 1)
-no_resize = false
-no_resize_x = false
-no_resize_y = false
-no_move = false
-no_shadow = false
-no_snap = false
-no_title = false
-no_border = false
 transparency = 0.75
 
 [node name="TitleButton" parent="LynxWindows/FullREPLWindow/Body/Title" index="0"]

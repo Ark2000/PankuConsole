@@ -3,6 +3,7 @@ extends Button
 @onready var icon2:TextureRect = $HBoxContainer/MarginContainer/Icon
 @onready var label:RichTextLabel = $HBoxContainer/RichTextLabel
 @onready var bg2:ColorRect = $Bg2
+@onready var blur:ColorRect = $Blur
 
 func set_highlight(b:bool):
 	if b:
