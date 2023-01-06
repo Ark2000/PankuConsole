@@ -1,11 +1,19 @@
 extends "res://addons/panku_console/default_repl_envs/repl_env.gd"
 
-const _HELP_fullscreen = "Toggle [fullscreen / window] mode"
-func fullscreen(b:bool):
+const _HELP_set_fullscreen = "Set [fullscreen / windowed] mode"
+func set_fullscreen(b:bool):
 	if b:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+const _HELP_toggle_fullscreen = "Toggle [fullscreen / windowed] mode"
+var toggle_fullscreen:
+	get:
+		if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_WINDOWED:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 const _HELP_time_scale = "Equals to [color=green]Engine.time_scale[/color]"
 func time_scale(val:float):

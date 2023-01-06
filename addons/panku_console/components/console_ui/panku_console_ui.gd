@@ -1,5 +1,7 @@
 extends Control
 
+signal open_exp_key_mapper
+
 @onready var _console_logs = $VBoxContainer/ConsoleLogs
 @onready var _menu_tools := $VBoxContainer/Menu/MenuBar/Tools
 @onready var _menu_tools_exporttargets := $VBoxContainer/Menu/MenuBar/Tools/ExportTargets
@@ -78,17 +80,21 @@ func _ready():
 	)
 	_menu_tools.index_pressed.connect(
 		func(index:int):
+			var id = _menu_tools.get_item_id(index)
 			#Clear REPL Output
-			if index == 0:
+			if id == 0:
 				_repl.execute("console.cls")
 			#Add Profiler Widget
-			elif index == 1:
+			elif id == 1:
 				_repl.execute("widgets.profiler")
 			#Add Export Properties Widget
-			elif index == 2:
+			elif id == 2:
 				pass
+			#Exp Key Mapping
+			elif id == 3:
+				open_exp_key_mapper.emit()
 	)
-	_menu_tools.set_item_submenu(2, "ExportTargets")
+	_menu_tools.set_item_submenu(_menu_tools.get_item_index(2), "ExportTargets")
 	_menu_tools.about_to_popup.connect(
 		func():
 			_menu_tools_exporttargets.clear()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2pmik86eeu05"]
+[gd_scene load_steps=15 format=3 uid="uid://c2pmik86eeu05"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
 [ext_resource type="PackedScene" uid="uid://d1hadn1bmjmj6" path="res://addons/panku_console/components/mini_repl/minimal_repl.tscn" id="7_mv5t6"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_widgets_env.gd" id="8_odu6x"]
+[ext_resource type="PackedScene" uid="uid://c1lajwpobevwj" path="res://addons/panku_console/components/input_mapping/exp_key_mapper.tscn" id="8_wa7hu"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 
@@ -90,6 +91,12 @@ offset_left = -261.0
 offset_top = 160.0
 offset_right = 261.0
 offset_bottom = 52.0
+
+[node name="ExpKeyMapper" parent="LynxWindows" instance=ExtResource("8_wa7hu")]
+visible = false
+layout_mode = 0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("7_kolcm")

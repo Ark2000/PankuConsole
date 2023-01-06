@@ -70,7 +70,6 @@ material = SubResource("ShaderMaterial_ccnx5")
 layout_mode = 1
 offset_top = 0.49247
 offset_bottom = 24.4925
-color = Color(0.180392, 0.32549, 0.403922, 1)
 
 [node name="ColorRect" type="ColorRect" parent="HelpBar" index="0"]
 layout_mode = 1

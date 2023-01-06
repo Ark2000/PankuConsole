@@ -55,6 +55,7 @@ var is_repl_window_opened := false:
 @onready var _mini_repl_window = $LynxWindows/MiniREPLWindow
 @onready var _full_repl_window = $LynxWindows/FullREPLWindow
 @onready var _full_repl = $LynxWindows/FullREPLWindow/Body/Content/PankuConsoleUI
+@onready var _exp_key_mapper = $LynxWindows/ExpKeyMapper
 
 const _monitor_widget_pck = preload("res://addons/panku_console/components/widgets2/monitor_widget.tscn")
 const _export_widget_pck = preload("res://addons/panku_console/components/widgets2/export_widget.tscn")
@@ -170,6 +171,11 @@ func _ready():
 	_full_repl_window.close_window.connect(
 		func():
 			is_repl_window_opened = false
+	)
+	
+	_full_repl.open_exp_key_mapper.connect(
+		func():
+			_exp_key_mapper.show()
 	)
 
 	#check the action key
