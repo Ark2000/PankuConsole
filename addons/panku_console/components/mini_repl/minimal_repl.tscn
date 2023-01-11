@@ -34,6 +34,7 @@ _input_area = NodePath("../Body/Content/InputArea")
 _hints = NodePath("../HintsList")
 _helpbar = NodePath("../HelpBar")
 _helpbar_label = NodePath("../HelpBar/Label")
+show_all_hints_if_input_is_empty = true
 _output_method = 1
 
 [node name="Title" parent="Body" index="0"]

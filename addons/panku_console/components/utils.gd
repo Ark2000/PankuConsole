@@ -119,14 +119,31 @@ static func extract_info_from_script(script:Script):
 	#keyword -> {type, bbcode_postfix, help}
 	return result
 
-static func parse_exp(env_info:Dictionary, exp:String):
-	var result = search_and_sort_and_highlight(exp, env_info.keys())
+#TODO: refactor all those mess
+static func parse_exp(env_info:Dictionary, exp:String, allow_empty:=false):
+	var result:Array
+	var empty_flag = allow_empty and exp.is_empty()
+	
+	if empty_flag:
+		result = env_info.keys()
+	else:
+		result = search_and_sort_and_highlight(exp, env_info.keys())
+
 	var hints_bbcode = []
 	var hints_icon = []
 	var hints_value = []
+	
 	for r in result:
-		var keyword = r["keyword"]
-		var bbcode_main = r["bbcode"]
+		var keyword:String
+		var bbcode_main:String
+		
+		if empty_flag:
+			keyword = r
+			bbcode_main = r
+		else:
+			keyword = r["keyword"]
+			bbcode_main = r["bbcode"]
+
 		var bbcode_postfix = env_info[keyword]["bbcode_postfix"]
 		var keyword_type = env_info[keyword]["type"]
 		hints_value.push_back(keyword)
@@ -149,21 +166,14 @@ static func search_and_sort_and_highlight(s:String, li:Array):
 	var matched = []
 	if s == "": return matched
 	for k in li:
-		if s.is_empty():
-			matched.append({ 
-				"keyword": k,
-				"similarity": 0,
-				"start": -1
-			})
-			continue
-
 		var start = k.find(s)
 		if start >= 0:
 			var similarity = 1.0 * s.length() / k.length()
 			matched.append({
 				"keyword": k,
 				"similarity": similarity,
-				"start": start
+				"start": start,
+				"bbcode": ""
 			})
 
 	matched.sort_custom(

@@ -1,9 +1,13 @@
 extends Node
 
+@export_subgroup("Dependency")
 @export var _input_area:Control
 @export var _hints:Control
 @export var _helpbar:Control
 @export var _helpbar_label:Control
+
+@export_subgroup("Config")
+@export var show_all_hints_if_input_is_empty := false
 @export_enum("output", "notify") var _output_method := 0
 
 var _current_hints := {}
@@ -31,19 +35,25 @@ func execute(exp:String):
 	else:
 		output_result_method.call("> [color=red]%s[/color]"%(result["result"]))
 
+func _update_hints(exp:String):
+	_current_hints = PankuConsole.Utils.parse_exp(Console._envs_info, exp, show_all_hints_if_input_is_empty)
+	_hints.visible = _current_hints["hints_value"].size() > 0
+	_helpbar.visible = _hints.visible
+	_input_area.input.hints = _current_hints["hints_value"]
+	_hints.disable_buttons = false
+	_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
+	_hint_idx = -1
+	_helpbar_label.text = "[Hint] Use TAB or up/down to autocomplete!"
+
 func _ready():
-	_input_area.submitted.connect(execute)
-	_input_area.update_hints.connect(
-		func(exp:String):
-			_current_hints = PankuConsole.Utils.parse_exp(Console._envs_info, exp)
-			_hints.visible = _current_hints["hints_value"].size() > 0
-			_helpbar.visible = _hints.visible
-			_input_area.input.hints = _current_hints["hints_value"]
-			_hints.disable_buttons = false
-			_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
-			_hint_idx = -1
-			_helpbar_label.text = "[Hint] Use TAB or up/down to autocomplete!"
+	_input_area.visibility_changed.connect(
+		func():
+			#initialize all hints if is shown and the input is empty
+			if _input_area.visible and _input_area.input.text.is_empty() and !_hints.visible and show_all_hints_if_input_is_empty:
+				_update_hints("")
 	)
+	_input_area.submitted.connect(execute)
+	_input_area.update_hints.connect(_update_hints)
 	_input_area.next_hint.connect(
 		func():
 			_set_hint_idx(_hint_idx + 1)
