@@ -157,11 +157,9 @@ And the result export properties panel will be like this.
 
 # 🏗Contrubuting
 
-You are welcome to make contributions, feel free to make [issues](https://github.com/Ark2000/PankuConsole/issues), [proposals](https://github.com/Ark2000/PankuConsole/issues), [pull requests](https://github.com/Ark2000/PankuConsole/pulls) and [Discussions](https://github.com/Ark2000/PankuConsole/discussions).
+You are welcome to make contributions, feel free to make [issues](https://github.com/Ark2000/PankuConsole/issues), [proposals](https://github.com/Ark2000/PankuConsole/issues), [pull requests](https://github.com/Ark2000/PankuConsole/pulls) and [discussions](https://github.com/Ark2000/PankuConsole/discussions). Your feedback matters a lot to the project!
 
-Discord: [Ark's community](https://discord.gg/bBbGbhkt9t)
-
-Your feedback matters a lot to the project!
+Commit messages should follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 # 📜License
 
