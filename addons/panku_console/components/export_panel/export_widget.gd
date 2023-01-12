@@ -8,6 +8,7 @@ const row_edit_str = preload("res://addons/panku_console/components/export_panel
 const row_edit_color = preload("res://addons/panku_console/components/export_panel/rows/row_edit_color.tscn")
 const row_edit_enum = preload("res://addons/panku_console/components/export_panel/rows/row_edit_enum.tscn")
 const row_placeholder = preload("res://addons/panku_console/components/export_panel/rows/row_placeholder.tscn")
+const row_edit_vec2 = preload("res://addons/panku_console/components/export_panel/rows/row_edit_vector_2.tscn")
 
 @onready var container := $Body/Content/VBoxContainer
 @onready var helpbtn := $Body/Title/Button
@@ -30,6 +31,8 @@ func setup(obj:Object, data:Array):
 		var row = null
 		if data[i].type == TYPE_INT and data[i].hint == PROPERTY_HINT_NONE:
 			row = row_edit_int.instantiate()
+		elif data[i].type == TYPE_VECTOR2:
+			row = row_edit_vec2.instantiate()
 		elif data[i].type == TYPE_FLOAT and data[i].hint == PROPERTY_HINT_NONE:
 			row = row_edit_float.instantiate()
 		elif (data[i].type in [TYPE_FLOAT, TYPE_INT]) and data[i].hint == PROPERTY_HINT_RANGE:
@@ -63,8 +66,7 @@ func setup(obj:Object, data:Array):
 			container.add_child(row)
 			row.title = data[i].name
 			var val = obj.get(row.title)
-			val = val if val else 0
-			row.value = val
+			if val: row.value = val
 			if row.has_signal("value_changed_by_user"):
 				row.value_changed_by_user.connect(
 					func():

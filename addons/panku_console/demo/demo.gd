@@ -16,15 +16,11 @@ extends Node2D
 		seed = v
 		_noise.seed = v
 
-@export var offset_x:float = 0.0:
+@export var offset:Vector2 = Vector2():
 	set(v):
-		offset_x = v
-		_noise.offset.x = v 
-
-@export var offset_y:float = 0.0:
-	set(v):
-		offset_y = v
-		_noise.offset.y = v
+		offset = v
+		_noise.offset.x = v.x
+		_noise.offset.y = v.y
 
 @export_enum("Simplex", "Simplex Smooth", "Cellular", "Perlin", "Value Cubic", "Value") var noise_type:int = 0:
 	set(v):

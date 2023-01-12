@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://bw1x4komp3854"]
 
-[ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="1_gbja0"]
-[ext_resource type="Script" path="res://addons/panku_console/components/export_panel/export_widget.gd" id="2_6an3s"]
-[ext_resource type="Texture2D" uid="uid://bn28nywx5byva" path="res://addons/panku_console/res/pics/icons8-info-16.png" id="3_4ee2q"]
+[ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="1_q1he5"]
+[ext_resource type="Script" path="res://addons/panku_console/components/export_panel/export_widget.gd" id="2_twmje"]
+[ext_resource type="Texture2D" uid="uid://bn28nywx5byva" path="res://addons/panku_console/res/pics/icons8-info-16.png" id="3_7cq6y"]
 
-[node name="ExportWidget" instance=ExtResource("1_gbja0")]
+[node name="ExportWidget" instance=ExtResource("1_q1he5")]
 offset_right = 346.0
 offset_bottom = 265.0
-script = ExtResource("2_6an3s")
+script = ExtResource("2_twmje")
 transparency = 0.8
 
 [node name="Title" parent="Body" index="0"]
@@ -19,7 +19,7 @@ text = "Export Panel"
 [node name="Button" type="Button" parent="Body/Title" index="1"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-icon = ExtResource("3_4ee2q")
+icon = ExtResource("3_7cq6y")
 icon_alignment = 1
 expand_icon = true
 
