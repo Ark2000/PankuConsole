@@ -1,13 +1,13 @@
 extends "res://addons/panku_console/components/lynx_window2/lynx_window.gd"
 
-const row_edit_int = preload("res://addons/panku_console/components/widgets2/rows/row_edit_int.tscn")
-const row_edit_float = preload("res://addons/panku_console/components/widgets2/rows/row_edit_float.tscn")
-const row_edit_float_range = preload("res://addons/panku_console/components/widgets2/rows/row_edit_float_range.tscn")
-const row_edit_bool = preload("res://addons/panku_console/components/widgets2/rows/row_edit_bool.tscn")
-const row_edit_str = preload("res://addons/panku_console/components/widgets2/rows/row_edit_str.tscn")
-const row_edit_color = preload("res://addons/panku_console/components/widgets2/rows/row_edit_color.tscn")
-const row_edit_enum = preload("res://addons/panku_console/components/widgets2/rows/row_edit_enum.tscn")
-const row_placeholder = preload("res://addons/panku_console/components/widgets2/rows/row_placeholder.tscn")
+const row_edit_int = preload("res://addons/panku_console/components/export_panel/rows/row_edit_int.tscn")
+const row_edit_float = preload("res://addons/panku_console/components/export_panel/rows/row_edit_float.tscn")
+const row_edit_float_range = preload("res://addons/panku_console/components/export_panel/rows/row_edit_float_range.tscn")
+const row_edit_bool = preload("res://addons/panku_console/components/export_panel/rows/row_edit_bool.tscn")
+const row_edit_str = preload("res://addons/panku_console/components/export_panel/rows/row_edit_str.tscn")
+const row_edit_color = preload("res://addons/panku_console/components/export_panel/rows/row_edit_color.tscn")
+const row_edit_enum = preload("res://addons/panku_console/components/export_panel/rows/row_edit_enum.tscn")
+const row_placeholder = preload("res://addons/panku_console/components/export_panel/rows/row_placeholder.tscn")
 
 @onready var container := $Body/Content/VBoxContainer
 @onready var helpbtn := $Body/Title/Button

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/rows/row_edit_enum.gd" id="1_bgfb5"]
+[ext_resource type="Script" path="res://addons/panku_console/components/export_panel/rows/row_edit_enum.gd" id="1_bgfb5"]
 
 [node name="RowEditEnum" type="HBoxContainer"]
 offset_right = 350.0

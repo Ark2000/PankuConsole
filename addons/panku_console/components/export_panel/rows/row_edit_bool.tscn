@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddnycomhdr81v"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/widgets2/rows/row_edit_bool.gd" id="1_i68o4"]
+[ext_resource type="Script" path="res://addons/panku_console/components/export_panel/rows/row_edit_bool.gd" id="1_i68o4"]
 
 [node name="RowEditBool" type="HBoxContainer"]
 offset_right = 118.0

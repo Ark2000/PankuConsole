@@ -57,8 +57,8 @@ var is_repl_window_opened := false:
 @onready var _full_repl = $LynxWindows/FullREPLWindow/Body/Content/PankuConsoleUI
 @onready var _exp_key_mapper = $LynxWindows/ExpKeyMapper
 
-const _monitor_widget_pck = preload("res://addons/panku_console/components/widgets2/monitor_widget.tscn")
-const _export_widget_pck = preload("res://addons/panku_console/components/widgets2/export_widget.tscn")
+const _monitor_widget_pck = preload("res://addons/panku_console/components/monitor/monitor_widget.tscn")
+const _export_widget_pck = preload("res://addons/panku_console/components/export_panel/export_widget.tscn")
 
 var _envs = {}
 var _envs_info = {}
