@@ -1,5 +1,7 @@
 extends "res://addons/panku_console/components/lynx_window2/lynx_window.gd"
 
+const BUTTON_PREFIX = "export_button_"
+
 const row_edit_int = preload("res://addons/panku_console/components/export_panel/rows/row_edit_int.tscn")
 const row_edit_float = preload("res://addons/panku_console/components/export_panel/rows/row_edit_float.tscn")
 const row_edit_float_range = preload("res://addons/panku_console/components/export_panel/rows/row_edit_float_range.tscn")
@@ -9,6 +11,7 @@ const row_edit_color = preload("res://addons/panku_console/components/export_pan
 const row_edit_enum = preload("res://addons/panku_console/components/export_panel/rows/row_edit_enum.tscn")
 const row_placeholder = preload("res://addons/panku_console/components/export_panel/rows/row_placeholder.tscn")
 const row_edit_vec2 = preload("res://addons/panku_console/components/export_panel/rows/row_edit_vector_2.tscn")
+const row_button = preload("res://addons/panku_console/components/export_panel/rows/button.tscn")
 
 @onready var container := $Body/Content/VBoxContainer
 @onready var helpbtn := $Body/Title/Button
@@ -26,10 +29,23 @@ func _ready():
 	)
 
 func setup(obj:Object, data:Array):
+	var value_rows := {}
 	for i in range(data.size()):
-#		print(data[i])
 		var row = null
-		if data[i].type == TYPE_INT and data[i].hint == PROPERTY_HINT_NONE:
+		var is_button := false
+		#button
+		if data[i].name.begins_with(BUTTON_PREFIX) and data[i].type == TYPE_STRING:
+			var func_name:String = data[i].name.trim_prefix(BUTTON_PREFIX)
+			if func_name in obj:
+				row = row_button.instantiate()
+				row.set_meta("obj_", obj)
+				row.set_meta("func_", func_name)
+				row.set_meta("text_", obj.get(data[i].name))
+				row.set_meta("is_button", true)
+				is_button = true
+			else:
+				push_error("CAN NOT FIND " + func_name)
+		elif data[i].type == TYPE_INT and data[i].hint == PROPERTY_HINT_NONE:
 			row = row_edit_int.instantiate()
 		elif data[i].type == TYPE_VECTOR2:
 			row = row_edit_vec2.instantiate()
@@ -63,16 +79,32 @@ func setup(obj:Object, data:Array):
 		else:
 			row = row_placeholder.instantiate()
 		if row:
-			container.add_child(row)
-			row.title = data[i].name
-			var val = obj.get(row.title)
-			if val: row.value = val
-			if row.has_signal("value_changed_by_user"):
+			if !is_button:
+				row.title = data[i].name
+				var val = obj.get(row.title)
+				if val : row.value = val
 				row.value_changed_by_user.connect(
 					func():
 						obj.set(row.title, row.value)
 				)
+				value_rows[row] = data[i].name
+			container.add_child(row)
 			row.show()
+	
+	var timer:Timer = get_node("Timer")
+	timer.timeout.connect(
+		#sync values
+		func():
+			for r in value_rows:
+				var s:Signal = r.value_changed_by_user
+				var c = s.get_connections()[0].callable
+				s.disconnect(c)
+				var val = obj.get(r.title)
+				if val:
+					r.value = val
+				s.connect(c)
+	)
+	timer.start()
 
 func set_p(v:Vector2):
 	set_position(v)

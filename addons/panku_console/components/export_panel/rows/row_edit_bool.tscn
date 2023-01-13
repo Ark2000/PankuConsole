@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://k0fkm6edq8q7"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/export_panel/rows/row_edit_bool.gd" id="1_i68o4"]
 

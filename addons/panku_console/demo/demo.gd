@@ -5,6 +5,7 @@ extends Node2D
 @onready var _noise:FastNoiseLite = _noise_texture.noise
 @onready var _label:Label = $PanelContainer/Label
 @onready var _color:ColorRect = $CanvasLayer/ColorRect
+@onready var _logo:TextureRect = $Logo
 
 @export var title:String = "Simple Noise Terrain":
 	set(v):
@@ -15,6 +16,9 @@ extends Node2D
 	set(v):
 		seed = v
 		_noise.seed = v
+
+@export var export_button_random_seed := "Random Seed"
+
 
 @export var offset:Vector2 = Vector2():
 	set(v):
@@ -41,7 +45,26 @@ extends Node2D
 	set(v):
 		tone = v
 		_color.color = v
+		
+@export var logo_pos:Vector2:
+	set(v):
+		_logo.position = v
+	get: return _logo.position
+
+var logo_dir = Vector2(1, 1)
+var logo_spd = 100.0
+
+func random_seed():
+	seed = randi()
 
 func _ready():
 	#That's the way you add some stuff to the console plugin.
 	Console.register_env("demo", self)
+
+func _process(delta):
+	var r = get_viewport_rect().size
+	if (_logo.position.x + _logo.size.x > r.x) or (_logo.position.x < 0):
+		logo_dir.x *= -1
+	if (_logo.position.y + _logo.size.y > r.y) or (_logo.position.y < 0):
+		logo_dir.y *= -1
+	_logo.position += logo_dir * logo_spd * delta

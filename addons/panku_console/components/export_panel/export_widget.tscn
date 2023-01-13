@@ -10,6 +10,9 @@ offset_bottom = 265.0
 script = ExtResource("2_twmje")
 transparency = 0.8
 
+[node name="Timer" type="Timer" parent="." index="0"]
+wait_time = 0.1
+
 [node name="Title" parent="Body" index="0"]
 custom_minimum_size = Vector2(0, 26)
 

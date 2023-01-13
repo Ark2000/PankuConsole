@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4dlgw6am6jil"]
+[gd_scene load_steps=9 format=3 uid="uid://b4dlgw6am6jil"]
 
 [ext_resource type="Script" path="res://addons/panku_console/demo/demo.gd" id="1_xxptq"]
+[ext_resource type="Texture2D" uid="uid://rkxm4c3bbf34" path="res://addons/panku_console/logo.svg" id="2_5dolk"]
 
 [sub_resource type="Gradient" id="Gradient_abn5g"]
 interpolation_mode = 1
@@ -42,7 +43,6 @@ layer = -1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 texture_filter = 3
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 1280.0
@@ -52,7 +52,6 @@ grow_vertical = 2
 texture = SubResource("NoiseTexture2D_baic0")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -70,3 +69,10 @@ text = "Simple Noise Terrain"
 label_settings = SubResource("LabelSettings_qrrgp")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Logo" type="TextureRect" parent="."]
+texture_filter = 3
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("2_5dolk")
+ignore_texture_size = true

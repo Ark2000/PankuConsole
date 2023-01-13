@@ -34,7 +34,3 @@ func _ready():
 				value += e.velocity * 0.01
 				value_changed_by_user.emit()
 	)
-	value_changed_by_user.connect(
-		func():
-			print("aaa")
-	)
