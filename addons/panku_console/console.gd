@@ -16,9 +16,15 @@ class_name PankuConsole extends CanvasLayer
 signal repl_visible_about_to_change(is_visible:bool)
 signal repl_visible_changed(is_visible:bool)
 
-#Helper class
+#Static helper classes
 const Config = preload("res://addons/panku_console/components/config.gd")
 const Utils = preload("res://addons/panku_console/components/utils.gd")
+
+#Other classes, define classes here instead of using keyword `class_name` so that the global namespace will not be affected.
+const ExporterRowUI = preload("res://addons/panku_console/components/exporter/row_ui.gd")
+const JoystickButton = preload("res://addons/panku_console/components/exporter/joystick_button.gd")
+const LynxWindow = preload("res://addons/panku_console/components/lynx_window2/lynx_window.gd")
+const Exporter = preload("res://addons/panku_console/components/exporter/exporter.gd")
 
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
 var toggle_console_action:String
@@ -49,16 +55,16 @@ var is_repl_window_opened := false:
 			_full_repl_window.title_label.text = "> Panku REPL"
 		repl_visible_changed.emit(v)
 
-@onready var _resident_logs = $ResidentLogs
-@onready var _base_instance = $BaseInstance
-@onready var _windows = $LynxWindows
-@onready var _mini_repl_window = $LynxWindows/MiniREPLWindow
-@onready var _full_repl_window = $LynxWindows/FullREPLWindow
-@onready var _full_repl = $LynxWindows/FullREPLWindow/Body/Content/PankuConsoleUI
-@onready var _exp_key_mapper = $LynxWindows/ExpKeyMapper
+@export var _resident_logs:Node
+@export var _base_instance:Node
+@export var _windows:Node
+@export var _mini_repl_window:Node
+@export var _full_repl_window:Node
+@export var _full_repl:Node
+@export var _exp_key_mapper:Node
 
 const _monitor_widget_pck = preload("res://addons/panku_console/components/monitor/monitor_widget.tscn")
-const _export_widget_pck = preload("res://addons/panku_console/components/export_panel/export_widget.tscn")
+const _exporter_window = preload("res://addons/panku_console/components/exporter/exporter.tscn")
 
 var _envs = {}
 var _envs_info = {}
@@ -122,16 +128,12 @@ func add_export_widget(obj:Object):
 		return
 	if !obj.get_script():
 		return
-	var export_properties = Utils.get_export_properties_from_script(obj.get_script())
-	if export_properties.is_empty():
-		return
-	var w = _export_widget_pck.instantiate()
+	var w = _exporter_window.instantiate()
 	_windows.add_child(w)
-	w.setup(obj, export_properties)
+	var exporter:Exporter = w.content.get_child(0)
 	w.position = Vector2(0, 0)
-	w.size = Vector2(160, 60)
-	w.title_label.text = "Export Properties (%s)"%str(obj)
-	w.set_meta("obj_name", obj_name)
+	w.title_label.text = "Exporter (%s)" % str(obj)
+	exporter.setup(obj)
 	return w
 
 func get_available_export_objs() -> Array:

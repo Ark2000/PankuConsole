@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds3hbsvvlvdyw"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_button.gd" id="1_2x02s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07gid"]
+
+[node name="RowButton" type="Button"]
+theme_override_styles/focus = SubResource("StyleBoxEmpty_07gid")
+text = "Generate"
+script = ExtResource("1_2x02s")

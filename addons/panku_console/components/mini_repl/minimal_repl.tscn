@@ -10,9 +10,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ccnx5"]
 shader = ExtResource("2_bnbg2")
-shader_parameter/distort = 0.01
+shader_parameter/distort = 0.0
 shader_parameter/scale = 20.0
-shader_parameter/blur = 1.9
+shader_parameter/blur = 5.0
 shader_parameter/darken = 0.0
 shader_parameter/tex1 = ExtResource("3_pfdbk")
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcav653fvb7p8"
-path="res://.godot/imported/drag-arrow-svgrepo-com.svg-978da772e4cde776b985c10df91ebf2a.ctex"
+uid="uid://chv7gofj8t7x3"
+path="res://.godot/imported/arrow-down-2-svgrepo-com.svg-a56363e84520aade3aae7f9cd2377b8b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/panku_console/res/pics/drag-arrow-svgrepo-com.svg"
-dest_files=["res://.godot/imported/drag-arrow-svgrepo-com.svg-978da772e4cde776b985c10df91ebf2a.ctex"]
+source_file="res://addons/panku_console/res/pics/arrow-down-2-svgrepo-com.svg"
+dest_files=["res://.godot/imported/arrow-down-2-svgrepo-com.svg-a56363e84520aade3aae7f9cd2377b8b.ctex"]
 
 [params]
 

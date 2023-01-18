@@ -7,6 +7,8 @@ extends Node2D
 @onready var _color:ColorRect = $CanvasLayer/ColorRect
 @onready var _logo:TextureRect = $Logo
 
+@export_group("Terrain")
+
 @export var title:String = "Simple Noise Terrain":
 	set(v):
 		title = v
@@ -45,14 +47,17 @@ extends Node2D
 	set(v):
 		tone = v
 		_color.color = v
+
+@export_group("Flyer")
 		
 @export var logo_pos:Vector2:
 	set(v):
 		_logo.position = v
 	get: return _logo.position
 
+@export var logo_spd = 100.0
+
 var logo_dir = Vector2(1, 1)
-var logo_spd = 100.0
 
 func random_seed():
 	seed = randi()

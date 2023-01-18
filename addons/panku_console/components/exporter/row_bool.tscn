@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://i2pcctq0i2o3"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_ui_bool.gd" id="1_n4ai0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xi8jw"]
+
+[node name="RowBool" type="HBoxContainer" node_paths=PackedStringArray("check_box")]
+script = ExtResource("1_n4ai0")
+check_box = NodePath("CheckBox")
+
+[node name="VName" type="Label" parent="."]
+custom_minimum_size = Vector2(80, 0)
+text = "value3"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xi8jw")
+flat = true

@@ -43,6 +43,7 @@ layer = -1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 texture_filter = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 1280.0
@@ -52,6 +53,7 @@ grow_vertical = 2
 texture = SubResource("NoiseTexture2D_baic0")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

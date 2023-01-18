@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfsypgkiprnp8"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_ui_enum.gd" id="1_u8cx4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ev7u1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_f0a4m"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhrh1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.113725, 0.113725, 0.121569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.175, 0.175, 0.175, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6up6b"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.175, 0.175, 0.175, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_xlafe"]
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_ev7u1")
+PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxLine_f0a4m")
+PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxLine_f0a4m")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_hhrh1")
+PopupMenu/styles/panel_disabled = SubResource("StyleBoxFlat_6up6b")
+PopupMenu/styles/separator = SubResource("StyleBoxLine_f0a4m")
+
+[node name="RowEnum" type="HBoxContainer" node_paths=PackedStringArray("opt_btn")]
+script = ExtResource("1_u8cx4")
+opt_btn = NodePath("OptionButton")
+
+[node name="VName" type="Label" parent="."]
+custom_minimum_size = Vector2(80, 0)
+text = "value3"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+size_flags_horizontal = 3
+theme = SubResource("Theme_xlafe")
+item_count = 3
+selected = 0
+popup/item_0/text = "option 1"
+popup/item_0/id = 0
+popup/item_1/text = "option 2"
+popup/item_1/id = 1
+popup/item_2/text = "option 3"
+popup/item_2/id = 2

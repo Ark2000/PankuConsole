@@ -1,0 +1,102 @@
+[gd_scene load_steps=15 format=3 uid="uid://emapyj3qhkxl"]
+
+[ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="1_pqnmc"]
+[ext_resource type="Script" path="res://addons/panku_console/components/exporter/exporter.gd" id="2_uxobb"]
+[ext_resource type="PackedScene" uid="uid://78evbpdhqe4b" path="res://addons/panku_console/components/exporter/row_group_button.tscn" id="3_3wwb8"]
+[ext_resource type="PackedScene" uid="uid://dal16suyx5int" path="res://addons/panku_console/components/exporter/row_read_only.tscn" id="4_cn7xl"]
+[ext_resource type="PackedScene" uid="uid://dfsypgkiprnp8" path="res://addons/panku_console/components/exporter/row_enum.tscn" id="5_i506u"]
+[ext_resource type="PackedScene" uid="uid://ds3hbsvvlvdyw" path="res://addons/panku_console/components/exporter/row_button.tscn" id="6_42l05"]
+[ext_resource type="PackedScene" uid="uid://b6w4d5bsp0erj" path="res://addons/panku_console/components/exporter/row_range_number.tscn" id="7_wo5pw"]
+[ext_resource type="PackedScene" uid="uid://cj0urmvj2rtas" path="res://addons/panku_console/components/exporter/row_vec_2.tscn" id="8_vi78h"]
+[ext_resource type="PackedScene" uid="uid://bneg4nt6ryuuj" path="res://addons/panku_console/components/exporter/row_float.tscn" id="9_ensqb"]
+[ext_resource type="PackedScene" uid="uid://cnsnrihcgjsa" path="res://addons/panku_console/components/exporter/row_int.tscn" id="10_wnodb"]
+[ext_resource type="PackedScene" uid="uid://b4iurk1ni11v2" path="res://addons/panku_console/components/exporter/row_color.tscn" id="11_ps4w0"]
+[ext_resource type="PackedScene" uid="uid://b4jxqh4ysyodt" path="res://addons/panku_console/components/exporter/row_string.tscn" id="12_7f0mn"]
+[ext_resource type="PackedScene" uid="uid://i2pcctq0i2o3" path="res://addons/panku_console/components/exporter/row_bool.tscn" id="13_fvgra"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74q05"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[node name="ExporterWindow" instance=ExtResource("1_pqnmc")]
+offset_left = 10.1022
+offset_right = 341.102
+offset_bottom = 366.0
+color = Color(0.133333, 0.141176, 0.152941, 1)
+
+[node name="TitleLabel" parent="Body/Title/TitleButton" index="0"]
+text = "Export Panel"
+
+[node name="Content" parent="Body" index="1"]
+clip_contents = true
+color = Color(0.133333, 0.141176, 0.152941, 0)
+
+[node name="Exporter" type="ScrollContainer" parent="Body/Content" index="0" node_paths=PackedStringArray("lynx_window", "timer", "container")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_74q05")
+horizontal_scroll_mode = 0
+script = ExtResource("2_uxobb")
+lynx_window = NodePath("../../..")
+timer = NodePath("Timer")
+container = NodePath("VBoxContainer")
+group_button = ExtResource("3_3wwb8")
+row_button = ExtResource("6_42l05")
+row_read_only = ExtResource("4_cn7xl")
+row_enum = ExtResource("5_i506u")
+row_range_number = ExtResource("7_wo5pw")
+row_vec2 = ExtResource("8_vi78h")
+row_float = ExtResource("9_ensqb")
+row_int = ExtResource("10_wnodb")
+row_color = ExtResource("11_ps4w0")
+row_string = ExtResource("12_7f0mn")
+row_bool = ExtResource("13_fvgra")
+
+[node name="Timer" type="Timer" parent="Body/Content/Exporter" index="0"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Body/Content/Exporter" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RowVec2" parent="Body/Content/Exporter/VBoxContainer" index="0" instance=ExtResource("8_vi78h")]
+layout_mode = 2
+
+[node name="RowString" parent="Body/Content/Exporter/VBoxContainer" index="1" instance=ExtResource("12_7f0mn")]
+layout_mode = 2
+
+[node name="RowReadOnly" parent="Body/Content/Exporter/VBoxContainer" index="2" instance=ExtResource("4_cn7xl")]
+layout_mode = 2
+
+[node name="RowRangeNumber" parent="Body/Content/Exporter/VBoxContainer" index="3" instance=ExtResource("7_wo5pw")]
+layout_mode = 2
+
+[node name="RowInt" parent="Body/Content/Exporter/VBoxContainer" index="4" instance=ExtResource("10_wnodb")]
+layout_mode = 2
+
+[node name="GroupButton" parent="Body/Content/Exporter/VBoxContainer" index="5" instance=ExtResource("3_3wwb8")]
+layout_mode = 2
+
+[node name="RowFloat" parent="Body/Content/Exporter/VBoxContainer" index="6" instance=ExtResource("9_ensqb")]
+layout_mode = 2
+
+[node name="RowEnum" parent="Body/Content/Exporter/VBoxContainer" index="7" instance=ExtResource("5_i506u")]
+layout_mode = 2
+
+[node name="RowColor" parent="Body/Content/Exporter/VBoxContainer" index="8" instance=ExtResource("11_ps4w0")]
+layout_mode = 2
+
+[node name="RowButton" parent="Body/Content/Exporter/VBoxContainer" index="9" instance=ExtResource("6_42l05")]
+layout_mode = 2
+
+[node name="RowBool" parent="Body/Content/Exporter/VBoxContainer" index="10" instance=ExtResource("13_fvgra")]
+layout_mode = 2
+
+[node name="Border" parent="." index="3"]
+visible = false

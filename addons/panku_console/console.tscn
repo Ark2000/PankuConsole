@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c2pmik86eeu05"]
+[gd_scene load_steps=15 format=3 uid="uid://beikr5eygsjbl"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -15,10 +15,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_adv20"]
 shader = ExtResource("5_daswg")
-shader_parameter/amount = 2.0
-shader_parameter/noise = 0.1
-shader_parameter/sz = 0.25
-shader_parameter/fancy = null
+shader_parameter/amount = 5.0
+shader_parameter/noise = 0.0
+shader_parameter/sz = 0.0
+shader_parameter/fancy = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdaw1"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -28,10 +28,17 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[node name="Console" type="CanvasLayer"]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_windows", "_mini_repl_window", "_full_repl_window", "_full_repl", "_exp_key_mapper")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
+_resident_logs = NodePath("ResidentLogs")
+_base_instance = NodePath("BaseInstance")
+_windows = NodePath("LynxWindows")
+_mini_repl_window = NodePath("LynxWindows/MiniREPLWindow")
+_full_repl_window = NodePath("LynxWindows/FullREPLWindow")
+_full_repl = NodePath("LynxWindows/FullREPLWindow/Body/Content/PankuConsoleUI")
+_exp_key_mapper = NodePath("LynxWindows/ExpKeyMapper")
 
 [node name="ResidentLogs" parent="." instance=ExtResource("2_th8we")]
 anchors_preset = 9
@@ -52,9 +59,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("3_7pj6w")
 
 [node name="FullREPLWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
+visible = false
 material = SubResource("ShaderMaterial_adv20")
 layout_mode = 1
 anchors_preset = 8
