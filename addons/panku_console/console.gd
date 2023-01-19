@@ -62,6 +62,8 @@ var is_repl_window_opened := false:
 @export var _full_repl_window:Node
 @export var _full_repl:Node
 @export var _exp_key_mapper:Node
+@export var godot_log_monitor:Node
+@export var output_overlay:Node
 
 const _monitor_widget_pck = preload("res://addons/panku_console/components/monitor/monitor_widget.tscn")
 const _exporter_window = preload("res://addons/panku_console/components/exporter/exporter.tscn")

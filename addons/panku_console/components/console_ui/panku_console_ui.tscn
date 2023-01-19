@@ -60,7 +60,7 @@ start_index = 1
 
 [node name="Tools" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar"]
 size = Vector2i(163, 116)
-item_count = 4
+item_count = 5
 item_0/text = "Clear REPL Output"
 item_0/id = 0
 item_1/text = "Add Profiler Widget"
@@ -69,6 +69,10 @@ item_2/text = "Exp Key Mapping"
 item_2/id = 3
 item_3/text = "Add Export Properties Widget"
 item_3/id = 2
+item_4/text = "Enable Output Overlay"
+item_4/checkable = 1
+item_4/checked = true
+item_4/id = 4
 
 [node name="ExportTargets" type="PopupMenu" parent="VBoxContainer/Menu/MenuBar/Tools"]
 

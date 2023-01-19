@@ -93,6 +93,11 @@ func _ready():
 			#Exp Key Mapping
 			elif id == 3:
 				open_exp_key_mapper.emit()
+			#Enable Output Overlay
+			elif id == 4:
+				var checked = !_menu_tools.is_item_checked(index)
+				_menu_tools.set_item_checked(index, checked)
+				Console.output_overlay.visible = checked
 	)
 	_menu_tools.set_item_submenu(_menu_tools.get_item_index(2), "ExportTargets")
 	_menu_tools.about_to_popup.connect(

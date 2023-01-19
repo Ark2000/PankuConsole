@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://beikr5eygsjbl"]
+[gd_scene load_steps=17 format=3 uid="uid://beikr5eygsjbl"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows.gd" id="3_7pj6w"]
+[ext_resource type="PackedScene" uid="uid://clwb00tc8ogtr" path="res://addons/panku_console/components/logger/log_overlay.tscn" id="3_30t2o"]
 [ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="4_x6krx"]
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="5_daswg"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
@@ -12,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c1lajwpobevwj" path="res://addons/panku_console/components/input_mapping/exp_key_mapper.tscn" id="8_wa7hu"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
+[ext_resource type="PackedScene" uid="uid://ctkkp3obep7dl" path="res://addons/panku_console/components/logger/godot_log_monitor.tscn" id="14_jxci2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_adv20"]
 shader = ExtResource("5_daswg")
@@ -28,7 +30,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_windows", "_mini_repl_window", "_full_repl_window", "_full_repl", "_exp_key_mapper")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_windows", "_mini_repl_window", "_full_repl_window", "_full_repl", "_exp_key_mapper", "godot_log_monitor", "output_overlay")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
@@ -39,6 +41,12 @@ _mini_repl_window = NodePath("LynxWindows/MiniREPLWindow")
 _full_repl_window = NodePath("LynxWindows/FullREPLWindow")
 _full_repl = NodePath("LynxWindows/FullREPLWindow/Body/Content/PankuConsoleUI")
 _exp_key_mapper = NodePath("LynxWindows/ExpKeyMapper")
+godot_log_monitor = NodePath("GodotLogMonitor")
+output_overlay = NodePath("LogOverlay")
+
+[node name="GodotLogMonitor" parent="." instance=ExtResource("14_jxci2")]
+
+[node name="LogOverlay" parent="." instance=ExtResource("3_30t2o")]
 
 [node name="ResidentLogs" parent="." instance=ExtResource("2_th8we")]
 anchors_preset = 9
@@ -86,6 +94,9 @@ text = "Panku REPL"
 
 [node name="PankuConsoleUI" parent="LynxWindows/FullREPLWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1
+
+[node name="TextureRect" parent="LynxWindows/FullREPLWindow/ResizeButton" index="0"]
+expand_mode = 1
 
 [node name="Border" parent="LynxWindows/FullREPLWindow" index="3"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdaw1")
