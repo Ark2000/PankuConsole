@@ -1,10 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://beikr5eygsjbl"]
+[gd_scene load_steps=17 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
-[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows.gd" id="3_7pj6w"]
 [ext_resource type="PackedScene" uid="uid://clwb00tc8ogtr" path="res://addons/panku_console/components/logger/log_overlay.tscn" id="3_30t2o"]
 [ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="4_x6krx"]
+[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager.gd" id="5_8q4ya"]
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="5_daswg"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
@@ -68,10 +68,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("3_7pj6w")
+script = ExtResource("5_8q4ya")
 
 [node name="FullREPLWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
-visible = false
 material = SubResource("ShaderMaterial_adv20")
 layout_mode = 1
 anchors_preset = 8
@@ -94,9 +93,6 @@ text = "Panku REPL"
 
 [node name="PankuConsoleUI" parent="LynxWindows/FullREPLWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1
-
-[node name="TextureRect" parent="LynxWindows/FullREPLWindow/ResizeButton" index="0"]
-expand_mode = 1
 
 [node name="Border" parent="LynxWindows/FullREPLWindow" index="3"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdaw1")

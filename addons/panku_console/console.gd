@@ -25,6 +25,7 @@ const ExporterRowUI = preload("res://addons/panku_console/components/exporter/ro
 const JoystickButton = preload("res://addons/panku_console/components/exporter/joystick_button.gd")
 const LynxWindow = preload("res://addons/panku_console/components/lynx_window2/lynx_window.gd")
 const Exporter = preload("res://addons/panku_console/components/exporter/exporter.gd")
+const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
 
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
 var toggle_console_action:String
