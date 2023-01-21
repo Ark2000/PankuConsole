@@ -1,48 +1,29 @@
-[gd_scene load_steps=17 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=13 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
 [ext_resource type="PackedScene" uid="uid://clwb00tc8ogtr" path="res://addons/panku_console/components/logger/log_overlay.tscn" id="3_30t2o"]
-[ext_resource type="PackedScene" uid="uid://c8yh1l5qboc2v" path="res://addons/panku_console/components/lynx_window2/lynx_window.tscn" id="4_x6krx"]
-[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager.gd" id="5_8q4ya"]
-[ext_resource type="Shader" path="res://addons/panku_console/res/shader/frosted_glass.gdshader" id="5_daswg"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
+[ext_resource type="PackedScene" uid="uid://0g66yljhqa2s" path="res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn" id="6_nyvg7"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
-[ext_resource type="PackedScene" uid="uid://d1hadn1bmjmj6" path="res://addons/panku_console/components/mini_repl/minimal_repl.tscn" id="7_mv5t6"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_widgets_env.gd" id="8_odu6x"]
-[ext_resource type="PackedScene" uid="uid://c1lajwpobevwj" path="res://addons/panku_console/components/input_mapping/exp_key_mapper.tscn" id="8_wa7hu"]
+[ext_resource type="PackedScene" uid="uid://b2850q72xk6ao" path="res://addons/panku_console/components/mini_repl/mini_repl_2.tscn" id="8_xcl5b"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
+[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 [ext_resource type="PackedScene" uid="uid://ctkkp3obep7dl" path="res://addons/panku_console/components/logger/godot_log_monitor.tscn" id="14_jxci2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_adv20"]
-shader = ExtResource("5_daswg")
-shader_parameter/amount = 5.0
-shader_parameter/noise = 0.0
-shader_parameter/sz = 0.0
-shader_parameter/fancy = 0.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdaw1"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_windows", "_mini_repl_window", "_full_repl_window", "_full_repl", "_exp_key_mapper", "godot_log_monitor", "output_overlay")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
 _resident_logs = NodePath("ResidentLogs")
 _base_instance = NodePath("BaseInstance")
-_windows = NodePath("LynxWindows")
-_mini_repl_window = NodePath("LynxWindows/MiniREPLWindow")
-_full_repl_window = NodePath("LynxWindows/FullREPLWindow")
-_full_repl = NodePath("LynxWindows/FullREPLWindow/Body/Content/PankuConsoleUI")
-_exp_key_mapper = NodePath("LynxWindows/ExpKeyMapper")
+_mini_repl = NodePath("LynxWindowsManager2/MiniREPL")
+_full_repl = NodePath("LynxWindowsManager2/FullREPL")
 godot_log_monitor = NodePath("GodotLogMonitor")
 output_overlay = NodePath("LogOverlay")
+w_manager = NodePath("LynxWindowsManager2")
 
 [node name="GodotLogMonitor" parent="." instance=ExtResource("14_jxci2")]
 
@@ -60,7 +41,7 @@ grow_vertical = 2
 layout_mode = 3
 anchors_preset = 0
 
-[node name="LynxWindows" type="Control" parent="."]
+[node name="LynxWindowsManager2" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,51 +49,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("5_8q4ya")
+script = ExtResource("10_f7qaq")
 
-[node name="FullREPLWindow" parent="LynxWindows" instance=ExtResource("4_x6krx")]
-material = SubResource("ShaderMaterial_adv20")
+[node name="FullREPL" parent="LynxWindowsManager2" instance=ExtResource("6_nyvg7")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -210.5
-offset_top = -152.0
-offset_right = 210.5
-offset_bottom = 152.0
-color = Color(0.133333, 0.141176, 0.152941, 1)
-transparency = 0.75
+offset_left = -206.5
+offset_top = -152.5
+offset_right = 206.5
+offset_bottom = 152.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="TitleButton" parent="LynxWindows/FullREPLWindow/Body/Title" index="0"]
-text = " "
+[node name="Button" parent="LynxWindowsManager2/FullREPL/VBoxContainer/Up" index="0"]
+text = "</> Panku REPL"
 
-[node name="TitleLabel" parent="LynxWindows/FullREPLWindow/Body/Title/TitleButton" index="0"]
-text = "Panku REPL"
-
-[node name="PankuConsoleUI" parent="LynxWindows/FullREPLWindow/Body/Content" index="0" instance=ExtResource("5_vpp3o")]
+[node name="PankuConsoleUI" parent="LynxWindowsManager2/FullREPL/VBoxContainer/Down" index="0" instance=ExtResource("5_vpp3o")]
 layout_mode = 1
 
-[node name="Border" parent="LynxWindows/FullREPLWindow" index="3"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_sdaw1")
-
-[node name="MiniREPLWindow" parent="LynxWindows" instance=ExtResource("7_mv5t6")]
+[node name="MiniREPL" parent="LynxWindowsManager2" instance=ExtResource("8_xcl5b")]
 visible = false
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -261.0
-offset_top = 160.0
-offset_right = 261.0
-offset_bottom = 52.0
-
-[node name="ExpKeyMapper" parent="LynxWindows" instance=ExtResource("8_wa7hu")]
-visible = false
-layout_mode = 0
-grow_horizontal = 1
-grow_vertical = 1
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -180.0
+offset_right = 240.0
+offset_bottom = 180.0
 
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("7_kolcm")
@@ -126,4 +96,4 @@ script = ExtResource("9_fav7q")
 [node name="console" type="Node" parent="."]
 script = ExtResource("10_h26u7")
 
-[editable path="LynxWindows/FullREPLWindow"]
+[editable path="LynxWindowsManager2/FullREPL"]

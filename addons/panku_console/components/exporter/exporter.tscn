@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b4jxqh4ysyodt" path="res://addons/panku_console/components/exporter/row_string.tscn" id="12_7f0mn"]
 [ext_resource type="PackedScene" uid="uid://i2pcctq0i2o3" path="res://addons/panku_console/components/exporter/row_bool.tscn" id="13_fvgra"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74q05"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q7ud3"]
 content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
@@ -40,7 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_74q05")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_q7ud3")
 horizontal_scroll_mode = 0
 script = ExtResource("2_uxobb")
 lynx_window = NodePath("../../..")

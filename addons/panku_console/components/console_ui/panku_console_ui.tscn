@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://bqfm16y5vcgl3"]
 
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_8mhrg"]
 [ext_resource type="Script" path="res://addons/panku_console/components/console_ui/panku_console_ui.gd" id="1_aab8v"]
 [ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="1_jb1ae"]
-[ext_resource type="Theme" uid="uid://dbu7c46eki45f" path="res://addons/panku_console/res/breeze_dark_theme.tres" id="1_ogb8m"]
 [ext_resource type="Texture2D" uid="uid://bn28nywx5byva" path="res://addons/panku_console/res/pics/icons8-info-16.png" id="2_csdh4"]
 [ext_resource type="PackedScene" uid="uid://bme8twac4ick5" path="res://addons/panku_console/components/input_field/input_area.tscn" id="2_w7j54"]
 [ext_resource type="Texture2D" uid="uid://cnmg3787j72hs" path="res://addons/panku_console/res/pics/icons8-linking-16.png" id="3_eho7e"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://coik1hwww3s6o" path="res://addons/panku_console/res/pics/icons8-update-16.png" id="5_kajr3"]
 [ext_resource type="PackedScene" uid="uid://cbijhl1nhy64n" path="res://addons/panku_console/components/console_ui/help_bar.tscn" id="10_0thy6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn58i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7cvty"]
 bg_color = Color(0.239216, 0.258824, 0.278431, 0.25098)
 border_width_left = 1
 border_width_top = 1
@@ -29,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_ogb8m")
+theme = ExtResource("1_8mhrg")
 script = ExtResource("1_aab8v")
 
 [node name="Network" parent="." instance=ExtResource("3_yylod")]
@@ -51,7 +51,7 @@ theme_override_constants/separation = 0
 
 [node name="Menu" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xn58i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7cvty")
 
 [node name="MenuBar" type="MenuBar" parent="VBoxContainer/Menu"]
 layout_mode = 2
@@ -153,7 +153,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xn58i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7cvty")
 
 [node name="HintsList" parent="." instance=ExtResource("3_qw8p4")]
 layout_mode = 1

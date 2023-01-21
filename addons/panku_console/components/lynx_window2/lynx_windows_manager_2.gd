@@ -6,12 +6,15 @@ func _input(e):
 		var flag = true
 		#traverse child windows in reverse order, use double shadow to highlight current active window.
 		for i in range(get_child_count() - 1, -1, -1):
-			var w:PankuConsole.LynxWindow2 = get_child(i)
+			var w:Control = get_child(i)
 			if w.visible and w.get_global_rect().has_point(get_global_mouse_position()):
-				get_child(get_child_count() - 1)._shadow_focus.hide()
+				var forefront = get_child(get_child_count() - 1)
+				if forefront.has_method("highlight"): forefront.highlight(false)
 				w.move_to_front()
-				get_child(get_child_count() - 1)._shadow_focus.show()
+				forefront = get_child(get_child_count() - 1)
+				if forefront.has_method("highlight"): forefront.highlight(true)
 				flag = false
 				break
-		if flag:
-			get_child(get_child_count() - 1)._shadow_focus.hide()
+		if flag and get_child_count() > 0:
+			var forefront = get_child(get_child_count() - 1)
+			if forefront.has_method("highlight"): forefront.highlight(false)

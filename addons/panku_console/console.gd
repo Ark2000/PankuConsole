@@ -27,6 +27,11 @@ const LynxWindow = preload("res://addons/panku_console/components/lynx_window2/l
 const Exporter = preload("res://addons/panku_console/components/exporter/exporter.gd")
 const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
 
+const lynx_window_prefab = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn")
+const exp_key_mapper_prefab = preload("res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn")
+const monitoir_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")
+const exporter_prefab = preload("res://addons/panku_console/components/exporter/exporter_2.tscn")
+
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
 var toggle_console_action:String
 
@@ -37,8 +42,8 @@ var mini_repl_mode = false:
 	set(v):
 		mini_repl_mode = v
 		if is_repl_window_opened:
-			_mini_repl_window.visible = v
-			_full_repl_window.visible = !v
+			_mini_repl.visible = v
+			_full_repl.visible = !v
 
 var is_repl_window_opened := false:
 	set(v):
@@ -46,28 +51,23 @@ var is_repl_window_opened := false:
 		await get_tree().process_frame
 		is_repl_window_opened = v
 		if mini_repl_mode:
-			_mini_repl_window.visible = v
+			_mini_repl.visible = v
 		else:
-			_full_repl_window.visible = v
+			_full_repl.visible = v
 		if pause_when_active:
 			get_tree().paused = v
-			_full_repl_window.title_label.text = "> Panku REPL (Paused)"
+			_full_repl._title_btn.text = "</> Panku REPL (Paused)"
 		else:
-			_full_repl_window.title_label.text = "> Panku REPL"
+			_full_repl._title_btn.text = "</> Panku REPL"
 		repl_visible_changed.emit(v)
 
 @export var _resident_logs:Node
 @export var _base_instance:Node
-@export var _windows:Node
-@export var _mini_repl_window:Node
-@export var _full_repl_window:Node
+@export var _mini_repl:Node
 @export var _full_repl:Node
-@export var _exp_key_mapper:Node
 @export var godot_log_monitor:Node
 @export var output_overlay:Node
-
-const _monitor_widget_pck = preload("res://addons/panku_console/components/monitor/monitor_widget.tscn")
-const _exporter_window = preload("res://addons/panku_console/components/exporter/exporter.tscn")
+@export var w_manager:Node
 
 var _envs = {}
 var _envs_info = {}
@@ -109,35 +109,11 @@ func notify(any) -> void:
 	output(text)
 
 func output(any) -> void:
-	_full_repl.output(any)
+	_full_repl.get_content().output(any)
 
 #Execute an expression in a preset environment.
 func execute(exp:String) -> Dictionary:
 	return Utils.execute_exp(exp, _expression, _base_instance, _envs)
-
-func add_widget2(exp:String, update_period:= 999999.0, position:Vector2 = Vector2(0, 0), size:Vector2 = Vector2(160, 60), title_text := ""):
-	if title_text == "": title_text = exp
-	var w = _monitor_widget_pck.instantiate()
-	w.position = position
-	w.size = size
-	w.update_exp = exp
-	w.update_period = update_period
-	w.title_text = title_text
-	_windows.add_child(w)
-
-func add_export_widget(obj:Object):
-	var obj_name = _envs.find_key(obj)
-	if obj_name == null:
-		return
-	if !obj.get_script():
-		return
-	var w = _exporter_window.instantiate()
-	_windows.add_child(w)
-	var exporter:Exporter = w.content.get_child(0)
-	w.position = Vector2(0, 0)
-	w.title_label.text = "Exporter (%s)" % str(obj)
-	exporter.setup(obj)
-	return w
 
 func get_available_export_objs() -> Array:
 	var result = []
@@ -150,6 +126,47 @@ func get_available_export_objs() -> Array:
 			continue
 		result.push_back(obj_name)
 	return result
+
+func add_exporter_window(obj:Object):
+	var obj_name = _envs.find_key(obj)
+	if obj_name == null:
+		return
+	if !obj.get_script():
+		return
+
+	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
+	new_window._title_btn.text = "Exporter (%s)" % str(obj)
+	new_window.window_closed.connect(new_window.queue_free)
+	w_manager.add_child(new_window)
+	var content = exporter_prefab.instantiate()
+	new_window.set_content(content)
+	content.setup(obj)
+	new_window.centered()
+
+func add_exp_key_mapper_window():
+	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
+	new_window._title_btn.text = "Expression Key Mapper"
+	new_window.window_closed.connect(new_window.queue_free)
+	new_window._options_btn.hide()
+	w_manager.add_child(new_window)
+	new_window.set_content(exp_key_mapper_prefab.instantiate())
+	new_window.centered()
+
+func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 = Vector2(0, 0), size:Vector2 = Vector2(160, 60), title_text := ""):
+	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
+	if title_text == "": title_text = exp
+	new_window._title_btn.text = title_text
+	new_window.window_closed.connect(new_window.queue_free)
+	var content = monitoir_prefab.instantiate()
+	content.update_exp = exp
+	content.update_period = update_period
+	new_window._options_btn.pressed.connect(content.toggle_settings)
+	new_window._title_btn.pressed.connect(content.update_exp_i)
+	w_manager.add_child(new_window)
+	new_window.set_content(content)
+	new_window.position = position
+	new_window.size = size
+	return new_window
 
 func show_intro():
 	output("[center][b][color=#f5891d][ Panku Console ][/color][/b] [color=#f5f5f5][b]Version 1.2.32[/b][/color][/center]")
@@ -170,18 +187,15 @@ func _ready():
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
 	
 #	print(Config.get_config())
-	_full_repl_window.hide()
-	_mini_repl_window.hide()
+	_full_repl.hide()
+	_mini_repl.hide()
 	
-	_full_repl_window.close_window.connect(
+	_full_repl.window_closed.connect(
 		func():
 			is_repl_window_opened = false
 	)
 	
-	_full_repl.open_exp_key_mapper.connect(
-		func():
-			_exp_key_mapper.show()
-	)
+	_full_repl.get_content().open_exp_key_mapper.connect(add_exp_key_mapper_window)
 
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
@@ -197,7 +211,7 @@ func _ready():
 	if cfg.has("widgets_data"):
 		var w_data = cfg["widgets_data"]
 		for w in w_data:
-			add_widget2(w["exp"], w["period"], w["position"], w["size"], w["title"])
+			add_monitor_window(w["exp"], w["period"], w["position"], w["size"], w["title"])
 		cfg["widgets_data"] = []
 	
 	await get_tree().process_frame
@@ -212,8 +226,8 @@ func _ready():
 
 	if cfg.has("repl"):
 		is_repl_window_opened = cfg.repl.visible
-		_full_repl_window.position = cfg.repl.position
-		_full_repl_window.size = cfg.repl.size
+		_full_repl.position = cfg.repl.position
+		_full_repl.size = cfg.repl.size
 		
 	if cfg.has("mini_repl"):
 		mini_repl_mode = cfg.mini_repl
@@ -233,8 +247,8 @@ func _notification(what):
 				"size":Vector2(200, 200)
 			}
 		cfg.repl.visible = is_repl_window_opened
-		cfg.repl.position = _full_repl_window.position
-		cfg.repl.size = _full_repl_window.size
+		cfg.repl.position = _full_repl.position
+		cfg.repl.size = _full_repl.size
 		if !cfg.has("mini_repl"):
 			cfg["mini_repl"] = false
 		cfg.mini_repl = mini_repl_mode

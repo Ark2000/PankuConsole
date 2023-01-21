@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://bme8twac4ick5"]
+[gd_scene load_steps=12 format=3 uid="uid://bme8twac4ick5"]
 
-[ext_resource type="Theme" uid="uid://dbu7c46eki45f" path="res://addons/panku_console/res/breeze_dark_theme.tres" id="1_qmgje"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_area.gd" id="2_6g40s"]
 [ext_resource type="Texture2D" uid="uid://btbhef35lls2t" path="res://addons/panku_console/res/pics/icons8-hammer-32.png" id="4_av8s6"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_field.gd" id="4_xjt2l"]
@@ -62,7 +61,6 @@ anti_aliasing = false
 [node name="InputArea" type="HBoxContainer"]
 offset_right = 277.0
 offset_bottom = 26.0
-theme = ExtResource("1_qmgje")
 theme_override_constants/separation = 2
 script = ExtResource("2_6g40s")
 

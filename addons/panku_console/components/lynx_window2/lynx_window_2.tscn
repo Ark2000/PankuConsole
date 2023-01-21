@@ -1,18 +1,19 @@
-[gd_scene load_steps=23 format=3 uid="uid://0g66yljhqa2s"]
+[gd_scene load_steps=24 format=3 uid="uid://0g66yljhqa2s"]
 
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/simple_fast_blur.gdshader" id="1_qu555"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_window_2.gd" id="2_1ul5o"]
 [ext_resource type="Texture2D" uid="uid://bh1xfntqpv0mf" path="res://addons/panku_console/res/pics/gear-svgrepo-com.svg" id="3_6thsm"]
+[ext_resource type="FontVariation" uid="uid://d2b8bo6ytpt2i" path="res://addons/panku_console/res/font/default_bold.tres" id="3_oes5e"]
 [ext_resource type="Texture2D" uid="uid://dj3b75yv3jdkf" path="res://addons/panku_console/res/pics/cross-svgrepo-com.svg" id="4_67yu5"]
 [ext_resource type="Texture2D" uid="uid://dvr12fl5prm78" path="res://addons/panku_console/res/pics/square_shadow.png" id="5_tflcj"]
 [ext_resource type="Texture2D" uid="uid://ciu5jiw4xmkq0" path="res://addons/panku_console/res/pics/resize-svgrepo-com.svg" id="6_j76kl"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkbdd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vkfx"]
 shader = ExtResource("1_qu555")
-shader_parameter/lod = 3.0
-shader_parameter/modulate = Color(0, 0, 0, 0.25098)
+shader_parameter/lod = 4.0
+shader_parameter/modulate = Color(0, 0, 0, 0.12549)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmsy8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0d44"]
 content_margin_left = 8.0
 draw_center = false
 border_width_left = 1
@@ -21,7 +22,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.25098)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buv6g"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q078t"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 0.12549)
 border_width_left = 1
@@ -30,7 +31,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.501961)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ystu4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcgli"]
 content_margin_left = 8.0
 bg_color = Color(1, 1, 1, 0.12549)
 border_width_left = 1
@@ -39,44 +40,44 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.501961)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rse3g"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vx3q7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rjc1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sm3np"]
 draw_center = false
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.25098)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqwjv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awp3a"]
 bg_color = Color(0, 1, 0, 0.25098)
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.501961)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_acdt8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp4cw"]
 bg_color = Color(0, 1, 0, 0.501961)
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.501961)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_puyqe"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_we81h"]
 bg_color = Color(1, 0, 0, 0.25098)
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.501961)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtxm7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yeucm"]
 bg_color = Color(1, 0, 0, 0.501961)
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.501961)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2em7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kvt2"]
 content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
@@ -87,21 +88,21 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.25098)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0q0xs"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7qwm"]
 draw_center = false
 shadow_color = Color(0, 0, 0, 0.0627451)
 shadow_size = 16
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gvrsx"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50gvd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n3dgv"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_73bu0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tedsp"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nq4a4"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uxx5v"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_elkmf"]
 
 [node name="LynxWindow2" type="ColorRect" node_paths=PackedStringArray("_window_title_container", "_title_btn", "_close_btn", "_options_btn", "_resize_btn", "_shadow_focus", "_shadow", "_content")]
-material = SubResource("ShaderMaterial_wkbdd")
+material = SubResource("ShaderMaterial_5vkfx")
 offset_right = 413.0
 offset_bottom = 305.0
 script = ExtResource("2_1ul5o")
@@ -130,37 +131,38 @@ theme_override_constants/separation = 0
 [node name="Button" type="Button" parent="VBoxContainer/Up"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_oes5e")
 theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxFlat_cmsy8")
-theme_override_styles/hover = SubResource("StyleBoxFlat_buv6g")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ystu4")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rse3g")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t0d44")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q078t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vcgli")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vx3q7")
 text = "Window Title"
 alignment = 0
 text_overrun_behavior = 1
 
 [node name="Button3" type="Button" parent="VBoxContainer/Up"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0rjc1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tqwjv")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_acdt8")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rse3g")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sm3np")
+theme_override_styles/hover = SubResource("StyleBoxFlat_awp3a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kp4cw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vx3q7")
 icon = ExtResource("3_6thsm")
 alignment = 0
 
 [node name="Button2" type="Button" parent="VBoxContainer/Up"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0rjc1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_puyqe")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_dtxm7")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rse3g")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sm3np")
+theme_override_styles/hover = SubResource("StyleBoxFlat_we81h")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yeucm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vx3q7")
 icon = ExtResource("4_67yu5")
 alignment = 0
 
 [node name="Down" type="Panel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_b2em7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0kvt2")
 
 [node name="Shadow" type="NinePatchRect" parent="."]
 self_modulate = Color(1, 1, 1, 0.501961)
@@ -190,7 +192,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0q0xs")
+theme_override_styles/panel = SubResource("StyleBoxFlat_y7qwm")
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0.501961)
@@ -205,10 +207,10 @@ offset_top = -12.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_default_cursor_shape = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_gvrsx")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_n3dgv")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_tedsp")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_uxx5v")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_50gvd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_73bu0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nq4a4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_elkmf")
 icon = ExtResource("6_j76kl")
 flat = true
 expand_icon = true

@@ -43,10 +43,11 @@ func set_content(node:Control):
 	assert(_content.get_child_count() == 0)
 	assert(node.get_parent() == null)
 	_content.add_child(node)
+	
+func highlight(v:bool):
+	_shadow_focus.visible = v
 
 func _ready():
-	centered()
-	
 	custom_minimum_size = _window_title_container.get_minimum_size()
 
 	_title_btn.button_down.connect(

@@ -1,0 +1,132 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcbpdn0vikn2f"]
+
+[ext_resource type="Script" path="res://addons/panku_console/components/monitor/monitor_2.gd" id="1_q6qhh"]
+
+[node name="monitor_2" type="Control" node_paths=PackedStringArray("label", "settings_ui", "close_btn", "freq_label", "freq_slider", "freq_confirm", "exp_ledit", "exp_confirm", "title_ledit", "title_confirm")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q6qhh")
+label = NodePath("RichTextLabel")
+settings_ui = NodePath("SettingsUI")
+close_btn = NodePath("SettingsUI/MarginContainer/VBoxContainer/Button")
+freq_label = NodePath("SettingsUI/MarginContainer/VBoxContainer/HBoxContainer/Label2")
+freq_slider = NodePath("SettingsUI/MarginContainer/VBoxContainer/HBoxContainer/HSlider")
+freq_confirm = NodePath("SettingsUI/MarginContainer/VBoxContainer/HBoxContainer/Button")
+exp_ledit = NodePath("SettingsUI/MarginContainer/VBoxContainer/HBoxContainer2/LineEdit")
+exp_confirm = NodePath("SettingsUI/MarginContainer/VBoxContainer/HBoxContainer2/Button")
+title_ledit = NodePath("SettingsUI/MarginContainer/VBoxContainer/HBoxContainer3/LineEdit")
+title_confirm = NodePath("SettingsUI/MarginContainer/VBoxContainer/HBoxContainer3/Button")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+text = "NO OUTPUT"
+scroll_active = false
+
+[node name="SettingsUI" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.141176, 0.152941, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsUI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Button" type="Button" parent="SettingsUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "Freq"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0/s"
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 30.0
+
+[node name="Button" type="Button" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingsUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "Exp"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="SettingsUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "Title"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="SettingsUI/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="Label" type="Label" parent="SettingsUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "[Hint] Click the title to update immediately."

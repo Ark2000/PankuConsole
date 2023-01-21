@@ -1,12 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dal16suyx5int"]
+[gd_scene load_steps=2 format=3 uid="uid://dal16suyx5int"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_ui_readonly.gd" id="1_wju8u"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fgm3y"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqoy8"]
-content_margin_left = 6.0
-bg_color = Color(0.113725, 0.113725, 0.121569, 1)
 
 [node name="RowReadOnly" type="HBoxContainer" node_paths=PackedStringArray("ledit")]
 script = ExtResource("1_wju8u")
@@ -20,7 +14,5 @@ text = "value1"
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/focus = SubResource("StyleBoxEmpty_fgm3y")
-theme_override_styles/read_only = SubResource("StyleBoxFlat_aqoy8")
 text = "Disabled"
 editable = false
