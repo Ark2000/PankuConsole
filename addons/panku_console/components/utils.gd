@@ -1,10 +1,6 @@
 #@tool
 #extends EditorScript
 
-const icon_method = preload("res://addons/panku_console/res/pics/icons8-formula-fx-32.png")
-const icon_const = preload("res://addons/panku_console/res/pics/icons8-pi-32.png")
-const icon_prop = preload("res://addons/panku_console/res/pics/icons8-object-32.png")
-
 const type_names = {
 	TYPE_NIL: "null",
 	TYPE_BOOL: "bool",
@@ -130,7 +126,6 @@ static func parse_exp(env_info:Dictionary, exp:String, allow_empty:=false):
 		result = search_and_sort_and_highlight(exp, env_info.keys())
 
 	var hints_bbcode = []
-	var hints_icon = []
 	var hints_value = []
 	
 	for r in result:
@@ -148,16 +143,8 @@ static func parse_exp(env_info:Dictionary, exp:String, allow_empty:=false):
 		var keyword_type = env_info[keyword]["type"]
 		hints_value.push_back(keyword)
 		hints_bbcode.push_back(bbcode_main + bbcode_postfix)
-		if keyword_type == "constant":
-			hints_icon.push_back(icon_const)
-		elif keyword_type == "method":
-			hints_icon.push_back(icon_method)
-		elif keyword_type == "property":
-			hints_icon.push_back(icon_prop)
-		else: assert(false)
 	return {
 		"hints_bbcode": hints_bbcode,
-		"hints_icon": hints_icon,
 		"hints_value": hints_value
 	}
 

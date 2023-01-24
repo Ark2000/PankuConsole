@@ -1,39 +1,41 @@
-[gd_scene load_steps=10 format=3 uid="uid://dbtn0x604fx5o"]
+[gd_scene load_steps=9 format=3 uid="uid://dbtn0x604fx5o"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/hints_list/hint.gd" id="1_sa53g"]
-[ext_resource type="Texture2D" uid="uid://rw3f3qftj2ql" path="res://addons/panku_console/res/pics/icons8-formula-fx-32.png" id="2_jtb1m"]
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/simple_fast_blur.gdshader" id="2_wlxfn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rmg74"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bbfdi"]
 shader = ExtResource("2_wlxfn")
 shader_parameter/lod = 4.0
 shader_parameter/modulate = Color(0, 0, 0, 0.25098)
 
-[sub_resource type="SystemFont" id="SystemFont_reqhx"]
+[sub_resource type="SystemFont" id="SystemFont_wkeqx"]
 font_names = PackedStringArray("Consolas")
 
-[sub_resource type="SystemFont" id="SystemFont_75o5a"]
+[sub_resource type="SystemFont" id="SystemFont_sghtg"]
 font_names = PackedStringArray("", "Consolas")
 font_weight = 900
 
-[sub_resource type="SystemFont" id="SystemFont_bwj6n"]
+[sub_resource type="SystemFont" id="SystemFont_h72qs"]
 font_italic = true
 
-[sub_resource type="SystemFont" id="SystemFont_0kilx"]
+[sub_resource type="SystemFont" id="SystemFont_udwpn"]
 font_italic = true
 font_weight = 900
 
-[sub_resource type="SystemFont" id="SystemFont_h6di2"]
+[sub_resource type="SystemFont" id="SystemFont_uy84g"]
 
-[node name="Hints" type="Button"]
+[node name="Hints" type="Button" node_paths=PackedStringArray("label", "bg2", "blur")]
 custom_minimum_size = Vector2(0, 24)
 offset_right = 1152.0
 offset_bottom = 18.0
 flat = true
 script = ExtResource("1_sa53g")
+label = NodePath("RichTextLabel")
+bg2 = NodePath("Bg2")
+blur = NodePath("Blur")
 
 [node name="Blur" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_rmg74")
+material = SubResource("ShaderMaterial_bbfdi")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,41 +53,25 @@ grow_vertical = 2
 scale = Vector2(1e-05, 1)
 color = Color(0.290196, 0.509804, 0.305882, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -7.5
+offset_bottom = 7.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="Icon" type="TextureRect" parent="HBoxContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("2_jtb1m")
-expand_mode = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 2
-theme_override_fonts/normal_font = SubResource("SystemFont_reqhx")
-theme_override_fonts/bold_font = SubResource("SystemFont_75o5a")
-theme_override_fonts/italics_font = SubResource("SystemFont_bwj6n")
-theme_override_fonts/bold_italics_font = SubResource("SystemFont_0kilx")
-theme_override_fonts/mono_font = SubResource("SystemFont_h6di2")
+theme_override_fonts/normal_font = SubResource("SystemFont_wkeqx")
+theme_override_fonts/bold_font = SubResource("SystemFont_sghtg")
+theme_override_fonts/italics_font = SubResource("SystemFont_h72qs")
+theme_override_fonts/bold_italics_font = SubResource("SystemFont_udwpn")
+theme_override_fonts/mono_font = SubResource("SystemFont_uy84g")
 theme_override_font_sizes/normal_font_size = 14
 theme_override_font_sizes/bold_font_size = 14
 theme_override_font_sizes/italics_font_size = 14

@@ -41,7 +41,7 @@ func _update_hints(exp:String):
 	_helpbar.visible = _hints.visible
 	_input_area.input.hints = _current_hints["hints_value"]
 	_hints.disable_buttons = false
-	_hints.set_hints(_current_hints["hints_bbcode"], _current_hints["hints_icon"])
+	_hints.set_hints(_current_hints["hints_bbcode"])
 	_hint_idx = -1
 	_helpbar_label.text = "[Hint] Use TAB or up/down to autocomplete!"
 
@@ -68,7 +68,7 @@ func _ready():
 		func(histories, id):
 			if histories.size() > 0:
 				_hints.disable_buttons = true
-				_hints.set_hints(histories, [])
+				_hints.set_hints(histories)
 				_hints.selected = id
 				_hints.visible = true
 			else:

@@ -23,10 +23,7 @@ const Utils = preload("res://addons/panku_console/components/utils.gd")
 #Other classes, define classes here instead of using keyword `class_name` so that the global namespace will not be affected.
 const ExporterRowUI = preload("res://addons/panku_console/components/exporter/row_ui.gd")
 const JoystickButton = preload("res://addons/panku_console/components/exporter/joystick_button.gd")
-const LynxWindow = preload("res://addons/panku_console/components/lynx_window2/lynx_window.gd")
-const Exporter = preload("res://addons/panku_console/components/exporter/exporter.gd")
 const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
-
 const lynx_window_prefab = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn")
 const exp_key_mapper_prefab = preload("res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn")
 const monitoir_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")

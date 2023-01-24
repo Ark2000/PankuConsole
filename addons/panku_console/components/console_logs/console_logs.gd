@@ -1,9 +1,7 @@
 extends MarginContainer
 
 #not sure about the performance
-const MAX_LOGS = 500
-
-var logs = []
+const MAX_LOGS = 400
 
 func _ready():
 	$R.meta_clicked.connect(
@@ -12,11 +10,7 @@ func _ready():
 	)
 
 func add_log(bbcode:String):
-	if logs.size() >= MAX_LOGS:
-		logs.pop_front()
-	logs.push_back(bbcode)
-	$R.text = "\n".join(PackedStringArray(logs))
+	$R.text += (bbcode + "\n")
 
 func clear():
-	logs = []
-	$R.text = "\n".join(PackedStringArray(logs))
+	$R.text = ""
