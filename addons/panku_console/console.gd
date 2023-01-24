@@ -38,6 +38,8 @@ var toggle_console_action:String
 ## If [code]true[/code], pause the game when the console window is active.
 var pause_when_active:bool
 
+var init_expression:String = ""
+
 var mini_repl_mode = false:
 	set(v):
 		mini_repl_mode = v
@@ -68,6 +70,7 @@ var is_repl_window_opened := false:
 @export var godot_log_monitor:Node
 @export var output_overlay:Node
 @export var w_manager:Node
+@export var options:Node
 
 var _envs = {}
 var _envs_info = {}
@@ -127,16 +130,17 @@ func get_available_export_objs() -> Array:
 		result.push_back(obj_name)
 	return result
 
-func add_exporter_window(obj:Object):
-	var obj_name = _envs.find_key(obj)
-	if obj_name == null:
-		return
+func add_exporter_window(obj:Object, window_title := ""):
 	if !obj.get_script():
 		return
 
 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
-	new_window._title_btn.text = "Exporter (%s)" % str(obj)
+	if window_title == "":
+		new_window._title_btn.text = "Exporter (%s)" % str(obj)
+	else:
+		new_window._title_btn.text = window_title
 	new_window.window_closed.connect(new_window.queue_free)
+	new_window._options_btn.hide()
 	w_manager.add_child(new_window)
 	var content = exporter_prefab.instantiate()
 	new_window.set_content(content)
@@ -182,20 +186,21 @@ func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
 
 	show_intro()
-
-	pause_when_active = ProjectSettings.get("panku/pause_when_active")
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
 	
 #	print(Config.get_config())
 	_full_repl.hide()
 	_mini_repl.hide()
 	
+	_full_repl._options_btn.pressed.connect(
+		func():
+			add_exporter_window(options, "Panku Settings")
+	)
+	
 	_full_repl.window_closed.connect(
 		func():
 			is_repl_window_opened = false
 	)
-	
-	_full_repl.get_content().open_exp_key_mapper.connect(add_exp_key_mapper_window)
 
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn

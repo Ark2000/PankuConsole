@@ -1,13 +1,13 @@
 extends Button
 
-var obj:Object
-var callback:String
-var btn_text:String
+var obj:Object = self
+var callback:String = "default_callback"
+var btn_text:String = "click me"
+
+func default_callback():
+	print("hello")
 
 func _ready():
-	if !(obj != null and callback != null and (callback in obj)):
-		text = "ERROR"
-		return
 	text = btn_text
 	pressed.connect(
 		func():

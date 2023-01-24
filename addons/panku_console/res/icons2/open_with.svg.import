@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n564q4dddpfw"
-path="res://.godot/imported/double-arrow-svgrepo-com.svg-54d28670b1acb896ae12cb598aa89532.ctex"
+uid="uid://b22jdciwq07ic"
+path="res://.godot/imported/open_with.svg-4c7b4bea2cb5c0a1af405d61d3d85fa3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/panku_console/res/pics/double-arrow-svgrepo-com.svg"
-dest_files=["res://.godot/imported/double-arrow-svgrepo-com.svg-54d28670b1acb896ae12cb598aa89532.ctex"]
+source_file="res://addons/panku_console/res/icons2/open_with.svg"
+dest_files=["res://.godot/imported/open_with.svg-4c7b4bea2cb5c0a1af405d61d3d85fa3.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/hdr_compression=1
 compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -30,7 +30,7 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=32
+process/size_limit=0
 detect_3d/compress_to=1
 svg/scale=1.0
 editor/scale_with_editor_scale=false

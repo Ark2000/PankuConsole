@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dyipeqsa8lcpc"]
+
+[ext_resource type="Shader" path="res://addons/panku_console/res/shader/simple_fast_blur.gdshader" id="1_3h55m"]
+
+[resource]
+shader = ExtResource("1_3h55m")
+shader_parameter/lod = 4.0
+shader_parameter/modulate = Color(0, 0, 0, 0.12549)

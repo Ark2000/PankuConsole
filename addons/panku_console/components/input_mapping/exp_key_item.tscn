@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/panku_console/components/input_mapping/exp_key_item.gd" id="1_dww87"]
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_u320k"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_mapping/remap_button.gd" id="3_ge7b7"]
-[ext_resource type="Texture2D" uid="uid://dj3b75yv3jdkf" path="res://addons/panku_console/res/pics/cross-svgrepo-com.svg" id="4_e5wtk"]
+[ext_resource type="Texture2D" uid="uid://dnexm7u6lq3km" path="res://addons/panku_console/res/icons2/remove.svg" id="4_vif73"]
 
 [node name="ExpkeyItem" type="HBoxContainer" node_paths=PackedStringArray("exp_edit", "remap_button", "delete_button")]
 offset_right = 280.0
@@ -30,5 +30,5 @@ script = ExtResource("3_ge7b7")
 custom_minimum_size = Vector2(27, 0)
 layout_mode = 2
 toggle_mode = true
-icon = ExtResource("4_e5wtk")
+icon = ExtResource("4_vif73")
 expand_icon = true

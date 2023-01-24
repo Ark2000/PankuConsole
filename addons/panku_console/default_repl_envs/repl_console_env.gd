@@ -16,7 +16,7 @@ var cls:
 	get:
 		(func():
 			await get_tree().process_frame
-			Console._full_repl.clear_output()
+			Console._full_repl.get_content().clear_output()
 		).call()
 
 const _HELP_enable_notifications = "Toggle notification system"
@@ -29,4 +29,4 @@ func notify(any):
 
 const _HELP_check_update = "Fetch latest release info from Github"
 var check_update:
-	get: return Console._full_repl.check_latest_release()
+	get: return Console._full_repl.get_content().check_latest_release()

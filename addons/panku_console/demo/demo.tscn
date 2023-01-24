@@ -77,4 +77,4 @@ texture_filter = 3
 offset_right = 64.0
 offset_bottom = 64.0
 texture = ExtResource("2_5dolk")
-ignore_texture_size = true
+expand_mode = 1

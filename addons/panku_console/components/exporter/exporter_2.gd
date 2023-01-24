@@ -61,14 +61,12 @@ func setup(_obj:Object):
 			#button
 			if d.name.begins_with(BUTTON_PREFIX) and d.type == TYPE_STRING:
 				var func_name:String = d.name.trim_prefix(BUTTON_PREFIX)
+				row = row_button.instantiate()
+				row.btn_text = obj.get(d.name)
+				is_button = true
 				if func_name in obj:
-					row = row_button.instantiate()
 					row.obj = obj
 					row.callback = func_name
-					row.btn_text = obj.get(d.name)
-					is_button = true
-				else:
-					push_error("CAN NOT FIND " + func_name)
 			elif d.type == TYPE_INT and d.hint == PROPERTY_HINT_NONE:
 				row = row_int.instantiate()
 			elif d.type == TYPE_FLOAT and d.hint == PROPERTY_HINT_NONE:
@@ -100,7 +98,7 @@ func setup(_obj:Object):
 		elif d.usage == PROPERTY_USAGE_GROUP:
 			if last_group_button:
 				last_group_button.control_group = group
-				group = []
+			group = []
 			row = group_button.instantiate()
 			row.text = d.name
 			last_group_button = row

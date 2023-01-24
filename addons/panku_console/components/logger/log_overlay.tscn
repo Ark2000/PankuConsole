@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://clwb00tc8ogtr"]
+[gd_scene load_steps=3 format=3 uid="uid://clwb00tc8ogtr"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/logger/log_overlay.gd" id="1_nsw0x"]
+
+[sub_resource type="Theme" id="Theme_dksur"]
+default_font_size = 16
 
 [node name="LogOverlay" type="RichTextLabel"]
 modulate = Color(1, 1, 1, 0.501961)
@@ -12,6 +15,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
+theme = SubResource("Theme_dksur")
 bbcode_enabled = true
 text = "Output Area"
 scroll_active = false

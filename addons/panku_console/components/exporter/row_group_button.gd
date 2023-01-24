@@ -1,7 +1,7 @@
 extends Button
 
-@export var unpressed_icon:Texture2D = preload("res://addons/panku_console/res/pics/arrow-right-2-svgrepo-com.svg")
-@export var pressed_icon:Texture2D = preload("res://addons/panku_console/res/pics/arrow-down-2-svgrepo-com.svg")
+@export var unpressed_icon:Texture2D = preload("res://addons/panku_console/res/icons2/chevron_right.svg")
+@export var pressed_icon:Texture2D = preload("res://addons/panku_console/res/icons2/expand_more.svg")
 
 @export var control_group:Array[Control]
 

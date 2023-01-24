@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh1xfntqpv0mf"
-path="res://.godot/imported/gear-svgrepo-com.svg-3f2f0a1ab13502953f1503cd4e3e1bcd.ctex"
+uid="uid://tvaditukapeo"
+path="res://.godot/imported/enter-svgrepo-com.svg-c85308ae8196197954eba96ebfd97b2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/panku_console/res/pics/gear-svgrepo-com.svg"
-dest_files=["res://.godot/imported/gear-svgrepo-com.svg-3f2f0a1ab13502953f1503cd4e3e1bcd.ctex"]
+source_file="res://addons/panku_console/res/icons/enter-svgrepo-com.svg"
+dest_files=["res://.godot/imported/enter-svgrepo-com.svg-c85308ae8196197954eba96ebfd97b2b.ctex"]
 
 [params]
 
@@ -30,7 +30,7 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=24
+process/size_limit=0
 detect_3d/compress_to=1
 svg/scale=1.0
 editor/scale_with_editor_scale=false

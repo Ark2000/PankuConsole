@@ -1,19 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=14 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
 [ext_resource type="PackedScene" uid="uid://clwb00tc8ogtr" path="res://addons/panku_console/components/logger/log_overlay.tscn" id="3_30t2o"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
-[ext_resource type="PackedScene" uid="uid://0g66yljhqa2s" path="res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn" id="6_nyvg7"]
+[ext_resource type="PackedScene" uid="uid://xtbgftcypwqo" path="res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn" id="6_nyvg7"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_widgets_env.gd" id="8_odu6x"]
 [ext_resource type="PackedScene" uid="uid://b2850q72xk6ao" path="res://addons/panku_console/components/mini_repl/mini_repl_2.tscn" id="8_xcl5b"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
+[ext_resource type="Script" path="res://addons/panku_console/components/options.gd" id="9_tnco4"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 [ext_resource type="PackedScene" uid="uid://ctkkp3obep7dl" path="res://addons/panku_console/components/logger/godot_log_monitor.tscn" id="14_jxci2"]
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
@@ -24,6 +25,7 @@ _full_repl = NodePath("LynxWindowsManager2/FullREPL")
 godot_log_monitor = NodePath("GodotLogMonitor")
 output_overlay = NodePath("LogOverlay")
 w_manager = NodePath("LynxWindowsManager2")
+options = NodePath("Options")
 
 [node name="GodotLogMonitor" parent="." instance=ExtResource("14_jxci2")]
 
@@ -83,6 +85,9 @@ offset_left = -240.0
 offset_top = -180.0
 offset_right = 240.0
 offset_bottom = 180.0
+
+[node name="Options" type="Node" parent="."]
+script = ExtResource("9_tnco4")
 
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("7_kolcm")

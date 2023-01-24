@@ -1,68 +1,25 @@
-[gd_scene load_steps=12 format=3 uid="uid://bme8twac4ick5"]
+[gd_scene load_steps=8 format=3 uid="uid://bme8twac4ick5"]
 
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_rocdy"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_area.gd" id="2_6g40s"]
-[ext_resource type="Texture2D" uid="uid://btbhef35lls2t" path="res://addons/panku_console/res/pics/icons8-hammer-32.png" id="4_av8s6"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_field/input_field.gd" id="4_xjt2l"]
-[ext_resource type="Texture2D" uid="uid://b3sjdxexisig6" path="res://addons/panku_console/res/pics/icons8-enter-key-32.png" id="5_0m8mk"]
+[ext_resource type="Texture2D" uid="uid://bbc41a7b3jre0" path="res://addons/panku_console/res/icons2/more_horiz.svg" id="4_yy4fw"]
+[ext_resource type="Texture2D" uid="uid://dosm26riekruh" path="res://addons/panku_console/res/icons2/menu.svg" id="5_sx4te"]
+[ext_resource type="Texture2D" uid="uid://b4jd6tqlie0wx" path="res://addons/panku_console/res/icons2/reply.svg" id="6_w88f1"]
 
 [sub_resource type="SystemFont" id="SystemFont_104sb"]
 font_names = PackedStringArray("Consolas")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2ij0"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.168, 0.182, 0.196, 1)
-border_color = Color(0.132, 0.143, 0.154, 1)
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3u7vb"]
-content_margin_left = 3.0
-content_margin_top = 3.0
-content_margin_right = 3.0
-content_margin_bottom = 3.0
-bg_color = Color(0.168, 0.182, 0.196, 1)
-border_color = Color(0.132, 0.143, 0.154, 1)
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xd3mn"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.168, 0.182, 0.196, 1)
-border_color = Color(0.132, 0.143, 0.154, 1)
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jghb2"]
-bg_color = Color(0.168, 0.182, 0.196, 1)
-border_color = Color(0.132, 0.143, 0.154, 1)
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_74jv1"]
-content_margin_left = 1.0
-content_margin_top = 1.0
-content_margin_right = 1.0
-content_margin_bottom = 1.0
-bg_color = Color(0.168, 0.182, 0.196, 1)
-border_color = Color(0.132, 0.143, 0.154, 1)
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgmsd"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.168, 0.182, 0.196, 1)
-border_color = Color(0.132, 0.143, 0.154, 1)
-anti_aliasing = false
-
-[node name="InputArea" type="HBoxContainer"]
+[node name="InputArea" type="HBoxContainer" node_paths=PackedStringArray("input", "btn", "menubtn", "btn2")]
 offset_right = 277.0
 offset_bottom = 26.0
-theme_override_constants/separation = 2
+theme = ExtResource("1_rocdy")
+theme_override_constants/separation = 0
 script = ExtResource("2_6g40s")
+input = NodePath("InputField")
+btn = NodePath("Button")
+menubtn = NodePath("MenuButton")
+btn2 = NodePath("Button2")
 
 [node name="InputField" type="LineEdit" parent="."]
 layout_mode = 2
@@ -84,28 +41,27 @@ script = ExtResource("4_xjt2l")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 tooltip_text = "Tools"
-theme_override_styles/normal = SubResource("StyleBoxFlat_w2ij0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3u7vb")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xd3mn")
-icon = ExtResource("4_av8s6")
+icon = ExtResource("4_yy4fw")
+flat = false
 expand_icon = true
-item_count = 3
-popup/item_0/text = "Mini Mode"
-popup/item_0/checkable = 1
-popup/item_0/id = 2
-popup/item_1/text = "Make Monitor"
-popup/item_1/id = 0
-popup/item_2/text = "Make Button"
-popup/item_2/id = 1
+item_count = 2
+popup/item_0/text = "Make Monitor"
+popup/item_0/id = 0
+popup/item_1/text = "Make Button"
+popup/item_1/id = 1
+
+[node name="Button2" type="Button" parent="."]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+tooltip_text = "Confirm"
+icon = ExtResource("5_sx4te")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 tooltip_text = "Confirm"
-theme_override_styles/normal = SubResource("StyleBoxFlat_jghb2")
-theme_override_styles/hover = SubResource("StyleBoxFlat_74jv1")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bgmsd")
-icon = ExtResource("5_0m8mk")
-flat = true
+icon = ExtResource("6_w88f1")
 icon_alignment = 1
 expand_icon = true

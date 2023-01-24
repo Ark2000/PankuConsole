@@ -6,9 +6,10 @@ signal next_hint()
 signal prev_hint()
 signal navigate_histories(histories:Array, cur:int)
 
-@onready var input:LineEdit = $InputField
-@onready var btn:Button = $Button
-@onready var menubtn:MenuButton = $MenuButton
+@export var input:LineEdit
+@export var btn:Button
+@export var menubtn:MenuButton
+@export var btn2:Button
 
 func _ready():
 	input.text_submitted.connect(
@@ -23,6 +24,10 @@ func _ready():
 		func():
 			submitted.emit(input.text)
 			input.on_text_submitted(input.text)
+	)
+	btn2.pressed.connect(
+		func():
+			Console.add_exporter_window(Console.options, "Panku Settings")
 	)
 	#get focus automatically.
 	visibility_changed.connect(
@@ -48,9 +53,6 @@ func _ready():
 			#add button
 			elif id == 1:
 				Console.execute("widgets.button('%s', '%s')"%[exp, exp])
-			#mini mode
-			elif id == 2:
-				Console.mini_repl_mode = !Console.mini_repl_mode
 	)
 	menubtn.about_to_popup.connect(
 		func():

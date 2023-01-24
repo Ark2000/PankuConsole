@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_0xd5p"]
 [ext_resource type="Script" path="res://addons/panku_console/components/input_mapping/exp_key_mapper_2.gd" id="1_uq2e1"]
-[ext_resource type="Texture2D" uid="uid://bw3ft08sktkce" path="res://addons/panku_console/res/pics/icons8-plus-math-16.png" id="2_x7d13"]
+[ext_resource type="Texture2D" uid="uid://dprpfr0l5xvmu" path="res://addons/panku_console/res/icons2/add.svg" id="3_0d2ct"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iyfyl"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wt1sp"]
 content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
@@ -36,7 +36,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_iyfyl")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wt1sp")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/PanelContainer"]
 layout_mode = 2
@@ -50,5 +50,5 @@ layout_mode = 2
 
 [node name="Add" type="Button" parent="ScrollContainer/PanelContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-icon = ExtResource("2_x7d13")
+icon = ExtResource("3_0d2ct")
 icon_alignment = 1

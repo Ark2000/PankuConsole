@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj3b75yv3jdkf"
-path="res://.godot/imported/cross-svgrepo-com.svg-b97650a58665aa8a61d4f37e2c904d6d.ctex"
+uid="uid://b4jd6tqlie0wx"
+path="res://.godot/imported/reply.svg-198ceccf73b6dc82a4737a0814707430.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/panku_console/res/pics/cross-svgrepo-com.svg"
-dest_files=["res://.godot/imported/cross-svgrepo-com.svg-b97650a58665aa8a61d4f37e2c904d6d.ctex"]
+source_file="res://addons/panku_console/res/icons2/reply.svg"
+dest_files=["res://.godot/imported/reply.svg-198ceccf73b6dc82a4737a0814707430.ctex"]
 
 [params]
 
