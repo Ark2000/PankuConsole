@@ -42,6 +42,19 @@ const type_names = {
 	TYPE_PACKED_COLOR_ARRAY: "PackedColorArray",
 }
 
+#config dictionary keys
+const CFG_INIT_EXP = "init_exp"
+const CFG_PAUSE_WHEN_POPUP = "pause_when_popup"
+const CFG_MINI_REPL_MODE = "mini_repl_mode"
+const CFG_WINDOW_BLUR_EFFECT = "window_blur_effect"
+const CFG_WINDOW_BASE_COLOR = "window_base_color"
+const CFG_OUTPUT_OVERLAY = "output_overlay"
+const CFG_OUTPUT_OVERLAY_ALPHA = "output_overlay_alpha"
+const CFG_OUTPUT_OVERLAY_FONT_SIZE = "output_overlay_font_size"
+const CFG_OUTPUT_OVERLAY_FONT_SHADOW = "output_overlay_font_shadow"
+const CFG_EXP_MAPPING_DATA = "exp_mapping_data"
+const CFG_MONITOR_ARRAY = "monitor_array"
+
 static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
 	var failed := false
 	var result = null

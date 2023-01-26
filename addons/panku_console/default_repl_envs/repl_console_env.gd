@@ -1,3 +1,5 @@
+#TODO 修复，增加，获取系统信息。
+
 extends "res://addons/panku_console/default_repl_envs/repl_env.gd"
 
 const _HELP_hints = "Get a random hint!"

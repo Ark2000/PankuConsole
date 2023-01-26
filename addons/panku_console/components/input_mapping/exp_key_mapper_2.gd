@@ -1,6 +1,5 @@
 extends Control
 
-const CFG_KEY = "exp_key_mapping_data"
 const exp_key_item := preload("res://addons/panku_console/components/input_mapping/exp_key_item.tscn")
 
 @export var add_btn:Button
@@ -9,18 +8,7 @@ const exp_key_item := preload("res://addons/panku_console/components/input_mappi
 var mapping_data = []
 
 func _ready():
-	#get saved data from cfg
-	var cfg = Console.Config.get_config()
-	if !cfg.has(CFG_KEY):
-		cfg[CFG_KEY] = []
-	mapping_data = cfg[CFG_KEY]
-	
-	#load data
-	for i in range(len(mapping_data)):
-		var key_mapping = mapping_data[i]
-		var exp:String = key_mapping[0]
-		var event:InputEventKey = key_mapping[1]
-		add_item(exp, event)
+	load_data()
 
 	#when clicking the button, add a new exp key mapping item
 	add_btn.pressed.connect(
@@ -52,9 +40,7 @@ func _unhandled_input(e):
 func _notification(what):
 	#save data on quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		var cfg = Console.Config.get_config()
-		cfg[CFG_KEY] = mapping_data
-		Console.Config.set_config(cfg)
+		save_data()
 
 func add_item(exp:String, event:InputEventKey):
 	var item = exp_key_item.instantiate()
@@ -75,3 +61,20 @@ func add_item(exp:String, event:InputEventKey):
 		func():
 			mapping_data.remove_at(item.get_index())
 	)
+
+func load_data():
+	#get saved data from cfg
+	var cfg = Console.Config.get_config()
+	mapping_data = cfg.get(PankuConsole.Utils.CFG_EXP_MAPPING_DATA, [])
+	
+	#load data
+	for i in range(len(mapping_data)):s
+		var key_mapping = mapping_data[i]
+		var exp:String = key_mapping[0]
+		var event:InputEventKey = key_mapping[1]
+		add_item(exp, event)
+
+func save_data():
+	var cfg = Console.Config.get_config()
+	cfg[PankuConsole.Utils.CFG_EXP_MAPPING_DATA] = mapping_data
+	Console.Config.set_config(cfg)

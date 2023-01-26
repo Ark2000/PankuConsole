@@ -12,8 +12,7 @@ func _to_string():
 
 @export var blur_effect:bool = true:
 	set(v):
-		var val = 4.0 if v else 0.0
-		Console._full_repl.material.set("shader_parameter/lod", val)
+		Console._full_repl.material.set("shader_parameter/lod", 4.0 if v else 0.0)
 	get:
 		return Console._full_repl.material.get("shader_parameter/lod") > 0.0
 
@@ -36,7 +35,11 @@ func _to_string():
 		Console.mini_repl_mode = v
 	get:
 		return Console.mini_repl_mode
-@export var init_expression:String = ""
+@export var init_expression:String = "":
+	set(v):
+		Console.init_expression = v
+	get:
+		return Console.init_expression
 
 @export_group("Tools")
 @export var export_button_add_profiler_widget := "Add Profiler Monitor"
@@ -79,7 +82,9 @@ func add_profiler_widget():
 	Console.execute("widgets.profiler")
 
 func open_expression_key_mapper():
-	Console.add_exp_key_mapper_window()
+	Console.exp_key_mapper.centered()
+	Console.exp_key_mapper.move_to_front()
+	Console.exp_key_mapper.show()
 
 func show_intro():
 	Console.show_intro()

@@ -22,6 +22,8 @@ signal window_closed
 	set(v):
 		no_title = v
 		_window_title_container.visible = !v
+		
+@export var queue_free_on_close := true
 
 var _is_dragging := false
 var _drag_start_position:Vector2
@@ -71,8 +73,11 @@ func _ready():
 	)
 	_close_btn.pressed.connect(
 		func():
-			hide()
 			window_closed.emit()
+			if queue_free_on_close:
+				queue_free()
+			else:
+				hide()
 	)
 	
 	_title_btn.gui_input.connect(
@@ -92,8 +97,11 @@ func _input(e):
 				if f and is_ancestor_of(f):
 					f.release_focus()
 		if e is InputEventKey and e.keycode == KEY_ESCAPE and e.pressed and get_global_rect().has_point(get_global_mouse_position()):
-			hide()
 			window_closed.emit()
+			if queue_free_on_close:
+				queue_free()
+			else:
+				hide()
 
 func _process(_delta):
 	if !no_move and _is_dragging:

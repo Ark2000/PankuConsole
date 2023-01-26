@@ -26,7 +26,7 @@ const JoystickButton = preload("res://addons/panku_console/components/exporter/j
 const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
 const lynx_window_prefab = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn")
 const exp_key_mapper_prefab = preload("res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn")
-const monitoir_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")
+const monitor_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")
 const exporter_prefab = preload("res://addons/panku_console/components/exporter/exporter_2.tscn")
 
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
@@ -68,6 +68,7 @@ var is_repl_window_opened := false:
 @export var output_overlay:Node
 @export var w_manager:Node
 @export var options:Node
+@export var exp_key_mapper:Node
 
 var _envs = {}
 var _envs_info = {}
@@ -136,7 +137,6 @@ func add_exporter_window(obj:Object, window_title := ""):
 		new_window._title_btn.text = "Exporter (%s)" % str(obj)
 	else:
 		new_window._title_btn.text = window_title
-	new_window.window_closed.connect(new_window.queue_free)
 	new_window._options_btn.hide()
 	w_manager.add_child(new_window)
 	var content = exporter_prefab.instantiate()
@@ -147,7 +147,6 @@ func add_exporter_window(obj:Object, window_title := ""):
 func add_exp_key_mapper_window():
 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
 	new_window._title_btn.text = "Expression Key Mapper"
-	new_window.window_closed.connect(new_window.queue_free)
 	new_window._options_btn.hide()
 	w_manager.add_child(new_window)
 	new_window.set_content(exp_key_mapper_prefab.instantiate())
@@ -157,16 +156,23 @@ func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 =
 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
 	if title_text == "": title_text = exp
 	new_window._title_btn.text = title_text
-	new_window.window_closed.connect(new_window.queue_free)
-	var content = monitoir_prefab.instantiate()
-	content.update_exp = exp
-	content.update_period = update_period
-	new_window._options_btn.pressed.connect(content.toggle_settings)
+	var content = monitor_prefab.instantiate()
+	content._update_exp = exp
+	content._update_period = update_period
+	content.change_window_title_text.connect(
+		func(text:String):
+			new_window._title_btn.text = text
+	)
+	new_window._options_btn.pressed.connect(
+		func():
+			add_exporter_window(content, "Monitor Settings")
+	)
 	new_window._title_btn.pressed.connect(content.update_exp_i)
 	w_manager.add_child(new_window)
 	new_window.set_content(content)
 	new_window.position = position
 	new_window.size = size
+	new_window.set_meta("monitor", true)
 	return new_window
 
 func show_intro():
@@ -207,51 +213,77 @@ func _ready():
 	var env_info = Utils.extract_info_from_script(_base_instance.get_script())
 	for k in env_info: _envs_info[k] = env_info[k]
 	
-	#load configs
-	var cfg = Config.get_config()
+	load_data()
 
-	if cfg.has("widgets_data"):
-		var w_data = cfg["widgets_data"]
-		for w in w_data:
-			add_monitor_window(w["exp"], w["period"], w["position"], w["size"], w["title"])
-		cfg["widgets_data"] = []
-	
-	await get_tree().process_frame
-	
-	if cfg.has("init_exp"):
-		var init_exp = cfg["init_exp"]
-		for e in init_exp:
-			execute(e)
-		cfg["init_exp"] = []
-
-	await get_tree().process_frame
-
-	if cfg.has("repl"):
-		is_repl_window_opened = cfg.repl.visible
-		_full_repl.position = cfg.repl.position
-		_full_repl.size = cfg.repl.size
-		
-	if cfg.has("mini_repl"):
-		mini_repl_mode = cfg.mini_repl
-
-	Config.set_config(cfg)
+	execute(init_expression)
 
 #	register_env("panku", self)
 
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		var cfg = Config.get_config()
-		if !cfg.has("repl"):
-			cfg["repl"] = {
-				"visible":false,
-				"position":Vector2(0, 0),
-				"size":Vector2(200, 200)
-			}
-		cfg.repl.visible = is_repl_window_opened
-		cfg.repl.position = _full_repl.position
-		cfg.repl.size = _full_repl.size
-		if !cfg.has("mini_repl"):
-			cfg["mini_repl"] = false
-		cfg.mini_repl = mini_repl_mode
-		Config.set_config(cfg)
+		save_data()
+
+func load_data():
+	#load configs
+	var cfg = Config.get_config()
+	
+	init_expression = cfg.get(Utils.CFG_INIT_EXP, "")
+	
+	pause_when_active = cfg.get(Utils.CFG_PAUSE_WHEN_POPUP, false)
+	
+	mini_repl_mode = cfg.get(Utils.CFG_MINI_REPL_MODE, false)
+
+	var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
+	Console._full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
+
+	var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.1))
+	Console._full_repl.material.set("shader_parameter/modulate", base_color)
+
+	output_overlay.visible = cfg.get(Utils.CFG_OUTPUT_OVERLAY, true)
+
+	output_overlay.modulate.a = cfg.get(Utils.CFG_OUTPUT_OVERLAY_ALPHA, 0.5)
+
+	output_overlay.theme.default_font_size= cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE, 14)
+
+	var shadow = cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW, false)
+	output_overlay.set("theme_override_colors/font_shadow_color", Color.BLACK if shadow else null)
+
+	var monitor_array = cfg.get(Utils.CFG_MONITOR_ARRAY, [])
+	for data in monitor_array:
+		callv("add_monitor_window", data)
+
+func save_data():
+	var cfg = Config.get_config()
+
+	cfg[Utils.CFG_INIT_EXP] = init_expression
+	
+	cfg[Utils.CFG_PAUSE_WHEN_POPUP] = pause_when_active
+	
+	cfg[Utils.CFG_MINI_REPL_MODE] = mini_repl_mode
+
+	cfg[Utils.CFG_WINDOW_BLUR_EFFECT] = _full_repl.material.get("shader_parameter/lod") > 0.0
+
+	cfg[Utils.CFG_WINDOW_BASE_COLOR] = _full_repl.material.get("shader_parameter/modulate")
+
+	cfg[Utils.CFG_OUTPUT_OVERLAY] = output_overlay.visible
+
+	cfg[Utils.CFG_OUTPUT_OVERLAY_ALPHA] = output_overlay.modulate.a
+
+	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE] = output_overlay.theme.default_font_size
+
+	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW] = output_overlay.get("theme_override_colors/font_shadow_color") != null
+
+	var monitor_array = []
+	for w in w_manager.get_children():
+		if w.has_meta("monitor"):
+			monitor_array.append([
+				w.get_content()._update_exp,
+				w.get_content()._update_period,
+				w.position,
+				w.size,
+				w._title_btn.text
+			])
+	cfg[Utils.CFG_MONITOR_ARRAY] = monitor_array
+
+	Config.set_config(cfg)

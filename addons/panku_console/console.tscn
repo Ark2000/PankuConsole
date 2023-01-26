@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=15 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -10,11 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://b2850q72xk6ao" path="res://addons/panku_console/components/mini_repl/mini_repl_2.tscn" id="8_xcl5b"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
 [ext_resource type="Script" path="res://addons/panku_console/components/options.gd" id="9_tnco4"]
+[ext_resource type="PackedScene" uid="uid://c6hm8vweq0j4f" path="res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn" id="9_ua71q"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 [ext_resource type="PackedScene" uid="uid://ctkkp3obep7dl" path="res://addons/panku_console/components/logger/godot_log_monitor.tscn" id="14_jxci2"]
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
@@ -26,6 +27,7 @@ godot_log_monitor = NodePath("GodotLogMonitor")
 output_overlay = NodePath("LogOverlay")
 w_manager = NodePath("LynxWindowsManager2")
 options = NodePath("Options")
+exp_key_mapper = NodePath("LynxWindowsManager2/ExpKeyMapper")
 
 [node name="GodotLogMonitor" parent="." instance=ExtResource("14_jxci2")]
 
@@ -66,6 +68,7 @@ offset_right = 206.5
 offset_bottom = 152.5
 grow_horizontal = 2
 grow_vertical = 2
+queue_free_on_close = false
 
 [node name="Button" parent="LynxWindowsManager2/FullREPL/VBoxContainer/Up" index="0"]
 text = "</> Panku REPL"
@@ -86,6 +89,20 @@ offset_top = -180.0
 offset_right = 240.0
 offset_bottom = 180.0
 
+[node name="ExpKeyMapper" parent="LynxWindowsManager2" instance=ExtResource("6_nyvg7")]
+visible = false
+layout_mode = 0
+queue_free_on_close = false
+
+[node name="Button" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="0"]
+text = "Expression Key Mapper"
+
+[node name="Button3" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="1"]
+visible = false
+
+[node name="ExpKeyMapper" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Down" index="0" instance=ExtResource("9_ua71q")]
+layout_mode = 1
+
 [node name="Options" type="Node" parent="."]
 script = ExtResource("9_tnco4")
 
@@ -102,3 +119,4 @@ script = ExtResource("9_fav7q")
 script = ExtResource("10_h26u7")
 
 [editable path="LynxWindowsManager2/FullREPL"]
+[editable path="LynxWindowsManager2/ExpKeyMapper"]

@@ -12,13 +12,4 @@ static func get_config() -> Dictionary:
 		var content = file.get_as_text()
 		var config:Dictionary = str_to_var(content)
 		if config: return config
-	return {
-		"widgets_data": [],
-		"init_exp": [],
-		"repl": {
-			"visible":false,
-			"position":Vector2(0, 0),
-			"size":Vector2(400, 400),
-		},
-		"mini_repl": false
-	}
+	return {}
