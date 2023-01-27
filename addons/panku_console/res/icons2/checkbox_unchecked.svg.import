@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ciu5jiw4xmkq0"
-path="res://.godot/imported/resize-svgrepo-com.svg-8f3967fd30cb407e949c37e82b1f8af9.ctex"
+uid="uid://dkiyle8rjahmw"
+path="res://.godot/imported/checkbox_unchecked.svg-43408d4debc25d7804c4c806c8681c45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/panku_console/res/pics/resize-svgrepo-com.svg"
-dest_files=["res://.godot/imported/resize-svgrepo-com.svg-8f3967fd30cb407e949c37e82b1f8af9.ctex"]
+source_file="res://addons/panku_console/res/icons2/checkbox_unchecked.svg"
+dest_files=["res://.godot/imported/checkbox_unchecked.svg-43408d4debc25d7804c4c806c8681c45.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/hdr_compression=1
 compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

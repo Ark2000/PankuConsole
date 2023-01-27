@@ -17,7 +17,3 @@ func _ready():
 				for node in control_group:
 					node.hide()
 	)
-
-	#show all by default
-	button_pressed = true
-	toggled.emit(button_pressed)

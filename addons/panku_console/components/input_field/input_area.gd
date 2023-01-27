@@ -27,7 +27,7 @@ func _ready():
 	)
 	btn2.pressed.connect(
 		func():
-			Console.add_exporter_window(Console.options, "Panku Settings")
+			Console.add_exporter_window(Console.options, "Settings")
 	)
 	#get focus automatically.
 	visibility_changed.connect(
@@ -49,10 +49,10 @@ func _ready():
 			#watch
 			var exp = input.text.lstrip(" ").rstrip(" ")
 			if id == 0:
-				Console.execute("widgets.watch('%s')"%exp)
+				Console.execute("console.add_exp_monitor('%s')"%exp)
 			#add button
 			elif id == 1:
-				Console.execute("widgets.button('%s', '%s')"%[exp, exp])
+				Console.execute("console.add_exp_button('%s', '%s')"%[exp, exp])
 	)
 	menubtn.about_to_popup.connect(
 		func():

@@ -68,7 +68,7 @@ func load_data():
 	mapping_data = cfg.get(PankuConsole.Utils.CFG_EXP_MAPPING_DATA, [])
 	
 	#load data
-	for i in range(len(mapping_data)):s
+	for i in range(len(mapping_data)):
 		var key_mapping = mapping_data[i]
 		var exp:String = key_mapping[0]
 		var event:InputEventKey = key_mapping[1]

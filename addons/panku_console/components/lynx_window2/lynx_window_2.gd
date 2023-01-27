@@ -32,9 +32,9 @@ var _is_resizing := false
 var _resize_start_position:Vector2
 
 func centered():
-		var window_rect = get_rect()
-		var screen_rect = get_viewport_rect()
-		position = (screen_rect.size - window_rect.size) / 2
+	var window_rect = get_rect()
+	var screen_rect = get_viewport_rect()
+	position = (screen_rect.size - window_rect.size) / 2
 
 func get_content():
 	if _content.get_child_count() > 0:

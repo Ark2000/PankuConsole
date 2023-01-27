@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ca0bkchv6nsrb" path="res://addons/panku_console/components/console_ui/repl.tscn" id="4_ihf0b"]
 [ext_resource type="PackedScene" uid="uid://cbijhl1nhy64n" path="res://addons/panku_console/components/console_ui/help_bar.tscn" id="10_0thy6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ywt8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0wh0"]
 bg_color = Color(0.239216, 0.258824, 0.278431, 0.25098)
 border_width_left = 1
 border_width_top = 1
@@ -75,7 +75,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8ywt8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_p0wh0")
 
 [node name="HintsList" parent="." instance=ExtResource("3_qw8p4")]
 layout_mode = 1

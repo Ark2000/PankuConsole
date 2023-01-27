@@ -54,6 +54,8 @@ const CFG_OUTPUT_OVERLAY_FONT_SIZE = "output_overlay_font_size"
 const CFG_OUTPUT_OVERLAY_FONT_SHADOW = "output_overlay_font_shadow"
 const CFG_EXP_MAPPING_DATA = "exp_mapping_data"
 const CFG_MONITOR_ARRAY = "monitor_array"
+const CFG_FREPL_POSITION = "frepl_position"
+const CFG_FREPL_SIZE = "frepl_size"
 
 static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
 	var failed := false

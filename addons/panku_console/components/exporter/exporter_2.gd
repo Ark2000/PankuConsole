@@ -1,5 +1,6 @@
 extends Control
 const BUTTON_PREFIX = "export_button_"
+const TEXT_LABEL_MIN_X = 120
 
 @export var timer:Timer
 @export var container:VBoxContainer
@@ -48,6 +49,7 @@ func setup(_obj:Object):
 	var data = script.get_script_property_list()
 	var row = null
 	var group:Array = []
+	var group_buttons = []
 	var last_group_button = null
 	for d in data:
 		if d.name.begins_with("_"):
@@ -98,16 +100,26 @@ func setup(_obj:Object):
 		elif d.usage == PROPERTY_USAGE_GROUP:
 			if last_group_button:
 				last_group_button.control_group = group
+				group_buttons.push_back(last_group_button)
 			group = []
 			row = group_button.instantiate()
 			row.text = d.name
 			last_group_button = row
 
 		if row:
+			if row.has_node("VName"):
+				var text_label = row.get_node("VName")
+				text_label.custom_minimum_size.x = TEXT_LABEL_MIN_X
 			container.add_child(row)
 
 	if !group.is_empty() and last_group_button:
 		last_group_button.control_group = group
+		group_buttons.push_back(last_group_button)
+
+	#hide all groups by default
+	for group_button in group_buttons:
+		group_button.button_pressed = false
+		group_button.toggled.emit(false)
 
 	for dname in ui_rows:
 		#sync data, ui -> data

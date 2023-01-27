@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://78evbpdhqe4b"]
+[gd_scene load_steps=5 format=3 uid="uid://78evbpdhqe4b"]
 
-[ext_resource type="Texture2D" uid="uid://1h71ctja18lu" path="res://addons/panku_console/res/pics/arrow-right-2-svgrepo-com.svg" id="1_t32f3"]
 [ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_group_button.gd" id="2_7jdni"]
 
 [sub_resource type="SystemFont" id="SystemFont_bascj"]
@@ -19,7 +18,6 @@ theme_override_fonts/font = SubResource("FontVariation_laq2y")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gpngf")
 toggle_mode = true
 text = "Group_1"
-icon = ExtResource("1_t32f3")
 alignment = 0
 expand_icon = true
 script = ExtResource("2_7jdni")

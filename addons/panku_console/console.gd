@@ -33,7 +33,10 @@ const exporter_prefab = preload("res://addons/panku_console/components/exporter/
 var toggle_console_action:String
 
 ## If [code]true[/code], pause the game when the console window is active.
-var pause_when_active:bool
+var pause_when_active:bool:
+	set(v):
+		pause_when_active = v
+		is_repl_window_opened = is_repl_window_opened
 
 var init_expression:String = ""
 
@@ -54,10 +57,10 @@ var is_repl_window_opened := false:
 		else:
 			_full_repl.visible = v
 		if pause_when_active:
-			get_tree().paused = v
 			_full_repl._title_btn.text = "</> Panku REPL (Paused)"
 		else:
 			_full_repl._title_btn.text = "</> Panku REPL"
+		get_tree().paused = pause_when_active and v
 		repl_visible_changed.emit(v)
 
 @export var _resident_logs:Node
@@ -144,14 +147,6 @@ func add_exporter_window(obj:Object, window_title := ""):
 	content.setup(obj)
 	new_window.centered()
 
-func add_exp_key_mapper_window():
-	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
-	new_window._title_btn.text = "Expression Key Mapper"
-	new_window._options_btn.hide()
-	w_manager.add_child(new_window)
-	new_window.set_content(exp_key_mapper_prefab.instantiate())
-	new_window.centered()
-
 func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 = Vector2(0, 0), size:Vector2 = Vector2(160, 60), title_text := ""):
 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
 	if title_text == "": title_text = exp
@@ -197,7 +192,7 @@ func _ready():
 	
 	_full_repl._options_btn.pressed.connect(
 		func():
-			add_exporter_window(options, "Panku Settings")
+			add_exporter_window(options, "Settings")
 	)
 	
 	_full_repl.window_closed.connect(
@@ -212,12 +207,8 @@ func _ready():
 	#add info of base instance
 	var env_info = Utils.extract_info_from_script(_base_instance.get_script())
 	for k in env_info: _envs_info[k] = env_info[k]
-	
+
 	load_data()
-
-	execute(init_expression)
-
-#	register_env("panku", self)
 
 func _notification(what):
 	#quit event
@@ -229,10 +220,14 @@ func load_data():
 	var cfg = Config.get_config()
 	
 	init_expression = cfg.get(Utils.CFG_INIT_EXP, "")
-	
+	execute(init_expression)
 	pause_when_active = cfg.get(Utils.CFG_PAUSE_WHEN_POPUP, false)
-	
 	mini_repl_mode = cfg.get(Utils.CFG_MINI_REPL_MODE, false)
+	output_overlay.visible = cfg.get(Utils.CFG_OUTPUT_OVERLAY, true)
+	output_overlay.modulate.a = cfg.get(Utils.CFG_OUTPUT_OVERLAY_ALPHA, 0.5)
+	output_overlay.theme.default_font_size= cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE, 14)
+	_full_repl.position = cfg.get(Utils.CFG_FREPL_POSITION, _full_repl.position)
+	_full_repl.size = cfg.get(Utils.CFG_FREPL_SIZE, _full_repl.size)
 
 	var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
 	Console._full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
@@ -240,39 +235,26 @@ func load_data():
 	var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.1))
 	Console._full_repl.material.set("shader_parameter/modulate", base_color)
 
-	output_overlay.visible = cfg.get(Utils.CFG_OUTPUT_OVERLAY, true)
-
-	output_overlay.modulate.a = cfg.get(Utils.CFG_OUTPUT_OVERLAY_ALPHA, 0.5)
-
-	output_overlay.theme.default_font_size= cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE, 14)
-
 	var shadow = cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW, false)
 	output_overlay.set("theme_override_colors/font_shadow_color", Color.BLACK if shadow else null)
 
 	var monitor_array = cfg.get(Utils.CFG_MONITOR_ARRAY, [])
 	for data in monitor_array:
-		callv("add_monitor_window", data)
+		callv("add_monitor_window", data)	
 
 func save_data():
 	var cfg = Config.get_config()
-
 	cfg[Utils.CFG_INIT_EXP] = init_expression
-	
 	cfg[Utils.CFG_PAUSE_WHEN_POPUP] = pause_when_active
-	
 	cfg[Utils.CFG_MINI_REPL_MODE] = mini_repl_mode
-
 	cfg[Utils.CFG_WINDOW_BLUR_EFFECT] = _full_repl.material.get("shader_parameter/lod") > 0.0
-
 	cfg[Utils.CFG_WINDOW_BASE_COLOR] = _full_repl.material.get("shader_parameter/modulate")
-
 	cfg[Utils.CFG_OUTPUT_OVERLAY] = output_overlay.visible
-
 	cfg[Utils.CFG_OUTPUT_OVERLAY_ALPHA] = output_overlay.modulate.a
-
 	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE] = output_overlay.theme.default_font_size
-
 	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW] = output_overlay.get("theme_override_colors/font_shadow_color") != null
+	cfg[Utils.CFG_FREPL_POSITION] = _full_repl.position
+	cfg[Utils.CFG_FREPL_SIZE] = _full_repl.size
 
 	var monitor_array = []
 	for w in w_manager.get_children():

@@ -43,8 +43,4 @@ theme_override_font_sizes/italics_font_size = 16
 theme_override_font_sizes/bold_italics_font_size = 16
 theme_override_font_sizes/mono_font_size = 16
 bbcode_enabled = true
-text = "hello
-[b]hello[/b]
-[i]hello[/i]
-[b][i]hello[/i][/b]"
 scroll_following = true

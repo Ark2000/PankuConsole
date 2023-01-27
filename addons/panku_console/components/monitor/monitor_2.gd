@@ -5,6 +5,7 @@ signal change_window_title_text(text:String)
 const N = 999999
 
 @export var _label:RichTextLabel
+@export var _trect:TextureRect
 
 @export var title_text:String = ""
 @export_range(0, 30) var update_frequency:int = 0
@@ -16,7 +17,12 @@ var _update_exp = "engine.performance_info"
 var t = 0.0
 
 func update_exp_i():
-	_label.text = str(Console.execute(_update_exp)["result"])
+	var value = Console.execute(_update_exp)["result"]
+	if value is Texture2D:
+		#Not sure about how texture works
+		_trect.texture = ImageTexture.create_from_image(value.get_image())
+	else:
+		_label.text = str(value)
 
 func _ready():
 	t = _update_period
@@ -26,7 +32,7 @@ func _ready():
 func _process(delta):
 	t -= delta
 	if t <= 0.0:
-		_label.text = str(Console.execute(_update_exp)["result"])
+		update_exp_i()
 		t += _update_period
 
 func confirm():
