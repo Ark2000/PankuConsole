@@ -107,20 +107,23 @@ func reload():
 		item_container.add_child(list_item)
 
 func combine_selected():
-	var cnt := 0
-	var result = []
+	var selected_exp = []
+	var combined_exp = ""
 	for d in item_data:
 		if !d[0]: continue
-		cnt += 1
-		result.append("'%s: ' + str(%s)" % [d[2], d[2]])
-		if cnt > 8:
+		selected_exp.append(d[2])
+		if selected_exp.size() > 8:
 			Console.notify("Maximum 8 items!")
 			return
-	if cnt == 0:
+	if selected_exp.size() == 0:
 		Console.notify("Nothing to copy!")
 		return
-
-	var combined_exp = " + '\\n' + ".join(PackedStringArray(result))
+	elif selected_exp.size() == 1:
+		combined_exp = selected_exp[0]
+	else:
+		for i in range(selected_exp.size()):
+			selected_exp[i] = "'%s: ' + str(%s)" % [selected_exp[i], selected_exp[i]]
+		combined_exp = " + '\\n' + ".join(PackedStringArray(selected_exp))
 	DisplayServer.clipboard_set(combined_exp)
 	Console.notify("Combined expression has beed added to clipboard!")
 	clear_selected()
