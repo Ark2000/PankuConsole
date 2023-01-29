@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_q7hjy"]
 [ext_resource type="Script" path="res://addons/panku_console/components/exp_history/exp_history.gd" id="2_arl4x"]
-[ext_resource type="PackedScene" uid="uid://ddqer70fn6o2m" path="res://addons/panku_console/components/exp_history/exp_history_item.tscn" id="3_wac0s"]
+[ext_resource type="PackedScene" uid="uid://dhsvbbxqlb1xy" path="res://addons/panku_console/components/exp_history/exp_history_item.tscn" id="3_wac0s"]
 
 [node name="ExpHistory" type="Control" node_paths=PackedStringArray("item_container", "copy_button", "favorite_button", "delete_button", "reverse_select_button", "prev_page_button", "next_page_button", "first_page_button", "last_page_button", "page_ledit", "page_label", "timer")]
 clip_contents = true

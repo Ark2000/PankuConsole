@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c0y1axyst1ub3"]
+[gd_scene load_steps=16 format=3 uid="uid://c0y1axyst1ub3"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/exporter/exporter_2.gd" id="1_0hpei"]
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_3uypn"]
@@ -13,8 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://b4iurk1ni11v2" path="res://addons/panku_console/components/exporter/row_color.tscn" id="9_scg41"]
 [ext_resource type="PackedScene" uid="uid://ds3hbsvvlvdyw" path="res://addons/panku_console/components/exporter/row_button.tscn" id="10_vt884"]
 [ext_resource type="PackedScene" uid="uid://i2pcctq0i2o3" path="res://addons/panku_console/components/exporter/row_bool.tscn" id="11_0f6sm"]
+[ext_resource type="PackedScene" uid="uid://cxnpwuiumbs85" path="res://addons/panku_console/components/exporter/row_comment.tscn" id="14_ydleg"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vxde0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sv2eh"]
 content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
@@ -43,6 +44,7 @@ row_int = ExtResource("5_ua2hx")
 row_color = ExtResource("9_scg41")
 row_string = ExtResource("2_87515")
 row_bool = ExtResource("11_0f6sm")
+row_comment = ExtResource("14_ydleg")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -51,7 +53,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_vxde0")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sv2eh")
 horizontal_scroll_mode = 0
 
 [node name="Timer" type="Timer" parent="ScrollContainer"]

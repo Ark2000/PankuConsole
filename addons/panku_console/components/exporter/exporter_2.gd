@@ -1,5 +1,6 @@
 extends Control
 const BUTTON_PREFIX = "export_button_"
+const COMMENT_PREFIX = "export_comment_"
 const TEXT_LABEL_MIN_X = 120
 
 @export var timer:Timer
@@ -15,6 +16,7 @@ const TEXT_LABEL_MIN_X = 120
 @export var row_color:PackedScene
 @export var row_string:PackedScene
 @export var row_bool:PackedScene
+@export var row_comment:PackedScene
 
 var obj:Object
 var ui_rows := {}
@@ -58,17 +60,21 @@ func setup(_obj:Object):
 		row = null
 
 		#@export
-		var is_button := false
+		var do_not_update := false
 		if d.usage == (PROPERTY_USAGE_SCRIPT_VARIABLE | PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_STORAGE):
 			#button
 			if d.name.begins_with(BUTTON_PREFIX) and d.type == TYPE_STRING:
+				do_not_update = true
 				var func_name:String = d.name.trim_prefix(BUTTON_PREFIX)
 				row = row_button.instantiate()
 				row.btn_text = obj.get(d.name)
-				is_button = true
 				if func_name in obj:
 					row.obj = obj
 					row.callback = func_name
+			elif d.name.begins_with(COMMENT_PREFIX) and d.type == TYPE_STRING:
+				do_not_update = true
+				row = row_comment.instantiate()
+				row.label.text = obj.get(d.name)
 			elif d.type == TYPE_INT and d.hint == PROPERTY_HINT_NONE:
 				row = row_int.instantiate()
 			elif d.type == TYPE_FLOAT and d.hint == PROPERTY_HINT_NONE:
@@ -93,7 +99,7 @@ func setup(_obj:Object):
 				row = row_read_only.instantiate()
 
 			group.append(row)
-			if !is_button:
+			if !do_not_update:
 				ui_rows[d.name] = row
 
 		#@export_group, no support for `prefix`

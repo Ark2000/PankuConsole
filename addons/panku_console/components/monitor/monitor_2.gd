@@ -11,6 +11,7 @@ const N = 999999
 @export_range(0, 30) var update_frequency:int = 0
 @export var expression:String = ""
 @export var export_button_confirm = "Apply"
+@export var export_comment_1 = "Hint: You can click the title to update result instantly"
 
 var _update_period = N
 var _update_exp = "engine.performance_info"

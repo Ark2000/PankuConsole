@@ -79,7 +79,6 @@ func _ready():
 	)
 
 func reload():
-	print("RELOAD")
 	#calculate pages
 	all_pages = max(1, ceil(1.0 * item_data.size() / items_per_page))
 	current_page = clamp(current_page, 1, all_pages)
