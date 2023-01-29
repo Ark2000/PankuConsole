@@ -11,7 +11,7 @@ var hints = []
 func _ready():
 	text_submitted.connect(on_text_submitted)
 
-func on_text_submitted(s):
+func on_text_submitted(s:String):
 	if histories.size() > 0 and history_idx < histories.size() and text == histories[history_idx]:
 		pass
 	else:
@@ -20,6 +20,7 @@ func on_text_submitted(s):
 		histories.push_back(text)
 	history_idx = histories.size()
 	clear()
+	Console.exp_history_window.get_content().add_history(s)
 
 func _gui_input(e):
 	#navigate through histories

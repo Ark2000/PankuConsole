@@ -22,9 +22,11 @@ var open_settings:
 
 const _HELP_open_keybindings = "Open expression key bindings window"
 var open_keybindings:
-	get:
-		Console.exp_key_mapper.show()
-		return Console.exp_key_mapper
+	get: return Console.open_expression_key_mapper()
+
+const _HELP_open_history = "Open expression history window"
+var open_history:
+	get: return Console.open_expression_history()
 
 const _HELP_toggle_output_overlay = "Toggle visibility of output overlay"
 var toggle_output_overlay:

@@ -56,6 +56,7 @@ const CFG_EXP_MAPPING_DATA = "exp_mapping_data"
 const CFG_MONITOR_ARRAY = "monitor_array"
 const CFG_FREPL_POSITION = "frepl_position"
 const CFG_FREPL_SIZE = "frepl_size"
+const CFG_EXP_HISTORY = "exp_history"
 
 static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
 	var failed := false
@@ -134,7 +135,7 @@ static func extract_info_from_script(script:Script):
 static func parse_exp(env_info:Dictionary, exp:String, allow_empty:=false):
 	var result:Array
 	var empty_flag = allow_empty and exp.is_empty()
-	
+
 	if empty_flag:
 		result = env_info.keys()
 	else:

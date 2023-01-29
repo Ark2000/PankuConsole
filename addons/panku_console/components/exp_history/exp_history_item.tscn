@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhsvbbxqlb1xy"]
+
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_rsfup"]
+[ext_resource type="Script" path="res://addons/panku_console/components/exp_history/exp_history_item.gd" id="2_jpjtf"]
+[ext_resource type="Texture2D" uid="uid://hf6h8otb8qkv" path="res://addons/panku_console/res/icons2/favorite.svg" id="3_1odvn"]
+
+[node name="ExpItem" type="HBoxContainer" node_paths=PackedStringArray("checkbox", "fav_icon", "line_edit")]
+offset_right = 155.0
+offset_bottom = 20.0
+theme = ExtResource("1_rsfup")
+script = ExtResource("2_jpjtf")
+checkbox = NodePath("CheckBox")
+fav_icon = NodePath("TextureRect")
+line_edit = NodePath("LineEdit")
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("3_1odvn")
+stretch_mode = 3
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

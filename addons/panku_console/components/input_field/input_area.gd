@@ -49,10 +49,12 @@ func _ready():
 			#watch
 			var exp = input.text.lstrip(" ").rstrip(" ")
 			if id == 0:
-				Console.execute("console.add_exp_monitor('%s')"%exp)
+				var window = Console.add_monitor_window(exp, 0.1)
+				window.centered()
 			#add button
 			elif id == 1:
-				Console.execute("console.add_exp_button('%s', '%s')"%[exp, exp])
+				var window = Console.add_monitor_window(exp, 999999)
+				window.centered()
 	)
 	menubtn.about_to_popup.connect(
 		func():

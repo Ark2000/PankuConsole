@@ -1,6 +1,5 @@
 extends Node
 
-
 @export var source:Node = self
 
 func _to_string():
@@ -44,6 +43,7 @@ func _to_string():
 @export_group("Tools")
 @export var export_button_add_profiler_widget := "Add Profiler Monitor"
 @export var export_button_open_expression_key_mapper := "Open Expression Key Mapper"
+@export var export_button_open_expression_history := "Open Expression History"
 @export var output_overlay:bool = true:
 	set(v):
 		output_overlay = v
@@ -82,9 +82,10 @@ func add_profiler_widget():
 	Console.execute("widgets.profiler")
 
 func open_expression_key_mapper():
-	Console.exp_key_mapper.centered()
-	Console.exp_key_mapper.move_to_front()
-	Console.exp_key_mapper.show()
+	Console.open_expression_key_mapper()
+
+func open_expression_history():
+	Console.open_expression_history()
 
 func show_intro():
 	Console.show_intro()

@@ -72,6 +72,7 @@ var is_repl_window_opened := false:
 @export var w_manager:Node
 @export var options:Node
 @export var exp_key_mapper:Node
+@export var exp_history_window:Node
 
 var _envs = {}
 var _envs_info = {}
@@ -175,6 +176,16 @@ func show_intro():
 	output("[center][img=96]res://addons/panku_console/logo.svg[/img][/center]")
 	output("[color=#f5f5f5][b]Check [color=#f5891d]repl_console_env.gd[/color] or simply type [color=#f5891d]help[/color] to see what you can do now![/b][/color] [color=#f5f5f5][b]For more information, please visit: [color=#f5891d][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color].")
 	output("")
+
+func open_expression_key_mapper():
+	exp_key_mapper.centered()
+	exp_key_mapper.move_to_front()
+	exp_key_mapper.show()
+
+func open_expression_history():
+	exp_history_window.centered()
+	exp_history_window.move_to_front()
+	exp_history_window.show()
 
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):

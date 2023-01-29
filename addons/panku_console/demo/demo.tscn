@@ -73,7 +73,7 @@ offset_top = -93.0
 offset_right = 686.0
 grow_vertical = 0
 text = "Press (~) key to open REPL window which is an entry point of this plugin.
-Try to type `console.export(demo)` in REPL to get an exporter window.
+Try to type `console.add_exporter(demo)` in REPL to get an exporter window.
 You can play around here with all its features."
 label_settings = SubResource("LabelSettings_c1tyn")
 
