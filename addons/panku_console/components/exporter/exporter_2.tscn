@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://i2pcctq0i2o3" path="res://addons/panku_console/components/exporter/row_bool.tscn" id="11_0f6sm"]
 [ext_resource type="PackedScene" uid="uid://cxnpwuiumbs85" path="res://addons/panku_console/components/exporter/row_comment.tscn" id="14_ydleg"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sv2eh"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o2trv"]
 content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
@@ -53,7 +53,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sv2eh")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_o2trv")
 horizontal_scroll_mode = 0
 
 [node name="Timer" type="Timer" parent="ScrollContainer"]

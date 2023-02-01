@@ -172,9 +172,10 @@ func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 =
 	return new_window
 
 func show_intro():
-	output("[center][b][color=#f5891d][ Panku Console ][/color][/b] [color=#f5f5f5][b]Version 1.2.32[/b][/color][/center]")
+	output("[center][b][color=#478cbf][ Panku Console ][/color][/b][/center]")
 	output("[center][img=96]res://addons/panku_console/logo.svg[/img][/center]")
-	output("[color=#f5f5f5][b]Check [color=#f5891d]repl_console_env.gd[/color] or simply type [color=#f5891d]help[/color] to see what you can do now![/b][/color] [color=#f5f5f5][b]For more information, please visit: [color=#f5891d][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color][/b][/color].")
+	output("[color=#f5f5f5][b]V1.3.61[/b][/color]\n")
+	output("Type [color=#478cbf]help[/color] to see all registered objects. For more information, please visit: [color=#478cbf][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color].")
 	output("")
 
 func open_expression_key_mapper():
