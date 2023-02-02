@@ -2,7 +2,7 @@
 ![](https://badgen.net/badge/Godot%20Compatible/4.0Beta15%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
 
 
-![logo](assets/logo.svg)
+![logo](assets/title.png)
 
 All-in-One [Godot Engine](https://godotengine.org/) runtime debugging tool.
 
