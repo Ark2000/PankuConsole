@@ -234,4 +234,4 @@ func xxx():
 
 [MIT License](LICENSE)
 
-Copyright (c) 2022-present, Feiyue (k2kra) Wu
+Copyright (c) 2022-present, Feo (k2kra) Wu

@@ -240,4 +240,4 @@ Thanks to these nice [people who contributed to this project](https://github.com
 
 [MIT License](LICENSE)
 
-Copyright (c) 2022-present, Feiyue (k2kra) Wu
+Copyright (c) 2022-present, Feo (k2kra) Wu

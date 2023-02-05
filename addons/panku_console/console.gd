@@ -174,7 +174,7 @@ func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 =
 func show_intro():
 	output("[center][b][color=#478cbf][ Panku Console ][/color][/b][/center]")
 	output("[center][img=96]res://addons/panku_console/logo.svg[/img][/center]")
-	output("[color=#f5f5f5][b]V1.3.61[/b][/color]\n")
+	output("[color=#f5f5f5][b]V%s[/b][/color]\n"%Utils.get_plugin_version())
 	output("Type [color=#478cbf]help[/color] to see all registered objects. For more information, please visit: [color=#478cbf][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color].")
 	output("")
 
