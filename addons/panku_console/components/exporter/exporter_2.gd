@@ -50,7 +50,7 @@ func setup(_obj:Object):
 	#get all export properties from its script
 	var data = script.get_script_property_list()
 	var row = null
-	var group:Array = []
+	var group:Array[Control] = []
 	var group_buttons = []
 	var last_group_button = null
 	for d in data:
