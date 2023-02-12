@@ -222,7 +222,7 @@ func xxx():
 
 # **贡献**
 
-感谢这些[为本项目做出贡献的人](https://github.com/Ark2000/PankuConsole)，期待更多的人参与本项目，为Godot的生态发展添砖建瓦，参与的方式包括但不限于：
+感谢这些[为本项目做出贡献的人](https://github.com/Ark2000/PankuConsole/graphs/contributors)，期待更多的人参与本项目，为Godot的生态发展添砖建瓦，参与的方式包括但不限于：
 
 1. 如果发现缺陷或者有新的想法，可以提出[Issue](https://github.com/Ark2000/PankuConsole/issues)
 
