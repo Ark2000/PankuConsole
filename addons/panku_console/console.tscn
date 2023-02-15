@@ -70,6 +70,7 @@ offset_bottom = 152.5
 grow_horizontal = 2
 grow_vertical = 2
 queue_free_on_close = false
+flicker = false
 
 [node name="Button" parent="LynxWindowsManager2/FullREPL/VBoxContainer/Up" index="0"]
 text = "</> Panku REPL"

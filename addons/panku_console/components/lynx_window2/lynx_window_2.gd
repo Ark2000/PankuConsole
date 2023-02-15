@@ -24,6 +24,7 @@ signal window_closed
 		_window_title_container.visible = !v
 		
 @export var queue_free_on_close := true
+@export var flicker := true
 
 var _is_dragging := false
 var _drag_start_position:Vector2
@@ -87,6 +88,14 @@ func _ready():
 					if (get_global_mouse_position() - _drag_start_position_global).length_squared() < 4:
 						title_btn_clicked.emit()
 	)
+	visibility_changed.connect(
+		func():
+			if is_visible_in_tree() and flicker:
+				$Border.hey_i_am_here()
+	)
+	
+	if flicker:
+		$Border.hey_i_am_here()
 
 func _input(e):
 	#release focus when you click outside of the window

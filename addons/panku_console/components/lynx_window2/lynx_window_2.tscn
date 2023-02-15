@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://s88loppa6gja"]
+[gd_scene load_steps=25 format=3 uid="uid://s88loppa6gja"]
 
 [ext_resource type="Material" uid="uid://dyipeqsa8lcpc" path="res://addons/panku_console/components/lynx_window2/lynx_window_shader_material.tres" id="1_tvp6i"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_window_2.gd" id="2_1ul5o"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://8g5afcuanbl6" path="res://addons/panku_console/res/icons2/close.svg" id="5_l4qpm"]
 [ext_resource type="Texture2D" uid="uid://dvr12fl5prm78" path="res://addons/panku_console/res/effect/square_shadow.png" id="6_mfp1h"]
 [ext_resource type="Texture2D" uid="uid://ciu5jiw4xmkq0" path="res://addons/panku_console/res/icons2/resize-svgrepo-com.svg" id="7_duwqn"]
+[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/border.gd" id="8_gj3ji"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nef7"]
 content_margin_left = 8.0
@@ -95,6 +96,14 @@ shadow_size = 16
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7tml"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p3y6j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uldta"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0, 0, 1)
 
 [node name="LynxWindow2" type="ColorRect" node_paths=PackedStringArray("_window_title_container", "_title_btn", "_close_btn", "_options_btn", "_resize_btn", "_shadow_focus", "_shadow", "_content")]
 material = ExtResource("1_tvp6i")
@@ -209,3 +218,15 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_p3y6j")
 icon = ExtResource("7_duwqn")
 flat = true
 expand_icon = true
+
+[node name="Border" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uldta")
+script = ExtResource("8_gj3ji")
