@@ -9,11 +9,16 @@ border_color = Color(0.8, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_loh7i"]
 bg_color = Color(1, 1, 1, 0.12549)
 
-[node name="LogItem" type="HBoxContainer"]
+[node name="LogItem" type="HBoxContainer" node_paths=PackedStringArray("content_label", "amount_label", "amount_panel", "progress_a", "progress_b")]
 offset_right = 320.0
 offset_bottom = 26.0
 theme_override_constants/separation = 2
 script = ExtResource("1_ddump")
+content_label = NodePath("Content/MarginContainer/RichTextLabel")
+amount_label = NodePath("Amount/MarginContainer/Label")
+amount_panel = NodePath("Amount")
+progress_a = NodePath("Content/HBoxContainer/A")
+progress_b = NodePath("Content/HBoxContainer/B")
 metadata/content_label = NodePath("Content/MarginContainer/RichTextLabel")
 metadata/amount_label = NodePath("Amount/MarginContainer/Label")
 metadata/amount_panel = NodePath("Amount")
@@ -54,7 +59,6 @@ theme_override_constants/margin_left = 8
 layout_mode = 2
 bbcode_enabled = true
 text = "yoooooooooo~"
-fit_content_height = true
 
 [node name="Amount" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -67,5 +71,5 @@ theme_override_constants/margin_right = 4
 
 [node name="Label" type="Label" parent="Amount/MarginContainer"]
 layout_mode = 2
-text = "x6"
+text = "x1"
 metadata/amount = 1

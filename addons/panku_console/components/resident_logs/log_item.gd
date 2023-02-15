@@ -7,12 +7,12 @@ var amount := 1:
 		amount = v
 		amount_pop_anim()
 
-@onready var content_label:RichTextLabel = $Content/MarginContainer/RichTextLabel
-@onready var amount_label:Label = $Amount/MarginContainer/Label
-@onready var amount_panel:PanelContainer = $Amount
+@export var content_label:RichTextLabel
+@export var amount_label:Label
+@export var amount_panel:PanelContainer
 
-@onready var progress_a := $Content/HBoxContainer/A
-@onready var progress_b := $Content/HBoxContainer/B
+@export var progress_a:Panel
+@export var progress_b:Control
 
 var tween2:Tween
 var tween3:Tween

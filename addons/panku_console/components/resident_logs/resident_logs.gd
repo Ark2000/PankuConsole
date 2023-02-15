@@ -22,11 +22,12 @@ func add_log(bbcode:String, line_color:=Color(0.0, 0.75, 0.0)):
 		if get_child_count() >= MAX_LOGS:
 			get_child(0).fade_out()
 		if get_tree():
-			await get_tree().process_frame
 			var new_node = logitem2_proto.instantiate()
-			add_child(new_node)
 			new_node.content_label.text = bbcode
-			new_node.amount_panel.hide()
+			#weird? I can't explain
+#			new_node.amount_panel.hide()
 			new_node.get_node("ColorRect").color = line_color
+			await get_tree().process_frame
+			add_child(new_node)
 
 	prev_log = bbcode
