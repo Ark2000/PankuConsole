@@ -4,6 +4,7 @@ const exp_item_prefab = preload("res://addons/panku_console/components/exp_histo
 
 @export var item_container:VBoxContainer
 @export var copy_button:Button
+@export var monitor_button:Button
 @export var favorite_button:Button
 @export var delete_button:Button
 @export var reverse_select_button:Button
@@ -23,7 +24,8 @@ var item_data := []
 
 func _ready():
 	load_data()
-	copy_button.pressed.connect(combine_selected)
+	copy_button.pressed.connect(copy_selected)
+	monitor_button.pressed.connect(monitor_selected)
 	favorite_button.pressed.connect(star_selected)
 	delete_button.pressed.connect(remove_selected)
 	reverse_select_button.pressed.connect(invert_selected)
@@ -105,7 +107,20 @@ func reload():
 		)
 		item_container.add_child(list_item)
 
-func combine_selected():
+func copy_selected():
+	var result = combine_selected()
+	if result != "":
+		DisplayServer.clipboard_set(result)
+		Console.notify("Combined expression has beed added to clipboard!")
+	clear_selected()
+
+func monitor_selected():
+	var result = combine_selected()
+	if result != "":
+		Console.add_monitor_window(result, 0.1).centered()
+	clear_selected()
+
+func combine_selected() -> String:
 	var selected_exp = []
 	var combined_exp = ""
 	for d in item_data:
@@ -113,19 +128,17 @@ func combine_selected():
 		selected_exp.append(d[2])
 		if selected_exp.size() > 8:
 			Console.notify("Maximum 8 items!")
-			return
+			return ""
 	if selected_exp.size() == 0:
 		Console.notify("Nothing to copy!")
-		return
+		return ""
 	elif selected_exp.size() == 1:
 		combined_exp = selected_exp[0]
 	else:
 		for i in range(selected_exp.size()):
 			selected_exp[i] = "'%s: ' + str(%s)" % [selected_exp[i], selected_exp[i]]
 		combined_exp = " + '\\n' + ".join(PackedStringArray(selected_exp))
-	DisplayServer.clipboard_set(combined_exp)
-	Console.notify("Combined expression has beed added to clipboard!")
-	clear_selected()
+	return combined_exp
 
 func clear_selected():
 	for d in item_data:

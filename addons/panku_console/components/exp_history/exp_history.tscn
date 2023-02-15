@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://fladd1y6sa1j"]
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_q7hjy"]
 [ext_resource type="Script" path="res://addons/panku_console/components/exp_history/exp_history.gd" id="2_arl4x"]
 [ext_resource type="PackedScene" uid="uid://dhsvbbxqlb1xy" path="res://addons/panku_console/components/exp_history/exp_history_item.tscn" id="3_wac0s"]
 
-[node name="ExpHistory" type="Control" node_paths=PackedStringArray("item_container", "copy_button", "favorite_button", "delete_button", "reverse_select_button", "prev_page_button", "next_page_button", "first_page_button", "last_page_button", "page_ledit", "page_label", "timer")]
+[node name="ExpHistory" type="Control" node_paths=PackedStringArray("item_container", "copy_button", "monitor_button", "favorite_button", "delete_button", "reverse_select_button", "prev_page_button", "next_page_button", "first_page_button", "last_page_button", "page_ledit", "page_label", "timer")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 8
@@ -22,6 +22,7 @@ theme = ExtResource("1_q7hjy")
 script = ExtResource("2_arl4x")
 item_container = NodePath("VBoxContainer2/Control/VBoxContainer")
 copy_button = NodePath("VBoxContainer2/HBoxContainer/Button3")
+monitor_button = NodePath("VBoxContainer2/HBoxContainer/Button5")
 favorite_button = NodePath("VBoxContainer2/HBoxContainer/Button2")
 delete_button = NodePath("VBoxContainer2/HBoxContainer/Button")
 reverse_select_button = NodePath("VBoxContainer2/HBoxContainer/Button4")
@@ -67,6 +68,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Copy"
+
+[node name="Button5" type="Button" parent="VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Monitor"
 
 [node name="Button2" type="Button" parent="VBoxContainer2/HBoxContainer"]
 layout_mode = 2
