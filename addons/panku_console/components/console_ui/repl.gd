@@ -17,10 +17,15 @@ func _set_hint_idx(v):
 		if _current_hints["hints_value"].size() > 0:
 			v = wrapi(v, 0, _current_hints["hints_value"].size())
 			var k = _current_hints["hints_value"][v]
+
+			#if the bbcode ends with ')',then we believe it is a method
+			#(I know maybe it's a bad practice, but the hinting system needs refactor)
+			var is_method = _current_hints["hints_bbcode"][v].ends_with(")")
+
 			_hint_idx = v
 			_hints.selected = v
-			_input_area.input.text = k
-			_input_area.input.caret_column = k.length()
+			_input_area.input.text = k + ("()" if is_method else "")
+			_input_area.input.caret_column = k.length() + (1 if is_method else 0)
 			_helpbar_label.text = "[Help] %s" %  Console._envs_info[k]["help"]
 
 func execute(exp:String):
