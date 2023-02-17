@@ -43,9 +43,9 @@ In short, the core function of this plugin is to dynamically execute some simple
 
 For more information about plugin installation, you can visit the corresponding [Godot documentation](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html).
 
-> Note: This plugin only supports Godot version 4.x, and I personally do not plan to provide support for 3.x.
+> **Note**: This plugin only supports Godot version 4.x, and I personally do not plan to provide support for 3.x.
 
-> Disclaimer ⚠: Although I have not encountered accidents, given that Godot 4 is still in an unstable Beta stage, it is advisable to use this plugin with frequent project backups just to be safe.
+> **Warning**: Although I have not encountered accidents, given that Godot 4 is still in an unstable Beta stage, it is advisable to use this plugin with frequent project backups just to be safe.
 
 # 📚 **Quick Start**
 
@@ -59,7 +59,7 @@ In short, an expression is a set of constants, variables or function calls conne
 
 Also, expressions are implemented independently of GDScript and have nothing to do with the programming language you are currently using. If you want to know more, you can check the corresponding [Godot documentation](https://docs.godotengine.org/en/stable/tutorials/scripting/evaluating_expressions.html?highlight=expression).
 
-> Note: Statements like `player.hp = 100` are not expressions. If you want to perform an assignment in an expression, you can use the `set` method of `Object`, for example `player.set("hp", 100)`, which is a legal expression.
+> **Note**: Statements like `player.hp = 100` are not expressions. If you want to perform an assignment in an expression, you can use the `set` method of `Object`, for example `player.set("hp", 100)`, which is a legal expression.
 
 ## REPL Console
 
@@ -67,7 +67,7 @@ Also, expressions are implemented independently of GDScript and have nothing to 
 
 The REPL console is the entry point for all the functionality of this plugin. Once you have enabled this plugin, you can bring it up in almost any scenes by pressing the backquote key `~` (usually under ESC in the upper left corner of the keyboard), or of course you can customize it in the project settings or input map.
 
-> Note: This plugin is currently only tested on PC, and has not been tested on mobile platforms.
+> **Note**: This plugin is currently only tested on PC, and has not been tested on mobile platforms.
 
 In REPL console, you can.
 
