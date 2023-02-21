@@ -39,3 +39,12 @@ const _HELP_quit = "Quit application"
 var quit:
 	get:
 		get_tree().quit()
+
+const _HELP_show_os_report = "Display detailed OS report"
+func show_os_report() -> void:
+	Console.output("Please wait, this may take a while...")
+	await get_tree().create_timer(0.1).timeout
+	var obj = load("res://addons/panku_console/components/os_report.gd").new()
+	obj.inspect()
+	var report =  "".join(obj.rtl)
+	Console.output(report)
