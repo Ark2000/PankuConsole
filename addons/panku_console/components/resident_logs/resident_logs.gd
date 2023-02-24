@@ -24,8 +24,7 @@ func add_log(bbcode:String, line_color:=Color(0.0, 0.75, 0.0)):
 		if get_tree():
 			var new_node = logitem2_proto.instantiate()
 			new_node.content_label.text = bbcode
-			#weird? I can't explain
-#			new_node.amount_panel.hide()
+			new_node.amount_panel.hide()
 			new_node.get_node("ColorRect").color = line_color
 			await get_tree().process_frame
 			add_child(new_node)

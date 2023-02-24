@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" path="res://addons/panku_console/components/hints_list/hints_list.gd" id="1_yd1qq"]
 
-[node name="HintsList" type="ScrollContainer"]
+[node name="HintsList" type="ScrollContainer" node_paths=PackedStringArray("container")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yd1qq")
+container = NodePath("VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2

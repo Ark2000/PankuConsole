@@ -86,10 +86,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -180.0
-offset_right = 240.0
-offset_bottom = 180.0
+offset_left = -256.0
+offset_top = -151.095
+offset_right = 256.0
+offset_bottom = -127.095
+grow_vertical = 2
 
 [node name="ExpKeyMapper" parent="LynxWindowsManager2" instance=ExtResource("6_nyvg7")]
 visible = false

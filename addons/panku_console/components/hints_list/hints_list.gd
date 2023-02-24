@@ -4,7 +4,11 @@ signal hint_button_clicked(idx:int)
 
 const hint_pck = preload("res://addons/panku_console/components/hints_list/hint.tscn")
 
-@onready var container = $VBoxContainer
+const MAX_HEIGHT = 400
+
+@export var auto_resize := false
+
+@export var container:VBoxContainer
 
 var hints_count = 0
 
@@ -49,6 +53,10 @@ func set_hints(texts:Array):
 	if texts.size() < container.get_child_count():
 		for i in range(texts.size(), container.get_child_count()):
 			container.get_child(i).hide()
+	
+	if auto_resize:
+		await get_tree().process_frame
+		size.y = min(MAX_HEIGHT, container.size.y)
 
 func _on_btn_clicked(i:int):
 	if !disable_buttons:

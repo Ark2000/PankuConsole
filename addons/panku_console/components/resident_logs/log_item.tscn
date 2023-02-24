@@ -59,6 +59,7 @@ theme_override_constants/margin_left = 8
 layout_mode = 2
 bbcode_enabled = true
 text = "yoooooooooo~"
+fit_content = true
 
 [node name="Amount" type="PanelContainer" parent="."]
 layout_mode = 2
