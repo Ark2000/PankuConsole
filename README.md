@@ -230,7 +230,7 @@ The history input information will be saved to the configuration file.
 
 Thanks to these nice [people who contributed to this project](https://github.com/Ark2000/PankuConsole/graphs/contributors), you can also participate in ways including but not limited to:
 
-1. if you find a debug or come up with a new idea, you can submit [Issues](https://github.com/Ark2000/PankuConsole/issues)
+1. if you find bugs or have any suggestions, you can submit [Issues](https://github.com/Ark2000/PankuConsole/issues)
 
 2. if you have questions, you can discuss them in the [Discussion](https://github.com/Ark2000/PankuConsole/discussions)
 
