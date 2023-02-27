@@ -57,6 +57,8 @@ const CFG_MONITOR_ARRAY = "monitor_array"
 const CFG_FREPL_POSITION = "frepl_position"
 const CFG_FREPL_SIZE = "frepl_size"
 const CFG_EXP_HISTORY = "exp_history"
+const CFG_ENABLE_OS_WINDOW = "enable_os_window"
+const CFG_OS_WINDOW_BGCOLOR = "os_window_bgcolor"
 
 static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
 	var failed := false

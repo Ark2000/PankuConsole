@@ -64,6 +64,18 @@ extends Node
 	get:
 		return Console.output_overlay.get("theme_override_colors/font_shadow_color") != null
 
+@export_group("Experimental")
+@export var enable_os_window := false:
+	set(v):
+		Console.w_manager.enable_os_popup_btns(v)
+	get:
+		return Console.w_manager.os_popup_btn_enabled
+@export var os_window_bg_color:Color:
+	set(v):
+		Console.w_manager.set_os_window_bg_color(v)
+	get:
+		return Console.w_manager.os_window_bg_color
+
 @export_group("About")
 @export var export_button_show_intro := "Show Intro"
 @export var export_button_check_update := "Check Update"

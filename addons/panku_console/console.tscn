@@ -100,7 +100,7 @@ queue_free_on_close = false
 [node name="Button" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="0"]
 text = "Expression Key Mapper"
 
-[node name="Button3" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="1"]
+[node name="Button3" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="2"]
 visible = false
 
 [node name="ExpKeyMapper" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Down" index="0" instance=ExtResource("9_ua71q")]
@@ -125,7 +125,7 @@ queue_free_on_close = false
 [node name="Button" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="0"]
 text = "Expression History"
 
-[node name="Button3" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="1"]
+[node name="Button3" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="2"]
 visible = false
 
 [node name="ExpHistory" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Down" index="0" instance=ExtResource("10_03tvm")]

@@ -32,8 +32,8 @@ func _ready():
 	#get focus automatically.
 	visibility_changed.connect(
 		func():
-			if visible:
-				input.grab_focus()
+			if is_visible_in_tree():
+				input.call_deferred("grab_focus")
 	)
 
 	menubtn.mouse_entered.connect(

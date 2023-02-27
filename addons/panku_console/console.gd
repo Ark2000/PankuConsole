@@ -45,7 +45,7 @@ var mini_repl_mode = false:
 		mini_repl_mode = v
 		if is_repl_window_opened:
 			_mini_repl.visible = v
-			_full_repl.visible = !v
+			_full_repl.set_window_visibility(!v)
 
 var is_repl_window_opened := false:
 	set(v):
@@ -55,11 +55,11 @@ var is_repl_window_opened := false:
 		if mini_repl_mode:
 			_mini_repl.visible = v
 		else:
-			_full_repl.visible = v
+			_full_repl.set_window_visibility(v)
 		if pause_when_active:
-			_full_repl._title_btn.text = "</> Panku REPL (Paused)"
+			_full_repl.set_window_title_text("</> Panku REPL (Paused)")
 		else:
-			_full_repl._title_btn.text = "</> Panku REPL"
+			_full_repl.set_window_title_text("</> Panku REPL")
 		get_tree().paused = pause_when_active and v
 		repl_visible_changed.emit(v)
 
