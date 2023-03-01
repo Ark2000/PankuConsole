@@ -1,10 +1,10 @@
 # **Panku Console**
-![](https://badgen.net/badge/Godot%20Compatible/4.0RC2%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
+![](https://badgen.net/badge/Godot%20Compatible/4.0.stable%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
 
 
 ![logo](assets/title.png)
 
-All-in-One [Godot Engine](https://godotengine.org/) runtime debugging tool.
+All-in-One [Godot Engine 4](https://godotengine.org/) runtime debugging tool.
 
 ---
 

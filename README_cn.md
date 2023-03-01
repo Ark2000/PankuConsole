@@ -1,9 +1,9 @@
 # **Panku Console**
-![](https://badgen.net/badge/Godot%20Compatible/4.0RC2%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
+![](https://badgen.net/badge/Godot%20Compatible/4.0.stable%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
 
 ![logo](assets/logo.svg)
 
-全能的[Godot引擎](https://godotengine.org/)游戏运行时调试工具。
+全能的[Godot4引擎](https://godotengine.org/)游戏运行时调试工具。
 
 ---
 
