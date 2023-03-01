@@ -240,6 +240,7 @@ func load_data():
 	output_overlay.theme.default_font_size= cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE, 14)
 	_full_repl.position = cfg.get(Utils.CFG_FREPL_POSITION, _full_repl.position)
 	_full_repl.size = cfg.get(Utils.CFG_FREPL_SIZE, _full_repl.size)
+	_full_repl.get_content()._console_logs.set_font_size(cfg.get(Utils.CFG_REPL_OUTPUT_FONT_SIZE, 16))
 
 	var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
 	Console._full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
@@ -252,7 +253,7 @@ func load_data():
 
 	var monitor_array = cfg.get(Utils.CFG_MONITOR_ARRAY, [])
 	for data in monitor_array:
-		callv("add_monitor_window", data)	
+		callv("add_monitor_window", data)
 
 func save_data():
 	var cfg = Config.get_config()
@@ -267,6 +268,7 @@ func save_data():
 	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW] = output_overlay.get("theme_override_colors/font_shadow_color") != null
 	cfg[Utils.CFG_FREPL_POSITION] = _full_repl.position
 	cfg[Utils.CFG_FREPL_SIZE] = _full_repl.size
+	cfg[Utils.CFG_REPL_OUTPUT_FONT_SIZE] = _full_repl.get_content()._console_logs.get_font_size()
 
 	var monitor_array = []
 	for w in w_manager.get_children():

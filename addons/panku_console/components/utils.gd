@@ -59,6 +59,7 @@ const CFG_FREPL_SIZE = "frepl_size"
 const CFG_EXP_HISTORY = "exp_history"
 const CFG_ENABLE_OS_WINDOW = "enable_os_window"
 const CFG_OS_WINDOW_BGCOLOR = "os_window_bgcolor"
+const CFG_REPL_OUTPUT_FONT_SIZE = "repl_output_font_size"
 
 static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
 	var failed := false

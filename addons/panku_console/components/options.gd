@@ -18,6 +18,11 @@ extends Node
 
 @export_group("REPL")
 
+@export_range(12,20) var output_font_size:int:
+	set(v):
+		Console._full_repl.get_content()._console_logs.set_font_size(v)
+	get:
+		return Console._full_repl.get_content()._console_logs.get_font_size()
 @export var export_button_clear_repl_output = "Clear REPL Output"
 @export var export_comment_2 = "Whether the whole game should be paused when REPL window is visible"
 @export var freeze_when_popup:bool = true:
