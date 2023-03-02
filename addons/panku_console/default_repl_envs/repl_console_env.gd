@@ -48,6 +48,10 @@ func add_exp_button(exp:String, display_name:String):
 	window.move_to_front()
 	return window
 
+const _HELP_monitor_user_obj = "Show all public script properties of a user object."
+func monitor_user_obj(obj:Object):
+	return PankuConsole.Utils.get_object_outline(obj)
+
 const _HELP_add_profiler = "Add a simple profiler"
 var add_profiler:
 	get: return Console.add_monitor_window("engine.performance_info", 0.2)

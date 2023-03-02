@@ -214,6 +214,25 @@ static func get_export_properties_from_script(script:Script):
 		result.append(d)
 	return result
 
+#returns a string containing all public script properties of an object
+#please BE AWARE when using this function on an object with custom getters.
+static func get_object_outline(obj:Object) -> String:
+	var result := PackedStringArray()
+	if obj == null: return "null"
+	var script = obj.get_script()
+	if script == null:
+		return "this object has no script attached."
+	var properties = script.get_script_property_list()
+	for p in properties:
+		if p.usage & PROPERTY_USAGE_SCRIPT_VARIABLE == 0:
+			continue
+		if p.name.begins_with("_"):
+			continue
+		result.append("%s: %s" % [p.name, str(obj.get(p.name))])
+	if result.is_empty():
+		return "this object has no public script variables."
+	return "\n".join(result)
+
 static func get_plugin_version() -> String:
 	var error_result = "Unknown version"
 	#load version string from plugin.cfg
