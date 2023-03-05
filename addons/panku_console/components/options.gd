@@ -46,28 +46,7 @@ extends Node
 @export var export_button_add_profiler_widget := "Add Profiler Monitor"
 @export var export_button_open_expression_key_mapper := "Open Expression Key Mapper"
 @export var export_button_open_expression_history := "Open Expression History"
-@export var output_overlay:bool = true:
-	set(v):
-		output_overlay = v
-		Console.output_overlay.visible = v
-	get:
-		return Console.output_overlay.visible
-@export_range(0.0, 1.0, 0.01) var output_overlay_alpha:float = 0.5:
-	set(v):
-		Console.output_overlay.modulate.a = v
-	get:
-		return Console.output_overlay.modulate.a
-@export_range(8, 24) var output_overlay_font_size:int = 16:
-	set(v):
-		Console.output_overlay.theme.default_font_size = v
-	get:
-		return Console.output_overlay.theme.default_font_size
-@export var output_overlay_font_shadow:bool = false:
-	set(v):
-		var val = Color.BLACK if v else null
-		Console.output_overlay.set("theme_override_colors/font_shadow_color", val)
-	get:
-		return Console.output_overlay.get("theme_override_colors/font_shadow_color") != null
+@export var export_button_open_logger := "Open Logger"
 
 @export_group("Experimental")
 @export var enable_os_window := false:
@@ -102,6 +81,9 @@ func open_expression_key_mapper():
 
 func open_expression_history():
 	Console.open_expression_history()
+	
+func open_logger():
+	Console.open_logger()
 
 func show_intro():
 	Console.show_intro()

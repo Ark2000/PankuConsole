@@ -27,6 +27,10 @@ var open_keybindings:
 const _HELP_open_history = "Open expression history window"
 var open_history:
 	get: return Console.open_expression_history()
+	
+const _HELP_open_logger = "Open logger window"
+var open_logger:
+	get: return Console.open_logger()
 
 const _HELP_toggle_output_overlay = "Toggle visibility of output overlay"
 var toggle_output_overlay:

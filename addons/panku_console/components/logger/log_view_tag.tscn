@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpurdc5me82ds"]
+
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_e0ejw"]
+[ext_resource type="Script" path="res://addons/panku_console/components/logger/log_view_tag.gd" id="1_fb4v1"]
+[ext_resource type="Texture2D" uid="uid://ttbgv1vr1xsc" path="res://addons/panku_console/res/icons2/close_20x.svg" id="3_ydxim"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvhll"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 0.188235)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[node name="LoggerViewTag" type="PanelContainer" node_paths=PackedStringArray("tag_btn", "rm_btn")]
+self_modulate = Color(0.027451, 0.490196, 0.333333, 1)
+offset_right = 109.0
+offset_bottom = 24.0
+size_flags_vertical = 4
+theme = ExtResource("1_e0ejw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jvhll")
+script = ExtResource("1_fb4v1")
+tag_btn = NodePath("HBoxContainer/Button")
+rm_btn = NodePath("HBoxContainer/Button2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "[info] (428)"
+flat = true
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_ydxim")
+flat = true

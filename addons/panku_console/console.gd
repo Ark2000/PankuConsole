@@ -73,6 +73,8 @@ var is_repl_window_opened := false:
 @export var options:Node
 @export var exp_key_mapper:Node
 @export var exp_history_window:Node
+@export var logger_window:Node
+@export var logger_options:Node
 
 var _envs = {}
 var _envs_info = {}
@@ -188,6 +190,11 @@ func open_expression_history():
 	exp_history_window.move_to_front()
 	exp_history_window.show()
 
+func open_logger():
+	logger_window.centered()
+	logger_window.move_to_front()
+	logger_window.show()
+
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
 		is_repl_window_opened = !is_repl_window_opened
@@ -201,15 +208,20 @@ func _ready():
 #	print(Config.get_config())
 	_full_repl.hide()
 	_mini_repl.hide()
-	
+
 	_full_repl._options_btn.pressed.connect(
 		func():
 			add_exporter_window(options, "Settings")
 	)
-	
+
 	_full_repl.window_closed.connect(
 		func():
 			is_repl_window_opened = false
+	)
+	
+	logger_window._options_btn.pressed.connect(
+		func():
+			add_exporter_window(logger_options, "Logger Settings")
 	)
 
 	#check the action key

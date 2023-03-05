@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=17 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -13,9 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://fladd1y6sa1j" path="res://addons/panku_console/components/exp_history/exp_history.tscn" id="10_03tvm"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
+[ext_resource type="PackedScene" uid="uid://b1c075ic6oru7" path="res://addons/panku_console/components/logger/logger_view.tscn" id="11_8xj08"]
 [ext_resource type="PackedScene" uid="uid://ctkkp3obep7dl" path="res://addons/panku_console/components/logger/godot_log_monitor.tscn" id="14_jxci2"]
+[ext_resource type="Script" path="res://addons/panku_console/components/logger/logger_options.gd" id="16_cie1r"]
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "exp_history_window")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "exp_history_window", "logger_window", "logger_options")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
@@ -29,6 +31,8 @@ w_manager = NodePath("LynxWindowsManager2")
 options = NodePath("Options")
 exp_key_mapper = NodePath("LynxWindowsManager2/ExpKeyMapper")
 exp_history_window = NodePath("LynxWindowsManager2/ExpHistory")
+logger_window = NodePath("LynxWindowsManager2/Logger")
+logger_options = NodePath("LoggerOptions")
 
 [node name="GodotLogMonitor" parent="." instance=ExtResource("14_jxci2")]
 
@@ -140,8 +144,34 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
+[node name="Logger" parent="LynxWindowsManager2" instance=ExtResource("6_nyvg7")]
+visible = false
+layout_mode = 0
+offset_left = 31.0
+offset_top = 27.0
+offset_right = 444.0
+offset_bottom = 332.0
+queue_free_on_close = false
+
+[node name="Button" parent="LynxWindowsManager2/Logger/VBoxContainer/Up" index="0"]
+text = "Logger"
+
+[node name="Down" parent="LynxWindowsManager2/Logger/VBoxContainer" index="1"]
+clip_contents = true
+
+[node name="logger_view" parent="LynxWindowsManager2/Logger/VBoxContainer/Down" index="0" instance=ExtResource("11_8xj08")]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+
 [node name="Options" type="Node" parent="."]
 script = ExtResource("9_tnco4")
+
+[node name="LoggerOptions" type="Node" parent="."]
+script = ExtResource("16_cie1r")
 
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("7_kolcm")
@@ -155,3 +185,4 @@ script = ExtResource("10_h26u7")
 [editable path="LynxWindowsManager2/FullREPL"]
 [editable path="LynxWindowsManager2/ExpKeyMapper"]
 [editable path="LynxWindowsManager2/ExpHistory"]
+[editable path="LynxWindowsManager2/Logger"]

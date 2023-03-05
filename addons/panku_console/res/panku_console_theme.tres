@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://bk18yfu0d77wk"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://bk18yfu0d77wk"]
 
 [ext_resource type="Texture2D" uid="uid://bua84a0uv8ntw" path="res://addons/panku_console/res/icons2/checkbox_checked.svg" id="1_pq2ss"]
 [ext_resource type="Texture2D" uid="uid://dkiyle8rjahmw" path="res://addons/panku_console/res/icons2/checkbox_unchecked.svg" id="2_svie5"]
@@ -6,7 +6,12 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1q17k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0iw5"]
-bg_color = Color(0.16, 0.16, 0.16, 0.12549)
+bg_color = Color(0.160784, 0.160784, 0.160784, 0.12549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.25098)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sv8t"]
 content_margin_left = 4.0
@@ -14,6 +19,11 @@ content_margin_top = 2.0
 content_margin_right = 4.0
 content_margin_bottom = 2.0
 bg_color = Color(0, 0, 0, 0.12549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.25098)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oko07"]
 content_margin_left = 4.0
@@ -21,6 +31,28 @@ content_margin_top = 2.0
 content_margin_right = 4.0
 content_margin_bottom = 2.0
 bg_color = Color(0.64, 0.64, 0.64, 0.12549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.25098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66h6h"]
+bg_color = Color(1, 1, 1, 0.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_io0fu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5a1x3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olfos"]
+content_margin_top = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0.12549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.25098)
+expand_margin_top = 8.0
 
 [sub_resource type="ImageTexture" id="ImageTexture_p3ihr"]
 
@@ -80,6 +112,10 @@ Button/styles/normal = SubResource("StyleBoxFlat_2sv8t")
 Button/styles/pressed = SubResource("StyleBoxFlat_oko07")
 CheckBox/icons/checked = ExtResource("1_pq2ss")
 CheckBox/icons/unchecked = ExtResource("2_svie5")
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_66h6h")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_io0fu")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_5a1x3")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_olfos")
 HSlider/icons/grabber = SubResource("ImageTexture_p3ihr")
 HSlider/icons/grabber_disabled = SubResource("ImageTexture_e0rko")
 HSlider/icons/grabber_highlight = SubResource("ImageTexture_1il84")
