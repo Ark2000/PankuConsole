@@ -75,6 +75,7 @@ var is_repl_window_opened := false:
 @export var exp_history_window:Node
 @export var logger_window:Node
 @export var logger_options:Node
+@export var effect_crt:ColorRect
 
 var _envs = {}
 var _envs_info = {}
@@ -174,7 +175,7 @@ func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 =
 	return new_window
 
 func show_intro():
-	output("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version 1.3.80[/color][/b][/font_size]")
+	output("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % Utils.get_plugin_version())
 	output("")
 	output("All-in-One Godot 4 runtime debugging tool.")
 	output("")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=19 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -14,10 +14,14 @@
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 [ext_resource type="PackedScene" uid="uid://b1c075ic6oru7" path="res://addons/panku_console/components/logger/logger_view.tscn" id="11_8xj08"]
+[ext_resource type="Shader" path="res://addons/panku_console/res/shader/mattias_crt.gdshader" id="12_7tq4j"]
 [ext_resource type="PackedScene" uid="uid://ctkkp3obep7dl" path="res://addons/panku_console/components/logger/godot_log_monitor.tscn" id="14_jxci2"]
 [ext_resource type="Script" path="res://addons/panku_console/components/logger/logger_options.gd" id="16_cie1r"]
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "exp_history_window", "logger_window", "logger_options")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g283y"]
+shader = ExtResource("12_7tq4j")
+
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "exp_history_window", "logger_window", "logger_options", "effect_crt")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
@@ -33,6 +37,7 @@ exp_key_mapper = NodePath("LynxWindowsManager2/ExpKeyMapper")
 exp_history_window = NodePath("LynxWindowsManager2/ExpHistory")
 logger_window = NodePath("LynxWindowsManager2/Logger")
 logger_options = NodePath("LoggerOptions")
+effect_crt = NodePath("ScreenEffects/EffectCRT")
 
 [node name="GodotLogMonitor" parent="." instance=ExtResource("14_jxci2")]
 
@@ -166,6 +171,19 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = -4.0
 offset_bottom = -4.0
+
+[node name="ScreenEffects" type="CanvasLayer" parent="."]
+
+[node name="EffectCRT" type="ColorRect" parent="ScreenEffects"]
+visible = false
+material = SubResource("ShaderMaterial_g283y")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0.247059)
 
 [node name="Options" type="Node" parent="."]
 script = ExtResource("9_tnco4")

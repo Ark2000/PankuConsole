@@ -62,3 +62,7 @@ var add_profiler:
 const _HELP_add_exporter = "Add a window to show and modify export properties"
 func add_exporter(target:Object):
 	return Console.add_exporter_window(target)
+
+const _HELP_toggle_crt_effect = "The good old days"
+func toggle_crt_effect():
+	Console.effect_crt.visible = !Console.effect_crt.visible
