@@ -3,10 +3,9 @@ extends "res://addons/panku_console/default_repl_envs/repl_env.gd"
 const _HELP_cls = "Clear REPL output"
 var cls:
 	get:
-		return (func():
-			await get_tree().process_frame
-			Console._full_repl.get_content().clear_output()
-		).call()
+		get_tree().create_timer(0.1, true, false, true).timeout.connect(
+			Console._full_repl.get_content().clear_output
+		)
 
 const _HELP_notify = "Generate a notification"
 func notify(any):
