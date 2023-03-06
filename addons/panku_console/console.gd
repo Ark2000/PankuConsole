@@ -85,7 +85,7 @@ var _expression = Expression.new()
 ## [br][code]env[/code]: The base instance that runs the expressions. For exmaple your player node.
 func register_env(env_name:String, env:Object):
 	_envs[env_name] = env
-	output("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
+#	output("[color=green][Info][/color] [b]%s[/b] env loaded!"%env_name)
 	if env is Node:
 		env.tree_exiting.connect(
 			func(): remove_env(env_name)
@@ -174,10 +174,15 @@ func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 =
 	return new_window
 
 func show_intro():
-	output("[center][b][color=#478cbf][ Panku Console ][/color][/b][/center]")
-	output("[center][img=96]res://addons/panku_console/logo.svg[/img][/center]")
-	output("[color=#f5f5f5][b]V%s[/b][/color]\n"%Utils.get_plugin_version())
-	output("Type [color=#478cbf]help[/color] to see all registered objects. For more information, please visit: [color=#478cbf][url=https://github.com/Ark2000/PankuConsole]project github page[/url][/color].")
+	output("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version 1.3.80[/color][/b][/font_size]")
+	output("")
+	output("All-in-One Godot 4 runtime debugging tool.")
+	output("")
+	output("[b][color=#478cbf]🌟Repo[/color][/b]: 🔗[url=https://github.com/Ark2000/PankuConsole]https://github.com/Ark2000/PankuConsole[/url]")
+	output("")
+	output("[b][color=#478cbf]❤️Contributors[/color][/b]: 🔗[url=https://github.com/Ark2000]Ark2000(Feo Wu)[/url], 🔗[url=https://github.com/scriptsengineer]scriptengineer(Rafael Correa)[/url], 🔗[url=https://github.com/winston-yallow]winston-yallow(Winston)[/url], 🔗[url=https://github.com/CheapMeow]CheapMeow[/url].")
+	output("")
+	output("> Hello, type [b]help[/b] for help")
 	output("")
 
 func open_expression_key_mapper():

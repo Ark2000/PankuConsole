@@ -33,7 +33,7 @@ func execute(exp:String):
 	exp = exp.lstrip(" ").rstrip(" ")
 	if exp.is_empty():
 		return
-	Console.output(exp)
+	Console.output("[b][You][/b] " + exp)
 	var result = Console.execute(exp)
 	if !result["failed"]:
 		output_result_method.call("> %s"%str(result["result"]))
