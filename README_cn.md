@@ -1,7 +1,7 @@
 # **Panku Console**
 ![](https://badgen.net/badge/Godot%20Compatible/4.0.stable%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
 
-![logo](assets/logo.svg)
+![logo](assets/title.png)
 
 全能的[Godot4引擎](https://godotengine.org/)游戏运行时调试工具。
 
@@ -23,11 +23,11 @@
 
 ✅ **通知界面**。弹出任何值得你关注的消息。
 
-✅ **系统日志叠加层**。将引擎日志输出搬到你的游戏中显示。
-
 ✅ **强大的UI面板生成**。直接读取脚本中的导出变量，生成对应的UI调控窗口。
 
 ✅ **历史管理**。管理你所有的输入历史，置顶或者合并历史表达式。
+
+✅ **日志查看器**。建立在Godot原生的日志系统之上，简单强大。
 
 ![](assets/preview.webp)
 
@@ -41,9 +41,7 @@
 
 如果想要了解更多关于插件安装的信息，你可以访问对应的[Godot文档](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html)。
 
-*注意：本插件仅支持4.x版本，并且我本人不计划提供对3.x的支持。*
-
-> 免责声明⚠：虽然我没有遇见过意外，但鉴于Godot4仍然处于不稳定的Beta阶段，保险起见，建议使用本插件时项目经常备份。
+> **Note**: 本插件仅支持4.x版本，并且我本人不计划提供对3.x的支持。
 
 # 📚 **插件快速上手教程**
 
@@ -59,7 +57,7 @@
 
 ## 开发者控制台简要说明
 
-![](assets/console.webp)
+![](assets/console.png)
 
 开发者控制台是这个插件所有功能的入口，属于核心组件。当你启用本插件之后，便可以在几乎任何运行场景中通过按下反引号键`~`（一般在键盘左上角ESC的下面）调出，当然你也可以在项目设置或者输入映射中自定义。
 
@@ -77,7 +75,7 @@
    
    设置界面中包含了插件的工具UI入口以及大部分的可配置项，配置文件将会被保存到项目用户文件夹中。你可以在设置窗口中切换极简控制台模式。该模式下，开发者控制台仅保留了输入框和自动补全的功能，更加简洁。
 
-    ![](assets/console_mini.webp)
+    ![](assets/console_mini.png)
 
 ## 如何在表达式的执行环境中注册对象
 
@@ -196,7 +194,7 @@ func xxx():
 
 ## 如何使用表达式按键绑定功能
 
-![](assets/key_binding.webp)
+![](assets/key_binding.png)
 
 利用该功能，可以将表达式的执行绑定到某个按键，比如快速截屏、切换全屏等。目前暂不支持组合键。
 
@@ -209,7 +207,7 @@ func xxx():
 
 ## 如何使用历史表达式管理器
 
-![](assets/history.webp)
+![](assets/history.png)
 
 利用该功能，可以查看并管理开发者控制台的输入历史，将常用的表达式置顶，合并多个表达式的字符串结果等。
 
@@ -220,9 +218,17 @@ func xxx():
 
 历史输入信息将会被保存到配置文件中。
 
+## 关于日志查看器
+
+![](assets/logger.png)
+
+- 日志查看器建立在Godot原生的日志功能之上，因此你不用修改已有的任何代码，插件将会自动监视`print`, `printt`, `push_warning`, `push_error`等系统日志函数。
+- 你可以使用标签快速检索日志
+- 如果你需要在运行中非常方便地查看日志输出，你可以启用日志叠加层。
+
 # **贡献**
 
-感谢这些[为本项目做出贡献的人](https://github.com/Ark2000/PankuConsole/graphs/contributors)，期待更多的人参与本项目，为Godot的生态发展添砖建瓦，参与的方式包括但不限于：
+感谢[为本项目做出贡献的人](https://github.com/Ark2000/PankuConsole/graphs/contributors)，期待更多的人参与本项目，为Godot的生态发展添砖建瓦，参与的方式包括但不限于：
 
 1. 如果发现缺陷或者有新的想法，可以提出[Issue](https://github.com/Ark2000/PankuConsole/issues)
 

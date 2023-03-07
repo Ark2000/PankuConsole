@@ -1,7 +1,6 @@
 # **Panku Console**
 ![](https://badgen.net/badge/Godot%20Compatible/4.0.stable%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
 
-
 ![logo](assets/title.png)
 
 All-in-One [Godot Engine 4](https://godotengine.org/) runtime debugging tool.
@@ -18,15 +17,13 @@ In short, the core function of this plugin is to dynamically execute some simple
 
 ✅ **Out-of-the-box Developer Console**. No need to define complex commands, enter any expression, execute it and get the result.
 
-✅ **Expression Monitoring**. You can create windows to see the results of expressions in real time.
+✅ **Expression Monitoring**. Create windows to see the results of expressions in real time.
 
 ✅ **Quick Key Binding**. Bind expressions to keys for quick cheating.
 
 ✅ **Popup Notification**. Pop up any message that deserves your attention.
 
-✅ **Syslog Overlay**. Display the engine log output in your game directly.
-
-✅ **Powerful Inspector Generator**. Read exported variables from your scripts to generate the corresponding Inspector UI windows.
+✅ **Powerful Inspector Generator**. Automatically convert all export properties in your script into an inspector window.
 
 ✅ **History Management**. Manage all your input history, pin or merge history expressions.
 
@@ -225,6 +222,14 @@ They are two ways to history manager window:
 
 The history input information will be saved to the configuration file.
 
+## Logger
+
+![](assets/logger.png)
+
+- With our logger, there's no need to modify any code. It's built upon Godot's native file logging system ,which means it automatically monitors Godot's native log functions like `print`, `printt`, `push_warning` and `push_error`.
+- To help you easily filter through logs, you can use tags.
+- If you need to keep an eye on the logger output in real-time you can overlay it on your screen.
+
 # **Contributors**
 
 Thanks to these nice [people who contributed to this project](https://github.com/Ark2000/PankuConsole/graphs/contributors), you can also participate in ways including but not limited to:
@@ -234,14 +239,6 @@ Thanks to these nice [people who contributed to this project](https://github.com
 2. if you have questions, you can discuss them in the [Discussion](https://github.com/Ark2000/PankuConsole/discussions)
 
 3. You can also [Contribute Code](https://github.com/Ark2000/PankuConsole/pulls) directly to this project, please refer to [Recent Commits](https://github.com/Ark2000/PankuConsole/commits/master) for the specification of commit message or [here](https://www.conventionalcommits.org/en/v1.0.0/#summary)
-
-## Logger
-
-![](assets/logger.png)
-
-- With our logger, there's no need to modify any code. It's built upon Godot's native file logging system ,which means it automatically monitors Godot's native log functions like `print`, `printt`, `push_warning` and `push_error`.
-- To help you easily filter through logs, you can use tags.
-- If you need to keep an eye on the logger output in real-time you can overlay it on your screen.
 
 # **License**
 
