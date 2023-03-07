@@ -10,12 +10,11 @@ All-in-One [Godot Engine 4](https://godotengine.org/) runtime debugging tool.
 
 Language: **English** | [简体中文](README_cn.md)
 
-
 # ✨ **Features**
 
 In short, the core function of this plugin is to dynamically execute some simple expressions while the game is running. Of course, it is much more than that, in fact, this plugin is a collection of many practical tools. Here is a brief description of its features.
 
-✅ **Flexible Multi-window System**. Any windows can be scaled, snapped and dragged, etc.
+✅ **Flexible Multi-window System**. Any windows can be scaled, snapped, dragged and even become an independent os window.
 
 ✅ **Out-of-the-box Developer Console**. No need to define complex commands, enter any expression, execute it and get the result.
 
@@ -31,6 +30,8 @@ In short, the core function of this plugin is to dynamically execute some simple
 
 ✅ **History Management**. Manage all your input history, pin or merge history expressions.
 
+✅ **Logger System**. Powered by the native file logging system, simple yet powerful.
+
 ![](assets/preview.webp)
 
 # 🧪 **Installation**
@@ -44,8 +45,6 @@ In short, the core function of this plugin is to dynamically execute some simple
 For more information about plugin installation, you can visit the corresponding [Godot documentation](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html).
 
 > **Note**: This plugin only supports Godot version 4.x, and I personally do not plan to provide support for 3.x.
-
-> **Warning**: Although I have not encountered accidents, given that Godot 4 is still in an unstable Beta stage, it is advisable to use this plugin with frequent project backups just to be safe.
 
 # 📚 **Quick Start**
 
@@ -63,7 +62,7 @@ Also, expressions are implemented independently of GDScript and have nothing to 
 
 ## REPL Console
 
-![](assets/console.webp)
+![](assets/console.png)
 
 The REPL console is the entry point for all the functionality of this plugin. Once you have enabled this plugin, you can bring it up in almost any scenes by pressing the backquote key `~` (usually under ESC in the upper left corner of the keyboard), or of course you can customize it in the project settings or input map.
 
@@ -83,7 +82,7 @@ In REPL console, you can.
     
     You can toggle the mini console mode in the settings window. In this mode, REPL console only retains the input box and auto-completion, which is more concise.
 
-    ![](assets/console_mini.webp)
+    ![](assets/console_mini.png)
 
 ## Register Objects
 
@@ -202,7 +201,7 @@ func xxx():
 
 ## Quick Key Binding
 
-![](assets/key_binding.webp)
+![](assets/key_binding.png)
 
 By using this feature, you can bind the execution of an expression to a key, for example, to take a quick screenshot, switch to full screen, etc. Key combinations are not supported at the moment.
 
@@ -215,7 +214,7 @@ The keybindings information will be saved to the configuration file.
 
 ## History Manager
 
-![](assets/history.webp)
+![](assets/history.png)
 
 Use this feature to view and manage the input history of the REPL Console, you can pin frequently used expressions, merge the string results of multiple expressions, etc.
 
@@ -235,6 +234,14 @@ Thanks to these nice [people who contributed to this project](https://github.com
 2. if you have questions, you can discuss them in the [Discussion](https://github.com/Ark2000/PankuConsole/discussions)
 
 3. You can also [Contribute Code](https://github.com/Ark2000/PankuConsole/pulls) directly to this project, please refer to [Recent Commits](https://github.com/Ark2000/PankuConsole/commits/master) for the specification of commit message or [here](https://www.conventionalcommits.org/en/v1.0.0/#summary)
+
+## Logger
+
+![](assets/logger.png)
+
+- With our logger, there's no need to modify any code. It's built upon Godot's native file logging system ,which means it automatically monitors Godot's native log functions like `print`, `printt`, `push_warning` and `push_error`.
+- To help you easily filter through logs, you can use tags.
+- If you need to keep an eye on the logger output in real-time you can overlay it on your screen.
 
 # **License**
 
