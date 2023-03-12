@@ -62,6 +62,13 @@ var is_repl_window_opened := false:
 			_full_repl.set_window_title_text("</> Panku REPL")
 		get_tree().paused = pause_when_active and v
 		repl_visible_changed.emit(v)
+		if unified_visibility:
+			w_manager.visible = v
+		else:
+			w_manager.visible = true
+
+#this behavior will kepp all windows' visibility the same as developer conosle.
+var unified_visibility := false;
 
 @export var _resident_logs:Node
 @export var _base_instance:Node
@@ -259,6 +266,7 @@ func load_data():
 	_full_repl.position = cfg.get(Utils.CFG_FREPL_POSITION, _full_repl.position)
 	_full_repl.size = cfg.get(Utils.CFG_FREPL_SIZE, _full_repl.size)
 	_full_repl.get_content()._console_logs.set_font_size(cfg.get(Utils.CFG_REPL_OUTPUT_FONT_SIZE, 16))
+	unified_visibility = cfg.get(Utils.CFG_UNIFIED_VISIBILITY, false)
 
 	var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
 	Console._full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
@@ -287,6 +295,7 @@ func save_data():
 	cfg[Utils.CFG_FREPL_POSITION] = _full_repl.position
 	cfg[Utils.CFG_FREPL_SIZE] = _full_repl.size
 	cfg[Utils.CFG_REPL_OUTPUT_FONT_SIZE] = _full_repl.get_content()._console_logs.get_font_size()
+	cfg[Utils.CFG_UNIFIED_VISIBILITY] = unified_visibility
 
 	var monitor_array = []
 	for w in w_manager.get_children():

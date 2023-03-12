@@ -18,6 +18,13 @@ extends Node
 
 @export_group("REPL")
 
+@export var export_comment_unified_visibility = "unified_visibility will keep all windows' visibility the same as REPL window"
+@export var unified_visibility:bool = false:
+	set(v):
+		Console.unified_visibility = v
+	get:
+		return Console.unified_visibility
+
 @export_range(12,20) var output_font_size:int:
 	set(v):
 		Console._full_repl.get_content()._console_logs.set_font_size(v)
