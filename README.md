@@ -7,7 +7,7 @@ All-in-One [Godot Engine 4](https://godotengine.org/) runtime debugging tool.
 
 ---
 
-Language: **English** | [简体中文](README_cn.md)
+Language: **English** | [简体中文](./docs/README_cn.md)
 
 # ✨ **Features**
 
