@@ -173,7 +173,7 @@ func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 =
 		func():
 			add_exporter_window(content, "Monitor Settings")
 	)
-	new_window._title_btn.pressed.connect(content.update_exp_i)
+	new_window.title_btn_clicked.connect(content.update_exp_i)
 	w_manager.add_child(new_window)
 	new_window.set_content(content)
 	new_window.position = position
