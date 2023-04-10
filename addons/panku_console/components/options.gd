@@ -81,7 +81,7 @@ func clear_repl_output():
 	Console.execute("console.cls")
 
 func add_profiler_widget():
-	Console.execute("widgets.profiler")
+	Console.execute("console.add_profiler")
 
 func open_expression_key_mapper():
 	Console.open_expression_key_mapper()

@@ -60,8 +60,8 @@ var add_profiler:
 	get: return Console.add_monitor_window("engine.performance_info", 0.2)
 
 const _HELP_add_exporter = "Add a window to show and modify export properties"
-func add_exporter(target:Object):
-	return Console.add_exporter_window(target)
+func add_exporter(obj_exp:String):
+	return Console.add_exporter_window_by_expression(obj_exp)
 
 const _HELP_toggle_crt_effect = "The good old days"
 func toggle_crt_effect():

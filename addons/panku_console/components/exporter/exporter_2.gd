@@ -122,10 +122,10 @@ func setup(_obj:Object):
 		last_group_button.control_group = group
 		group_buttons.push_back(last_group_button)
 
-	#hide all groups by default
+	#show all groups by default
 	for group_button in group_buttons:
-		group_button.button_pressed = false
-		group_button.toggled.emit(false)
+		group_button.button_pressed = true
+		group_button.toggled.emit(true)
 
 	for dname in ui_rows:
 		#sync data, ui -> data

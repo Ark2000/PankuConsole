@@ -142,6 +142,20 @@ func get_available_export_objs() -> Array:
 		result.push_back(obj_name)
 	return result
 
+func add_exporter_window_by_expression(obj_expression:String, window_title := ""):
+	var result = execute(obj_expression)
+	var obj = null
+	if result["failed"]:
+		return
+	obj = result["result"]
+	if !(obj is Object):
+		return
+	var window:LynxWindow2 = add_exporter_window(obj, window_title)
+	window.get_content().set_meta("content_type", "inspector")
+	window.get_content().set_meta("content_data", {"expression": obj_expression})
+	window.no_bookmark = false
+	return window
+
 func add_exporter_window(obj:Object, window_title := ""):
 	if !obj.get_script():
 		return
@@ -157,18 +171,21 @@ func add_exporter_window(obj:Object, window_title := ""):
 	new_window.set_content(content)
 	content.setup(obj)
 	new_window.centered()
+	return new_window
 
-func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 = Vector2(0, 0), size:Vector2 = Vector2(160, 60), title_text := ""):
+func add_monitor_window(exp:String, update_interval:= 999999.0):
 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
-	if title_text == "": title_text = exp
-	new_window._title_btn.text = title_text
+	new_window._title_btn.text = exp
+	new_window.no_bookmark = false
 	var content = monitor_prefab.instantiate()
 	content._update_exp = exp
-	content._update_period = update_period
+	content._update_period = update_interval
 	content.change_window_title_text.connect(
 		func(text:String):
 			new_window._title_btn.text = text
 	)
+	content.set_meta("content_type", "monitor")
+	content.set_meta("content_data", {"expression": exp, "update_interval": update_interval})
 	new_window._options_btn.pressed.connect(
 		func():
 			add_exporter_window(content, "Monitor Settings")
@@ -176,9 +193,6 @@ func add_monitor_window(exp:String, update_period:= 999999.0, position:Vector2 =
 	new_window.title_btn_clicked.connect(content.update_exp_i)
 	w_manager.add_child(new_window)
 	new_window.set_content(content)
-	new_window.position = position
-	new_window.size = size
-	new_window.set_meta("monitor", true)
 	return new_window
 
 func show_intro():
@@ -221,6 +235,9 @@ func _ready():
 #	print(Config.get_config())
 	_full_repl.hide()
 	_mini_repl.hide()
+	
+	_full_repl.get_content().set_meta("content_type", "interactive_shell_main")
+	logger_window.get_content().set_meta("content_type", "logger")
 
 	_full_repl._options_btn.pressed.connect(
 		func():
@@ -255,31 +272,61 @@ func _notification(what):
 func load_data():
 	#load configs
 	var cfg = Config.get_config()
-	
+
 	init_expression = cfg.get(Utils.CFG_INIT_EXP, "")
-	execute(init_expression)
+	create_tween().tween_callback(
+		func(): execute(init_expression)
+	).set_delay(0.1)
 	pause_when_active = cfg.get(Utils.CFG_PAUSE_WHEN_POPUP, false)
 	mini_repl_mode = cfg.get(Utils.CFG_MINI_REPL_MODE, false)
 	output_overlay.visible = cfg.get(Utils.CFG_OUTPUT_OVERLAY, true)
 	output_overlay.modulate.a = cfg.get(Utils.CFG_OUTPUT_OVERLAY_ALPHA, 0.5)
 	output_overlay.theme.default_font_size= cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE, 14)
-	_full_repl.position = cfg.get(Utils.CFG_FREPL_POSITION, _full_repl.position)
-	_full_repl.size = cfg.get(Utils.CFG_FREPL_SIZE, _full_repl.size)
 	_full_repl.get_content()._console_logs.set_font_size(cfg.get(Utils.CFG_REPL_OUTPUT_FONT_SIZE, 16))
 	unified_visibility = cfg.get(Utils.CFG_UNIFIED_VISIBILITY, false)
 
 	var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
 	Console._full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
 
-	var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.1))
+	var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.7))
 	Console._full_repl.material.set("shader_parameter/modulate", base_color)
 
 	var shadow = cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW, false)
 	output_overlay.set("theme_override_colors/font_shadow_color", Color.BLACK if shadow else null)
 
-	var monitor_array = cfg.get(Utils.CFG_MONITOR_ARRAY, [])
-	for data in monitor_array:
-		callv("add_monitor_window", data)
+	var tween := create_tween()
+	tween.tween_callback(
+		func():
+			var bookmarked_windows_data:Array = cfg.get(Utils.CFG_BOOKMARK_WINDOWS, [])
+			# deserialize bookmarked windows
+			var current_scene_file_path = get_tree().root.get_children()[-1].scene_file_path
+			for data in bookmarked_windows_data:
+				#bookmarked windows are only loaded in the same scene when saved.
+				if current_scene_file_path != data["scene_file_path"]:
+					continue
+				var window:LynxWindow2
+				var content_data = data.get("content_data", "")
+				var content_type = data.get("content_type", "")
+				if content_type == "inspector":
+					window = add_exporter_window_by_expression(content_data["expression"], data["title"])
+				elif content_type == "monitor":
+					window = add_monitor_window(content_data["expression"], content_data["update_interval"])
+				elif content_type == "interactive_shell_main":
+					window = _full_repl
+					is_repl_window_opened = true
+				elif content_type == "logger":
+					window = logger_window
+					window.show()
+				else:
+					assert(false, "TODO")
+				window.load_data(data)
+			#clear current scene bookmarks
+			bookmarked_windows_data = bookmarked_windows_data.filter(
+				func(data): return data["scene_file_path"] != current_scene_file_path
+			)
+			cfg[Utils.CFG_BOOKMARK_WINDOWS] = bookmarked_windows_data
+			Config.set_config(cfg)
+	).set_delay(0.1)
 
 func save_data():
 	var cfg = Config.get_config()
@@ -292,21 +339,7 @@ func save_data():
 	cfg[Utils.CFG_OUTPUT_OVERLAY_ALPHA] = output_overlay.modulate.a
 	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE] = output_overlay.theme.default_font_size
 	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW] = output_overlay.get("theme_override_colors/font_shadow_color") != null
-	cfg[Utils.CFG_FREPL_POSITION] = _full_repl.position
-	cfg[Utils.CFG_FREPL_SIZE] = _full_repl.size
 	cfg[Utils.CFG_REPL_OUTPUT_FONT_SIZE] = _full_repl.get_content()._console_logs.get_font_size()
 	cfg[Utils.CFG_UNIFIED_VISIBILITY] = unified_visibility
-
-	var monitor_array = []
-	for w in w_manager.get_children():
-		if w.has_meta("monitor"):
-			monitor_array.append([
-				w.get_content()._update_exp,
-				w.get_content()._update_period,
-				w.position,
-				w.size,
-				w._title_btn.text
-			])
-	cfg[Utils.CFG_MONITOR_ARRAY] = monitor_array
 
 	Config.set_config(cfg)

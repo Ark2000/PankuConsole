@@ -53,15 +53,13 @@ const CFG_OUTPUT_OVERLAY_ALPHA = "output_overlay_alpha"
 const CFG_OUTPUT_OVERLAY_FONT_SIZE = "output_overlay_font_size"
 const CFG_OUTPUT_OVERLAY_FONT_SHADOW = "output_overlay_font_shadow"
 const CFG_EXP_MAPPING_DATA = "exp_mapping_data"
-const CFG_MONITOR_ARRAY = "monitor_array"
-const CFG_FREPL_POSITION = "frepl_position"
-const CFG_FREPL_SIZE = "frepl_size"
 const CFG_EXP_HISTORY = "exp_history"
 const CFG_ENABLE_OS_WINDOW = "enable_os_window"
 const CFG_OS_WINDOW_BGCOLOR = "os_window_bgcolor"
 const CFG_REPL_OUTPUT_FONT_SIZE = "repl_output_font_size"
 const CFG_LOGGER_TAGS = "logger_tags"
 const CFG_UNIFIED_VISIBILITY = "unified_visibility"
+const CFG_BOOKMARK_WINDOWS = "bookmark_windows"
 
 static func execute_exp(exp_str:String, expression:Expression, base_instance:Object, env:Dictionary):
 	var failed := false

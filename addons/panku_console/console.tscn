@@ -78,6 +78,7 @@ offset_right = 206.5
 offset_bottom = 152.5
 grow_horizontal = 2
 grow_vertical = 2
+no_bookmark = false
 queue_free_on_close = false
 flicker = false
 
@@ -109,7 +110,7 @@ queue_free_on_close = false
 [node name="Button" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="0"]
 text = "Expression Key Mapper"
 
-[node name="Button3" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="2"]
+[node name="Button3" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Up" index="3"]
 visible = false
 
 [node name="ExpKeyMapper" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Down" index="0" instance=ExtResource("9_ua71q")]
@@ -134,7 +135,7 @@ queue_free_on_close = false
 [node name="Button" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="0"]
 text = "Expression History"
 
-[node name="Button3" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="2"]
+[node name="Button3" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="3"]
 visible = false
 
 [node name="ExpHistory" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Down" index="0" instance=ExtResource("10_03tvm")]
@@ -156,6 +157,7 @@ offset_left = 31.0
 offset_top = 27.0
 offset_right = 444.0
 offset_bottom = 332.0
+no_bookmark = false
 queue_free_on_close = false
 
 [node name="Button" parent="LynxWindowsManager2/Logger/VBoxContainer/Up" index="0"]
@@ -188,9 +190,6 @@ color = Color(1, 0, 0, 0.247059)
 [node name="Options" type="Node" parent="."]
 script = ExtResource("9_tnco4")
 
-[node name="LoggerOptions" type="Node" parent="."]
-script = ExtResource("16_cie1r")
-
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("7_kolcm")
 
@@ -199,6 +198,9 @@ script = ExtResource("9_fav7q")
 
 [node name="console" type="Node" parent="."]
 script = ExtResource("10_h26u7")
+
+[node name="LoggerOptions" type="Node" parent="."]
+script = ExtResource("16_cie1r")
 
 [editable path="LynxWindowsManager2/FullREPL"]
 [editable path="LynxWindowsManager2/ExpKeyMapper"]
