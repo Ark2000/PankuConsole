@@ -1,6 +1,6 @@
 extends Node
 
-const _HELP_help := "List all available registered objects."
+const _HELP_help := "List all environment variables."
 var help:String:
 	get:
 		var result = ["Registered objects:\n"]
@@ -14,7 +14,7 @@ var help:String:
 		result.push_back("You can type [b]helpe(object)[/b] to get more information.")
 		return "".join(PackedStringArray(result))
 
-const _HELP_helpe := "Provide detailed information about one specific registered object."
+const _HELP_helpe := "Provide detailed information about one specific environment variable."
 func helpe(obj:Object) -> String:
 	if !obj:
 		return "Invalid!"

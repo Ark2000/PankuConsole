@@ -48,6 +48,7 @@ Panku Console is a collection of many tools, and each tool has its own documenta
 **Content:**
 
 - [Interactive Shell](docs/interactive_shell.md)
+- [Built-in Commands](docs/builtin_commands.md)
 - [Expression Monitor](docs/expression_monitor.md)
 - [Expression Shortcut](docs/expression_shortcut.md)
 - [Generating Inspector Panel](docs/generating_inspector_panel.md)

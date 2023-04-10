@@ -1,6 +1,6 @@
 extends "res://addons/panku_console/default_repl_envs/repl_env.gd"
 
-const _HELP_cls = "Clear REPL output"
+const _HELP_cls = "Clear interactive shell's output"
 var cls:
 	get:
 		get_tree().create_timer(0.1, true, false, true).timeout.connect(
@@ -11,7 +11,7 @@ const _HELP_notify = "Generate a notification"
 func notify(any):
 	Console.notify(any)
 
-const _HELP_check_update = "Fetch latest release info from Github"
+const _HELP_check_update = "Fetch latest release information from Github"
 var check_update:
 	get: return Console._full_repl.get_content().check_latest_release()
 
@@ -31,8 +31,8 @@ const _HELP_open_logger = "Open logger window"
 var open_logger:
 	get: return Console.open_logger()
 
-const _HELP_toggle_output_overlay = "Toggle visibility of output overlay"
-var toggle_output_overlay:
+const _HELP_toggle_logger_overlay = "Toggle visibility of logger overlay"
+var toggle_logger_overlay:
 	get:
 		Console.output_overlay.visible = !Console.output_overlay.visible
 		return Console.output_overlay.visible
