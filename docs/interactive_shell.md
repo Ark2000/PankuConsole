@@ -60,6 +60,8 @@ C#:
 ```csharp
 using Godot;
 
+// See https://docs.godotengine.org/en/stable/tutorials/scripting/cross_language_scripting.html
+
 public partial class MyPlayer : Node
 {
 	static string _HELP_hello = "sample function";
