@@ -38,6 +38,8 @@ The plugin automatically registers an Autoload singleton `Console` when it is en
 
 Suppose the following is a Player script.
 
+GDScript:
+
 ```gdscript
 extends Node2D
 
@@ -51,6 +53,27 @@ func hello(name):
     return "hello! %s" % name
 
 #...
+```
+
+C#:
+
+```csharp
+using Godot;
+
+public partial class MyPlayer : Node
+{
+	static string _HELP_hello = "sample function";
+	public void hello(string name)
+	{
+		GD.Print("hello! ", name);
+	}
+
+	public override void _Ready()
+	{
+        // Use `GetNode` to access PankuConsole singleton.
+		GetNode<Node>("/root/Console").Call("register_env", "player", this);
+	}
+}
 ```
 
 Now, you can type `player.hello("Jason")` in the REPL console to call the function defined in the above script directly.
