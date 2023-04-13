@@ -35,6 +35,15 @@ In short, the core function of Panku Console is to dynamically execute some simp
 
 3. Enable `PankuConsole` in the Godot project addon settings.
 
+Or if you prefer to use git, you can add this [mirror repo](https://github.com/Ark2000/panku_console) as a submodule in your addons folder.
+
+```bash
+# in your project root directory
+cd addons
+git submodule add https://github.com/Ark2000/panku_console
+```
+
+
 For more information about plugin installation, you can visit the corresponding [Godot documentation](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html).
 
 > **Note**: Panku Console only supports Godot version 4.x, and I personally do not plan to provide support for 3.x.
