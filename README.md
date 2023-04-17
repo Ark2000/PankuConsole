@@ -63,6 +63,7 @@ Panku Console is a collection of many tools, and each tool has its own documenta
 - [Generating Inspector Panel](docs/generating_inspector_panel.md)
 - [History Manager](docs/history_manager.md)
 - [Logger](docs/logger.md)
+- [FAQ] (docs/faq.md)
 
 > **Note**: if you want to include the plugin in your released game, you may need to make some modifications to avoid players directly accessing internal state.
 
