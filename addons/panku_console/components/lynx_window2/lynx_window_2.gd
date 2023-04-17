@@ -261,9 +261,10 @@ func save_data():
 	if _content:
 		if _content.has_meta("content_type"):
 			data["content_type"] = _content.get_meta("content_type") as String
-		if _content.has_meta("content_data"):
+		if _content.has_method("get_content_data"):
+			data["content_data"] = _content.get_content_data()
+		elif _content.has_meta("content_data"):
 			data["content_data"] = _content.get_meta("content_data") as Dictionary
-
 	bookmark_windows_data.append(data)
 	cfg[PankuConsole.Utils.CFG_BOOKMARK_WINDOWS] = bookmark_windows_data
 	PankuConsole.Config.set_config(cfg)

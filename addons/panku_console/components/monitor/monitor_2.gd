@@ -49,3 +49,9 @@ func confirm():
 		change_window_title_text.emit(_update_exp)
 	else:
 		change_window_title_text.emit(title_text)
+
+func get_content_data():
+	return {
+		"expression": expression,
+		"update_interval": _update_period
+	}
