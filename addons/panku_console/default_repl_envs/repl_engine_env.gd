@@ -48,3 +48,24 @@ func show_os_report() -> void:
 	obj.inspect()
 	var report =  "".join(obj.rtl)
 	Console.output(report)
+
+# Currently godot can't toggle visibility of 2D collision shapes at runtime, this is a workaround.
+# See https://github.com/godotengine/godot-proposals/issues/2072
+const _HELP_toggle_2d_collision_shape_visibility = "Toggle visibility of 2D collision shapes, useful for debugging"
+func toggle_2d_collision_shape_visibility() -> void:
+	var tree := get_tree()
+	tree.debug_collisions_hint = not tree.debug_collisions_hint
+
+	# Traverse tree to call queue_redraw on instances of
+	# CollisionShape2D and CollisionPolygon2D.
+	var node_stack: Array[Node] = [tree.get_root()]
+	while not node_stack.is_empty():
+		var node: Node = node_stack.pop_back()
+		if is_instance_valid(node):
+			if node is CollisionShape2D or node is CollisionPolygon2D:
+				node.queue_redraw()
+			node_stack.append_array(node.get_children())
+
+const _HELP_reload_current_scene = "Reload current scene"
+func reload_current_scene() -> void:
+	get_tree().reload_current_scene()

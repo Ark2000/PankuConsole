@@ -1,6 +1,6 @@
-# Built-in Commands
+# Built-in Snippets
 
-Panku Console provides a set of built-in commands, which can be used to quickly access some of the internal state of the engine, and can also be used to quickly execute some common operations.
+Panku Console provides a set of built-in command snippets, which can be used to quickly access some of the internal state of the engine, and can also be used to quickly execute some common operations.
 
 The built-in commands are defined in the `addons/panku_console/default_repl_envs` folder, you can add your own commands by modifying the corresponding files.
 
@@ -31,3 +31,5 @@ The built-in commands are defined in the `addons/panku_console/default_repl_envs
 | `engine.snap_screenshot` | Snap a screenshot of current window |
 | `engine.quit` | Quit application |
 | `engine.show_os_report()` | Display detailed OS report |
+| `engine.toggle_2d_collision_shape_visibility()` | Toggle visibility of 2D collision shapes, useful for debugging |
+| `engine.reload_current_scene()` | Reload current scene |
