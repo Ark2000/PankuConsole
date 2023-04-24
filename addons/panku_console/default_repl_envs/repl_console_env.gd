@@ -38,15 +38,15 @@ var toggle_logger_overlay:
 		return Console.output_overlay.visible
 
 const _HELP_add_exp_monitor = "Add an expression monitor"
-func add_exp_monitor(exp:String):
-	var window = Console.add_monitor_window(exp, 0.1)
+func add_exp_monitor(expression:String):
+	var window = Console.add_monitor_window(expression, 0.1)
 	window.centered()
 	window.move_to_front()
 	return window
 
 const _HELP_add_exp_button = "Add an expression button"
-func add_exp_button(exp:String, display_name:String):
-	var window = Console.add_monitor_window(exp, 999999, Vector2(0, 0), Vector2(120, 20), display_name)
+func add_exp_button(expression:String, _display_name:String):
+	var window = Console.add_monitor_window(expression, 999999)
 	window.centered()
 	window.move_to_front()
 	return window
