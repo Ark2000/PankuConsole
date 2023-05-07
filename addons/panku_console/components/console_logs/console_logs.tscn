@@ -1,32 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcfn2f7rjd5vl"]
+[gd_scene load_steps=3 format=3 uid="uid://nynkaa0igrh5"]
 
 [ext_resource type="Script" path="res://addons/panku_console/components/console_logs/console_logs.gd" id="1_3r4hk"]
-
-[sub_resource type="SystemFont" id="SystemFont_cuvvk"]
-font_names = PackedStringArray("Consolas")
-subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_rsq1d"]
-font_names = PackedStringArray("Consolas")
-font_weight = 900
-subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_iu32k"]
-font_names = PackedStringArray("Consolas")
-font_italic = true
-subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_ffpig"]
-font_names = PackedStringArray("Consolas")
-font_italic = true
-font_weight = 900
-subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_tr5cg"]
-font_names = PackedStringArray("Consolas")
-subpixel_positioning = 0
+[ext_resource type="Script" path="res://addons/panku_console/components/console_logs/smooth_scroll.gd" id="2_f7h0j"]
 
 [node name="ConsoleLogs" type="MarginContainer" node_paths=PackedStringArray("rlabel")]
+clip_contents = true
 offset_right = 365.0
 offset_bottom = 357.0
 theme_override_constants/margin_left = 8
@@ -34,19 +12,33 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 script = ExtResource("1_3r4hk")
-rlabel = NodePath("R")
+rlabel = NodePath("SmoothScrollContainer/HBoxContainer/Control/RichTextLabel")
 
-[node name="R" type="RichTextLabel" parent="."]
+[node name="SmoothScrollContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("clip_container", "scrollbar")]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_fonts/normal_font = SubResource("SystemFont_cuvvk")
-theme_override_fonts/bold_font = SubResource("SystemFont_rsq1d")
-theme_override_fonts/italics_font = SubResource("SystemFont_iu32k")
-theme_override_fonts/bold_italics_font = SubResource("SystemFont_ffpig")
-theme_override_fonts/mono_font = SubResource("SystemFont_tr5cg")
-theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 16
-theme_override_font_sizes/italics_font_size = 16
-theme_override_font_sizes/bold_italics_font_size = 16
-theme_override_font_sizes/mono_font_size = 16
+script = ExtResource("2_f7h0j")
+clip_container = NodePath("HBoxContainer/Control")
+scrollbar = NodePath("HBoxContainer/VScrollBar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SmoothScrollContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="SmoothScrollContainer/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SmoothScrollContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_font_sizes/bold_font_size = 24
 bbcode_enabled = true
-scroll_following = true
+fit_content = true
+
+[node name="VScrollBar" type="VScrollBar" parent="SmoothScrollContainer/HBoxContainer"]
+layout_mode = 2
+page = 20.0
+value = 80.0
