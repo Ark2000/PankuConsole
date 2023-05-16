@@ -72,8 +72,11 @@ public partial class MyPlayer : Node
 
 	public override void _Ready()
 	{
-        // Use `GetNode` to access PankuConsole singleton.
-		GetNode<Node>("/root/Console").Call("register_env", "player", this);
+        if (HasNode("/root/Console"))
+        {
+        	// Use `GetNode` to access PankuConsole singleton.
+            GetNode("/root/Console").Call("register_env", "player", this);
+        }
 	}
 }
 ```
