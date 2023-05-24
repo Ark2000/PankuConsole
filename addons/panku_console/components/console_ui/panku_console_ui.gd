@@ -23,6 +23,6 @@ func _ready():
 		func(msg:Dictionary):
 			if !msg["success"]:
 				console.notify("[color=red][Error][/color] Failed! " + msg["msg"])
-				return
+			else:
 				console.notify("[color=green][info][/color] Latest: [%s] [url=%s]%s[/url]" % [msg["published_at"], msg["html_url"], msg["name"]])
 	)

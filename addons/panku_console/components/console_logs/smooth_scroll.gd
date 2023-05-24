@@ -4,9 +4,12 @@ extends PanelContainer
 
 @export var scrollbar:VScrollBar
 
+@export var follow_content:bool = true
+
 @onready var content:Control = clip_container.get_child(0)
 
 var scroll_progress:float = 0.0
+var prev_content_size_y:float = 0.0
 
 func init_progressbar() -> void:
 	scrollbar.min_value = 0.0
@@ -30,6 +33,13 @@ func _process(delta: float) -> void:
 
 	scroll_progress = lerp(scroll_progress, scrollbar.value, 0.2)
 	content.position.y = - scroll_progress
+
+	if !follow_content: return
+	if prev_content_size_y != content.size.y:
+		var should_follow:bool = (scrollbar.value + scrollbar.page) / prev_content_size_y > 0.99
+		prev_content_size_y = content.size.y
+		if should_follow:
+			scrollbar.value = scrollbar.max_value - scrollbar.page
 
 func _ready() -> void:
 	init_progressbar()
