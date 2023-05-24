@@ -1,6 +1,8 @@
 #A simple control node managing its child windows
 extends Control
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 var os_popup_btn_enabled:bool
 var os_window_bg_color:Color
 
@@ -51,15 +53,15 @@ func get_os_window_bg_color() -> Color:
 	return os_window_bg_color
 
 func save_data():
-	var cfg = Console.Config.get_config()
-	cfg[Console.Utils.CFG_ENABLE_OS_WINDOW] = os_popup_btn_enabled
-	cfg[Console.Utils.CFG_OS_WINDOW_BGCOLOR] = os_window_bg_color
-	Console.Config.set_config(cfg)
+	var cfg = console.Config.get_config()
+	cfg[console.Utils.CFG_ENABLE_OS_WINDOW] = os_popup_btn_enabled
+	cfg[console.Utils.CFG_OS_WINDOW_BGCOLOR] = os_window_bg_color
+	console.Config.set_config(cfg)
 
 func load_data():
-	var cfg = Console.Config.get_config()
-	enable_os_popup_btns(cfg.get(Console.Utils.CFG_ENABLE_OS_WINDOW, false))
-	set_os_window_bg_color(cfg.get(Console.Utils.CFG_OS_WINDOW_BGCOLOR, Color("#2b2e32")))
+	var cfg = console.Config.get_config()
+	enable_os_popup_btns(cfg.get(console.Utils.CFG_ENABLE_OS_WINDOW, false))
+	set_os_window_bg_color(cfg.get(console.Utils.CFG_OS_WINDOW_BGCOLOR, Color("#2b2e32")))
 
 func _notification(what):
 	#quit event

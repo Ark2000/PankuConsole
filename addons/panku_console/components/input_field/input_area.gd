@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 signal submitted(exp:String)
 signal update_hints(exp:String)
 signal next_hint()
@@ -27,7 +29,7 @@ func _ready():
 	)
 	btn2.pressed.connect(
 		func():
-			Console.add_exporter_window(Console.options, "Settings")
+			console.add_exporter_window(console.options, "Settings")
 	)
 	#get focus automatically.
 	visibility_changed.connect(
@@ -49,24 +51,24 @@ func _ready():
 			#watch
 			var exp = input.text.lstrip(" ").rstrip(" ")
 			if id == 0:
-				var window = Console.add_monitor_window(exp, 0.1)
+				var window = console.add_monitor_window(exp, 0.1)
 				window.centered()
 			#add button
 			elif id == 1:
-				var window = Console.add_monitor_window(exp, 999999)
+				var window = console.add_monitor_window(exp, 999999)
 				window.centered()
 	)
 	menubtn.about_to_popup.connect(
 		func():
 			var popup = menubtn.get_popup()
-			popup.set_item_checked(popup.get_item_index(2), Console.mini_repl_mode)
+			popup.set_item_checked(popup.get_item_index(2), console.mini_repl_mode)
 	)
 
-	Console.repl_visible_about_to_change.connect(
+	console.repl_visible_about_to_change.connect(
 		func(_is_visible:bool):
 			input.editable = false
 	)
-	Console.repl_visible_changed.connect(
+	console.repl_visible_changed.connect(
 		func(_is_visible:bool):
 			input.editable = true
 	)

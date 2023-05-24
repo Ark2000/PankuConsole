@@ -1,5 +1,7 @@
 extends Control
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 const exp_key_item := preload("res://addons/panku_console/components/input_mapping/exp_key_item.tscn")
 
 @export var add_btn:Button
@@ -29,13 +31,13 @@ func _unhandled_input(e):
 			if !event: continue
 			if e.keycode == event.keycode and e.pressed and !e.echo:
 				#execute the exp
-				var result = Console.execute(exp)
+				var result = console.execute(exp)
 				if result.failed:
-					Console.notify("[color=red]%s[/color]" % result.result)
+					console.notify("[color=red]%s[/color]" % result.result)
 				else:
 					#ignore null result
 					if result.result:
-						Console.notify(str(result.result))
+						console.notify(str(result.result))
 
 func _notification(what):
 	#save data on quit event
@@ -64,7 +66,7 @@ func add_item(exp:String, event:InputEventKey):
 
 func load_data():
 	#get saved data from cfg
-	var cfg = Console.Config.get_config()
+	var cfg = console.Config.get_config()
 	mapping_data = cfg.get(PankuConsole.Utils.CFG_EXP_MAPPING_DATA, [])
 	
 	#load data
@@ -75,6 +77,6 @@ func load_data():
 		add_item(exp, event)
 
 func save_data():
-	var cfg = Console.Config.get_config()
+	var cfg = console.Config.get_config()
 	cfg[PankuConsole.Utils.CFG_EXP_MAPPING_DATA] = mapping_data
-	Console.Config.set_config(cfg)
+	console.Config.set_config(cfg)

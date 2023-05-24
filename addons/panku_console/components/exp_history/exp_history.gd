@@ -1,5 +1,7 @@
 extends Control
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 const exp_item_prefab = preload("res://addons/panku_console/components/exp_history/exp_history_item.tscn")
 
 @export var item_container:VBoxContainer
@@ -111,13 +113,13 @@ func copy_selected():
 	var result = combine_selected()
 	if result != "":
 		DisplayServer.clipboard_set(result)
-		Console.notify("Combined expression has beed added to clipboard!")
+		console.notify("Combined expression has beed added to clipboard!")
 	clear_selected()
 
 func monitor_selected():
 	var result = combine_selected()
 	if result != "":
-		Console.add_monitor_window(result, 0.1).centered()
+		console.add_monitor_window(result, 0.1).centered()
 	clear_selected()
 
 func combine_selected() -> String:
@@ -127,10 +129,10 @@ func combine_selected() -> String:
 		if !d[0]: continue
 		selected_exp.append(d[2])
 		if selected_exp.size() > 8:
-			Console.notify("Maximum 8 items!")
+			console.notify("Maximum 8 items!")
 			return ""
 	if selected_exp.size() == 0:
-		Console.notify("Nothing to copy!")
+		console.notify("Nothing to copy!")
 		return ""
 	elif selected_exp.size() == 1:
 		combined_exp = selected_exp[0]
@@ -158,7 +160,7 @@ func star_selected():
 		d[0] = false
 		flag = false
 	if flag:
-		Console.notify("No selected items!")
+		console.notify("No selected items!")
 		return
 
 	#sort favorite
@@ -177,21 +179,21 @@ func remove_selected():
 		if d[0]: continue
 		result.append(d)
 	if item_data.size() == result.size():
-		Console.notify("No selected items!")
+		console.notify("No selected items!")
 		return
-	Console.notify("Removed %d items." % (item_data.size() - result.size()))
+	console.notify("Removed %d items." % (item_data.size() - result.size()))
 	item_data = result
 	reload()
 
 func load_data():
 	#get saved data from cfg
-	var cfg = Console.Config.get_config()
-	item_data = cfg.get(Console.Utils.CFG_EXP_HISTORY, [])
+	var cfg = console.Config.get_config()
+	item_data = cfg.get(console.Utils.CFG_EXP_HISTORY, [])
 
 func save_data():
-	var cfg = Console.Config.get_config()
+	var cfg = console.Config.get_config()
 	cfg[PankuConsole.Utils.CFG_EXP_HISTORY] = item_data
-	Console.Config.set_config(cfg)
+	console.Config.set_config(cfg)
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

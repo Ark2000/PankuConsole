@@ -1,53 +1,55 @@
 extends Node
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 @export var export_comment_1 = "You can find config file at " + PankuConsole.Config.FILE_PATH
 
 @export_group("Window Appearance")
 
 @export var blur_effect:bool = true:
 	set(v):
-		Console._full_repl.material.set("shader_parameter/lod", 4.0 if v else 0.0)
+		console._full_repl.material.set("shader_parameter/lod", 4.0 if v else 0.0)
 	get:
-		return Console._full_repl.material.get("shader_parameter/lod") > 0.0
+		return console._full_repl.material.get("shader_parameter/lod") > 0.0
 
 @export var base_color:Color = Color(0.0, 0.0, 0.0, 0.1):
 	set(v):
-		Console._full_repl.material.set("shader_parameter/modulate", v)
+		console._full_repl.material.set("shader_parameter/modulate", v)
 	get:
-		return Console._full_repl.material.get("shader_parameter/modulate")
+		return console._full_repl.material.get("shader_parameter/modulate")
 
 @export_group("REPL")
 
 @export var export_comment_unified_visibility = "unified_visibility will keep all windows' visibility the same as REPL window"
 @export var unified_visibility:bool = false:
 	set(v):
-		Console.unified_visibility = v
+		console.unified_visibility = v
 	get:
-		return Console.unified_visibility
+		return console.unified_visibility
 
 @export_range(12,20) var output_font_size:int:
 	set(v):
-		Console._full_repl.get_content()._console_logs.set_font_size(v)
+		console._full_repl.get_content()._console_logs.set_font_size(v)
 	get:
-		return Console._full_repl.get_content()._console_logs.get_font_size()
+		return console._full_repl.get_content()._console_logs.get_font_size()
 @export var export_button_clear_repl_output = "Clear REPL Output"
 @export var export_comment_2 = "Whether the whole game should be paused when REPL window is visible"
 @export var freeze_when_popup:bool = true:
 	set(v):
-		Console.pause_when_active = v
+		console.pause_when_active = v
 	get:
-		return Console.pause_when_active
+		return console.pause_when_active
 @export var mini_mode:bool = false:
 	set(v):
-		Console.mini_repl_mode = v
+		console.mini_repl_mode = v
 	get:
-		return Console.mini_repl_mode
+		return console.mini_repl_mode
 @export var export_comment_3 = "init_expression will be executed when the project starts"
 @export var init_expression:String = "":
 	set(v):
-		Console.init_expression = v
+		console.init_expression = v
 	get:
-		return Console.init_expression
+		return console.init_expression
 
 @export_group("Tools")
 @export var export_button_add_profiler_widget := "Add Profiler Monitor"
@@ -58,14 +60,14 @@ extends Node
 @export_group("Experimental")
 @export var enable_os_window := false:
 	set(v):
-		Console.w_manager.enable_os_popup_btns(v)
+		console.w_manager.enable_os_popup_btns(v)
 	get:
-		return Console.w_manager.os_popup_btn_enabled
+		return console.w_manager.os_popup_btn_enabled
 @export var os_window_bg_color:Color:
 	set(v):
-		Console.w_manager.set_os_window_bg_color(v)
+		console.w_manager.set_os_window_bg_color(v)
 	get:
-		return Console.w_manager.os_window_bg_color
+		return console.w_manager.os_window_bg_color
 
 @export_group("About")
 @export var export_button_show_intro := "Show Intro"
@@ -78,25 +80,25 @@ extends Node
 #export button callbacks
 
 func clear_repl_output():
-	Console.execute("console.cls")
+	console.execute("console.cls")
 
 func add_profiler_widget():
-	Console.execute("console.add_profiler")
+	console.execute("console.add_profiler")
 
 func open_expression_key_mapper():
-	Console.open_expression_key_mapper()
+	console.open_expression_key_mapper()
 
 func open_expression_history():
-	Console.open_expression_history()
+	console.open_expression_history()
 	
 func open_logger():
-	Console.open_logger()
+	console.open_logger()
 
 func show_intro():
-	Console.show_intro()
+	console.show_intro()
 
 func check_update():
-	Console.execute("console.check_update")
+	console.execute("console.check_update")
 
 func report_bugs():
 	OS.shell_open("https://github.com/Ark2000/PankuConsole/issues")

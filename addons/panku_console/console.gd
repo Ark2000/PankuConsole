@@ -16,6 +16,10 @@ class_name PankuConsole extends CanvasLayer
 signal repl_visible_about_to_change(is_visible:bool)
 signal repl_visible_changed(is_visible:bool)
 
+# Global singleton name is buggy in Godot 4.0, so we get the singleton by path instead.
+const SingletonName = "Console"
+const SingletonPath = "/root/" + SingletonName
+
 #Static helper classes
 const Config = preload("res://addons/panku_console/components/config.gd")
 const Utils = preload("res://addons/panku_console/components/utils.gd")
@@ -286,10 +290,10 @@ func load_data():
 	unified_visibility = cfg.get(Utils.CFG_UNIFIED_VISIBILITY, false)
 
 	var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
-	Console._full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
+	_full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
 
 	var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.7))
-	Console._full_repl.material.set("shader_parameter/modulate", base_color)
+	_full_repl.material.set("shader_parameter/modulate", base_color)
 
 	var shadow = cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW, false)
 	output_overlay.set("theme_override_colors/font_shadow_color", Color.BLACK if shadow else null)

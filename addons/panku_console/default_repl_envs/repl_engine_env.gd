@@ -1,5 +1,7 @@
 extends "res://addons/panku_console/default_repl_envs/repl_env.gd"
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 const _HELP_set_fullscreen = "Set [fullscreen / windowed] mode"
 func set_fullscreen(b:bool):
 	if b:
@@ -42,12 +44,12 @@ var quit:
 
 const _HELP_show_os_report = "Display detailed OS report"
 func show_os_report() -> void:
-	Console.output("Please wait, this may take a while...")
+	console.output("Please wait, this may take a while...")
 	await get_tree().create_timer(0.1).timeout
 	var obj = load("res://addons/panku_console/components/os_report.gd").new()
 	obj.inspect()
 	var report =  "".join(obj.rtl)
-	Console.output(report)
+	console.output(report)
 
 # Currently godot can't toggle visibility of 2D collision shapes at runtime, this is a workaround.
 # See https://github.com/godotengine/godot-proposals/issues/2072

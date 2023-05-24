@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 #Properties with an underscore will be ignored by hint system.
 @onready var _noise_texture:NoiseTexture2D = $CanvasLayer/TextureRect.texture
 @onready var _noise:FastNoiseLite = _noise_texture.noise
@@ -64,7 +66,7 @@ func random_seed():
 
 func _ready():
 	#That's the way you add some stuff to the console plugin.
-	Console.register_env("demo", self)
+	console.register_env("demo", self)
 
 func _process(delta):
 	var r = get_viewport_rect().size

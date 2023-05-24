@@ -6,7 +6,7 @@ extends EditorPlugin
 #Maybe I'll work on this engine bug later, https://github.com/godotengine/godot/issues/25865
 func _enter_tree():
 	# Initialization of the plugin goes here.
-	add_autoload_singleton("Console", "res://addons/panku_console/console.tscn")
+	add_autoload_singleton(PankuConsole.SingletonName, "res://addons/panku_console/console.tscn")
 	var default_open_console_event = InputEventKey.new()
 	default_open_console_event.physical_keycode = KEY_QUOTELEFT
 	ProjectSettings.set_setting("input/toggle_console", {"deadzone":0.5,"events":[default_open_console_event]})
@@ -17,7 +17,7 @@ func _enter_tree():
 
 func _exit_tree():
 	# Clean-up of the plugin goes here.
-	remove_autoload_singleton("Console")
+	remove_autoload_singleton(PankuConsole.SingletonName)
 	ProjectSettings.clear("input/toggle_console")
 	ProjectSettings.clear("panku/toggle_console_action")
 	ProjectSettings.save()

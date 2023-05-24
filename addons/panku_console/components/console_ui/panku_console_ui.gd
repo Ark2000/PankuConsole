@@ -1,5 +1,7 @@
 extends Control
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 @onready var _console_logs = $VBoxContainer/ConsoleLogs
 @onready var _network := $Network
 @onready var _repl := $REPL
@@ -20,7 +22,7 @@ func _ready():
 	_network.response_received.connect(
 		func(msg:Dictionary):
 			if !msg["success"]:
-				Console.notify("[color=red][Error][/color] Failed! " + msg["msg"])
+				console.notify("[color=red][Error][/color] Failed! " + msg["msg"])
 				return
-			Console.notify("[color=green][info][/color] Latest: [%s] [url=%s]%s[/url]" % [msg["published_at"], msg["html_url"], msg["name"]])
+				console.notify("[color=green][info][/color] Latest: [%s] [url=%s]%s[/url]" % [msg["published_at"], msg["html_url"], msg["name"]])
 	)

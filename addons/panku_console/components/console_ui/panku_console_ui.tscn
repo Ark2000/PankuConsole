@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_8mhrg"]
 [ext_resource type="Script" path="res://addons/panku_console/components/console_ui/panku_console_ui.gd" id="1_aab8v"]
-[ext_resource type="PackedScene" uid="uid://bcfn2f7rjd5vl" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="1_jb1ae"]
+[ext_resource type="PackedScene" uid="uid://nynkaa0igrh5" path="res://addons/panku_console/components/console_logs/console_logs.tscn" id="1_jb1ae"]
 [ext_resource type="PackedScene" uid="uid://bme8twac4ick5" path="res://addons/panku_console/components/input_field/input_area.tscn" id="2_w7j54"]
 [ext_resource type="PackedScene" uid="uid://b3jf18wonocnv" path="res://addons/panku_console/components/hints_list/hints_list.tscn" id="3_qw8p4"]
 [ext_resource type="PackedScene" uid="uid://kweu8gpwvj7h" path="res://addons/panku_console/components/network/network.tscn" id="3_yylod"]

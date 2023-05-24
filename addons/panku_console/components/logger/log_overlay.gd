@@ -1,5 +1,7 @@
 extends RichTextLabel
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 const MAX_LENGTH = 65536
 var last_line := "34167be221cebca8dce11e47d86b82d017d7cd57"
 var duplicated_counter := 1
@@ -29,15 +31,15 @@ func add_line(line:String):
 func _ready():
 	text = ""
 
-	Console.godot_log_monitor.error_msg_received.connect(
+	console.godot_log_monitor.error_msg_received.connect(
 		func(msg:String):
 			add_line("[color=red]%s[/color]" % msg)
 	)
-	Console.godot_log_monitor.warning_msg_received.connect(
+	console.godot_log_monitor.warning_msg_received.connect(
 		func(msg:String):
 			add_line("[color=yellow]%s[/color]" % msg)
 	)
-	Console.godot_log_monitor.info_msg_received.connect(
+	console.godot_log_monitor.info_msg_received.connect(
 		func(msg:String):
 			add_line(msg)
 	)

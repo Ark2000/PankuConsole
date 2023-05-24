@@ -1,5 +1,7 @@
 extends LineEdit
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 const MAX_HISTORY = 10
 
 #up/down history
@@ -20,7 +22,7 @@ func on_text_submitted(s:String):
 		histories.push_back(text)
 	history_idx = histories.size()
 	clear()
-	Console.exp_history_window.get_content().add_history(s)
+	console.exp_history_window.get_content().add_history(s)
 
 func _gui_input(e):
 	#navigate through histories

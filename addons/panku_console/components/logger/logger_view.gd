@@ -1,5 +1,7 @@
 extends Control
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 const MAX_LOGS = 128
 
 @export var tag_prefab:PackedScene
@@ -105,7 +107,7 @@ func update_view():
 	var content:String = "\n".join(result)
 	#sync content
 	rlabel.text = content
-	Console.output_overlay.text = content
+	console.output_overlay.text = content
 
 #the only persistent data here are tags.
 func load_data():
@@ -128,15 +130,15 @@ func _ready():
 	load_data()
 	
 	#receive system logs
-	Console.godot_log_monitor.info_msg_received.connect(
+	console.godot_log_monitor.info_msg_received.connect(
 		func(msg:String):
 			add_log(msg, 1)
 	)
-	Console.godot_log_monitor.warning_msg_received.connect(
+	console.godot_log_monitor.warning_msg_received.connect(
 		func(msg:String):
 			add_log(msg, 2)
 	)
-	Console.godot_log_monitor.error_msg_received.connect(
+	console.godot_log_monitor.error_msg_received.connect(
 		func(msg:String):
 			add_log(msg, 3)
 	)

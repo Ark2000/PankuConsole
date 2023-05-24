@@ -1,5 +1,7 @@
 extends Node
 
+@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+
 @export_subgroup("Dependency")
 @export var _input_area:Control
 @export var _hints:Control
@@ -26,22 +28,22 @@ func _set_hint_idx(v):
 			_hints.selected = v
 			_input_area.input.text = k + ("()" if is_method else "")
 			_input_area.input.caret_column = k.length() + (1 if is_method else 0)
-			_helpbar_label.text = "[Help] %s" %  Console._envs_info[k]["help"]
+			_helpbar_label.text = "[Help] %s" %  console._envs_info[k]["help"]
 
 func execute(exp:String):
-	var output_result_method = [Console.output, Console.notify][_output_method]
+	var output_result_method = [console.output, console.notify][_output_method]
 	exp = exp.lstrip(" ").rstrip(" ")
 	if exp.is_empty():
 		return
-	Console.output("[b][You][/b] " + exp)
-	var result = Console.execute(exp)
+	console.output("[b][You][/b] " + exp)
+	var result = console.execute(exp)
 	if !result["failed"]:
 		output_result_method.call("> %s"%str(result["result"]))
 	else:
 		output_result_method.call("> [color=red]%s[/color]"%(result["result"]))
 
 func _update_hints(exp:String):
-	_current_hints = PankuConsole.Utils.parse_exp(Console._envs_info, exp, show_all_hints_if_input_is_empty)
+	_current_hints = PankuConsole.Utils.parse_exp(console._envs_info, exp, show_all_hints_if_input_is_empty)
 	_hints.visible = _current_hints["hints_value"].size() > 0
 	_helpbar.visible = _hints.visible
 	_input_area.input.hints = _current_hints["hints_value"]

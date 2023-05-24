@@ -44,8 +44,11 @@ GDScript:
 extends Node2D
 
 func _ready():
-    # Add this object to the execution environment of the expression
-    Console.register_env("player", self)
+    # try to get the singleton safely
+    if has_node(PankuConsole.SingletonPath):
+        var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+        # Add this object to the execution environment of the expression
+        console.register_env("player", self)
 
 #Optional help message
 const _HELP_hello = "sample function"
