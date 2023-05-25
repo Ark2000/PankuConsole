@@ -8,6 +8,7 @@ The built-in commands are defined in the `addons/panku_console/default_repl_envs
 
 | Command | Description |
 | --- | --- |
+| `current` | The current scene root, which will be automatically updated |
 | `help` | List all environment variables |
 | `helpe(obj:Object)` | Provide detailed information about one specific environment variable |
 | `console.cls` | Clear interactive shell's output |

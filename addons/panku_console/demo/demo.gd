@@ -64,10 +64,6 @@ var logo_dir = Vector2(1, 1)
 func random_seed():
 	seed = randi()
 
-func _ready():
-	#That's the way you add some stuff to the console plugin.
-	console.register_env("demo", self)
-
 func _process(delta):
 	var r = get_viewport_rect().size
 	if (_logo.position.x + _logo.size.x > r.x) or (_logo.position.x < 0):

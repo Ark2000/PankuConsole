@@ -92,6 +92,9 @@ var _envs = {}
 var _envs_info = {}
 var _expression = Expression.new()
 
+# The current scene root node, which will be updated automatically when the scene changes.
+var _current_scene_root:Node
+
 ## Register an environment that run expressions.
 ## [br][code]env_name[/code]: the name of the environment
 ## [br][code]env[/code]: The base instance that runs the expressions. For exmaple your player node.
@@ -119,7 +122,7 @@ func remove_env(env_name:String):
 		for k in _envs_info.keys():
 			if k.begins_with(env_name + "."):
 				_envs_info.erase(k)
-	notify("[color=green][Info][/color] [b]%s[/b] env unloaded!"%env_name)
+	#notify("[color=green][Info][/color] [b]%s[/b] env unloaded!"%env_name)
 
 ## Generate a notification
 func notify(any) -> void:
@@ -208,7 +211,7 @@ func show_intro():
 	output("")
 	output("[b][color=#478cbf]❤️Contributors[/color][/b]: 🔗[url=https://github.com/Ark2000]Ark2000(Feo Wu)[/url], 🔗[url=https://github.com/scriptsengineer]scriptengineer(Rafael Correa)[/url], 🔗[url=https://github.com/winston-yallow]winston-yallow(Winston)[/url], 🔗[url=https://github.com/CheapMeow]CheapMeow[/url].")
 	output("")
-	output("> Hello, type [b]help[/b] for help")
+	output("> Tips: you can always access current scene root by `[b]current[/b]`.")
 	output("")
 
 func open_expression_key_mapper():
@@ -268,10 +271,24 @@ func _ready():
 
 	load_data()
 
+	setup_scene_root_tracker()
+
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		save_data()
+
+# always register the current scene root as `current`
+func setup_scene_root_tracker():
+	_current_scene_root = get_tree().root.get_child(get_tree().root.get_child_count() - 1)
+	register_env("current", _current_scene_root)
+	create_tween().set_loops().tween_callback(
+		func(): 
+			var r = get_tree().root.get_child(get_tree().root.get_child_count() - 1)
+			if r != _current_scene_root:
+				_current_scene_root = r
+				register_env("current", _current_scene_root)
+	).set_delay(0.1)
 
 func load_data():
 	#load configs

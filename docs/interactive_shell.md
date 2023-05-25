@@ -89,3 +89,9 @@ Now, you can type `player.hello("Jason")` in the REPL console to call the functi
 Any methods or properties in the script that **do not begin with an underscore** will be added to the REPL console's auto-completion system (they will still be accessible, of course). Optionally, you can add description information to a method or property by defining a string constant named `_HELP_` + the corresponding method or property name.
 
 Alternatively, the plugin's predefined registered objects can be viewed in the `default_repl_envs` folder in the plugin directory.
+
+## Access Scene Root
+
+From `1.4.106`, your current scene root (the last child of `get_tre().root`) will be automatically registered and updated as `current` in the expression execution environment. This means that you can access anything in your scene root script directly in the expression, which is very convenient and you don't need to register something manually.
+
+For example, if you have a `player` variable in your scene root script, you can access it directly in the expression by typing `current.player` or `current.player.hp`.
