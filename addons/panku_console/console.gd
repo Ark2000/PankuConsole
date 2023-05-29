@@ -383,6 +383,7 @@ func load_modules():
 	_modules.append(preload("./modules/screen_notifier/module.gd").new())
 	_modules.append(preload("./modules/system_report/module.gd").new())
 	_modules.append(preload("./modules/history_manager/module.gd").new())
+	_modules.append(preload("./modules/engine_tools/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m

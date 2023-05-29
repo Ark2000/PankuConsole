@@ -10,7 +10,7 @@ func notify(bbcode:String):
 func init_module():
 
 	# register env
-	var env = preload("./screen_notifier.gd").new()
+	var env = preload("./env.gd").new()
 	env._module = self
 	core.register_env("screen_notifier", env)
 
