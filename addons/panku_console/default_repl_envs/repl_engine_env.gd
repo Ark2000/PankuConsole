@@ -35,7 +35,7 @@ var snap_screenshot:
 		var path = "user://".path_join(file_name)
 		var real_path = OS.get_user_data_dir().path_join(file_name)
 		image.save_png(path)
-		get_parent().notify("[b]Screenshot[/b] saved at [color=green][url=%s]%s[/url][/color]" % [real_path, real_path])
+		console.notify("[b]Screenshot[/b] saved at [color=green][url=%s]%s[/url][/color]" % [real_path, real_path])
 
 const _HELP_quit = "Quit application"
 var quit:

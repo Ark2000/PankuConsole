@@ -4,6 +4,7 @@ func get_module_name(): return "HistoryManager"
 var window:PankuLynxWindow
 
 func init_module():
+
 	# register env
 	var env = preload("./history_manager.gd").new()
 	env._module = self

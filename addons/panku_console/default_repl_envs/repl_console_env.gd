@@ -9,9 +9,9 @@ var cls:
 			console._full_repl.get_content().clear_output
 		)
 
-const _HELP_notify = "Generate a notification"
-func notify(any):
-	console.notify(any)
+# const _HELP_notify = "Generate a notification"
+# func notify(any):
+# 	console.notify(any)
 
 const _HELP_check_update = "Fetch latest release information from Github"
 var check_update:

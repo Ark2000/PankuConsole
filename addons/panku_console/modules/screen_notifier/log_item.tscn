@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c708ijd74a17d"]
+[gd_scene load_steps=4 format=3 uid="uid://c8rfpfel4mqtm"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/resident_logs/log_item.gd" id="1_ddump"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/screen_notifier/log_item.gd" id="1_2q8bu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ons3"]
 bg_color = Color(0, 0, 0, 0.501961)
@@ -13,7 +13,7 @@ bg_color = Color(1, 1, 1, 0.12549)
 offset_right = 320.0
 offset_bottom = 26.0
 theme_override_constants/separation = 2
-script = ExtResource("1_ddump")
+script = ExtResource("1_2q8bu")
 content_label = NodePath("Content/MarginContainer/RichTextLabel")
 amount_label = NodePath("Amount/MarginContainer/Label")
 amount_panel = NodePath("Amount")

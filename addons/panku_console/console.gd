@@ -17,6 +17,7 @@ signal repl_visible_about_to_change(is_visible:bool)
 signal repl_visible_changed(is_visible:bool)
 
 signal new_expression_entered(expression:String)
+signal new_notification_created(bbcode:String)
 
 # Global singleton name is buggy in Godot 4.0, so we get the singleton by path instead.
 const SingletonName = "Console"
@@ -76,7 +77,6 @@ var is_repl_window_opened := false:
 #this behavior will kepp all windows' visibility the same as developer conosle.
 var unified_visibility := false;
 
-@export var _resident_logs:Node
 @export var _base_instance:Node
 @export var _mini_repl:Node
 @export var _full_repl:Node
@@ -128,7 +128,7 @@ func remove_env(env_name:String):
 ## Generate a notification
 func notify(any) -> void:
 	var text = str(any)
-	_resident_logs.add_log(text)
+	new_notification_created.emit(text)
 	output(text)
 
 func output(any) -> void:
@@ -376,18 +376,32 @@ func save_data():
 	Config.set_config(cfg)
 
 var _modules:Array[PankuModule]
+var _modules_table:Dictionary
 
 func load_modules():
 
+	_modules.append(preload("./modules/screen_notifier/module.gd").new())
 	_modules.append(preload("./modules/system_report/module.gd").new())
 	_modules.append(preload("./modules/history_manager/module.gd").new())
+
+	for _m in _modules:
+		var module:PankuModule = _m
+		_modules_table[module.get_module_name()] = module
 
 	for _m in _modules:
 		var module:PankuModule = _m
 		module.core = self
 		module.init_module()
 
+	print("modules: ", _modules_table)
+
 func update_modules(delta:float):
 	for _m in _modules:
 		var module:PankuModule = _m
 		module.update_module(delta)
+
+func get_module(module_name:String):
+	return _modules_table[module_name]
+
+func has_module(module_name:String):
+	return _modules_table.has(module_name)

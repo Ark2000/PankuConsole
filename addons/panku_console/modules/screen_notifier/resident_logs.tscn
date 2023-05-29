@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccr06ddwa73ca"]
+
+[ext_resource type="Script" path="res://addons/panku_console/modules/screen_notifier/resident_logs.gd" id="1_uq2bh"]
+
+[node name="ScreenNotifier" type="CanvasLayer" node_paths=PackedStringArray("area_indicator", "container")]
+script = ExtResource("1_uq2bh")
+area_indicator = NodePath("ResidentLogs/AreaIndicator")
+container = NodePath("ResidentLogs")
+
+[node name="ResidentLogs" type="VBoxContainer" parent="."]
+offset_top = 150.0
+offset_right = 244.0
+offset_bottom = 536.0
+mouse_filter = 2
+alignment = 2
+
+[node name="AreaIndicator" type="ColorRect" parent="ResidentLogs"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(1, 0, 0, 0.117647)
+
+[node name="Label" type="Label" parent="ResidentLogs/AreaIndicator"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(1.5, 1.5)
+text = "Notifications Area"

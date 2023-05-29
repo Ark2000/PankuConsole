@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=17 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
-[ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
 [ext_resource type="PackedScene" uid="uid://clwb00tc8ogtr" path="res://addons/panku_console/components/logger/log_overlay.tscn" id="3_30t2o"]
 [ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/components/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
 [ext_resource type="PackedScene" uid="uid://s88loppa6gja" path="res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn" id="6_nyvg7"]
@@ -20,11 +19,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g283y"]
 shader = ExtResource("12_7tq4j")
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "logger_window", "logger_options", "effect_crt")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "logger_window", "logger_options", "effect_crt")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
-_resident_logs = NodePath("ResidentLogs")
 _base_instance = NodePath("BaseInstance")
 _mini_repl = NodePath("LynxWindowsManager2/MiniREPL")
 _full_repl = NodePath("LynxWindowsManager2/FullREPL")
@@ -40,14 +38,6 @@ effect_crt = NodePath("ScreenEffects/EffectCRT")
 [node name="GodotLogMonitor" parent="." instance=ExtResource("14_jxci2")]
 
 [node name="LogOverlay" parent="." instance=ExtResource("3_30t2o")]
-
-[node name="ResidentLogs" parent="." instance=ExtResource("2_th8we")]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_top = 115.0
-offset_right = 267.0
-offset_bottom = -154.0
-grow_vertical = 2
 
 [node name="Widgets" type="Control" parent="."]
 layout_mode = 3
