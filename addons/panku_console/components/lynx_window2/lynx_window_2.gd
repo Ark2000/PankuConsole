@@ -1,4 +1,4 @@
-extends ColorRect
+class_name PankuLynxWindow extends ColorRect
 
 #Do not connect the button node directly, use these signals to detect click event.
 signal title_btn_clicked
@@ -44,6 +44,12 @@ var _resize_start_position:Vector2
 var _os_window:Window
 var _content:Control
 var _bookmarked := false
+
+func set_caption(caption:String):
+	_title_btn.text = caption
+
+func hide_options_button():
+	_options_btn.visible = false
 
 func centered():
 	var window_rect = get_rect()

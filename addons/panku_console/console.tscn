@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=18 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="PackedScene" uid="uid://dwh2jx3emcfsc" path="res://addons/panku_console/components/resident_logs/resident_logs.tscn" id="2_th8we"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_engine_env.gd" id="9_fav7q"]
 [ext_resource type="Script" path="res://addons/panku_console/components/options.gd" id="9_tnco4"]
 [ext_resource type="PackedScene" uid="uid://c6hm8vweq0j4f" path="res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn" id="9_ua71q"]
-[ext_resource type="PackedScene" uid="uid://fladd1y6sa1j" path="res://addons/panku_console/components/exp_history/exp_history.tscn" id="10_03tvm"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 [ext_resource type="PackedScene" uid="uid://b1c075ic6oru7" path="res://addons/panku_console/components/logger/logger_view.tscn" id="11_8xj08"]
@@ -21,7 +20,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g283y"]
 shader = ExtResource("12_7tq4j")
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "exp_history_window", "logger_window", "logger_options", "effect_crt")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_resident_logs", "_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "output_overlay", "w_manager", "options", "exp_key_mapper", "logger_window", "logger_options", "effect_crt")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
@@ -34,7 +33,6 @@ output_overlay = NodePath("LogOverlay")
 w_manager = NodePath("LynxWindowsManager2")
 options = NodePath("Options")
 exp_key_mapper = NodePath("LynxWindowsManager2/ExpKeyMapper")
-exp_history_window = NodePath("LynxWindowsManager2/ExpHistory")
 logger_window = NodePath("LynxWindowsManager2/Logger")
 logger_options = NodePath("LoggerOptions")
 effect_crt = NodePath("ScreenEffects/EffectCRT")
@@ -116,40 +114,6 @@ visible = false
 [node name="ExpKeyMapper" parent="LynxWindowsManager2/ExpKeyMapper/VBoxContainer/Down" index="0" instance=ExtResource("9_ua71q")]
 layout_mode = 1
 
-[node name="ExpHistory" parent="LynxWindowsManager2" instance=ExtResource("6_nyvg7")]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -182.0
-offset_top = -204.0
-offset_right = 182.0
-offset_bottom = 204.0
-grow_horizontal = 2
-grow_vertical = 2
-queue_free_on_close = false
-
-[node name="Button" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="0"]
-text = "Expression History"
-
-[node name="Button3" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Up" index="3"]
-visible = false
-
-[node name="ExpHistory" parent="LynxWindowsManager2/ExpHistory/VBoxContainer/Down" index="0" instance=ExtResource("10_03tvm")]
-layout_mode = 1
-anchors_preset = 15
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-
 [node name="Logger" parent="LynxWindowsManager2" instance=ExtResource("6_nyvg7")]
 visible = false
 layout_mode = 0
@@ -204,5 +168,4 @@ script = ExtResource("16_cie1r")
 
 [editable path="LynxWindowsManager2/FullREPL"]
 [editable path="LynxWindowsManager2/ExpKeyMapper"]
-[editable path="LynxWindowsManager2/ExpHistory"]
 [editable path="LynxWindowsManager2/Logger"]

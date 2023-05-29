@@ -25,9 +25,9 @@ const _HELP_open_keybindings = "Open expression key bindings window"
 var open_keybindings:
 	get: return console.open_expression_key_mapper()
 
-const _HELP_open_history = "Open expression history window"
-var open_history:
-	get: return console.open_expression_history()
+# const _HELP_open_history = "Open expression history window"
+# var open_history:
+# 	get: return console.open_expression_history()
 	
 const _HELP_open_logger = "Open logger window"
 var open_logger:

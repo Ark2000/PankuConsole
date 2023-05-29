@@ -1,5 +1,5 @@
 #A simple control node managing its child windows
-extends Control
+class_name PankuLynxWindowsManager extends Control
 
 @onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
 

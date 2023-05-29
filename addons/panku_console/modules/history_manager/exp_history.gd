@@ -2,7 +2,8 @@ extends Control
 
 @onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
 
-const exp_item_prefab = preload("res://addons/panku_console/components/exp_history/exp_history_item.tscn")
+const exp_item_prefab = preload("./exp_history_item.tscn")
+const CFG_EXP_HISTORY = "exp_history"
 
 @export var item_container:VBoxContainer
 @export var copy_button:Button
@@ -188,11 +189,11 @@ func remove_selected():
 func load_data():
 	#get saved data from cfg
 	var cfg = console.Config.get_config()
-	item_data = cfg.get(console.Utils.CFG_EXP_HISTORY, [])
+	item_data = cfg.get(CFG_EXP_HISTORY, [])
 
 func save_data():
 	var cfg = console.Config.get_config()
-	cfg[PankuConsole.Utils.CFG_EXP_HISTORY] = item_data
+	cfg[CFG_EXP_HISTORY] = item_data
 	console.Config.set_config(cfg)
 
 func _notification(what):

@@ -16,6 +16,8 @@ class_name PankuConsole extends CanvasLayer
 signal repl_visible_about_to_change(is_visible:bool)
 signal repl_visible_changed(is_visible:bool)
 
+signal new_expression_entered(expression:String)
+
 # Global singleton name is buggy in Godot 4.0, so we get the singleton by path instead.
 const SingletonName = "Console"
 const SingletonPath = "/root/" + SingletonName
@@ -83,7 +85,6 @@ var unified_visibility := false;
 @export var w_manager:Node
 @export var options:Node
 @export var exp_key_mapper:Node
-@export var exp_history_window:Node
 @export var logger_window:Node
 @export var logger_options:Node
 @export var effect_crt:ColorRect
@@ -202,6 +203,13 @@ func add_monitor_window(exp:String, update_interval:= 999999.0):
 	new_window.set_content(content)
 	return new_window
 
+func create_window(content:Control):
+	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
+	content.anchors_preset = Control.PRESET_FULL_RECT
+	new_window.set_content(content)
+	w_manager.add_child(new_window)
+	return new_window
+
 func show_intro():
 	output("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % Utils.get_plugin_version())
 	output("")
@@ -219,10 +227,10 @@ func open_expression_key_mapper():
 	exp_key_mapper.move_to_front()
 	exp_key_mapper.show()
 
-func open_expression_history():
-	exp_history_window.centered()
-	exp_history_window.move_to_front()
-	exp_history_window.show()
+# func open_expression_history():
+# 	exp_history_window.centered()
+# 	exp_history_window.move_to_front()
+# 	exp_history_window.show()
 
 func open_logger():
 	logger_window.centered()
@@ -370,7 +378,9 @@ func save_data():
 var _modules:Array[PankuModule]
 
 func load_modules():
+
 	_modules.append(preload("./modules/system_report/module.gd").new())
+	_modules.append(preload("./modules/history_manager/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m
