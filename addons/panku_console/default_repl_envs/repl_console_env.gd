@@ -13,9 +13,9 @@ var cls:
 # func notify(any):
 # 	console.notify(any)
 
-const _HELP_check_update = "Fetch latest release information from Github"
-var check_update:
-	get: return console._full_repl.get_content().check_latest_release()
+# const _HELP_check_update = "Fetch latest release information from Github"
+# var check_update:
+# 	get: return console._full_repl.get_content().check_latest_release()
 
 const _HELP_open_settings = "Open settings window"
 var open_settings:

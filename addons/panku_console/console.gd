@@ -19,6 +19,9 @@ signal repl_visible_changed(is_visible:bool)
 signal new_expression_entered(expression:String)
 signal new_notification_created(bbcode:String)
 
+signal check_lasted_release_requested()
+signal check_lasted_release_responded(msg:Dictionary)
+
 # Global singleton name is buggy in Godot 4.0, so we get the singleton by path instead.
 const SingletonName = "Console"
 const SingletonPath = "/root/" + SingletonName
@@ -385,6 +388,7 @@ func load_modules():
 	_modules.append(preload("./modules/history_manager/module.gd").new())
 	_modules.append(preload("./modules/engine_tools/module.gd").new())
 	_modules.append(preload("./modules/keyboard_shortcuts/module.gd").new())
+	_modules.append(preload("./modules/check_latest_release/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m
