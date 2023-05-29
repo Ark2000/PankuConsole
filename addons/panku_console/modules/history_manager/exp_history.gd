@@ -1,6 +1,6 @@
 extends Control
 
-@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+@onready var console:PankuConsole
 
 const exp_item_prefab = preload("./exp_history_item.tscn")
 const CFG_EXP_HISTORY = "exp_history"

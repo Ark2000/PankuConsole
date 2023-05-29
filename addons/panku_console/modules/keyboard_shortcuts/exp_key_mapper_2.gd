@@ -1,8 +1,9 @@
 extends Control
 
-@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+var console:PankuConsole
 
-const exp_key_item := preload("res://addons/panku_console/components/input_mapping/exp_key_item.tscn")
+const exp_key_item := preload("./exp_key_item.tscn")
+const CFG_EXP_MAPPING_DATA = "exp_mapping_data"
 
 @export var add_btn:Button
 @export var container:VBoxContainer
@@ -67,7 +68,7 @@ func add_item(exp:String, event:InputEventKey):
 func load_data():
 	#get saved data from cfg
 	var cfg = console.Config.get_config()
-	mapping_data = cfg.get(PankuConsole.Utils.CFG_EXP_MAPPING_DATA, [])
+	mapping_data = cfg.get(CFG_EXP_MAPPING_DATA, [])
 	
 	#load data
 	for i in range(len(mapping_data)):
@@ -78,5 +79,5 @@ func load_data():
 
 func save_data():
 	var cfg = console.Config.get_config()
-	cfg[PankuConsole.Utils.CFG_EXP_MAPPING_DATA] = mapping_data
+	cfg[CFG_EXP_MAPPING_DATA] = mapping_data
 	console.Config.set_config(cfg)

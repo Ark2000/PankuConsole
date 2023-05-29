@@ -21,9 +21,9 @@ const _HELP_open_settings = "Open settings window"
 var open_settings:
 	get: return console.add_exporter_window(console.options, "Settings")
 
-const _HELP_open_keybindings = "Open expression key bindings window"
-var open_keybindings:
-	get: return console.open_expression_key_mapper()
+# const _HELP_open_keybindings = "Open expression key bindings window"
+# var open_keybindings:
+# 	get: return console.open_expression_key_mapper()
 
 # const _HELP_open_history = "Open expression history window"
 # var open_history:

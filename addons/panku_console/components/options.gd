@@ -53,7 +53,7 @@ extends Node
 
 @export_group("Tools")
 @export var export_button_add_profiler_widget := "Add Profiler Monitor"
-@export var export_button_open_expression_key_mapper := "Open Expression Key Mapper"
+# @export var export_button_open_expression_key_mapper := "Open Expression Key Mapper"
 # @export var export_button_open_expression_history := "Open Expression History"
 @export var export_button_open_logger := "Open Logger"
 
@@ -85,8 +85,8 @@ func clear_repl_output():
 func add_profiler_widget():
 	console.execute("console.add_profiler")
 
-func open_expression_key_mapper():
-	console.open_expression_key_mapper()
+# func open_expression_key_mapper():
+# 	console.open_expression_key_mapper()
 
 # func open_expression_history():
 # 	console.open_expression_history()

@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://dkw70e7xyrqxi"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/input_mapping/exp_key_item.gd" id="1_dww87"]
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_u320k"]
-[ext_resource type="Script" path="res://addons/panku_console/components/input_mapping/remap_button.gd" id="3_ge7b7"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/keyboard_shortcuts/exp_key_item.gd" id="2_7ijd8"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/keyboard_shortcuts/remap_button.gd" id="3_3bdj0"]
 [ext_resource type="Texture2D" uid="uid://dnexm7u6lq3km" path="res://addons/panku_console/res/icons2/remove.svg" id="4_vif73"]
 
 [node name="ExpkeyItem" type="HBoxContainer" node_paths=PackedStringArray("exp_edit", "remap_button", "delete_button")]
 offset_right = 280.0
 offset_bottom = 31.0
 theme = ExtResource("1_u320k")
-script = ExtResource("1_dww87")
+script = ExtResource("2_7ijd8")
 exp_edit = NodePath("ExpressionEdit")
 remap_button = NodePath("RemapButton")
 delete_button = NodePath("DeleteButton")
@@ -24,7 +24,7 @@ clear_button_enabled = true
 layout_mode = 2
 toggle_mode = true
 text = "Unassigned"
-script = ExtResource("3_ge7b7")
+script = ExtResource("3_3bdj0")
 
 [node name="DeleteButton" type="Button" parent="."]
 custom_minimum_size = Vector2(27, 0)

@@ -6,7 +6,7 @@ func get_module_name():
     assert(false, "get_module_name not implemented")
 
 func init_module():
-    pass
+    assert(false, "init_module not implemented")
 
 func update_module(delta:float):
     pass

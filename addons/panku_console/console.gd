@@ -32,7 +32,7 @@ const ExporterRowUI = preload("res://addons/panku_console/components/exporter/ro
 const JoystickButton = preload("res://addons/panku_console/components/exporter/joystick_button.gd")
 const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
 const lynx_window_prefab = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn")
-const exp_key_mapper_prefab = preload("res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn")
+# const exp_key_mapper_prefab = preload("res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn")
 const monitor_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")
 const exporter_prefab = preload("res://addons/panku_console/components/exporter/exporter_2.tscn")
 
@@ -84,7 +84,7 @@ var unified_visibility := false;
 @export var output_overlay:Node
 @export var w_manager:Node
 @export var options:Node
-@export var exp_key_mapper:Node
+# @export var exp_key_mapper:Node
 @export var logger_window:Node
 @export var logger_options:Node
 @export var effect_crt:ColorRect
@@ -222,10 +222,10 @@ func show_intro():
 	output("> Tips: you can always access current scene root by `[b]current[/b]`.")
 	output("")
 
-func open_expression_key_mapper():
-	exp_key_mapper.centered()
-	exp_key_mapper.move_to_front()
-	exp_key_mapper.show()
+# func open_expression_key_mapper():
+# 	exp_key_mapper.centered()
+# 	exp_key_mapper.move_to_front()
+# 	exp_key_mapper.show()
 
 # func open_expression_history():
 # 	exp_history_window.centered()
@@ -384,6 +384,7 @@ func load_modules():
 	_modules.append(preload("./modules/system_report/module.gd").new())
 	_modules.append(preload("./modules/history_manager/module.gd").new())
 	_modules.append(preload("./modules/engine_tools/module.gd").new())
+	_modules.append(preload("./modules/keyboard_shortcuts/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m

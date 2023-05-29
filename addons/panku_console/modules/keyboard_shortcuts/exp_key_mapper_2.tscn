@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c6hm8vweq0j4f"]
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_0xd5p"]
-[ext_resource type="Script" path="res://addons/panku_console/components/input_mapping/exp_key_mapper_2.gd" id="1_uq2e1"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/keyboard_shortcuts/exp_key_mapper_2.gd" id="2_vxcow"]
 [ext_resource type="Texture2D" uid="uid://dprpfr0l5xvmu" path="res://addons/panku_console/res/icons2/add.svg" id="3_0d2ct"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i7jk5"]
@@ -19,7 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0xd5p")
-script = ExtResource("1_uq2e1")
+script = ExtResource("2_vxcow")
 add_btn = NodePath("ScrollContainer/PanelContainer/VBoxContainer2/VBoxContainer/Add")
 container = NodePath("ScrollContainer/PanelContainer/VBoxContainer2/VBoxContainer")
 
