@@ -42,14 +42,14 @@ var quit:
 	get:
 		get_tree().quit()
 
-const _HELP_show_os_report = "Display detailed OS report"
-func show_os_report() -> void:
-	console.output("Please wait, this may take a while...")
-	await get_tree().create_timer(0.1).timeout
-	var obj = load("res://addons/panku_console/components/os_report.gd").new()
-	obj.inspect()
-	var report =  "".join(obj.rtl)
-	console.output(report)
+# const _HELP_show_os_report = "Display detailed OS report"
+# func show_os_report() -> void:
+# 	console.output("Please wait, this may take a while...")
+# 	await get_tree().create_timer(0.1).timeout
+# 	var obj = load("res://addons/panku_console/components/os_report.gd").new()
+# 	obj.inspect()
+# 	var report =  "".join(obj.rtl)
+# 	console.output(report)
 
 # Currently godot can't toggle visibility of 2D collision shapes at runtime, this is a workaround.
 # See https://github.com/godotengine/godot-proposals/issues/2072

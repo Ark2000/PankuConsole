@@ -273,6 +273,8 @@ func _ready():
 
 	setup_scene_root_tracker()
 
+	load_modules()
+
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -364,3 +366,18 @@ func save_data():
 	cfg[Utils.CFG_UNIFIED_VISIBILITY] = unified_visibility
 
 	Config.set_config(cfg)
+
+var _modules:Array[PankuModule]
+
+func load_modules():
+	_modules.append(preload("./modules/system_report/module.gd").new())
+
+	for _m in _modules:
+		var module:PankuModule = _m
+		module.core = self
+		module.init_module()
+
+func update_modules(delta:float):
+	for _m in _modules:
+		var module:PankuModule = _m
+		module.update_module(delta)
