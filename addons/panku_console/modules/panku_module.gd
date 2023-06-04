@@ -8,5 +8,8 @@ func get_module_name():
 func init_module():
     assert(false, "init_module not implemented")
 
+func quit_module():
+    pass
+
 func update_module(delta:float):
     pass

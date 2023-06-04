@@ -84,12 +84,12 @@ var unified_visibility := false;
 @export var _mini_repl:Node
 @export var _full_repl:Node
 @export var godot_log_monitor:Node
-@export var output_overlay:Node
+#@export var output_overlay:Node
 @export var w_manager:Node
 @export var options:Node
 # @export var exp_key_mapper:Node
-@export var logger_window:Node
-@export var logger_options:Node
+#@export var logger_window:Node
+# @export var logger_options:Node
 @export var effect_crt:ColorRect
 
 var _envs = {}
@@ -235,10 +235,10 @@ func show_intro():
 # 	exp_history_window.move_to_front()
 # 	exp_history_window.show()
 
-func open_logger():
-	logger_window.centered()
-	logger_window.move_to_front()
-	logger_window.show()
+# func open_logger():
+# 	logger_window.centered()
+# 	logger_window.move_to_front()
+# 	logger_window.show()
 
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
@@ -255,7 +255,7 @@ func _ready():
 	_mini_repl.hide()
 	
 	_full_repl.get_content().set_meta("content_type", "interactive_shell_main")
-	logger_window.get_content().set_meta("content_type", "logger")
+	# logger_window.get_content().set_meta("content_type", "logger")
 
 	_full_repl._options_btn.pressed.connect(
 		func():
@@ -267,10 +267,10 @@ func _ready():
 			is_repl_window_opened = false
 	)
 	
-	logger_window._options_btn.pressed.connect(
-		func():
-			add_exporter_window(logger_options, "Logger Settings")
-	)
+	# logger_window._options_btn.pressed.connect(
+	# 	func():
+	# 		add_exporter_window(logger_options, "Logger Settings")
+	# )
 
 	#check the action key
 	#the open console action can be change in the export options of panku.tscn
@@ -290,6 +290,7 @@ func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		save_data()
+		quit_modules()
 
 # always register the current scene root as `current`
 func setup_scene_root_tracker():
@@ -313,9 +314,6 @@ func load_data():
 	).set_delay(0.1)
 	pause_when_active = cfg.get(Utils.CFG_PAUSE_WHEN_POPUP, false)
 	mini_repl_mode = cfg.get(Utils.CFG_MINI_REPL_MODE, false)
-	output_overlay.visible = cfg.get(Utils.CFG_OUTPUT_OVERLAY, true)
-	output_overlay.modulate.a = cfg.get(Utils.CFG_OUTPUT_OVERLAY_ALPHA, 0.5)
-	output_overlay.theme.default_font_size= cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE, 14)
 	_full_repl.get_content()._console_logs.set_font_size(cfg.get(Utils.CFG_REPL_OUTPUT_FONT_SIZE, 16))
 	unified_visibility = cfg.get(Utils.CFG_UNIFIED_VISIBILITY, false)
 
@@ -324,9 +322,6 @@ func load_data():
 
 	var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.7))
 	_full_repl.material.set("shader_parameter/modulate", base_color)
-
-	var shadow = cfg.get(Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW, false)
-	output_overlay.set("theme_override_colors/font_shadow_color", Color.BLACK if shadow else null)
 
 	var tween := create_tween()
 	tween.tween_callback(
@@ -349,8 +344,9 @@ func load_data():
 					window = _full_repl
 					is_repl_window_opened = true
 				elif content_type == "logger":
-					window = logger_window
-					window.show()
+					# window = logger_window
+					# window.show()
+					pass
 				else:
 					assert(false, "TODO")
 				window.load_data(data)
@@ -369,13 +365,8 @@ func save_data():
 	cfg[Utils.CFG_MINI_REPL_MODE] = mini_repl_mode
 	cfg[Utils.CFG_WINDOW_BLUR_EFFECT] = _full_repl.material.get("shader_parameter/lod") > 0.0
 	cfg[Utils.CFG_WINDOW_BASE_COLOR] = _full_repl.material.get("shader_parameter/modulate")
-	cfg[Utils.CFG_OUTPUT_OVERLAY] = output_overlay.visible
-	cfg[Utils.CFG_OUTPUT_OVERLAY_ALPHA] = output_overlay.modulate.a
-	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SIZE] = output_overlay.theme.default_font_size
-	cfg[Utils.CFG_OUTPUT_OVERLAY_FONT_SHADOW] = output_overlay.get("theme_override_colors/font_shadow_color") != null
 	cfg[Utils.CFG_REPL_OUTPUT_FONT_SIZE] = _full_repl.get_content()._console_logs.get_font_size()
 	cfg[Utils.CFG_UNIFIED_VISIBILITY] = unified_visibility
-
 	Config.set_config(cfg)
 
 var _modules:Array[PankuModule]
@@ -389,6 +380,7 @@ func load_modules():
 	_modules.append(preload("./modules/engine_tools/module.gd").new())
 	_modules.append(preload("./modules/keyboard_shortcuts/module.gd").new())
 	_modules.append(preload("./modules/check_latest_release/module.gd").new())
+	_modules.append(preload("./modules/native_logger/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m
@@ -411,3 +403,8 @@ func get_module(module_name:String):
 
 func has_module(module_name:String):
 	return _modules_table.has(module_name)
+
+func quit_modules():
+	for _m in _modules:
+		var module:PankuModule = _m
+		module.quit_module()

@@ -11,8 +11,6 @@ const WARNING_MSG_PREFIX := "USER WARNING: "
 #Any logs with three spaces at the beginning will be ignored.
 const IGNORE_PREFIX := "   " 
 
-@export var timer:Timer
-
 var godot_log:FileAccess
 
 func _ready():
@@ -24,10 +22,10 @@ func _ready():
 	var log_path = ProjectSettings.get("debug/file_logging/log_path")
 	godot_log = FileAccess.open(log_path, FileAccess.READ)
 
-	timer.timeout.connect(_read_data)
-	timer.wait_time = UPDATE_INTERVAL
-	timer.one_shot = false
-	timer.start()
+	create_tween().set_loops(
+	).tween_callback(_read_data
+	).set_delay(UPDATE_INTERVAL)
+
 
 func _read_data():
 	while godot_log.get_position() < godot_log.get_length():

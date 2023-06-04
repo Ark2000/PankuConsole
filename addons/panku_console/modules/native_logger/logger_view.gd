@@ -1,6 +1,8 @@
 extends Control
 
-@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+signal content_updated(bbcode:String)
+
+var console:PankuConsole
 
 const MAX_LOGS = 128
 
@@ -15,6 +17,9 @@ const MAX_LOGS = 128
 
 var current_filter:String = ""
 var logs:Array = []
+
+const CFG_LOGGER_TAGS = "logger_tags"
+const CFG_LOGGER_OUTPUT_FONT_SIZE = "logger_output_font_size"
 
 #level: #1.info 2.warning 3.error
 func add_log(message:String, level:int):
@@ -107,41 +112,34 @@ func update_view():
 	var content:String = "\n".join(result)
 	#sync content
 	rlabel.text = content
-	console.output_overlay.text = content
+	content_updated.emit(content)
 
-#the only persistent data here are tags.
+# tags and font size
 func load_data():
-	var cfg = PankuConsole.Config.get_config()
-	var tags:PackedStringArray = cfg.get(PankuConsole.Utils.CFG_LOGGER_TAGS, PackedStringArray(["[warning]", "[error]"]))
+	# tags
+	var cfg = console.Config.get_config()
+	var tags:PackedStringArray = cfg.get(CFG_LOGGER_TAGS, PackedStringArray(["[warning]", "[error]"]))
 	for item in tags:
 		var text:String = item
 		add_tag(text)
 
+	# font size
+	rlabel.theme.default_font_size = cfg.get(CFG_LOGGER_OUTPUT_FONT_SIZE, 14)
+
 func save_data():
-	var cfg = PankuConsole.Config.get_config()
+	var cfg = console.Config.get_config()
+	# tags
 	var tags := PackedStringArray()
 	for tag in tags_container.get_children():
 		tags.push_back(tag.tag_text)
-	cfg[PankuConsole.Utils.CFG_LOGGER_TAGS] = tags
-	PankuConsole.Config.set_config(cfg)
+	cfg[CFG_LOGGER_TAGS] = tags
+
+	# font size
+	cfg[CFG_LOGGER_OUTPUT_FONT_SIZE] = rlabel.theme.default_font_size
+
+	console.Config.set_config(cfg)
 
 func _ready():
-	#load tags
-	load_data()
-	
-	#receive system logs
-	console.godot_log_monitor.info_msg_received.connect(
-		func(msg:String):
-			add_log(msg, 1)
-	)
-	console.godot_log_monitor.warning_msg_received.connect(
-		func(msg:String):
-			add_log(msg, 2)
-	)
-	console.godot_log_monitor.error_msg_received.connect(
-		func(msg:String):
-			add_log(msg, 3)
-	)
 
 	#ui callbacks
 	search_btn.pressed.connect(
@@ -160,7 +158,3 @@ func _ready():
 	cls_btn.pressed.connect(clear_all)
 
 	clear_all()
-
-func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_data()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dpurdc5me82ds"]
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_e0ejw"]
-[ext_resource type="Script" path="res://addons/panku_console/components/logger/log_view_tag.gd" id="1_fb4v1"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/native_logger/log_view_tag.gd" id="2_ia8vx"]
 [ext_resource type="Texture2D" uid="uid://ttbgv1vr1xsc" path="res://addons/panku_console/res/icons2/close_20x.svg" id="3_ydxim"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvhll"]
@@ -21,7 +21,7 @@ offset_bottom = 24.0
 size_flags_vertical = 4
 theme = ExtResource("1_e0ejw")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvhll")
-script = ExtResource("1_fb4v1")
+script = ExtResource("2_ia8vx")
 tag_btn = NodePath("HBoxContainer/Button")
 rm_btn = NodePath("HBoxContainer/Button2")
 

@@ -29,15 +29,15 @@ var open_settings:
 # var open_history:
 # 	get: return console.open_expression_history()
 	
-const _HELP_open_logger = "Open logger window"
-var open_logger:
-	get: return console.open_logger()
+# const _HELP_open_logger = "Open logger window"
+# var open_logger:
+# 	get: return console.open_logger()
 
-const _HELP_toggle_logger_overlay = "Toggle visibility of logger overlay"
-var toggle_logger_overlay:
-	get:
-		console.output_overlay.visible = !console.output_overlay.visible
-		return console.output_overlay.visible
+# const _HELP_toggle_logger_overlay = "Toggle visibility of logger overlay"
+# var toggle_logger_overlay:
+# 	get:
+# 		console.output_overlay.visible = !console.output_overlay.visible
+# 		return console.output_overlay.visible
 
 const _HELP_add_exp_monitor = "Add an expression monitor"
 func add_exp_monitor(expression:String):
