@@ -1,25 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=6 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
-[ext_resource type="PackedScene" uid="uid://bqfm16y5vcgl3" path="res://addons/panku_console/modules/interactive_shell/console_ui/panku_console_ui.tscn" id="5_vpp3o"]
-[ext_resource type="PackedScene" uid="uid://s88loppa6gja" path="res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn" id="6_nyvg7"]
 [ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
-[ext_resource type="PackedScene" uid="uid://b2850q72xk6ao" path="res://addons/panku_console/components/mini_repl/mini_repl_2.tscn" id="8_xcl5b"]
 [ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
-[ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_console_env.gd" id="10_h26u7"]
 [ext_resource type="Shader" path="res://addons/panku_console/res/shader/mattias_crt.gdshader" id="12_7tq4j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g283y"]
 shader = ExtResource("12_7tq4j")
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_base_instance", "_mini_repl", "_full_repl", "godot_log_monitor", "w_manager", "effect_crt")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_base_instance", "w_manager", "effect_crt")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
 _base_instance = NodePath("BaseInstance")
-_mini_repl = NodePath("LynxWindowsManager2/MiniREPL")
-_full_repl = NodePath("LynxWindowsManager2/FullREPL")
-godot_log_monitor = NodePath("GodotLogMonitor")
 w_manager = NodePath("LynxWindowsManager2")
 effect_crt = NodePath("ScreenEffects/EffectCRT")
 
@@ -32,43 +25,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("10_f7qaq")
-
-[node name="FullREPL" parent="LynxWindowsManager2" instance=ExtResource("6_nyvg7")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -206.5
-offset_top = -152.5
-offset_right = 206.5
-offset_bottom = 152.5
-grow_horizontal = 2
-grow_vertical = 2
-no_bookmark = false
-queue_free_on_close = false
-flicker = false
-
-[node name="Button" parent="LynxWindowsManager2/FullREPL/VBoxContainer/Up" index="0"]
-text = "</> Panku REPL"
-
-[node name="PankuConsoleUI" parent="LynxWindowsManager2/FullREPL/VBoxContainer/Down" index="0" instance=ExtResource("5_vpp3o")]
-layout_mode = 1
-
-[node name="MiniREPL" parent="LynxWindowsManager2" instance=ExtResource("8_xcl5b")]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -151.095
-offset_right = 256.0
-offset_bottom = -127.095
-grow_vertical = 2
 
 [node name="ScreenEffects" type="CanvasLayer" parent="."]
 
@@ -85,8 +41,3 @@ color = Color(1, 0, 0, 0.247059)
 
 [node name="BaseInstance" type="Node" parent="."]
 script = ExtResource("7_kolcm")
-
-[node name="console" type="Node" parent="."]
-script = ExtResource("10_h26u7")
-
-[editable path="LynxWindowsManager2/FullREPL"]

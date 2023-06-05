@@ -10,6 +10,8 @@ signal new_notification_created(bbcode:String)
 signal check_lasted_release_requested()
 signal check_lasted_release_responded(msg:Dictionary)
 
+signal toggle_console_action_just_pressed()
+
 # Global singleton name is buggy in Godot 4.0, so we get the singleton by path instead.
 const SingletonName = "Console"
 const SingletonPath = "/root/" + SingletonName
@@ -31,47 +33,47 @@ const exporter_prefab = preload("res://addons/panku_console/components/exporter/
 var toggle_console_action:String
 
 ## If [code]true[/code], pause the game when the console window is active.
-var pause_when_active:bool:
-	set(v):
-		pause_when_active = v
-		is_repl_window_opened = is_repl_window_opened
+# var pause_when_active:bool:
+# 	set(v):
+# 		pause_when_active = v
+# 		is_repl_window_opened = is_repl_window_opened
 
 var init_expression:String = ""
 
-var mini_repl_mode = false:
-	set(v):
-		mini_repl_mode = v
-		if is_repl_window_opened:
-			_mini_repl.visible = v
-			_full_repl.set_window_visibility(!v)
+# var mini_repl_mode = false:
+# 	set(v):
+# 		mini_repl_mode = v
+# 		if is_repl_window_opened:
+# 			_mini_repl.visible = v
+# 			_full_repl.set_window_visibility(!v)
 
-var is_repl_window_opened := false:
-	set(v):
-		repl_visible_about_to_change.emit(v)
-		await get_tree().process_frame
-		is_repl_window_opened = v
-		if mini_repl_mode:
-			_mini_repl.visible = v
-		else:
-			_full_repl.set_window_visibility(v)
-		if pause_when_active:
-			_full_repl.set_window_title_text("</> Panku REPL (Paused)")
-		else:
-			_full_repl.set_window_title_text("</> Panku REPL")
-		get_tree().paused = pause_when_active and v
-		repl_visible_changed.emit(v)
-		if unified_visibility:
-			w_manager.visible = v
-		else:
-			w_manager.visible = true
+# var is_repl_window_opened := false:
+# 	set(v):
+# 		repl_visible_about_to_change.emit(v)
+# 		await get_tree().process_frame
+# 		is_repl_window_opened = v
+# 		if mini_repl_mode:
+# 			_mini_repl.visible = v
+# 		else:
+# 			_full_repl.set_window_visibility(v)
+# 		if pause_when_active:
+# 			_full_repl.set_window_title_text("</> Panku REPL (Paused)")
+# 		else:
+# 			_full_repl.set_window_title_text("</> Panku REPL")
+# 		get_tree().paused = pause_when_active and v
+# 		repl_visible_changed.emit(v)
+# 		if unified_visibility:
+# 			w_manager.visible = v
+# 		else:
+# 			w_manager.visible = true
 
 #this behavior will kepp all windows' visibility the same as developer conosle.
-var unified_visibility := false;
+# var unified_visibility := false;
 
 @export var _base_instance:Node
-@export var _mini_repl:Node
-@export var _full_repl:Node
-@export var godot_log_monitor:Node
+# @export var _mini_repl:Node
+# @export var _full_repl:Node
+# @export var godot_log_monitor:Node
 #@export var output_overlay:Node
 @export var w_manager:Node
 # @export var options:Node
@@ -120,10 +122,9 @@ func remove_env(env_name:String):
 func notify(any) -> void:
 	var text = str(any)
 	new_notification_created.emit(text)
-	output(text)
 
-func output(any) -> void:
-	_full_repl.get_content().output(any)
+# func output(any) -> void:
+# 	_full_repl.get_content().output(any)
 
 #Execute an expression in a preset environment.
 func execute(exp:String) -> Dictionary:
@@ -201,18 +202,6 @@ func create_window(content:Control):
 	w_manager.add_child(new_window)
 	return new_window
 
-func show_intro():
-	output("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % Utils.get_plugin_version())
-	output("")
-	output("All-in-One Godot 4 runtime debugging tool.")
-	output("")
-	output("[b][color=#478cbf]🌟Repo[/color][/b]: 🔗[url=https://github.com/Ark2000/PankuConsole]https://github.com/Ark2000/PankuConsole[/url]")
-	output("")
-	output("[b][color=#478cbf]❤️Contributors[/color][/b]: 🔗[url=https://github.com/Ark2000]Ark2000(Feo Wu)[/url], 🔗[url=https://github.com/scriptsengineer]scriptengineer(Rafael Correa)[/url], 🔗[url=https://github.com/winston-yallow]winston-yallow(Winston)[/url], 🔗[url=https://github.com/CheapMeow]CheapMeow[/url].")
-	output("")
-	output("> Tips: you can always access current scene root by `[b]current[/b]`.")
-	output("")
-
 # func open_expression_key_mapper():
 # 	exp_key_mapper.centered()
 # 	exp_key_mapper.move_to_front()
@@ -230,30 +219,31 @@ func show_intro():
 
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
-		is_repl_window_opened = !is_repl_window_opened
+		# is_repl_window_opened = !is_repl_window_opened
+		toggle_console_action_just_pressed.emit()
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
 
-	show_intro()
+	# show_intro()
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
 	
 #	print(Config.get_config())
-	_full_repl.hide()
-	_mini_repl.hide()
+	# _full_repl.hide()
+	# _mini_repl.hide()
 	
-	_full_repl.get_content().set_meta("content_type", "interactive_shell_main")
+	# _full_repl.get_content().set_meta("content_type", "interactive_shell_main")
 	# logger_window.get_content().set_meta("content_type", "logger")
-	_full_repl.hide_options_button()
+	# _full_repl.hide_options_button()
 	# _full_repl._options_btn.pressed.connect(
 	# 	func():
 	# 		add_exporter_window(options, "Settings")
 	# )
 
-	_full_repl.window_closed.connect(
-		func():
-			is_repl_window_opened = false
-	)
+	# _full_repl.window_closed.connect(
+	# 	func():
+	# 		# is_repl_window_opened = false
+	# )
 	
 	# logger_window._options_btn.pressed.connect(
 	# 	func():
@@ -277,7 +267,7 @@ func _ready():
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_data()
+		# save_data()
 		quit_modules()
 
 # always register the current scene root as `current`
@@ -300,61 +290,61 @@ func load_data():
 	create_tween().tween_callback(
 		func(): execute(init_expression)
 	).set_delay(0.1)
-	pause_when_active = cfg.get(Utils.CFG_PAUSE_WHEN_POPUP, false)
-	mini_repl_mode = cfg.get(Utils.CFG_MINI_REPL_MODE, false)
-	_full_repl.get_content()._console_logs.set_font_size(cfg.get(Utils.CFG_REPL_OUTPUT_FONT_SIZE, 16))
-	unified_visibility = cfg.get(Utils.CFG_UNIFIED_VISIBILITY, false)
+	# pause_when_active = cfg.get(Utils.CFG_PAUSE_WHEN_POPUP, false)
+	# mini_repl_mode = cfg.get(Utils.CFG_MINI_REPL_MODE, false)
+	# _full_repl.get_content()._console_logs.set_font_size(cfg.get(Utils.CFG_REPL_OUTPUT_FONT_SIZE, 16))
+	# unified_visibility = cfg.get(Utils.CFG_UNIFIED_VISIBILITY, false)
 
-	var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
-	_full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
+	# var blur_effect = cfg.get(Utils.CFG_WINDOW_BLUR_EFFECT, true)
+	# _full_repl.material.set("shader_parameter/lod", 4.0 if blur_effect else 0.0)
 
-	var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.7))
-	_full_repl.material.set("shader_parameter/modulate", base_color)
+	# var base_color = cfg.get(Utils.CFG_WINDOW_BASE_COLOR, Color(0, 0, 0, 0.7))
+	# _full_repl.material.set("shader_parameter/modulate", base_color)
 
-	var tween := create_tween()
-	tween.tween_callback(
-		func():
-			var bookmarked_windows_data:Array = cfg.get(Utils.CFG_BOOKMARK_WINDOWS, [])
-			# deserialize bookmarked windows
-			var current_scene_file_path = get_tree().root.get_children()[-1].scene_file_path
-			for data in bookmarked_windows_data:
-				#bookmarked windows are only loaded in the same scene when saved.
-				if current_scene_file_path != data["scene_file_path"]:
-					continue
-				var window:LynxWindow2
-				var content_data = data.get("content_data", "")
-				var content_type = data.get("content_type", "")
-				if content_type == "inspector":
-					window = add_exporter_window_by_expression(content_data["expression"], data["title"])
-				elif content_type == "monitor":
-					window = add_monitor_window(content_data["expression"], content_data["update_interval"])
-				elif content_type == "interactive_shell_main":
-					window = _full_repl
-					is_repl_window_opened = true
-				elif content_type == "logger":
-					# window = logger_window
-					# window.show()
-					pass
-				else:
-					assert(false, "TODO")
-				window.load_data(data)
-			#clear current scene bookmarks
-			bookmarked_windows_data = bookmarked_windows_data.filter(
-				func(data): return data["scene_file_path"] != current_scene_file_path
-			)
-			cfg[Utils.CFG_BOOKMARK_WINDOWS] = bookmarked_windows_data
-			Config.set_config(cfg)
-	).set_delay(0.1)
+	# var tween := create_tween()
+	# tween.tween_callback(
+	# 	func():
+	# 		var bookmarked_windows_data:Array = cfg.get(Utils.CFG_BOOKMARK_WINDOWS, [])
+	# 		# deserialize bookmarked windows
+	# 		var current_scene_file_path = get_tree().root.get_children()[-1].scene_file_path
+	# 		for data in bookmarked_windows_data:
+	# 			#bookmarked windows are only loaded in the same scene when saved.
+	# 			if current_scene_file_path != data["scene_file_path"]:
+	# 				continue
+	# 			var window:LynxWindow2
+	# 			var content_data = data.get("content_data", "")
+	# 			var content_type = data.get("content_type", "")
+	# 			if content_type == "inspector":
+	# 				window = add_exporter_window_by_expression(content_data["expression"], data["title"])
+	# 			elif content_type == "monitor":
+	# 				window = add_monitor_window(content_data["expression"], content_data["update_interval"])
+	# 			elif content_type == "interactive_shell_main":
+	# 				window = _full_repl
+	# 				# is_repl_window_opened = true
+	# 			elif content_type == "logger":
+	# 				# window = logger_window
+	# 				# window.show()
+	# 				pass
+	# 			else:
+	# 				assert(false, "TODO")
+	# 			window.load_data(data)
+	# 		#clear current scene bookmarks
+	# 		bookmarked_windows_data = bookmarked_windows_data.filter(
+	# 			func(data): return data["scene_file_path"] != current_scene_file_path
+	# 		)
+	# 		cfg[Utils.CFG_BOOKMARK_WINDOWS] = bookmarked_windows_data
+	# 		Config.set_config(cfg)
+	# ).set_delay(0.1)
 
 func save_data():
 	var cfg = Config.get_config()
 	cfg[Utils.CFG_INIT_EXP] = init_expression
-	cfg[Utils.CFG_PAUSE_WHEN_POPUP] = pause_when_active
-	cfg[Utils.CFG_MINI_REPL_MODE] = mini_repl_mode
-	cfg[Utils.CFG_WINDOW_BLUR_EFFECT] = _full_repl.material.get("shader_parameter/lod") > 0.0
-	cfg[Utils.CFG_WINDOW_BASE_COLOR] = _full_repl.material.get("shader_parameter/modulate")
-	cfg[Utils.CFG_REPL_OUTPUT_FONT_SIZE] = _full_repl.get_content()._console_logs.get_font_size()
-	cfg[Utils.CFG_UNIFIED_VISIBILITY] = unified_visibility
+	# cfg[Utils.CFG_PAUSE_WHEN_POPUP] = pause_when_active
+	# cfg[Utils.CFG_MINI_REPL_MODE] = mini_repl_mode
+	# cfg[Utils.CFG_WINDOW_BLUR_EFFECT] = _full_repl.material.get("shader_parameter/lod") > 0.0
+	# cfg[Utils.CFG_WINDOW_BASE_COLOR] = _full_repl.material.get("shader_parameter/modulate")
+	# cfg[Utils.CFG_REPL_OUTPUT_FONT_SIZE] = _full_repl.get_content()._console_logs.get_font_size()
+	# cfg[Utils.CFG_UNIFIED_VISIBILITY] = unified_visibility
 	Config.set_config(cfg)
 
 var _modules:Array[PankuModule]

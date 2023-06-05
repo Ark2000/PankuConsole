@@ -8,42 +8,54 @@ var console:PankuConsole
 
 @export var blur_effect:bool = true:
 	set(v):
-		console._full_repl.material.set("shader_parameter/lod", 4.0 if v else 0.0)
+		pass
+		# console._full_repl.material.set("shader_parameter/lod", 4.0 if v else 0.0)
 	get:
-		return console._full_repl.material.get("shader_parameter/lod") > 0.0
+		return false
+		# return console._full_repl.material.get("shader_parameter/lod") > 0.0
 
 @export var base_color:Color = Color(0.0, 0.0, 0.0, 0.1):
 	set(v):
-		console._full_repl.material.set("shader_parameter/modulate", v)
+		# console._full_repl.material.set("shader_parameter/modulate", v)
+		pass
 	get:
-		return console._full_repl.material.get("shader_parameter/modulate")
+		# return console._full_repl.material.get("shader_parameter/modulate")
+		return base_color
 
 @export_group("REPL")
 
 @export var export_comment_unified_visibility = "unified_visibility will keep all windows' visibility the same as REPL window"
 @export var unified_visibility:bool = false:
 	set(v):
-		console.unified_visibility = v
+		# console.unified_visibility = v
+		pass
 	get:
-		return console.unified_visibility
+		# return console.unified_visibility
+		return false
 
 @export_range(12,20) var output_font_size:int:
 	set(v):
-		console._full_repl.get_content()._console_logs.set_font_size(v)
+		# console._full_repl.get_content()._console_logs.set_font_size(v)
+		pass
 	get:
-		return console._full_repl.get_content()._console_logs.get_font_size()
+		# return console._full_repl.get_content()._console_logs.get_font_size()
+		return 0
 @export var export_button_clear_repl_output = "Clear REPL Output"
 @export var export_comment_2 = "Whether the whole game should be paused when REPL window is visible"
 @export var freeze_when_popup:bool = true:
 	set(v):
-		console.pause_when_active = v
+		# console.pause_when_active = v
+		pass
 	get:
-		return console.pause_when_active
+		# return console.pause_when_active
+		return false
 @export var mini_mode:bool = false:
 	set(v):
-		console.mini_repl_mode = v
+		# console.mini_repl_mode = v
+		pass
 	get:
-		return console.mini_repl_mode
+		# return console.mini_repl_mode
+		return false
 @export var export_comment_3 = "init_expression will be executed when the project starts"
 @export var init_expression:String = "":
 	set(v):

@@ -61,9 +61,6 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button2" parent="VBoxContainer/Bottom/InputArea" index="2"]
-visible = false
-
 [node name="Panel" type="Panel" parent="VBoxContainer/Bottom"]
 layout_mode = 1
 anchors_preset = 15
