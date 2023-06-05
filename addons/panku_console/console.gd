@@ -1,15 +1,3 @@
-## Panku Console. Provide a runtime GDScript REPL so your can run any script expressions in your game!
-##
-## This class will be an autoload ([code] Console [/code] by default) if you enable the plugin. The basic idea is that you can run [Expression] based on an environment(or base instance) by [method execute]. You can view [code]default_env.gd[/code] to see how to prepare your own environment.
-## [br]
-## [br] What's more, you can...
-## [br]
-## [br] ● Send in-game notifications by [method notify]
-## [br] ● Output something to the console window by [method output]
-## [br] ● Manage widgets plans by [method add_widget], [method save_current_widgets_as], etc.
-## [br] ● Lot's of useful expressions defined in [code]default_env.gd[/code].
-##
-## @tutorial:            https://github.com/Ark2000/PankuConsole
 class_name PankuConsole extends CanvasLayer
 
 ## Emitted when the visibility (hidden/visible) of console window changes.
@@ -381,6 +369,7 @@ func load_modules():
 	_modules.append(preload("./modules/keyboard_shortcuts/module.gd").new())
 	_modules.append(preload("./modules/check_latest_release/module.gd").new())
 	_modules.append(preload("./modules/native_logger/module.gd").new())
+	_modules.append(preload("./modules/interactive_shell/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m
@@ -408,6 +397,3 @@ func quit_modules():
 	for _m in _modules:
 		var module:PankuModule = _m
 		module.quit_module()
-
-func _physics_process(delta: float) -> void:
-	update_modules(delta)
