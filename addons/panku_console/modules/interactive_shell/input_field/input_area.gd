@@ -11,7 +11,6 @@ signal navigate_histories(histories:Array, cur:int)
 @export var input:LineEdit
 @export var btn:Button
 @export var menubtn:MenuButton
-@export var btn2:Button
 
 func _ready():
 	input.text_submitted.connect(
@@ -27,10 +26,7 @@ func _ready():
 			submitted.emit(input.text)
 			input.on_text_submitted(input.text)
 	)
-	btn2.pressed.connect(
-		func():
-			console.add_exporter_window(console.options, "Settings")
-	)
+
 	#get focus automatically.
 	visibility_changed.connect(
 		func():

@@ -56,7 +56,7 @@ func set_hints(texts:Array):
 	
 	if auto_resize:
 		await get_tree().process_frame
-		size.y = min(MAX_HEIGHT, container.size.y)
+		custom_minimum_size.y = min(MAX_HEIGHT, container.size.y)
 
 func _on_btn_clicked(i:int):
 	if !disable_buttons:

@@ -2,7 +2,8 @@ class_name PankuModuleInteractiveShell extends PankuModule
 func get_module_name(): return "InteractiveShell"
 
 var window:PankuLynxWindow
-var interactive_shell:Node
+var interactive_shell:Control
+var simple_launcher:Control
 
 func init_module():
 	# register env
@@ -18,6 +19,11 @@ func init_module():
 	load_window_data(window)
 
 	interactive_shell.output("hello!")
+
+	simple_launcher = preload("./mini_repl_2.tscn").instantiate()
+	simple_launcher.console = core
+	core.add_child(simple_launcher)
+	simple_launcher.hide()
 
 func quit_module():
 	save_window_data(window)
