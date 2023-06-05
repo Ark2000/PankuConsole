@@ -2,11 +2,6 @@ extends RichTextLabel
 
 var _module:PankuModuleNativeLogger
 
-const CFG_OUTPUT_OVERLAY = "output_overlay"
-const CFG_OUTPUT_OVERLAY_ALPHA = "output_overlay_alpha"
-const CFG_OUTPUT_OVERLAY_FONT_SIZE = "output_overlay_font_size"
-const CFG_OUTPUT_OVERLAY_FONT_SHADOW = "output_overlay_font_shadow"
-
 const MAX_LENGTH = 65536
 var last_line := "34167be221cebca8dce11e47d86b82d017d7cd57"
 var duplicated_counter := 1
@@ -33,18 +28,16 @@ func add_line(line:String):
 		content_cur += (line + "\n")
 		text = content_cur
 
-func load_data():
-	var cfg = _module.core.Config.get_config()
-	visible = cfg.get(CFG_OUTPUT_OVERLAY, true)
-	modulate.a = cfg.get(CFG_OUTPUT_OVERLAY_ALPHA, 0.5)
-	theme.default_font_size= cfg.get(CFG_OUTPUT_OVERLAY_FONT_SIZE, 14)
-	var shadow = cfg.get(CFG_OUTPUT_OVERLAY_FONT_SHADOW, false)
-	set("theme_override_colors/font_shadow_color", Color.BLACK if shadow else null)
+func load_data(data:Dictionary):
+	visible = data.get("visible", true)
+	modulate.a = data.get("alpha", 0.5)
+	theme.default_font_size = data.get("font_size", 14)
+	set("theme_override_colors/font_shadow_color", data.get("font_shadow", Color.BLACK))
 
-func save_data():
-	var cfg = _module.core.Config.get_config()
-	cfg[CFG_OUTPUT_OVERLAY] = visible
-	cfg[CFG_OUTPUT_OVERLAY_ALPHA] = modulate.a
-	cfg[CFG_OUTPUT_OVERLAY_FONT_SIZE] = theme.default_font_size
-	cfg[CFG_OUTPUT_OVERLAY_FONT_SHADOW] = get("theme_override_colors/font_shadow_color") != null
-	_module.core.Config.set_config(cfg)
+func get_data():
+	return {
+		"visible": visible,
+		"alpha": modulate.a,
+		"font_size": theme.default_font_size,
+		"font_shadow": get("theme_override_colors/font_shadow_color") != null
+	}

@@ -114,30 +114,22 @@ func update_view():
 	rlabel.text = content
 	content_updated.emit(content)
 
-# tags and font size
-func load_data():
-	# tags
-	var cfg = console.Config.get_config()
-	var tags:PackedStringArray = cfg.get(CFG_LOGGER_TAGS, PackedStringArray(["[warning]", "[error]"]))
+func load_data(data:Dictionary):
+	var tags:PackedStringArray = data.get("tags", PackedStringArray(["[warning]", "[error]"]))
 	for item in tags:
 		var text:String = item
 		add_tag(text)
+	rlabel.theme.default_font_size = data.get("font_size", 14)
 
-	# font size
-	rlabel.theme.default_font_size = cfg.get(CFG_LOGGER_OUTPUT_FONT_SIZE, 14)
-
-func save_data():
-	var cfg = console.Config.get_config()
-	# tags
+func get_data() -> Dictionary:
 	var tags := PackedStringArray()
 	for tag in tags_container.get_children():
 		tags.push_back(tag.tag_text)
-	cfg[CFG_LOGGER_TAGS] = tags
 
-	# font size
-	cfg[CFG_LOGGER_OUTPUT_FONT_SIZE] = rlabel.theme.default_font_size
-
-	console.Config.set_config(cfg)
+	return {
+		"tags": tags,
+		"font_size": rlabel.theme.default_font_size
+	}
 
 func _ready():
 

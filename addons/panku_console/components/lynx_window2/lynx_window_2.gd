@@ -56,6 +56,11 @@ func centered():
 	var screen_rect = get_viewport_rect()
 	position = (screen_rect.size - window_rect.size) / 2
 
+func get_centered_position():
+	var window_rect = get_rect()
+	var screen_rect = get_viewport_rect()
+	return (screen_rect.size - window_rect.size) / 2
+
 func get_content():
 	return _content
 

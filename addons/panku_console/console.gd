@@ -408,3 +408,6 @@ func quit_modules():
 	for _m in _modules:
 		var module:PankuModule = _m
 		module.quit_module()
+
+func _physics_process(delta: float) -> void:
+	update_modules(delta)

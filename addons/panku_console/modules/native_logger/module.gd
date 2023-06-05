@@ -39,7 +39,7 @@ func init_module():
 			core.add_exporter_window(logger_options, "Logger Settings")
 	)
 	window.set_caption("Native Logger")
-	window.hide()
+	load_window_data(window)
 
 	native_logs_monitor.error_msg_received.connect(
 		func(msg:String):
@@ -61,10 +61,11 @@ func init_module():
 	# setup window
 	# window.get_content().set_meta("content_type", "logger")
 
-	output_overlay.load_data()
-	logger_ui.load_data()
+	output_overlay.load_data(load_module_data("logger_overlay", {}))
+	logger_ui.load_data(load_module_data("logger", {}))
 
 
 func quit_module():
-	output_overlay.save_data()
-	logger_ui.save_data()
+	save_module_data("logger_overlay", output_overlay.get_data())
+	save_module_data("logger", logger_ui.get_data())
+	save_window_data(window)

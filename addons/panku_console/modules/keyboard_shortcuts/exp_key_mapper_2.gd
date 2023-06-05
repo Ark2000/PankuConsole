@@ -3,7 +3,6 @@ extends Control
 var console:PankuConsole
 
 const exp_key_item := preload("./exp_key_item.tscn")
-const CFG_EXP_MAPPING_DATA = "exp_mapping_data"
 
 @export var add_btn:Button
 @export var container:VBoxContainer
@@ -11,7 +10,6 @@ const CFG_EXP_MAPPING_DATA = "exp_mapping_data"
 var mapping_data = []
 
 func _ready():
-	load_data()
 
 	#when clicking the button, add a new exp key mapping item
 	add_btn.pressed.connect(
@@ -40,11 +38,6 @@ func _unhandled_input(e):
 					if result.result:
 						console.notify(str(result.result))
 
-func _notification(what):
-	#save data on quit event
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_data()
-
 func add_item(exp:String, event:InputEventKey):
 	var item = exp_key_item.instantiate()
 	container.add_child(item)
@@ -65,19 +58,15 @@ func add_item(exp:String, event:InputEventKey):
 			mapping_data.remove_at(item.get_index())
 	)
 
-func load_data():
-	#get saved data from cfg
-	var cfg = console.Config.get_config()
-	mapping_data = cfg.get(CFG_EXP_MAPPING_DATA, [])
-	
+func get_data() -> Array:
+	return mapping_data
+
+func load_data(data:Array):
+	mapping_data = data
+
 	#load data
 	for i in range(len(mapping_data)):
 		var key_mapping = mapping_data[i]
 		var exp:String = key_mapping[0]
 		var event:InputEventKey = key_mapping[1]
 		add_item(exp, event)
-
-func save_data():
-	var cfg = console.Config.get_config()
-	cfg[CFG_EXP_MAPPING_DATA] = mapping_data
-	console.Config.set_config(cfg)

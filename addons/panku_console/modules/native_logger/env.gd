@@ -2,8 +2,6 @@ var _module:PankuModuleNativeLogger
 
 const _HELP_open = "Open logger window"
 func open() -> void:
-	pass
-	_module.window.centered()
 	_module.window.move_to_front()
 	_module.window.show()
 

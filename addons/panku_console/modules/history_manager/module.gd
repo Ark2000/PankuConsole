@@ -23,4 +23,7 @@ func init_module():
 	window.queue_free_on_close = false
 	window.set_caption("History Manager")
 	window.hide_options_button()
-	window.hide()
+	load_window_data(window)
+
+func quit_module():
+	save_window_data(window)
