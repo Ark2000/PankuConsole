@@ -1,6 +1,6 @@
-extends Node
+extends Resource
 
-@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+var console:PankuConsole
 
 @export var export_comment_1 = "You can find config file at " + PankuConsole.Config.FILE_PATH
 
@@ -55,7 +55,7 @@ extends Node
 @export var export_button_add_profiler_widget := "Add Profiler Monitor"
 # @export var export_button_open_expression_key_mapper := "Open Expression Key Mapper"
 # @export var export_button_open_expression_history := "Open Expression History"
-@export var export_button_open_logger := "Open Logger"
+#@export var export_button_open_logger := "Open Logger"
 
 @export_group("Experimental")
 @export var enable_os_window := false:
@@ -91,8 +91,8 @@ func add_profiler_widget():
 # func open_expression_history():
 # 	console.open_expression_history()
 	
-func open_logger():
-	console.open_logger()
+#func open_logger():
+#	console.open_logger()
 
 func show_intro():
 	console.show_intro()

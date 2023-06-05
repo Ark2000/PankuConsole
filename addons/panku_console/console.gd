@@ -74,7 +74,7 @@ var unified_visibility := false;
 @export var godot_log_monitor:Node
 #@export var output_overlay:Node
 @export var w_manager:Node
-@export var options:Node
+# @export var options:Node
 # @export var exp_key_mapper:Node
 #@export var logger_window:Node
 # @export var logger_options:Node
@@ -244,11 +244,11 @@ func _ready():
 	
 	_full_repl.get_content().set_meta("content_type", "interactive_shell_main")
 	# logger_window.get_content().set_meta("content_type", "logger")
-
-	_full_repl._options_btn.pressed.connect(
-		func():
-			add_exporter_window(options, "Settings")
-	)
+	_full_repl.hide_options_button()
+	# _full_repl._options_btn.pressed.connect(
+	# 	func():
+	# 		add_exporter_window(options, "Settings")
+	# )
 
 	_full_repl.window_closed.connect(
 		func():
@@ -370,6 +370,7 @@ func load_modules():
 	_modules.append(preload("./modules/check_latest_release/module.gd").new())
 	_modules.append(preload("./modules/native_logger/module.gd").new())
 	_modules.append(preload("./modules/interactive_shell/module.gd").new())
+	_modules.append(preload("./modules/general_settings/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m
