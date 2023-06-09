@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4iurk1ni11v2"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_ui_color.gd" id="1_qp8f1"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_ui_color.gd" id="1_qp8f1"]
 
 [node name="RowColor" type="HBoxContainer" node_paths=PackedStringArray("line_edit", "color_picker_button")]
 script = ExtResource("1_qp8f1")

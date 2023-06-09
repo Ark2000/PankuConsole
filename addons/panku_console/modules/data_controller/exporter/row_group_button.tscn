@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://78evbpdhqe4b"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_group_button.gd" id="2_7jdni"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_group_button.gd" id="2_7jdni"]
 
 [sub_resource type="SystemFont" id="SystemFont_bascj"]
 font_names = PackedStringArray("Sans-Serif")

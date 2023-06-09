@@ -3,7 +3,8 @@ const BUTTON_PREFIX = "export_button_"
 const COMMENT_PREFIX = "export_comment_"
 const TEXT_LABEL_MIN_X = 120
 
-@export var timer:Timer
+const ExporterRowUI = preload("./row_ui.gd")
+
 @export var container:VBoxContainer
 @export var group_button:PackedScene
 @export var row_button:PackedScene
@@ -129,7 +130,7 @@ func setup(_obj:Object):
 
 	for dname in ui_rows:
 		#sync data, ui -> data
-		var r:PankuConsole.ExporterRowUI = ui_rows[dname]
+		var r:ExporterRowUI = ui_rows[dname]
 		r.ui_val_changed.connect(
 			func(val):
 #				printt(dname, val)
@@ -141,17 +142,14 @@ func setup(_obj:Object):
 		#set name label
 		r.name_label.text = dname
 
-	timer.wait_time = 0.1
-	timer.one_shot = false
-	#sync data periodically, data -> ui
-	timer.timeout.connect(
+	create_tween().set_loops().tween_callback(
+		#sync data periodically, data -> ui
 		func():
 			if !is_instance_valid(obj):
 				return
 			for dname in ui_rows:
 				if dname in obj:
-					var r:PankuConsole.ExporterRowUI = ui_rows[dname]
+					var r:ExporterRowUI = ui_rows[dname]
 					if !r.is_active():
 						r.update_ui(obj.get(dname))
-	)
-	timer.start()
+	).set_delay(0.1)

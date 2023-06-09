@@ -17,9 +17,9 @@ var cls:
 # var check_update:
 # 	get: return console._full_repl.get_content().check_latest_release()
 
-const _HELP_open_settings = "Open settings window"
-var open_settings:
-	get: return console.add_exporter_window(console.options, "Settings")
+# const _HELP_open_settings = "Open settings window"
+# var open_settings:
+# 	get: return console.add_exporter_window(console.options, "Settings")
 
 # const _HELP_open_keybindings = "Open expression key bindings window"
 # var open_keybindings:
@@ -61,9 +61,9 @@ const _HELP_add_profiler = "Add a simple profiler"
 var add_profiler:
 	get: return console.add_monitor_window("engine.performance_info", 0.2)
 
-const _HELP_add_exporter = "Add a window to show and modify export properties"
-func add_exporter(obj_exp:String):
-	return console.add_exporter_window_by_expression(obj_exp)
+# const _HELP_add_exporter = "Add a window to show and modify export properties"
+# func add_exporter(obj_exp:String):
+# 	return console.add_exporter_window_by_expression(obj_exp)
 
 const _HELP_toggle_crt_effect = "The good old days"
 func toggle_crt_effect():

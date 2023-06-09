@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4jxqh4ysyodt"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_ui_string.gd" id="1_7ybqm"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_ui_string.gd" id="1_7ybqm"]
 
 [node name="RowString" type="HBoxContainer" node_paths=PackedStringArray("line_edit")]
 script = ExtResource("1_7ybqm")

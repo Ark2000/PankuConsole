@@ -36,7 +36,9 @@ func init_module():
 	window.queue_free_on_close = false
 	window._options_btn.pressed.connect(
 		func():
-			core.add_exporter_window(logger_options, "Logger Settings")
+			var data_controller:PankuLynxWindow = core.create_data_controller_window.call(logger_options)
+			if data_controller:
+				data_controller.set_caption("Logger Settings")
 	)
 	window.set_caption("Native Logger")
 	load_window_data(window)

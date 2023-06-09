@@ -12,6 +12,10 @@ signal check_lasted_release_responded(msg:Dictionary)
 
 signal toggle_console_action_just_pressed()
 
+# create_data_controller(obj:Object) -> PankuLynxWindow
+# this function should be implemented by related module.
+var create_data_controller_window:Callable = func(obj:Object): return null
+
 # Global singleton name is buggy in Godot 4.0, so we get the singleton by path instead.
 const SingletonName = "Console"
 const SingletonPath = "/root/" + SingletonName
@@ -21,13 +25,11 @@ const Config = preload("res://addons/panku_console/components/config.gd")
 const Utils = preload("res://addons/panku_console/components/utils.gd")
 
 #Other classes, define classes here instead of using keyword `class_name` so that the global namespace will not be affected.
-const ExporterRowUI = preload("res://addons/panku_console/components/exporter/row_ui.gd")
-const JoystickButton = preload("res://addons/panku_console/components/exporter/joystick_button.gd")
 const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
 const lynx_window_prefab = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn")
 # const exp_key_mapper_prefab = preload("res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn")
 const monitor_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")
-const exporter_prefab = preload("res://addons/panku_console/components/exporter/exporter_2.tscn")
+# const exporter_prefab = preload("res://addons/panku_console/components/exporter/exporter_2.tscn")
 
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
 var toggle_console_action:String
@@ -142,36 +144,36 @@ func get_available_export_objs() -> Array:
 		result.push_back(obj_name)
 	return result
 
-func add_exporter_window_by_expression(obj_expression:String, window_title := ""):
-	var result = execute(obj_expression)
-	var obj = null
-	if result["failed"]:
-		return
-	obj = result["result"]
-	if !(obj is Object):
-		return
-	var window:LynxWindow2 = add_exporter_window(obj, window_title)
-	window.get_content().set_meta("content_type", "inspector")
-	window.get_content().set_meta("content_data", {"expression": obj_expression})
-	window.no_bookmark = false
-	return window
+# func add_exporter_window_by_expression(obj_expression:String, window_title := ""):
+# 	var result = execute(obj_expression)
+# 	var obj = null
+# 	if result["failed"]:
+# 		return
+# 	obj = result["result"]
+# 	if !(obj is Object):
+# 		return
+# 	var window:LynxWindow2 = add_exporter_window(obj, window_title)
+# 	window.get_content().set_meta("content_type", "inspector")
+# 	window.get_content().set_meta("content_data", {"expression": obj_expression})
+# 	window.no_bookmark = false
+# 	return window
 
-func add_exporter_window(obj:Object, window_title := ""):
-	if !obj.get_script():
-		return
+# func add_exporter_window(obj:Object, window_title := ""):
+# 	if !obj.get_script():
+# 		return
 
-	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
-	if window_title == "":
-		new_window._title_btn.text = "Exporter (%s)" % str(obj)
-	else:
-		new_window._title_btn.text = window_title
-	new_window._options_btn.hide()
-	w_manager.add_child(new_window)
-	var content = exporter_prefab.instantiate()
-	new_window.set_content(content)
-	content.setup(obj)
-	new_window.centered()
-	return new_window
+# 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
+# 	if window_title == "":
+# 		new_window._title_btn.text = "Exporter (%s)" % str(obj)
+# 	else:
+# 		new_window._title_btn.text = window_title
+# 	new_window._options_btn.hide()
+# 	w_manager.add_child(new_window)
+# 	var content = exporter_prefab.instantiate()
+# 	new_window.set_content(content)
+# 	content.setup(obj)
+# 	new_window.centered()
+# 	return new_window
 
 func add_monitor_window(exp:String, update_interval:= 999999.0):
 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
@@ -188,7 +190,9 @@ func add_monitor_window(exp:String, update_interval:= 999999.0):
 	content.set_meta("content_data", {"expression": exp, "update_interval": update_interval})
 	new_window._options_btn.pressed.connect(
 		func():
-			add_exporter_window(content, "Monitor Settings")
+			var window:PankuLynxWindow = create_data_controller_window.call(content)
+			if window:
+				window.set_caption("Monitor Settings")
 	)
 	new_window.title_btn_clicked.connect(content.update_exp_i)
 	w_manager.add_child(new_window)
@@ -361,6 +365,7 @@ func load_modules():
 	_modules.append(preload("./modules/native_logger/module.gd").new())
 	_modules.append(preload("./modules/interactive_shell/module.gd").new())
 	_modules.append(preload("./modules/general_settings/module.gd").new())
+	_modules.append(preload("./modules/data_controller/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m

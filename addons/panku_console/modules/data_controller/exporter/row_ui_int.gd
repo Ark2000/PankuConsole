@@ -1,4 +1,4 @@
-extends PankuConsole.ExporterRowUI
+extends "./row_ui.gd"
 
 @export var line_edit:LineEdit
 @export var button_inc:Button

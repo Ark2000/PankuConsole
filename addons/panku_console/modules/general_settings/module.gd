@@ -6,7 +6,7 @@ var general_settings:Resource
 
 func open_settings_window():
 	# create a new exporter window
-	core.add_exporter_window(general_settings)
+	core.create_data_controller_window.call(general_settings)
 
 func init_module():
 	# register env

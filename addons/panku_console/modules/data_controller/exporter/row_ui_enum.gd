@@ -1,4 +1,4 @@
-extends PankuConsole.ExporterRowUI
+extends "./row_ui.gd"
 
 @export var opt_btn:OptionButton
 

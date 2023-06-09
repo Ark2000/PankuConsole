@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b6w4d5bsp0erj"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_ui_range_number.gd" id="1_wfk7y"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_ui_range_number.gd" id="1_wfk7y"]
 
 [node name="RowRangeNumber" type="HBoxContainer" node_paths=PackedStringArray("slider", "ledit")]
 offset_right = 285.0

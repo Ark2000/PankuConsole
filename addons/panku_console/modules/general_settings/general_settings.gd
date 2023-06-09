@@ -107,7 +107,8 @@ func add_profiler_widget():
 #	console.open_logger()
 
 func show_intro():
-	console.show_intro()
+	pass
+#	console.show_intro()
 
 # func check_update():
 # 	console.execute("console.check_update")

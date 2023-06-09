@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://i2pcctq0i2o3"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/exporter/row_ui_bool.gd" id="1_n4ai0"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_ui_bool.gd" id="1_n4ai0"]
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_u58sr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xi8jw"]

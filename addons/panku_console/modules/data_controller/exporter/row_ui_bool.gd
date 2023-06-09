@@ -1,4 +1,4 @@
-extends PankuConsole.ExporterRowUI
+extends "./row_ui.gd"
 
 @export var check_box:CheckBox
 @export var label:Label

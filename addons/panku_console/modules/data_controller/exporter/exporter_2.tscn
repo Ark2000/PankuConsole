@@ -1,19 +1,19 @@
 [gd_scene load_steps=16 format=3 uid="uid://c0y1axyst1ub3"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/exporter/exporter_2.gd" id="1_0hpei"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/exporter_2.gd" id="1_0hpei"]
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_3uypn"]
-[ext_resource type="PackedScene" uid="uid://cj0urmvj2rtas" path="res://addons/panku_console/components/exporter/row_vec_2.tscn" id="1_v4pbh"]
-[ext_resource type="PackedScene" uid="uid://b4jxqh4ysyodt" path="res://addons/panku_console/components/exporter/row_string.tscn" id="2_87515"]
-[ext_resource type="PackedScene" uid="uid://dal16suyx5int" path="res://addons/panku_console/components/exporter/row_read_only.tscn" id="3_r8k7l"]
-[ext_resource type="PackedScene" uid="uid://b6w4d5bsp0erj" path="res://addons/panku_console/components/exporter/row_range_number.tscn" id="4_ido8o"]
-[ext_resource type="PackedScene" uid="uid://cnsnrihcgjsa" path="res://addons/panku_console/components/exporter/row_int.tscn" id="5_ua2hx"]
-[ext_resource type="PackedScene" uid="uid://78evbpdhqe4b" path="res://addons/panku_console/components/exporter/row_group_button.tscn" id="6_mmbw5"]
-[ext_resource type="PackedScene" uid="uid://bneg4nt6ryuuj" path="res://addons/panku_console/components/exporter/row_float.tscn" id="7_h6vg4"]
-[ext_resource type="PackedScene" uid="uid://dfsypgkiprnp8" path="res://addons/panku_console/components/exporter/row_enum.tscn" id="8_r3qu8"]
-[ext_resource type="PackedScene" uid="uid://b4iurk1ni11v2" path="res://addons/panku_console/components/exporter/row_color.tscn" id="9_scg41"]
-[ext_resource type="PackedScene" uid="uid://ds3hbsvvlvdyw" path="res://addons/panku_console/components/exporter/row_button.tscn" id="10_vt884"]
-[ext_resource type="PackedScene" uid="uid://i2pcctq0i2o3" path="res://addons/panku_console/components/exporter/row_bool.tscn" id="11_0f6sm"]
-[ext_resource type="PackedScene" uid="uid://cxnpwuiumbs85" path="res://addons/panku_console/components/exporter/row_comment.tscn" id="14_ydleg"]
+[ext_resource type="PackedScene" uid="uid://cj0urmvj2rtas" path="res://addons/panku_console/modules/data_controller/exporter/row_vec_2.tscn" id="1_v4pbh"]
+[ext_resource type="PackedScene" uid="uid://b4jxqh4ysyodt" path="res://addons/panku_console/modules/data_controller/exporter/row_string.tscn" id="2_87515"]
+[ext_resource type="PackedScene" uid="uid://dal16suyx5int" path="res://addons/panku_console/modules/data_controller/exporter/row_read_only.tscn" id="3_r8k7l"]
+[ext_resource type="PackedScene" uid="uid://b6w4d5bsp0erj" path="res://addons/panku_console/modules/data_controller/exporter/row_range_number.tscn" id="4_ido8o"]
+[ext_resource type="PackedScene" uid="uid://cnsnrihcgjsa" path="res://addons/panku_console/modules/data_controller/exporter/row_int.tscn" id="5_ua2hx"]
+[ext_resource type="PackedScene" uid="uid://78evbpdhqe4b" path="res://addons/panku_console/modules/data_controller/exporter/row_group_button.tscn" id="6_mmbw5"]
+[ext_resource type="PackedScene" uid="uid://bneg4nt6ryuuj" path="res://addons/panku_console/modules/data_controller/exporter/row_float.tscn" id="7_h6vg4"]
+[ext_resource type="PackedScene" uid="uid://dfsypgkiprnp8" path="res://addons/panku_console/modules/data_controller/exporter/row_enum.tscn" id="8_r3qu8"]
+[ext_resource type="PackedScene" uid="uid://b4iurk1ni11v2" path="res://addons/panku_console/modules/data_controller/exporter/row_color.tscn" id="9_scg41"]
+[ext_resource type="PackedScene" uid="uid://ds3hbsvvlvdyw" path="res://addons/panku_console/modules/data_controller/exporter/row_button.tscn" id="10_vt884"]
+[ext_resource type="PackedScene" uid="uid://i2pcctq0i2o3" path="res://addons/panku_console/modules/data_controller/exporter/row_bool.tscn" id="11_0f6sm"]
+[ext_resource type="PackedScene" uid="uid://cxnpwuiumbs85" path="res://addons/panku_console/modules/data_controller/exporter/row_comment.tscn" id="14_ydleg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o2trv"]
 content_margin_left = 8.0
@@ -21,7 +21,7 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 
-[node name="exporter_2" type="Control" node_paths=PackedStringArray("timer", "container")]
+[node name="exporter_2" type="Control" node_paths=PackedStringArray("container")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -31,7 +31,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_3uypn")
 script = ExtResource("1_0hpei")
-timer = NodePath("ScrollContainer/Timer")
 container = NodePath("ScrollContainer/VBoxContainer")
 group_button = ExtResource("6_mmbw5")
 row_button = ExtResource("10_vt884")
@@ -55,8 +54,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o2trv")
 horizontal_scroll_mode = 0
-
-[node name="Timer" type="Timer" parent="ScrollContainer"]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
