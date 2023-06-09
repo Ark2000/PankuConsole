@@ -5,7 +5,9 @@ func send_request() -> Node:
 	var node = preload("./network.gd").new()
 	core.add_child(node)
 	node.check_latest_release()
-	node.response_received.connect(node.queue_free)
+	node.response_received.connect(
+		func(_v): node.queue_free()
+	)
 	return node
 
 func check_update():
