@@ -82,7 +82,7 @@ var init_expression:String = ""
 # @export var exp_key_mapper:Node
 #@export var logger_window:Node
 # @export var logger_options:Node
-@export var effect_crt:ColorRect
+# @export var effect_crt:ColorRect
 
 var _envs = {}
 var _envs_info = {}
@@ -366,6 +366,7 @@ func load_modules():
 	_modules.append(preload("./modules/interactive_shell/module.gd").new())
 	_modules.append(preload("./modules/general_settings/module.gd").new())
 	_modules.append(preload("./modules/data_controller/module.gd").new())
+	_modules.append(preload("./modules/screen_crt_effect/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m

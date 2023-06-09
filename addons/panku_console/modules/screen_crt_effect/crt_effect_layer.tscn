@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0hv8f6lk2d2d"]
+
+[ext_resource type="Shader" path="res://addons/panku_console/res/shader/mattias_crt.gdshader" id="1_ulpy0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7j4u"]
+shader = ExtResource("1_ulpy0")
+
+[node name="CrtEffectLayer" type="CanvasLayer"]
+layer = 64
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_p7j4u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

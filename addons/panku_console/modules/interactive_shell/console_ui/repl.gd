@@ -38,7 +38,9 @@ func execute(exp:String):
 	output.emit("[b][You][/b] " + exp)
 	var result = console.execute(exp)
 	if !result["failed"]:
-		output.emit("> %s"%str(result["result"]))
+		# ignore the expression result if it is null
+		if result["result"] != null:
+			output.emit("> %s"%str(result["result"]))
 	else:
 		output.emit("> [color=red]%s[/color]"%(result["result"]))
 

@@ -67,4 +67,5 @@ var add_profiler:
 
 const _HELP_toggle_crt_effect = "The good old days"
 func toggle_crt_effect():
-	console.effect_crt.visible = !console.effect_crt.visible
+	pass
+	# console.effect_crt.visible = !console.effect_crt.visible
