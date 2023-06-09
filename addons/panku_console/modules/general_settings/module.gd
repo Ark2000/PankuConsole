@@ -1,7 +1,6 @@
 class_name PankuModuleGeneralSettings extends PankuModule
 func get_module_name(): return "GeneralSettings"
 
-
 var general_settings:Resource
 
 func open_settings_window():
@@ -16,3 +15,13 @@ func init_module():
 
 	general_settings = preload("./general_settings.gd").new()
 	general_settings.console = core
+
+	# load settings
+	general_settings.blur_effect = load_module_data("lynx_window_blur_effect", true)
+	general_settings.base_color = load_module_data("lynx_window_base_color", Color(0, 0, 0, 0.5))
+
+
+func quit_module():
+	# save settings
+	save_module_data("lynx_window_blur_effect", general_settings.blur_effect)
+	save_module_data("lynx_window_base_color", general_settings.base_color)

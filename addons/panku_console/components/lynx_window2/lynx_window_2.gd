@@ -6,6 +6,7 @@ signal window_closed
 
 const bookmark_icon:CompressedTexture2D = preload("res://addons/panku_console/res/icons2/bookmark-svgrepo-com.svg")
 const bookmark_filled_icon:CompressedTexture2D = preload("res://addons/panku_console/res/icons2/bookmark-filled-svgrepo-com.svg")
+const lynx_window_shader_material:ShaderMaterial = preload("./lynx_window_shader_material.tres")
 
 @export var _window_title_container:HBoxContainer
 @export var _title_btn:Button

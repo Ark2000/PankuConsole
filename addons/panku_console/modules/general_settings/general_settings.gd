@@ -8,19 +8,15 @@ var console:PankuConsole
 
 @export var blur_effect:bool = true:
 	set(v):
-		pass
-		# console._full_repl.material.set("shader_parameter/lod", 4.0 if v else 0.0)
+		PankuLynxWindow.lynx_window_shader_material.set("shader_parameter/lod", 4.0 if v else 0.0)
 	get:
-		return false
-		# return console._full_repl.material.get("shader_parameter/lod") > 0.0
+		return PankuLynxWindow.lynx_window_shader_material.get("shader_parameter/lod") > 0.0
 
 @export var base_color:Color = Color(0.0, 0.0, 0.0, 0.1):
 	set(v):
-		# console._full_repl.material.set("shader_parameter/modulate", v)
-		pass
+		PankuLynxWindow.lynx_window_shader_material.set("shader_parameter/modulate", v)
 	get:
-		# return console._full_repl.material.get("shader_parameter/modulate")
-		return base_color
+		return PankuLynxWindow.lynx_window_shader_material.get("shader_parameter/modulate")
 
 @export_group("REPL")
 
