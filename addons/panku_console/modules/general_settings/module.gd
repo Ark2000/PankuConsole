@@ -14,14 +14,20 @@ func init_module():
 	core.register_env("general_settings", env)
 
 	general_settings = preload("./general_settings.gd").new()
-	general_settings.console = core
+	general_settings._module = self
 
 	# load settings
 	general_settings.blur_effect = load_module_data("lynx_window_blur_effect", true)
 	general_settings.base_color = load_module_data("lynx_window_base_color", Color(0, 0, 0, 0.5))
+	general_settings.init_expression = load_module_data("init_expr", "")
+
+	# execute init_expr
+	if general_settings.init_expression != "":
+		core.execute(general_settings.init_expression)
 
 
 func quit_module():
 	# save settings
 	save_module_data("lynx_window_blur_effect", general_settings.blur_effect)
 	save_module_data("lynx_window_base_color", general_settings.base_color)
+	save_module_data("init_expr", general_settings.init_expression)

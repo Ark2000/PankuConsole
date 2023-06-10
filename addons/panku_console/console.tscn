@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
-[ext_resource type="Script" path="res://addons/panku_console/default_repl_envs/repl_base_instance.gd" id="7_kolcm"]
-[ext_resource type="Script" path="res://addons/panku_console/components/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
+[ext_resource type="Script" path="res://addons/panku_console/core/repl_base_instance.gd" id="3_npka3"]
+[ext_resource type="Script" path="res://addons/panku_console/core/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 
 [node name="Console" type="CanvasLayer" node_paths=PackedStringArray("_base_instance", "w_manager")]
 process_mode = 3
@@ -22,4 +22,4 @@ mouse_filter = 2
 script = ExtResource("10_f7qaq")
 
 [node name="BaseInstance" type="Node" parent="."]
-script = ExtResource("7_kolcm")
+script = ExtResource("3_npka3")

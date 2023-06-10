@@ -1,8 +1,8 @@
 extends Resource
 
-var console:PankuConsole
+var _module:PankuModuleGeneralSettings
 
-@export var export_comment_1 = "You can find config file at " + PankuConsole.Config.FILE_PATH
+@export var export_comment_1 = "You can find config file at " + _module.core.Config.FILE_PATH
 
 @export_group("Window Appearance")
 
@@ -53,11 +53,7 @@ var console:PankuConsole
 		# return console.mini_repl_mode
 		return false
 @export var export_comment_3 = "init_expression will be executed when the project starts"
-@export var init_expression:String = "":
-	set(v):
-		console.init_expression = v
-	get:
-		return console.init_expression
+@export var init_expression:String = ""
 
 @export_group("Tools")
 @export var export_button_add_profiler_widget := "Add Profiler Monitor"
@@ -68,14 +64,14 @@ var console:PankuConsole
 @export_group("Experimental")
 @export var enable_os_window := false:
 	set(v):
-		console.w_manager.enable_os_popup_btns(v)
+		_module.core.w_manager.enable_os_popup_btns(v)
 	get:
-		return console.w_manager.os_popup_btn_enabled
+		return _module.core.w_manager.os_popup_btn_enabled
 @export var os_window_bg_color:Color:
 	set(v):
-		console.w_manager.set_os_window_bg_color(v)
+		_module.core.w_manager.set_os_window_bg_color(v)
 	get:
-		return console.w_manager.os_window_bg_color
+		return _module.core.w_manager.os_window_bg_color
 
 @export_group("About")
 @export var export_button_show_intro := "Show Intro"
@@ -88,10 +84,10 @@ var console:PankuConsole
 #export button callbacks
 
 func clear_repl_output():
-	console.execute("console.cls")
+	_module.core.execute("console.cls")
 
 func add_profiler_widget():
-	console.execute("console.add_profiler")
+	_module.core.execute("console.add_profiler")
 
 # func open_expression_key_mapper():
 # 	console.open_expression_key_mapper()
@@ -101,10 +97,6 @@ func add_profiler_widget():
 	
 #func open_logger():
 #	console.open_logger()
-
-func show_intro():
-	pass
-#	console.show_intro()
 
 # func check_update():
 # 	console.execute("console.check_update")

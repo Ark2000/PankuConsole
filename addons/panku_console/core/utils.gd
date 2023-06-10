@@ -43,7 +43,7 @@ const type_names = {
 }
 
 #config dictionary keys
-const CFG_INIT_EXP = "init_exp"
+# const CFG_INIT_EXP = "init_exp"
 # const CFG_PAUSE_WHEN_POPUP = "pause_when_popup"
 # const CFG_MINI_REPL_MODE = "mini_repl_mode"
 const CFG_ENABLE_OS_WINDOW = "enable_os_window"
