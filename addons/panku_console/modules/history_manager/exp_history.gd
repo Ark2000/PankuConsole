@@ -120,7 +120,8 @@ func copy_selected():
 func monitor_selected():
 	var result = combine_selected()
 	if result != "":
-		console.add_monitor_window(result, 0.1).centered()
+		pass
+		# console.add_monitor_window(result, 0.1).centered()
 	clear_selected()
 
 func combine_selected() -> String:

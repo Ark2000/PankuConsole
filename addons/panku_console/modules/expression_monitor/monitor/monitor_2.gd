@@ -1,6 +1,6 @@
 extends Control
 
-@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+var console:PankuConsole
 
 signal change_window_title_text(text:String)
 

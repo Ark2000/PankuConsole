@@ -47,10 +47,12 @@ func _ready():
 			#watch
 			var exp = input.text.lstrip(" ").rstrip(" ")
 			if id == 0:
-				var window = console.add_monitor_window(exp, 0.1)
-				window.centered()
+				pass
+				# var window = console.add_monitor_window(exp, 0.1)
+				# window.centered()
 			#add button
 			elif id == 1:
-				var window = console.add_monitor_window(exp, 999999)
-				window.centered()
+				pass
+				# var window = console.add_monitor_window(exp, 999999)
+				# window.centered()
 	)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcbpdn0vikn2f"]
 
-[ext_resource type="Script" path="res://addons/panku_console/components/monitor/monitor_2.gd" id="1_q6qhh"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/expression_monitor/monitor/monitor_2.gd" id="1_q6qhh"]
 
 [node name="monitor_2" type="Control" node_paths=PackedStringArray("_label", "_trect")]
 clip_contents = true

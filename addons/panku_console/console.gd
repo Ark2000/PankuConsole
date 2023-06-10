@@ -25,10 +25,10 @@ const Config = preload("res://addons/panku_console/components/config.gd")
 const Utils = preload("res://addons/panku_console/components/utils.gd")
 
 #Other classes, define classes here instead of using keyword `class_name` so that the global namespace will not be affected.
-const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
-const lynx_window_prefab = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn")
+# const LynxWindow2 = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.gd")
+# const lynx_window_prefab = preload("res://addons/panku_console/components/lynx_window2/lynx_window_2.tscn")
 # const exp_key_mapper_prefab = preload("res://addons/panku_console/components/input_mapping/exp_key_mapper_2.tscn")
-const monitor_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")
+# const monitor_prefab = preload("res://addons/panku_console/components/monitor/monitor_2.tscn")
 # const exporter_prefab = preload("res://addons/panku_console/components/exporter/exporter_2.tscn")
 
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
@@ -175,32 +175,32 @@ func get_available_export_objs() -> Array:
 # 	new_window.centered()
 # 	return new_window
 
-func add_monitor_window(exp:String, update_interval:= 999999.0):
-	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
-	new_window._title_btn.text = exp
-	new_window.no_bookmark = false
-	var content = monitor_prefab.instantiate()
-	content._update_exp = exp
-	content._update_period = update_interval
-	content.change_window_title_text.connect(
-		func(text:String):
-			new_window._title_btn.text = text
-	)
-	content.set_meta("content_type", "monitor")
-	content.set_meta("content_data", {"expression": exp, "update_interval": update_interval})
-	new_window._options_btn.pressed.connect(
-		func():
-			var window:PankuLynxWindow = create_data_controller_window.call(content)
-			if window:
-				window.set_caption("Monitor Settings")
-	)
-	new_window.title_btn_clicked.connect(content.update_exp_i)
-	w_manager.add_child(new_window)
-	new_window.set_content(content)
-	return new_window
+# func add_monitor_window(exp:String, update_interval:= 999999.0):
+# 	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
+# 	new_window._title_btn.text = exp
+# 	new_window.no_bookmark = false
+# 	var content = monitor_prefab.instantiate()
+# 	content._update_exp = exp
+# 	content._update_period = update_interval
+# 	content.change_window_title_text.connect(
+# 		func(text:String):
+# 			new_window._title_btn.text = text
+# 	)
+# 	content.set_meta("content_type", "monitor")
+# 	content.set_meta("content_data", {"expression": exp, "update_interval": update_interval})
+# 	new_window._options_btn.pressed.connect(
+# 		func():
+# 			var window:PankuLynxWindow = create_data_controller_window.call(content)
+# 			if window:
+# 				window.set_caption("Monitor Settings")
+# 	)
+# 	new_window.title_btn_clicked.connect(content.update_exp_i)
+# 	w_manager.add_child(new_window)
+# 	new_window.set_content(content)
+# 	return new_window
 
 func create_window(content:Control):
-	var new_window:LynxWindow2 = lynx_window_prefab.instantiate()
+	var new_window:PankuLynxWindow = preload("./components/lynx_window2/lynx_window_2.tscn").instantiate()
 	content.anchors_preset = Control.PRESET_FULL_RECT
 	new_window.set_content(content)
 	w_manager.add_child(new_window)
@@ -367,6 +367,7 @@ func load_modules():
 	_modules.append(preload("./modules/general_settings/module.gd").new())
 	_modules.append(preload("./modules/data_controller/module.gd").new())
 	_modules.append(preload("./modules/screen_crt_effect/module.gd").new())
+	_modules.append(preload("./modules/expression_monitor/module.gd").new())
 
 	for _m in _modules:
 		var module:PankuModule = _m
