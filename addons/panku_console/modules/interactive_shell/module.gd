@@ -12,6 +12,7 @@ enum InputMode {
 
 var gui_mode:InputMode = InputMode.Window
 var pause_if_input:bool = true
+var unified_window_visibility:bool = false
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
@@ -57,25 +58,28 @@ func init_module():
 
 	gui_mode = load_module_data("gui_mode", InputMode.Window)
 	pause_if_input = load_module_data("pause_if_input", true)
-
-	var update_gui_state = func():
-		var is_gui_open = window.visible or simple_launcher.visible
-		if is_gui_open and pause_if_input:
-			Engine.time_scale = 0.01
-		else:
-			Engine.time_scale = 1.0
+	unified_window_visibility = load_module_data("unified_window_visibility", false)
 
 	window.visibility_changed.connect(update_gui_state)
 	simple_launcher.visibility_changed.connect(update_gui_state)
-	update_gui_state.call()
+	update_gui_state()
 
 func quit_module():
 	save_window_data(window)
 	save_module_data("gui_mode", gui_mode)
 	save_module_data("pause_if_input", pause_if_input)
+	save_module_data("unified_window_visibility", unified_window_visibility)
+
+func update_gui_state():
+	var is_gui_open = window.visible or simple_launcher.visible
+	if is_gui_open and pause_if_input:
+		Engine.time_scale = 0.01
+	else:
+		Engine.time_scale = 1.0
+	if unified_window_visibility:
+		core.w_manager.visible = is_gui_open
 
 func open_window():
-	Engine.time_scale = 0.01
 	if gui_mode == InputMode.Window:
 		if not window.visible:
 			window.show()
@@ -87,7 +91,6 @@ func open_window():
 		window.show()
 
 func open_launcher():
-	Engine.time_scale = 0.01
 	if gui_mode == InputMode.Window:
 		gui_mode = InputMode.Launcher
 		window.hide()
