@@ -33,7 +33,7 @@ var toggle_console_action:String
 # 		pause_when_active = v
 # 		is_repl_window_opened = is_repl_window_opened
 
-@export var _base_instance:Node
+var _base_instance:Object
 @export var w_manager:Node
 
 var _envs = {}
@@ -106,6 +106,9 @@ func _input(_e):
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run this directly")
+
+	_base_instance = preload("./core/repl_base_instance.gd").new()
+	_base_instance.core = self
 
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
 
