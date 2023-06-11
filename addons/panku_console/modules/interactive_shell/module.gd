@@ -5,6 +5,13 @@ var window:PankuLynxWindow
 var interactive_shell:Control
 var simple_launcher:Control
 
+enum InputMode {
+	Window,
+	Launcher
+}
+
+var gui_mode:InputMode = InputMode.Window
+
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
 	intro.append("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % core.Utils.get_plugin_version())
@@ -41,8 +48,36 @@ func init_module():
 
 	core.toggle_console_action_just_pressed.connect(
 		func():
-			simple_launcher.visible = not simple_launcher.visible
+			if gui_mode == InputMode.Window:
+				window.visible = not window.visible
+			elif gui_mode == InputMode.Launcher:
+				simple_launcher.visible = not simple_launcher.visible
 	)
+
+	gui_mode = load_module_data("gui_mode", InputMode.Window)
 
 func quit_module():
 	save_window_data(window)
+	save_module_data("gui_mode", gui_mode)
+
+func open_window():
+	if gui_mode == InputMode.Window:
+		if not window.visible:
+			window.show()
+		else:
+			core.notify("The window is alreay opened.")
+	elif gui_mode == InputMode.Launcher:
+		gui_mode = InputMode.Window
+		simple_launcher.hide()
+		window.show()
+
+func open_launcher():
+	if gui_mode == InputMode.Window:
+		gui_mode = InputMode.Launcher
+		window.hide()
+		simple_launcher.show()
+	elif gui_mode == InputMode.Launcher:
+		if not simple_launcher.visible:
+			simple_launcher.show()
+		else:
+			core.notify("The launcher is alreay opened.")

@@ -1,8 +1,5 @@
 var _module:PankuModuleInteractiveShell
 
-func open_shell():
-	_module.window.move_to_front()
-	_module.window.show()
+func open_window(): _module.open_window()
 
-func open_launcher():
-	_module.simple_launcher.show()
+func open_launcher(): _module.open_launcher()
