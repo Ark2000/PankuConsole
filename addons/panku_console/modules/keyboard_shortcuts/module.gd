@@ -19,7 +19,6 @@ func init_module():
 	window = core.create_window(key_mapper)
 	window.queue_free_on_close = false
 	window.set_caption("Keyboard Shortcuts")
-	window.hide_options_button()
 
 	load_window_data(window)
 	key_mapper.load_data(load_module_data("key_mapper", []))

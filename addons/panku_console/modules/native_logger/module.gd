@@ -34,7 +34,7 @@ func init_module():
 
 	window = core.create_window(logger_ui)
 	window.queue_free_on_close = false
-	window._options_btn.pressed.connect(
+	window.add_options_button(
 		func():
 			var data_controller:PankuLynxWindow = core.create_data_controller_window.call(logger_options)
 			if data_controller:

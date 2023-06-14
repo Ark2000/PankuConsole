@@ -12,7 +12,6 @@ func add_data_controller_window(obj:Object) -> PankuLynxWindow:
 	var data_controller = exporter_prefab.instantiate()
 	var new_window:PankuLynxWindow = core.create_window(data_controller)
 	data_controller.setup(obj)
-	new_window._options_btn.hide()
 	new_window.centered()
 	new_window.move_to_front()
 	return new_window

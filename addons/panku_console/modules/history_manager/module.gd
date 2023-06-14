@@ -22,7 +22,6 @@ func init_module():
 	window = core.create_window(ui)
 	window.queue_free_on_close = false
 	window.set_caption("History Manager")
-	window.hide_options_button()
 	load_window_data(window)
 
 func quit_module():

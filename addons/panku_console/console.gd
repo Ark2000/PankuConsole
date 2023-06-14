@@ -34,7 +34,7 @@ var toggle_console_action:String
 # 		is_repl_window_opened = is_repl_window_opened
 
 var _base_instance:Object
-@export var w_manager:Node
+@export var windows_manager:Node
 
 var _envs = {}
 var _envs_info = {}
@@ -96,7 +96,7 @@ func create_window(content:Control):
 	var new_window:PankuLynxWindow = preload("./core/lynx_window2/lynx_window_2.tscn").instantiate()
 	content.anchors_preset = Control.PRESET_FULL_RECT
 	new_window.set_content(content)
-	w_manager.add_child(new_window)
+	windows_manager.add_child(new_window)
 	return new_window
 
 func _input(_e):

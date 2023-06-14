@@ -64,14 +64,14 @@ var _module:PankuModuleGeneralSettings
 @export_group("Experimental")
 @export var enable_os_window := false:
 	set(v):
-		_module.core.w_manager.enable_os_popup_btns(v)
+		_module.core.windows_manager.enable_os_popup_btns(v)
 	get:
-		return _module.core.w_manager.os_popup_btn_enabled
+		return _module.core.windows_manager.os_popup_btn_enabled
 @export var os_window_bg_color:Color:
 	set(v):
-		_module.core.w_manager.set_os_window_bg_color(v)
+		_module.core.windows_manager.set_os_window_bg_color(v)
 	get:
-		return _module.core.w_manager.os_window_bg_color
+		return _module.core.windows_manager.os_window_bg_color
 
 @export_group("About")
 @export var export_button_show_intro := "Show Intro"

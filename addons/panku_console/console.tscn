@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
 [ext_resource type="Script" path="res://addons/panku_console/core/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 
-[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("w_manager")]
+[node name="Console" type="CanvasLayer" node_paths=PackedStringArray("windows_manager")]
 process_mode = 3
 layer = 128
 script = ExtResource("1_dohs1")
-w_manager = NodePath("LynxWindowsManager2")
+windows_manager = NodePath("LynxWindowsManager2")
 
 [node name="LynxWindowsManager2" type="Control" parent="."]
 layout_mode = 3

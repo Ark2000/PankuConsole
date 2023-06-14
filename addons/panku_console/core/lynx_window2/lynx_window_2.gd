@@ -4,8 +4,6 @@ class_name PankuLynxWindow extends ColorRect
 signal title_btn_clicked
 signal window_closed
 
-const bookmark_icon:CompressedTexture2D = preload("res://addons/panku_console/res/icons2/bookmark-svgrepo-com.svg")
-const bookmark_filled_icon:CompressedTexture2D = preload("res://addons/panku_console/res/icons2/bookmark-filled-svgrepo-com.svg")
 const lynx_window_shader_material:ShaderMaterial = preload("./lynx_window_shader_material.tres")
 
 @export var _window_title_container:HBoxContainer
@@ -17,17 +15,12 @@ const lynx_window_shader_material:ShaderMaterial = preload("./lynx_window_shader
 @export var _shadow:NinePatchRect
 @export var _container:Panel
 @export var _pop_btn:Button
-@export var _bookmark_btn:Button
 
 @export var no_resize := false
 @export var no_resize_x := false
 @export var no_resize_y := false
 @export var no_move := false
 @export var no_snap := false
-@export var no_bookmark := true:
-	set(v):
-		no_bookmark = v
-		_bookmark_btn.visible = !v
 
 @export var no_title := false:
 	set(v):
@@ -44,13 +37,13 @@ var _is_resizing := false
 var _resize_start_position:Vector2
 var _os_window:Window
 var _content:Control
-var _bookmarked := false
+
+func add_options_button(callback:Callable):
+	_options_btn.show()
+	_options_btn.pressed.connect(callback)
 
 func set_caption(caption:String):
 	_title_btn.text = caption
-
-func hide_options_button():
-	_options_btn.visible = false
 
 func centered():
 	var window_rect = get_rect()
@@ -84,6 +77,8 @@ func highlight(v:bool):
 func _ready():
 	custom_minimum_size = _window_title_container.get_minimum_size()
 
+	_options_btn.visible = false
+
 	_title_btn.button_down.connect(
 		func():
 			_is_dragging = true
@@ -111,11 +106,6 @@ func _ready():
 			else:
 				hide()
 	)
-	_bookmark_btn.pressed.connect(
-		func():
-			_bookmarked = !_bookmarked
-			_bookmark_btn.icon = bookmark_filled_icon if _bookmarked else bookmark_icon
-	)
 	
 	_title_btn.gui_input.connect(
 		func(e):
@@ -132,7 +122,7 @@ func _ready():
 
 	if flicker:
 		$Border.hey_i_am_here()
-		
+
 	_pop_btn.pressed.connect(switch_to_os_window)
 	
 	if _container.get_child_count() > 0:
@@ -140,9 +130,6 @@ func _ready():
 		
 	if get_parent().has_method("get_enable_os_popup_btns"):
 		_pop_btn.visible = get_parent().get_enable_os_popup_btns()
-
-	_bookmark_btn.visible = !no_bookmark
-	_bookmark_btn.icon = bookmark_filled_icon if _bookmarked else bookmark_icon
 
 func init_os_window():
 	_os_window = Window.new()
@@ -216,7 +203,7 @@ func _input(e):
 			else:
 				hide()
 
-func _process(_delta):
+func _physics_process(_delta):
 	if !no_move and _is_dragging:
 		var tp = position + get_local_mouse_position() - _drag_start_position
 		position = lerp(position, tp, 0.4)
@@ -245,38 +232,3 @@ func _process(_delta):
 		var current_position = window_rect.position
 		current_position = lerp(current_position, target_position, 0.213)
 		position = current_position
-
-func _notification(what):
-	#quit event
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_data()
-
-
-func load_data(data:Dictionary):
-	_bookmarked = true
-	_bookmark_btn.icon = bookmark_filled_icon if _bookmarked else bookmark_icon
-	_title_btn.text = data.get("title", "Window")
-	size = data.get("size", Vector2(300, 300))
-	position = data.get("position", Vector2(0, 0))
-
-func save_data():
-	if !_bookmarked: return
-	var cfg:Dictionary = PankuConsole.Config.get_config()
-	var bookmark_windows_data:Array = cfg.get(PankuConsole.Utils.CFG_BOOKMARK_WINDOWS, [])
-
-	var data = {
-		"title": _title_btn.text,
-		"size": size,
-		"position": position,
-		"scene_file_path": get_tree().root.get_children()[-1].scene_file_path
-	}
-	if _content:
-		if _content.has_meta("content_type"):
-			data["content_type"] = _content.get_meta("content_type") as String
-		if _content.has_method("get_content_data"):
-			data["content_data"] = _content.get_content_data()
-		elif _content.has_meta("content_data"):
-			data["content_data"] = _content.get_meta("content_data") as Dictionary
-	bookmark_windows_data.append(data)
-	cfg[PankuConsole.Utils.CFG_BOOKMARK_WINDOWS] = bookmark_windows_data
-	PankuConsole.Config.set_config(cfg)

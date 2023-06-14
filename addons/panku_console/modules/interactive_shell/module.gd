@@ -38,7 +38,6 @@ func init_module():
 	window = core.create_window(interactive_shell)
 	window.queue_free_on_close = false
 	window.set_caption("Interative Shell V2")
-	window.hide_options_button()
 	load_window_data(window)
 
 	interactive_shell.output(get_intro())
@@ -77,7 +76,7 @@ func update_gui_state():
 	else:
 		Engine.time_scale = 1.0
 	if unified_window_visibility:
-		core.w_manager.visible = is_gui_open
+		core.windows_manager.visible = is_gui_open
 
 func open_window():
 	if gui_mode == InputMode.Window:
