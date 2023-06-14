@@ -6,10 +6,8 @@ var console:PankuConsole
 @export var repl:Node
 
 func _ready() -> void:
-	repl.output.connect(
-		func(text:String) -> void:
-			console.notify(text)
-	)
+	repl.output_result.connect(console.notify)
+	repl.output_error.connect(console.notify)
 	input_area.submitted.connect(
 		func(_s): hide()
 	)

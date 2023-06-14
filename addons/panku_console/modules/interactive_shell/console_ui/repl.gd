@@ -12,6 +12,9 @@ extends Node
 @export var show_all_hints_if_input_is_empty := false
 
 signal output(bbcode:String)
+signal output_echo(bbcode:String)
+signal output_result(bbcode:String)
+signal output_error(bbcode:String)
 
 var _current_hints := {}
 var _hint_idx := 0
@@ -35,14 +38,20 @@ func execute(exp:String):
 	exp = exp.lstrip(" ").rstrip(" ")
 	if exp.is_empty():
 		return
-	output.emit("[b][You][/b] " + exp)
+	var echo:String = "[b][You][/b] " + exp
+	output.emit(echo)
+	output_echo.emit(echo)
 	var result = console.execute(exp)
 	if !result["failed"]:
 		# ignore the expression result if it is null
 		if result["result"] != null:
-			output.emit("> %s"%str(result["result"]))
+			var result_str:String = str(result["result"])
+			output.emit(result_str)
+			output_result.emit(result_str)
 	else:
-		output.emit("> [color=red]%s[/color]"%(result["result"]))
+		var error_str:String = "[color=red]%s[/color]"%(result["result"])
+		output.emit(error_str)
+		output_error.emit(error_str)
 
 func _update_hints(exp:String):
 	_current_hints = console.Utils.parse_exp(console._envs_info, exp, show_all_hints_if_input_is_empty)
