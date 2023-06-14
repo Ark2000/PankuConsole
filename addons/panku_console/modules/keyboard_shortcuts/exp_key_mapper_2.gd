@@ -30,7 +30,7 @@ func _unhandled_input(e):
 			if !event: continue
 			if e.keycode == event.keycode and e.pressed and !e.echo:
 				#execute the exp
-				var result = console.execute(exp)
+				var result = console.gd_exprenv.execute(exp)
 				if result.failed:
 					console.notify("[color=red]%s[/color]" % result.result)
 				else:

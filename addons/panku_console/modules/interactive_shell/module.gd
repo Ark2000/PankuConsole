@@ -16,7 +16,7 @@ var unified_window_visibility:bool = false
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
-	intro.append("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % core.Utils.get_plugin_version())
+	intro.append("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % PankuUtils.get_plugin_version())
 	intro.append("")
 	intro.append("All-in-One Godot 4 runtime debugging tool.")
 	intro.append("")
@@ -32,7 +32,7 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("interactive_shell", env)
+	core.gd_exprenv.register_env("interactive_shell", env)
 
 	interactive_shell = preload("./console_ui/panku_console_ui.tscn").instantiate()
 	window = core.create_window(interactive_shell)

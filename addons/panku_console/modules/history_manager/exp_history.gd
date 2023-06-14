@@ -189,13 +189,13 @@ func remove_selected():
 
 func load_data():
 	#get saved data from cfg
-	var cfg = console.Config.get_config()
+	var cfg = PankuConfig.get_config()
 	item_data = cfg.get(CFG_EXP_HISTORY, [])
 
 func save_data():
-	var cfg = console.Config.get_config()
+	var cfg = PankuConfig.get_config()
 	cfg[CFG_EXP_HISTORY] = item_data
-	console.Config.set_config(cfg)
+	PankuConfig.set_config(cfg)
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

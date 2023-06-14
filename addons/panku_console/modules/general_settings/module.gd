@@ -11,7 +11,7 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("general_settings", env)
+	core.gd_exprenv.register_env("general_settings", env)
 
 	general_settings = preload("./general_settings.gd").new()
 	general_settings._module = self
@@ -23,7 +23,7 @@ func init_module():
 
 	# execute init_expr
 	if general_settings.init_expression != "":
-		core.execute(general_settings.init_expression)
+		core.gd_exprenv.execute(general_settings.init_expression)
 
 
 func quit_module():

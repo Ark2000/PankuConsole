@@ -13,7 +13,7 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("native_logger", env)
+	core.gd_exprenv.register_env("native_logger", env)
 
 	# add godot log monitor
 	native_logs_monitor = preload("./godot_log_monitor.gd").new()

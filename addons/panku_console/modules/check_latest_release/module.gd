@@ -21,7 +21,7 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("check_latest_release", env)
+	core.gd_exprenv.register_env("check_latest_release", env)
 
 	# implement core functions
 	core.check_lasted_release_requested.connect(check_update)

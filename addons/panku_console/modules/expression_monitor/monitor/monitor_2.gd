@@ -20,7 +20,7 @@ var _update_exp = "engine.performance_info"
 var t = 0.0
 
 func update_exp_i():
-	var value = console.execute(_update_exp)["result"]
+	var value = console.gd_exprenv.execute(_update_exp)["result"]
 	if value is Texture2D:
 		#Not sure about how texture works
 		_trect.texture = ImageTexture.create_from_image(value.get_image())

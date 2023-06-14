@@ -12,7 +12,7 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("screen_notifier", env)
+	core.gd_exprenv.register_env("screen_notifier", env)
 
 	core.new_notification_created.connect(notify)
 

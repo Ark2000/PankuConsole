@@ -20,4 +20,4 @@ func helpe(obj:Object) -> String:
 		return "Invalid!"
 	if !obj.get_script():
 		return "It has no attached script!"
-	return core.Utils.generate_help_text_from_script(obj.get_script())
+	return PankuGDExprEnv.generate_help_text_from_script(obj.get_script())

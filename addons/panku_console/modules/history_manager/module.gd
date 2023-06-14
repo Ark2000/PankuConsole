@@ -8,7 +8,7 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("history_manager", env)
+	core.gd_exprenv.register_env("history_manager", env)
 
 	# setup ui
 	var ui = preload("./exp_history.tscn").instantiate()

@@ -5,7 +5,7 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("expr_monitor", env)
+	core.gd_exprenv.register_env("expr_monitor", env)
 
 
 func add_monitor_window(expr:String, update_interval:= 999999.0) -> PankuLynxWindow:

@@ -32,7 +32,7 @@ func _set_hint_idx(v):
 			_hints.selected = v
 			_input_area.input.text = k + ("()" if is_method else "")
 			_input_area.input.caret_column = k.length() + (1 if is_method else 0)
-			_helpbar_label.text = "[Help] %s" %  console._envs_info[k]["help"]
+			_helpbar_label.text = "[Help] %s" %  console.gd_exprenv.get_help_info(k)
 
 func execute(exp:String):
 	exp = exp.lstrip(" ").rstrip(" ")
@@ -41,7 +41,7 @@ func execute(exp:String):
 	var echo:String = "[b][You][/b] " + exp
 	output.emit(echo)
 	output_echo.emit(echo)
-	var result = console.execute(exp)
+	var result = console.gd_exprenv.execute(exp)
 	if !result["failed"]:
 		# ignore the expression result if it is null
 		if result["result"] != null:
@@ -54,7 +54,7 @@ func execute(exp:String):
 		output_error.emit(error_str)
 
 func _update_hints(exp:String):
-	_current_hints = console.Utils.parse_exp(console._envs_info, exp, show_all_hints_if_input_is_empty)
+	_current_hints = console.gd_exprenv.parse_exp(exp, show_all_hints_if_input_is_empty)
 	_hints.visible = _current_hints["hints_value"].size() > 0
 	_helpbar.visible = _hints.visible
 	_input_area.input.hints = _current_hints["hints_value"]

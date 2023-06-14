@@ -2,7 +2,7 @@ extends Resource
 
 var _module:PankuModuleGeneralSettings
 
-@export var export_comment_1 = "You can find config file at " + _module.core.Config.FILE_PATH
+# @export var export_comment_1 = "You can find config file at " + _module.core.Config.FILE_PATH
 
 @export_group("Window Appearance")
 
@@ -84,10 +84,10 @@ var _module:PankuModuleGeneralSettings
 #export button callbacks
 
 func clear_repl_output():
-	_module.core.execute("console.cls")
+	_module.core.gd_exprenv.execute("console.cls")
 
 func add_profiler_widget():
-	_module.core.execute("console.add_profiler")
+	_module.core.gd_exprenv.execute("console.add_profiler")
 
 # func open_expression_key_mapper():
 # 	console.open_expression_key_mapper()

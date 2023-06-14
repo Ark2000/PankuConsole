@@ -15,4 +15,4 @@ func init_module():
 	# register env
 	var env = preload("./env.gd").new()
 	env._module = self
-	core.register_env("screen_crt_effect", env)
+	core.gd_exprenv.register_env("screen_crt_effect", env)

@@ -6,4 +6,4 @@ func get_module_name():
 func init_module():
 	var wrapper = preload("./env.gd").new()
 	wrapper._core = core
-	core.register_env("system_report", wrapper)
+	core.gd_exprenv.register_env("system_report", wrapper)

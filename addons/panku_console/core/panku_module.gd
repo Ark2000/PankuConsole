@@ -19,21 +19,21 @@ func update_module(delta:float):
 	pass
 
 func save_module_data(key:String, value:Variant):
-	var cfg:Dictionary = core.Config.get_config()
+	var cfg:Dictionary = PankuConfig.get_config()
 	var module_name:String = get_module_name()
 	if !cfg.has(module_name):
 		cfg[module_name] = {}
 	cfg[module_name][key] = value
-	core.Config.set_config(cfg)
+	PankuConfig.set_config(cfg)
 
 func load_module_data(key:String, default_value:Variant = null) -> Variant:
-	var cfg:Dictionary = core.Config.get_config()
+	var cfg:Dictionary = PankuConfig.get_config()
 	var module_name:String = get_module_name()
 	var module_data = cfg.get(module_name, {})
 	return module_data.get(key, default_value)
 
 func has_module_data(key:String) -> bool:
-	var cfg:Dictionary = core.Config.get_config()
+	var cfg:Dictionary = PankuConfig.get_config()
 	var module_name:String = get_module_name()
 	var module_data = cfg.get(module_name, {})
 	return module_data.has(key)
