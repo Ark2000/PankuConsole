@@ -19,15 +19,17 @@ func init_progressbar() -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
+		var step:float = clip_container.size.y / 8.0
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			scrollbar.value -= clip_container.size.y / 8.0
+			scrollbar.value -= step
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			scrollbar.value += clip_container.size.y / 8.0
+			scrollbar.value += step
 
 func _process(delta: float) -> void:
 	content.size.y = 0
 	scrollbar.max_value = content.size.y
-	scrollbar.value = lerp(scrollbar.value, clampf(scrollbar.value, 0.0, scrollbar.max_value - clip_container.size.y), 0.2)
+	var scrollbar_value_max = max(0, scrollbar.max_value - clip_container.size.y)
+	scrollbar.value = lerp(scrollbar.value, clampf(scrollbar.value, 0.0, scrollbar_value_max), 0.2)
 	scrollbar.page = clip_container.size.y
 	scrollbar.visible = content.size.y > clip_container.size.y
 
