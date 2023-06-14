@@ -43,6 +43,8 @@ var _expression = Expression.new()
 # The current scene root node, which will be updated automatically when the scene changes.
 var _current_scene_root:Node
 
+var module_manager:PankuModuleManager = PankuModuleManager.new()
+
 ## Register an environment that run expressions.
 ## [br][code]env_name[/code]: the name of the environment
 ## [br][code]env[/code]: The base instance that runs the expressions. For exmaple your player node.
@@ -122,12 +124,26 @@ func _ready():
 
 	setup_scene_root_tracker()
 
-	load_modules()
+	var modules:Array[PankuModule] = [
+		preload("./modules/screen_notifier/module.gd").new(),
+		preload("./modules/system_report/module.gd").new(),
+		preload("./modules/history_manager/module.gd").new(),
+		preload("./modules/engine_tools/module.gd").new(),
+		preload("./modules/keyboard_shortcuts/module.gd").new(),
+		preload("./modules/check_latest_release/module.gd").new(),
+		preload("./modules/native_logger/module.gd").new(),
+		preload("./modules/interactive_shell/module.gd").new(),
+		preload("./modules/general_settings/module.gd").new(),
+		preload("./modules/data_controller/module.gd").new(),
+		preload("./modules/screen_crt_effect/module.gd").new(),
+		preload("./modules/expression_monitor/module.gd").new(),
+	]
+	module_manager.init_manager(self, modules)
 
 func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		quit_modules()
+		module_manager.quit_modules()
 
 # always register the current scene root as `current`
 func setup_scene_root_tracker():
@@ -140,48 +156,3 @@ func setup_scene_root_tracker():
 				_current_scene_root = r
 				register_env("current", _current_scene_root)
 	).set_delay(0.1)
-
-var _modules:Array[PankuModule]
-var _modules_table:Dictionary
-
-func load_modules():
-
-	_modules.append(preload("./modules/screen_notifier/module.gd").new())
-	_modules.append(preload("./modules/system_report/module.gd").new())
-	_modules.append(preload("./modules/history_manager/module.gd").new())
-	_modules.append(preload("./modules/engine_tools/module.gd").new())
-	_modules.append(preload("./modules/keyboard_shortcuts/module.gd").new())
-	_modules.append(preload("./modules/check_latest_release/module.gd").new())
-	_modules.append(preload("./modules/native_logger/module.gd").new())
-	_modules.append(preload("./modules/interactive_shell/module.gd").new())
-	_modules.append(preload("./modules/general_settings/module.gd").new())
-	_modules.append(preload("./modules/data_controller/module.gd").new())
-	_modules.append(preload("./modules/screen_crt_effect/module.gd").new())
-	_modules.append(preload("./modules/expression_monitor/module.gd").new())
-
-	for _m in _modules:
-		var module:PankuModule = _m
-		_modules_table[module.get_module_name()] = module
-
-	for _m in _modules:
-		var module:PankuModule = _m
-		module.core = self
-		module.init_module()
-
-	print("modules: ", _modules_table)
-
-func update_modules(delta:float):
-	for _m in _modules:
-		var module:PankuModule = _m
-		module.update_module(delta)
-
-func get_module(module_name:String):
-	return _modules_table[module_name]
-
-func has_module(module_name:String):
-	return _modules_table.has(module_name)
-
-func quit_modules():
-	for _m in _modules:
-		var module:PankuModule = _m
-		module.quit_module()
