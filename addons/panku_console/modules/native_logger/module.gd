@@ -32,7 +32,7 @@ func init_module():
 	logger_options = preload("./logger_options.gd").new()
 	logger_options._module = self
 
-	window = core.create_window(logger_ui)
+	window = core.windows_manager.create_window(logger_ui)
 	window.queue_free_on_close = false
 	window.add_options_button(
 		func():

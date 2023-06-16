@@ -35,7 +35,7 @@ func init_module():
 	core.gd_exprenv.register_env("interactive_shell", env)
 
 	interactive_shell = preload("./console_ui/panku_console_ui.tscn").instantiate()
-	window = core.create_window(interactive_shell)
+	window = core.windows_manager.create_window(interactive_shell)
 	window.queue_free_on_close = false
 	window.set_caption("Interative Shell V2")
 	load_window_data(window)

@@ -19,7 +19,7 @@ func init_module():
 	)
 
 	# bind window
-	window = core.create_window(ui)
+	window = core.windows_manager.create_window(ui)
 	window.queue_free_on_close = false
 	window.set_caption("History Manager")
 	load_window_data(window)

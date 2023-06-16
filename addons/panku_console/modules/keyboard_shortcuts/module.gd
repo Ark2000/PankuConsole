@@ -16,7 +16,7 @@ func init_module():
 	key_mapper.console = core
 
 	# bind window
-	window = core.create_window(key_mapper)
+	window = core.windows_manager.create_window(key_mapper)
 	window.queue_free_on_close = false
 	window.set_caption("Keyboard Shortcuts")
 

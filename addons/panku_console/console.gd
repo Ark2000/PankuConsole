@@ -42,13 +42,6 @@ func notify(any) -> void:
 	var text = str(any)
 	new_notification_created.emit(text)
 
-func create_window(content:Control):
-	var new_window:PankuLynxWindow = preload("./core/lynx_window2/lynx_window_2.tscn").instantiate()
-	content.anchors_preset = Control.PRESET_FULL_RECT
-	new_window.set_content(content)
-	windows_manager.add_child(new_window)
-	return new_window
-
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
 		# is_repl_window_opened = !is_repl_window_opened

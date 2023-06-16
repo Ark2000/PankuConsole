@@ -13,7 +13,7 @@ func add_monitor_window(expr:String, update_interval:= 999999.0) -> PankuLynxWin
 	content.console = core
 	content._update_exp = expr
 	content._update_period = update_interval
-	var new_window:PankuLynxWindow = core.create_window(content)
+	var new_window:PankuLynxWindow = core.windows_manager.create_window(content)
 	new_window.set_caption("expr: " + expr)
 	new_window.add_options_button(
 		func():
