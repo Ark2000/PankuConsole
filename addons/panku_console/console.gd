@@ -23,16 +23,7 @@ const SingletonPath = "/root/" + SingletonName
 ## The input action used to toggle console. By default it is KEY_QUOTELEFT.
 var toggle_console_action:String
 
-## If [code]true[/code], pause the game when the console window is active.
-# var pause_when_active:bool:
-# 	set(v):
-# 		pause_when_active = v
-# 		is_repl_window_opened = is_repl_window_opened
-
 @export var windows_manager:Node
-
-# The current scene root node, which will be updated automatically when the scene changes.
-var _current_scene_root:Node
 
 var module_manager:PankuModuleManager = PankuModuleManager.new()
 var gd_exprenv:PankuGDExprEnv = PankuGDExprEnv.new()
@@ -44,14 +35,13 @@ func notify(any) -> void:
 
 func _input(_e):
 	if Input.is_action_just_pressed(toggle_console_action):
-		# is_repl_window_opened = !is_repl_window_opened
 		toggle_console_action_just_pressed.emit()
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run console.tscn as a scene!")
 
 	var base_instance = preload("./core/repl_base_instance.gd").new()
-	base_instance.core = self
+	base_instance._core = self
 	gd_exprenv.set_base_instance(base_instance)
 
 	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
@@ -60,9 +50,8 @@ func _ready():
 	#the open console action can be change in the export options of panku.tscn
 	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
 
-	setup_scene_root_tracker()
-
 	var modules:Array[PankuModule] = [
+		PankuModuleSceneRootTracker.new(),
 		PankuModuleScreenNotifier.new(),
 		PankuModuleSystemReport.new(),
 		PankuModuleHistoryManager.new(),
@@ -82,15 +71,3 @@ func _notification(what):
 	#quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		module_manager.quit_modules()
-
-# always register the current scene root as `current`
-func setup_scene_root_tracker():
-	_current_scene_root = get_tree().root.get_child(get_tree().root.get_child_count() - 1)
-	gd_exprenv.register_env("current", _current_scene_root)
-	create_tween().set_loops().tween_callback(
-		func(): 
-			var r = get_tree().root.get_child(get_tree().root.get_child_count() - 1)
-			if r != _current_scene_root:
-				_current_scene_root = r
-				gd_exprenv.register_env("current", _current_scene_root)
-	).set_delay(0.1)

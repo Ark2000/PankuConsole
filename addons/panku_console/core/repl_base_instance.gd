@@ -1,4 +1,4 @@
-var core:PankuConsole
+var _core:PankuConsole
 
 const _HELP_help := "List all environment variables."
 var help:String:
@@ -6,7 +6,7 @@ var help:String:
 		var result = ["Registered objects:\n"]
 		var colors = ["#7c3f58", "#eb6b6f", "#f9a875", "#fff6d3"]
 		var i = 0
-		for k in core._envs:
+		for k in _core.gd_exprenv._envs:
 			var c = colors[i%4]
 			i = i + 1
 			result.push_back("[b][color=%s]%s[/color][/b]  "%[c, k])
