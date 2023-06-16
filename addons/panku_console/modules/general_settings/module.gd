@@ -5,14 +5,9 @@ var general_settings:Resource
 
 func open_settings_window():
 	# create a new exporter window
-	core.create_data_controller_window.call([general_settings])
+	core.create_data_controller_window.call(core.module_manager.get_module_option_objects())
 
 func init_module():
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("general_settings", env)
-
 	general_settings = preload("./general_settings.gd").new()
 	general_settings._module = self
 

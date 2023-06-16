@@ -1,6 +1,6 @@
 extends Resource
 
-var _module:PankuModuleNativeLogger
+var _module:PankuModule
 
 @export var export_comment_1 = "Hint: The logger is built upon the native engine file logging utility."
 

@@ -1,6 +1,6 @@
 extends RichTextLabel
 
-var _module:PankuModuleNativeLogger
+var _module:PankuModule
 
 const MAX_LENGTH = 65536
 var last_line := "34167be221cebca8dce11e47d86b82d017d7cd57"

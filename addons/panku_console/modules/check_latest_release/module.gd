@@ -19,12 +19,15 @@ func check_update():
 			check_lasted_release_responded.emit(msg)
 	)
 
+func check():
+	send_request().response_received.connect(
+		func(msg:Dictionary):
+			if !msg["success"]:
+				core.notify("[color=red][Error][/color] Failed! " + msg["msg"])
+			else:
+				core.notify("[color=green][info][/color] Latest: [%s] [url=%s]%s[/url]" % [msg["published_at"], msg["html_url"], msg["name"]])
+	)
+
 func init_module():
-
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("check_latest_release", env)
-
 	# implement core functions
 	check_lasted_release_requested.connect(check_update)

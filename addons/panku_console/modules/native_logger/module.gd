@@ -8,13 +8,6 @@ var window:PankuLynxWindow
 var logger_ui:Node
 
 func init_module():
-	# print("init_module:", self.get_module_name())
-
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("native_logger", env)
-
 	# add godot log monitor
 	native_logs_monitor = preload("./godot_log_monitor.gd").new()
 	core.add_child(native_logs_monitor)

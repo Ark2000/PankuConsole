@@ -10,9 +10,3 @@ func toggle_crt_effect():
 		crt_effect_layer = preload("./crt_effect_layer.tscn").instantiate()
 		core.add_child(crt_effect_layer)
 	crt_effect_layer.visible = crt_effect_enabled
-
-func init_module():
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("screen_crt_effect", env)

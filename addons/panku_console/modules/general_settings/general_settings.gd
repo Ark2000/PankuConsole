@@ -1,6 +1,6 @@
 extends Resource
 
-var _module:PankuModuleGeneralSettings
+var _module:PankuModule
 
 # @export var export_comment_1 = "You can find config file at " + _module.core.Config.FILE_PATH
 

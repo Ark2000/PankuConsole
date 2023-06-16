@@ -8,12 +8,6 @@ func notify(bbcode:String):
 	notifier_layer.add_log(bbcode)
 
 func init_module():
-
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("screen_notifier", env)
-
 	core.new_notification_created.connect(notify)
 
 	# setup ui

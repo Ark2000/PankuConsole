@@ -17,7 +17,7 @@ func load_modules():
 	for _m in _modules:
 		var module:PankuModule = _m
 		module.core = _core
-		module.init_module()
+		module._init_module()
 
 	print("modules: ", _modules_table)
 
@@ -31,6 +31,14 @@ func get_module(module_name:String):
 
 func has_module(module_name:String):
 	return _modules_table.has(module_name)
+
+func get_module_option_objects():
+	var objects = []
+	for _m in _modules:
+		var module:PankuModule = _m
+		if module.opt != null:
+			objects.append(module.opt)
+	return objects
 
 func quit_modules():
 	for _m in _modules:

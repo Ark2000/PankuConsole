@@ -2,13 +2,16 @@ class_name PankuModule
 
 var core:PankuConsole
 
+var _env:RefCounted = null
+var _opt:Resource = null
+
 # a unique name for the module
 func get_module_name():
 	assert(false, "get_module_name not implemented")
 
 # called when the module is loaded
 func init_module():
-	assert(false, "init_module not implemented")
+	pass
 
 # called when the module is unloaded (quit program)
 func quit_module():
@@ -47,3 +50,24 @@ func save_window_data(window:PankuLynxWindow):
 	save_module_data("window_position", window.position)
 	save_module_data("window_size", window.size)
 	save_module_data("window_visibility", window.visible)
+
+func get_module_env() -> RefCounted:
+	return _env
+
+func get_module_opt() -> Resource:
+	return _opt
+
+func _init_module():
+	init_module()
+	var module_script_dir:String = get_script().resource_path.get_base_dir()
+	var env_script_path = module_script_dir + "./env.gd"
+	var opt_script_path = module_script_dir + "./opt.gd"
+	
+	if FileAccess.file_exists(env_script_path):
+		_env = load(env_script_path).new()
+		_env._module = self
+		core.gd_exprenv.register_env(get_module_name(), _env)
+
+	if FileAccess.file_exists(opt_script_path):
+		_opt = load(opt_script_path).new()
+		_opt._module = self

@@ -4,12 +4,6 @@ func get_module_name(): return "HistoryManager"
 var window:PankuLynxWindow
 
 func init_module():
-
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("history_manager", env)
-
 	# setup ui
 	var ui = preload("./exp_history.tscn").instantiate()
 	ui.console = core

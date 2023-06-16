@@ -1,4 +1,4 @@
-var _console:PankuConsole
+var _module:PankuModule
 
 const _HELP_set_fullscreen = "Set [fullscreen / windowed] mode"
 func set_fullscreen(b:bool):
@@ -27,24 +27,24 @@ var performance_info:
 const _HELP_snap_screenshot = "Snap a screenshot of current window"
 var snap_screenshot:
 	get:
-		var image = _console.get_viewport().get_texture().get_image()
+		var image = _module.core.get_viewport().get_texture().get_image()
 		var time = str(int(Time.get_unix_time_from_system() * 1000.0))
 		var file_name = "screenshot_%s.png" % time
 		var path = "user://".path_join(file_name)
 		var real_path = OS.get_user_data_dir().path_join(file_name)
 		image.save_png(path)
-		_console.notify("[b]Screenshot[/b] saved at [color=green][url=%s]%s[/url][/color]" % [real_path, real_path])
+		_module.core.notify("[b]Screenshot[/b] saved at [color=green][url=%s]%s[/url][/color]" % [real_path, real_path])
 
 const _HELP_quit = "Quit application"
 var quit:
 	get:
-		_console.get_tree().quit()
+		_module.core.get_tree().quit()
 
 # const _HELP_show_os_report = "Display detailed OS report"
 # func show_os_report() -> void:
 # 	console.output("Please wait, this may take a while...")
 # 	await get_tree().create_timer(0.1).timeout
-# 	var obj = load("res://addons/panku_console/components/os_report.gd").new()
+# 	var obj = load("res://addons/panku_module.core/components/os_report.gd").new()
 # 	obj.inspect()
 # 	var report =  "".join(obj.rtl)
 # 	console.output(report)
@@ -53,7 +53,7 @@ var quit:
 # See https://github.com/godotengine/godot-proposals/issues/2072
 const _HELP_toggle_2d_collision_shape_visibility = "Toggle visibility of 2D collision shapes, useful for debugging"
 func toggle_2d_collision_shape_visibility() -> void:
-	var tree := _console.get_tree()
+	var tree := _module.core.get_tree()
 	tree.debug_collisions_hint = not tree.debug_collisions_hint
 
 	# Traverse tree to call queue_redraw on instances of
@@ -68,4 +68,4 @@ func toggle_2d_collision_shape_visibility() -> void:
 
 const _HELP_reload_current_scene = "Reload current scene"
 func reload_current_scene() -> void:
-	_console.get_tree().reload_current_scene()
+	_module.core.get_tree().reload_current_scene()

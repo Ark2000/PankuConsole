@@ -1,4 +1,4 @@
-var _module:PankuModuleNativeLogger
+var _module:PankuModule
 
 const _HELP_open = "Open logger window"
 func open() -> void:

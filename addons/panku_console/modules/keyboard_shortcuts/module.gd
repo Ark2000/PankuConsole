@@ -5,12 +5,6 @@ var window:PankuLynxWindow
 var key_mapper
 
 func init_module():
-
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("keyboard_shortcuts", env)
-
 	# setup ui
 	key_mapper = preload("./exp_key_mapper_2.tscn").instantiate()
 	key_mapper.console = core

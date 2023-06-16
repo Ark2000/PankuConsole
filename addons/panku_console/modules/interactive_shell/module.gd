@@ -31,11 +31,6 @@ func get_intro() -> String:
 	return "\n".join(intro)
 
 func init_module():
-	# register env
-	var env = preload("./env.gd").new()
-	env._module = self
-	core.gd_exprenv.register_env("interactive_shell", env)
-
 	interactive_shell = preload("./console_ui/panku_console_ui.tscn").instantiate()
 	window = core.windows_manager.create_window(interactive_shell)
 	window.queue_free_on_close = false
