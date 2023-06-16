@@ -36,7 +36,7 @@ func init_module():
 	window.queue_free_on_close = false
 	window.add_options_button(
 		func():
-			var data_controller:PankuLynxWindow = core.create_data_controller_window.call(logger_options)
+			var data_controller:PankuLynxWindow = core.create_data_controller_window.call([logger_options])
 			if data_controller:
 				data_controller.set_caption("Logger Settings")
 	)

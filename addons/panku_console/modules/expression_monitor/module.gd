@@ -17,7 +17,7 @@ func add_monitor_window(expr:String, update_interval:= 999999.0) -> PankuLynxWin
 	new_window.set_caption("expr: " + expr)
 	new_window.add_options_button(
 		func():
-			var window:PankuLynxWindow = core.create_data_controller_window.call(content)
+			var window:PankuLynxWindow = core.create_data_controller_window.call([content])
 			if window: window.set_caption("Monitor Settings")
 	)
 	content.change_window_title_text.connect(

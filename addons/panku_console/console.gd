@@ -9,8 +9,8 @@ signal toggle_console_action_just_pressed()
 
 const SingletonPath = "/root/Console"
 
-# create_data_controller(obj:Object) -> PankuLynxWindow
-var create_data_controller_window:Callable = func(obj:Object): return null
+# create_data_controller(objs:Array[Object]) -> PankuLynxWindow
+var create_data_controller_window:Callable = func(objs:Array): return null
 
 var windows_manager:PankuLynxWindowsManager
 var module_manager:PankuModuleManager = PankuModuleManager.new()

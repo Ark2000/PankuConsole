@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0y1axyst1ub3"]
+[gd_scene load_steps=15 format=3 uid="uid://c0y1axyst1ub3"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/exporter_2.gd" id="1_0hpei"]
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_3uypn"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://b4iurk1ni11v2" path="res://addons/panku_console/modules/data_controller/exporter/row_color.tscn" id="9_scg41"]
 [ext_resource type="PackedScene" uid="uid://ds3hbsvvlvdyw" path="res://addons/panku_console/modules/data_controller/exporter/row_button.tscn" id="10_vt884"]
 [ext_resource type="PackedScene" uid="uid://i2pcctq0i2o3" path="res://addons/panku_console/modules/data_controller/exporter/row_bool.tscn" id="11_0f6sm"]
-[ext_resource type="PackedScene" uid="uid://cxnpwuiumbs85" path="res://addons/panku_console/modules/data_controller/exporter/row_comment.tscn" id="14_ydleg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o2trv"]
 content_margin_left = 8.0
@@ -32,18 +31,6 @@ grow_vertical = 2
 theme = ExtResource("1_3uypn")
 script = ExtResource("1_0hpei")
 container = NodePath("ScrollContainer/VBoxContainer")
-group_button = ExtResource("6_mmbw5")
-row_button = ExtResource("10_vt884")
-row_read_only = ExtResource("3_r8k7l")
-row_enum = ExtResource("8_r3qu8")
-row_range_number = ExtResource("4_ido8o")
-row_vec2 = ExtResource("1_v4pbh")
-row_float = ExtResource("7_h6vg4")
-row_int = ExtResource("5_ua2hx")
-row_color = ExtResource("9_scg41")
-row_string = ExtResource("2_87515")
-row_bool = ExtResource("11_0f6sm")
-row_comment = ExtResource("14_ydleg")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
