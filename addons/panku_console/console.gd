@@ -1,55 +1,43 @@
 class_name PankuConsole extends CanvasLayer
-
-## Emitted when the visibility (hidden/visible) of console window changes.
-signal repl_visible_about_to_change(is_visible:bool)
-signal repl_visible_changed(is_visible:bool)
-
+# `console.gd` is a global singleton that provides all modules with a common interface
+# you can also use some of its members to interact with the console
+ 
+signal interactive_shell_visibility_changed(visible:bool)
 signal new_expression_entered(expression:String)
 signal new_notification_created(bbcode:String)
-
-signal check_lasted_release_requested()
-signal check_lasted_release_responded(msg:Dictionary)
-
 signal toggle_console_action_just_pressed()
 
+const SingletonPath = "/root/Console"
+
 # create_data_controller(obj:Object) -> PankuLynxWindow
-# this function should be implemented by related module.
 var create_data_controller_window:Callable = func(obj:Object): return null
 
-# Global singleton name is buggy in Godot 4.0, so we get the singleton by path instead.
-const SingletonName = "Console"
-const SingletonPath = "/root/" + SingletonName
-
-## The input action used to toggle console. By default it is KEY_QUOTELEFT.
-var toggle_console_action:String
-
-@export var windows_manager:Node
-
+var windows_manager:PankuLynxWindowsManager
 var module_manager:PankuModuleManager = PankuModuleManager.new()
 var gd_exprenv:PankuGDExprEnv = PankuGDExprEnv.new()
 
-## Generate a notification
+# generate a notification, the notification may be displayed in the console or in the game depending on the module's implementation
 func notify(any) -> void:
 	var text = str(any)
 	new_notification_created.emit(text)
 
 func _input(_e):
-	if Input.is_action_just_pressed(toggle_console_action):
+	# change this to your own action, by default it is `toggle_console`(KEY_QUOTELEFT)
+	if Input.is_action_just_pressed("toggle_console"):
 		toggle_console_action_just_pressed.emit()
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run console.tscn as a scene!")
 
+	windows_manager = $LynxWindowsManager
 	var base_instance = preload("./core/repl_base_instance.gd").new()
 	base_instance._core = self
 	gd_exprenv.set_base_instance(base_instance)
 
-	toggle_console_action = ProjectSettings.get("panku/toggle_console_action")
-
-	#check the action key
-	#the open console action can be change in the export options of panku.tscn
-	assert(InputMap.has_action(toggle_console_action), "Please specify an action to open the console!")
-
+	# since panku console servers numerous purposes
+	# we use a module system to manage all different features
+	# modules are invisible to each other by design to avoid coupling
+	# you can add or remove any modules here as you wish
 	var modules:Array[PankuModule] = [
 		PankuModuleSceneRootTracker.new(),
 		PankuModuleScreenNotifier.new(),
@@ -68,6 +56,6 @@ func _ready():
 	module_manager.init_manager(self, modules)
 
 func _notification(what):
-	#quit event
+	# quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		module_manager.quit_modules()

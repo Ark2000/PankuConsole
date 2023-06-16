@@ -14,6 +14,8 @@ var gui_mode:InputMode = InputMode.Window
 var pause_if_input:bool = true
 var unified_window_visibility:bool = false
 
+var _is_gui_open:bool = false
+
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
 	intro.append("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % PankuUtils.get_plugin_version())
@@ -61,6 +63,7 @@ func init_module():
 
 	window.visibility_changed.connect(update_gui_state)
 	simple_launcher.visibility_changed.connect(update_gui_state)
+	_is_gui_open = not (window.visible or simple_launcher.visible)
 	update_gui_state()
 
 func quit_module():
@@ -71,12 +74,15 @@ func quit_module():
 
 func update_gui_state():
 	var is_gui_open = window.visible or simple_launcher.visible
-	if is_gui_open and pause_if_input:
+	if _is_gui_open != is_gui_open:
+		core.interactive_shell_visibility_changed.emit(is_gui_open)
+		_is_gui_open = is_gui_open
+	if _is_gui_open and pause_if_input:
 		Engine.time_scale = 0.01
 	else:
 		Engine.time_scale = 1.0
 	if unified_window_visibility:
-		core.windows_manager.visible = is_gui_open
+		core.windows_manager.visible = _is_gui_open
 
 func open_window():
 	if gui_mode == InputMode.Window:
