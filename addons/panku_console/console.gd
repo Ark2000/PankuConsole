@@ -39,6 +39,7 @@ func _ready():
 	# modules are invisible to each other by design to avoid coupling
 	# you can add or remove any modules here as you wish
 	var modules:Array[PankuModule] = [
+		PankuModuleNativeLogger.new(),
 		PankuModuleSceneRootTracker.new(),
 		PankuModuleScreenNotifier.new(),
 		PankuModuleSystemReport.new(),
@@ -46,7 +47,6 @@ func _ready():
 		PankuModuleEngineTools.new(),
 		PankuModuleKeyboardShortcuts.new(),
 		PankuModuleCheckLatestRelease.new(),
-		PankuModuleNativeLogger.new(),
 		PankuModuleInteractiveShell.new(),
 		PankuModuleGeneralSettings.new(),
 		PankuModuleDataController.new(),

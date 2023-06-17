@@ -5,9 +5,9 @@ var core:PankuConsole
 var _env:RefCounted = null
 var _opt:Resource = null
 
-# a unique name for the module
-func get_module_name():
-	assert(false, "get_module_name not implemented")
+# dir name of the module
+func get_module_name() -> String:
+	return get_script().resource_path.get_base_dir().get_file()
 
 # called when the module is loaded
 func init_module():
@@ -58,10 +58,9 @@ func get_module_opt() -> Resource:
 	return _opt
 
 func _init_module():
-	init_module()
 	var module_script_dir:String = get_script().resource_path.get_base_dir()
-	var env_script_path = module_script_dir + "./env.gd"
-	var opt_script_path = module_script_dir + "./opt.gd"
+	var env_script_path = module_script_dir + "/env.gd"
+	var opt_script_path = module_script_dir + "/opt.gd"
 	
 	if FileAccess.file_exists(env_script_path):
 		_env = load(env_script_path).new()
@@ -69,5 +68,8 @@ func _init_module():
 		core.gd_exprenv.register_env(get_module_name(), _env)
 
 	if FileAccess.file_exists(opt_script_path):
+		print(opt_script_path)
 		_opt = load(opt_script_path).new()
 		_opt._module = self
+
+	init_module()

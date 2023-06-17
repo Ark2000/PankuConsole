@@ -1,5 +1,4 @@
 class_name PankuModuleHistoryManager extends PankuModule
-func get_module_name(): return "HistoryManager"
 
 var window:PankuLynxWindow
 
@@ -20,3 +19,7 @@ func init_module():
 
 func quit_module():
 	save_window_data(window)
+
+func open_window():
+	window.move_to_front()
+	window.show()

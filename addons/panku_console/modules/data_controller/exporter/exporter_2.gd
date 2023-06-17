@@ -31,6 +31,10 @@ func create_rows_from_object(index:int):
 	var data = script.get_script_property_list()
 	for d in data:
 		if d.name.begins_with("_"): continue
+		if d.name.begins_with("readonly"):
+			row_types.append("read_only")
+			rows.append(create_ui_row_read_only(d))
+			continue
 		if d.usage == (PROPERTY_USAGE_SCRIPT_VARIABLE | PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_STORAGE):
 			if d.name.begins_with(BUTTON_PREFIX) and d.type == TYPE_STRING:
 				row_types.append("func_button")
@@ -178,7 +182,7 @@ func create_ui_row_comment(comment:String) -> Control:
 
 func create_ui_row_func_button(property:Dictionary, object:Object) -> Control:
 	var ui_row:Button = preload("./row_button.tscn").instantiate()
-	ui_row.text = property.name.trim_prefix(BUTTON_PREFIX)
+	ui_row.text = object.get(property.name)
 	var func_name:String = property.name.trim_prefix(BUTTON_PREFIX)
 	if func_name in object:
 		ui_row.pressed.connect(Callable(object, func_name))

@@ -1,5 +1,4 @@
 class_name PankuModuleScreenCrtEffect extends PankuModule
-func get_module_name(): return "ScreenCrtEffect"
 
 var crt_effect_enabled := false
 var crt_effect_layer:CanvasLayer = null

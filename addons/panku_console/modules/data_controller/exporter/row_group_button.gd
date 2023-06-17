@@ -7,8 +7,8 @@ extends Button
 
 func _ready():
 	toggled.connect(set_group_visibility)
-	set_group_visibility(true)
-	button_pressed = true
+	set_group_visibility(false)
+	button_pressed = false
 
 func set_group_visibility(enabled:bool):
 	icon = pressed_icon if enabled else unpressed_icon

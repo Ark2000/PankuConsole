@@ -1,8 +1,17 @@
 extends Resource
-
 var _module:PankuModule
 
-@export var export_comment_1 = "Hint: The logger is built upon the native engine file logging utility."
+@export_group("native_logger")
+
+@export var export_button_open_window := "Open Logger Window"
+func open_window():
+	_module.open_window()
+
+@export var toggle_logger_overlay := "Toggle Overlay"
+func toggle_overlay():
+	_module.toggle_overlay()
+
+@export var export_comment_1 = "The logger is built upon the native engine file logging utility."
 
 @export var export_button_open_engine_log_folder:String = "Open Engine Logs Folder"
 
@@ -11,8 +20,6 @@ var _module:PankuModule
 		_module.logger_ui.rlabel.theme.default_font_size = v
 	get:
 		return _module.logger_ui.rlabel.theme.default_font_size
-
-@export_group("Screen Overlay")
 
 @export var screen_overlay:bool = true:
 	set(v):

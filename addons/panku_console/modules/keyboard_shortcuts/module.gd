@@ -1,5 +1,4 @@
 class_name PankuModuleKeyboardShortcuts extends PankuModule
-func get_module_name(): return "KeyboardShortcuts"
 
 var window:PankuLynxWindow
 var key_mapper
@@ -20,3 +19,7 @@ func init_module():
 func quit_module():
 	save_window_data(window)
 	save_module_data("key_mapper", key_mapper.get_data())
+
+func open_window():
+	window.move_to_front()
+	window.show()

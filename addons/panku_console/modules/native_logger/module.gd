@@ -1,7 +1,5 @@
 class_name PankuModuleNativeLogger extends PankuModule
-func get_module_name(): return "NativeLogger"
 
-var logger_options:Resource
 var output_overlay:RichTextLabel
 var native_logs_monitor:Node
 var window:PankuLynxWindow
@@ -22,17 +20,8 @@ func init_module():
 	logger_ui = preload("./logger_view.tscn").instantiate()
 	logger_ui.console = core
 
-	logger_options = preload("./logger_options.gd").new()
-	logger_options._module = self
-
 	window = core.windows_manager.create_window(logger_ui)
 	window.queue_free_on_close = false
-	window.add_options_button(
-		func():
-			var data_controller:PankuLynxWindow = core.create_data_controller_window.call([logger_options])
-			if data_controller:
-				data_controller.set_caption("Logger Settings")
-	)
 	window.set_caption("Native Logger")
 	load_window_data(window)
 
@@ -64,3 +53,10 @@ func quit_module():
 	save_module_data("logger_overlay", output_overlay.get_data())
 	save_module_data("logger", logger_ui.get_data())
 	save_window_data(window)
+
+func open_window():
+	window.move_to_front()
+	window.show()
+
+func toggle_overlay():
+	output_overlay.visible = not output_overlay.visible

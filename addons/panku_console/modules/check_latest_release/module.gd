@@ -1,5 +1,4 @@
 class_name PankuModuleCheckLatestRelease extends PankuModule
-func get_module_name(): return "CheckLatestRelease"
 
 signal check_lasted_release_requested()
 signal check_lasted_release_responded(msg:Dictionary)

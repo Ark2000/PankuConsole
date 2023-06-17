@@ -9,6 +9,7 @@ layer = 128
 script = ExtResource("1_dohs1")
 
 [node name="LynxWindowsManager" type="Control" parent="."]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,5 +1,4 @@
 class_name PankuModuleSceneRootTracker extends PankuModule
-func get_module_name(): return "DataController"
 
 # The current scene root node, which will be updated automatically when the scene changes.
 var _current_scene_root:Node

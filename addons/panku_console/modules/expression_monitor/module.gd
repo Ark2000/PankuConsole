@@ -1,5 +1,4 @@
 class_name PankuModuleExpressionMonitor extends PankuModule
-func get_module_name(): return "ExpressionMonitor"
 
 func add_monitor_window(expr:String, update_interval:= 999999.0) -> PankuLynxWindow:
 	var content = preload("./monitor/monitor_2.tscn").instantiate()

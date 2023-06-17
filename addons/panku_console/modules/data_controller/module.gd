@@ -1,5 +1,4 @@
 class_name PankuModuleDataController extends PankuModule
-func get_module_name(): return "DataController"
 
 const exporter_prefab = preload("./exporter/exporter_2.tscn")
 

@@ -1,5 +1,4 @@
 class_name PankuModuleInteractiveShell extends PankuModule
-func get_module_name(): return "InteractiveShell"
 
 var window:PankuLynxWindow
 var interactive_shell:Control
@@ -13,6 +12,7 @@ enum InputMode {
 var gui_mode:InputMode = InputMode.Window
 var pause_if_input:bool = true
 var unified_window_visibility:bool = false
+var init_expr:String = ""
 
 var _is_gui_open:bool = false
 
@@ -55,17 +55,24 @@ func init_module():
 	gui_mode = load_module_data("gui_mode", InputMode.Window)
 	pause_if_input = load_module_data("pause_if_input", true)
 	unified_window_visibility = load_module_data("unified_window_visibility", false)
+	init_expr = load_module_data("init_expr", "")
 
 	window.visibility_changed.connect(update_gui_state)
 	simple_launcher.visibility_changed.connect(update_gui_state)
 	_is_gui_open = not (window.visible or simple_launcher.visible)
 	update_gui_state()
 
+	get_module_opt().init_expression = load_module_data("init_expr", "")
+	# execute init_expr
+	if init_expr != "":
+		core.gd_exprenv.execute(init_expr)
+
 func quit_module():
 	save_window_data(window)
 	save_module_data("gui_mode", gui_mode)
 	save_module_data("pause_if_input", pause_if_input)
 	save_module_data("unified_window_visibility", unified_window_visibility)
+	save_module_data("init_expr", init_expr)
 
 func update_gui_state():
 	var is_gui_open = window.visible or simple_launcher.visible
@@ -100,3 +107,12 @@ func open_launcher():
 			simple_launcher.show()
 		else:
 			core.notify("The launcher is alreay opened.")
+
+
+func set_unified_window_visibility(enabled:bool):
+	unified_window_visibility = enabled
+	update_gui_state()
+
+func set_pause_if_popup(enabled:bool):
+	pause_if_input = enabled
+	update_gui_state()

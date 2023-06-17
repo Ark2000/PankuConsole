@@ -36,8 +36,8 @@ func get_module_option_objects():
 	var objects = []
 	for _m in _modules:
 		var module:PankuModule = _m
-		if module.opt != null:
-			objects.append(module.opt)
+		if module._opt != null:
+			objects.append(module._opt)
 	return objects
 
 func quit_modules():

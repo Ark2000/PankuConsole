@@ -34,6 +34,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
 fit_content = true
 

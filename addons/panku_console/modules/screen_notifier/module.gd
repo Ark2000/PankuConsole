@@ -1,5 +1,4 @@
 class_name PankuModuleScreenNotifier extends PankuModule 
-func get_module_name(): return "ScreenNotifier"
 
 var notifier_layer := preload("./resident_logs.tscn").instantiate()
 
