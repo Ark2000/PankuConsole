@@ -1,20 +1,23 @@
 class_name PankuModuleExpressionMonitor extends PankuModule
 
-func add_monitor_window(expr:String, update_interval:= 999999.0) -> PankuLynxWindow:
-	var content = preload("./monitor/monitor_2.tscn").instantiate()
-	content.console = core
-	content._update_exp = expr
-	content._update_period = update_interval
-	var new_window:PankuLynxWindow = core.windows_manager.create_window(content)
-	new_window.set_window_title_text("expr: " + expr)
-	new_window.add_options_button(
-		func():
-			var window:PankuLynxWindow = core.create_data_controller_window.call([content])
-			if window: window.set_window_title_text("Monitor Settings")
-	)
-	content.change_window_title_text.connect(
-		func(text:String):
-			new_window.set_window_title_text(text)
-	)
-	# new_window.title_btn_clicked.connect(content.update_exp_i)
-	return new_window
+var monitor
+var monitor_window:PankuLynxWindow
+
+func init_module():
+	init_monitor_window()
+	load_window_data(monitor_window)
+
+func quit_module():
+	save_module_data("exprs", monitor.get_data())
+	save_window_data(monitor_window)
+
+func init_monitor_window():
+	monitor = preload("./expression_monitor.tscn").instantiate()
+	monitor._module = self
+	monitor.set_data(load_module_data("exprs", []))
+	monitor_window = core.windows_manager.create_window(monitor)
+	monitor_window.queue_free_on_close = false
+	monitor_window.set_window_title_text("Expression Monitor")
+
+func open_window():
+	monitor_window.show_window()

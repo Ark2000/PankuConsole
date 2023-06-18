@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyq4rjkkjs55d"]
+
+[ext_resource type="Script" path="res://addons/panku_console/core/smooth_scroll/smooth_scroll.gd" id="1_ma8ku"]
+
+[node name="SmoothScrollContainer" type="PanelContainer" node_paths=PackedStringArray("clip_container", "scrollbar")]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ma8ku")
+clip_container = NodePath("HBoxContainer/Control")
+scrollbar = NodePath("HBoxContainer/VScrollBar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VScrollBar" type="VScrollBar" parent="HBoxContainer"]
+layout_mode = 2
+page = 20.0
+value = 80.0

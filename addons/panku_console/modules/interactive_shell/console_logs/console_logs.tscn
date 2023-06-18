@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://nynkaa0igrh5"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/console_logs/console_logs.gd" id="1_3r4hk"]
-[ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/console_logs/smooth_scroll.gd" id="2_f7h0j"]
+[ext_resource type="Script" path="res://addons/panku_console/core/smooth_scroll/smooth_scroll.gd" id="2_46ya8"]
 
 [node name="ConsoleLogs" type="MarginContainer" node_paths=PackedStringArray("rlabel")]
 clip_contents = true
@@ -17,7 +17,7 @@ rlabel = NodePath("SmoothScrollContainer/HBoxContainer/Control/RichTextLabel")
 [node name="SmoothScrollContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("clip_container", "scrollbar")]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-script = ExtResource("2_f7h0j")
+script = ExtResource("2_46ya8")
 clip_container = NodePath("HBoxContainer/Control")
 scrollbar = NodePath("HBoxContainer/VScrollBar")
 
