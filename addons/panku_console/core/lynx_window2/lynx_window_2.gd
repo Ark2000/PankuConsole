@@ -37,13 +37,14 @@ var _is_resizing := false
 var _resize_start_position:Vector2
 var _os_window:Window
 var _content:Control
+var _size_before_folded:Vector2
+var _folded:bool = false
+var _size_animation:bool = false
+var _target_size:Vector2
 
 func add_options_button(callback:Callable):
 	_options_btn.show()
 	_options_btn.pressed.connect(callback)
-
-func set_caption(caption:String):
-	_title_btn.text = caption
 
 func centered():
 	var window_rect = get_rect()
@@ -73,6 +74,77 @@ func set_content(node:Control):
 
 func highlight(v:bool):
 	_shadow_focus.visible = v
+
+func _init_os_window():
+	_os_window = Window.new()
+	var color_rect = ColorRect.new()
+	color_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_os_window.add_child(color_rect)
+	get_tree().root.add_child(_os_window)
+	#destructor
+	tree_exiting.connect(
+		func():
+			_os_window.queue_free()
+	)
+	#switch back to embed window when os window close requested
+	_os_window.close_requested.connect(
+		func():
+			_os_window.remove_child(_content)
+			_os_window.hide()
+			set_content(_content)
+			show()
+	)
+	if get_parent().has_method("get_os_window_bg_color"):
+		color_rect.color = get_parent().get_os_window_bg_color()
+
+func switch_to_os_window():
+	if _content == null:
+		push_error("Error: No content. ")
+		return
+	if _os_window == null:
+		_init_os_window()
+	_container.remove_child(_content)
+	_os_window.add_child(_content)
+	_os_window.size = size
+	_os_window.title = _title_btn.text
+	_os_window.position = Vector2(DisplayServer.window_get_position(0)) + position
+	_content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_os_window.show()
+	hide()
+
+func show_window():
+	if _os_window and _os_window.visible:
+		return
+	show()
+	move_to_front()
+
+func hide_window():
+	if _os_window and _os_window.visible:
+		_os_window.close_requested.emit()
+	hide()
+
+func toggle_window_visibility():
+	if _os_window.visible or visible:
+		hide_window()
+	else:
+		show_window()
+
+func set_window_visibility(b:bool):
+	if b: show_window()
+	else: hide_window()
+
+func get_window_visibility() -> bool:
+	return visible or _os_window.visible
+
+func set_window_title_text(text:String):
+	if _os_window and _os_window.visible:
+		_os_window.title = text
+	else:
+		_title_btn.text = text
+
+func get_normal_window_size():
+	if _folded: return _size_before_folded
+	return size
 
 func _ready():
 	custom_minimum_size = _window_title_container.get_minimum_size()
@@ -130,63 +202,20 @@ func _ready():
 		
 	if get_parent().has_method("get_enable_os_popup_btns"):
 		_pop_btn.visible = get_parent().get_enable_os_popup_btns()
-
-func init_os_window():
-	_os_window = Window.new()
-	var color_rect = ColorRect.new()
-	color_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_os_window.add_child(color_rect)
-	get_tree().root.add_child(_os_window)
-	#destructor
-	tree_exiting.connect(
+	
+	# feature: foldable window
+	title_btn_clicked.connect(
 		func():
-			_os_window.queue_free()
+			if _folded:
+				_target_size = _size_before_folded
+			else:
+				if !_size_animation:
+					_size_before_folded = size
+				_target_size = _window_title_container.size
+			_size_animation = true
+			_folded = !_folded
+			_resize_btn.visible = !_folded
 	)
-	#switch back to embed window when os window close requested
-	_os_window.close_requested.connect(
-		func():
-			_os_window.remove_child(_content)
-			_os_window.hide()
-			set_content(_content)
-			show()
-	)
-	if get_parent().has_method("get_os_window_bg_color"):
-		color_rect.color = get_parent().get_os_window_bg_color()
-
-func switch_to_os_window():
-	if _content == null:
-		push_error("Error: No content. ")
-		return
-	if _os_window == null:
-		init_os_window()
-	_container.remove_child(_content)
-	_os_window.add_child(_content)
-	_os_window.size = size
-	_os_window.title = _title_btn.text
-	_os_window.position = Vector2(DisplayServer.window_get_position(0)) + position
-	_content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_os_window.show()
-	hide()
-
-func show_window():
-	if _os_window and _os_window.visible:
-		return 
-	show()
-
-func hide_window():
-	if _os_window and _os_window.visible:
-		_os_window.close_requested.emit()
-	hide()
-
-func set_window_visibility(b:bool):
-	if b: show_window()
-	else: hide_window()
-
-func set_window_title_text(text:String):
-	if _os_window and _os_window.visible:
-		_os_window.title = text
-	else:
-		_title_btn.text = text
 
 func _input(e):
 	#release focus when you click outside of the window
@@ -232,3 +261,7 @@ func _physics_process(_delta):
 		var current_position = window_rect.position
 		current_position = lerp(current_position, target_position, 0.213)
 		position = current_position
+	if _size_animation:
+		if _target_size.is_equal_approx(size):
+			_size_animation = false
+		size = lerp(size, _target_size, 0.2)

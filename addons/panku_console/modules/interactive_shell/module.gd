@@ -34,7 +34,7 @@ func init_module():
 	interactive_shell = preload("./console_ui/panku_console_ui.tscn").instantiate()
 	window = core.windows_manager.create_window(interactive_shell)
 	window.queue_free_on_close = false
-	window.set_caption("Interative Shell V2")
+	window.set_window_title_text("Interative Shell V2")
 	load_window_data(window)
 
 	interactive_shell.output(get_intro())
@@ -89,18 +89,18 @@ func update_gui_state():
 func open_window():
 	if gui_mode == InputMode.Window:
 		if not window.visible:
-			window.show()
+			window.show_window()
 		else:
 			core.notify("The window is alreay opened.")
 	elif gui_mode == InputMode.Launcher:
 		gui_mode = InputMode.Window
 		simple_launcher.hide()
-		window.show()
+		window.show_window()
 
 func open_launcher():
 	if gui_mode == InputMode.Window:
 		gui_mode = InputMode.Launcher
-		window.hide()
+		window.hide_window()
 		simple_launcher.show()
 	elif gui_mode == InputMode.Launcher:
 		if not simple_launcher.visible:

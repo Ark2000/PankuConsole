@@ -43,12 +43,12 @@ func has_module_data(key:String) -> bool:
 
 func load_window_data(window:PankuLynxWindow):
 	window.position = load_module_data("window_position", window.get_centered_position())
-	window.size = load_module_data("window_size", window.size)
+	window.size = load_module_data("window_size", window.get_normal_window_size())
 	window.visible = load_module_data("window_visibility", false)
 
 func save_window_data(window:PankuLynxWindow):
 	save_module_data("window_position", window.position)
-	save_module_data("window_size", window.size)
+	save_module_data("window_size", window.get_normal_window_size())
 	save_module_data("window_visibility", window.visible)
 
 func get_module_env() -> RefCounted:

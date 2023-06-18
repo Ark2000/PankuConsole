@@ -22,7 +22,7 @@ func init_module():
 
 	window = core.windows_manager.create_window(logger_ui)
 	window.queue_free_on_close = false
-	window.set_caption("Native Logger")
+	window.set_window_title_text("Native Logger")
 	load_window_data(window)
 
 	native_logs_monitor.error_msg_received.connect(
@@ -55,8 +55,7 @@ func quit_module():
 	save_window_data(window)
 
 func open_window():
-	window.move_to_front()
-	window.show()
+	window.show_window()
 
 func toggle_overlay():
 	output_overlay.visible = not output_overlay.visible

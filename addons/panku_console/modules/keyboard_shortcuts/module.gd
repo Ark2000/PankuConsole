@@ -11,7 +11,7 @@ func init_module():
 	# bind window
 	window = core.windows_manager.create_window(key_mapper)
 	window.queue_free_on_close = false
-	window.set_caption("Keyboard Shortcuts")
+	window.set_window_title_text("Keyboard Shortcuts")
 
 	load_window_data(window)
 	key_mapper.load_data(load_module_data("key_mapper", []))
@@ -21,5 +21,4 @@ func quit_module():
 	save_module_data("key_mapper", key_mapper.get_data())
 
 func open_window():
-	window.move_to_front()
-	window.show()
+	window.show_window()
