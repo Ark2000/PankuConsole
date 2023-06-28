@@ -72,5 +72,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if Engine.get_physics_frames() % 10 != 1:
 		return
+	if !is_visible_in_tree():
+		return
 	update_results()
 	update_ui()
