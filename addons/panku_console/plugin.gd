@@ -1,7 +1,7 @@
 @tool
 extends EditorPlugin
 
-const SingletonName = "PankuConsole"
+const SingletonName = "Panku"
 
 #When enable this plugin, it will add a singleton to Autoload and an input action to Input Map.
 #You may need to add a random input action to update Input Map UI.
