@@ -80,9 +80,9 @@ func update_gui_state():
 		core.interactive_shell_visibility_changed.emit(is_gui_open)
 		_is_gui_open = is_gui_open
 	if _is_gui_open and pause_if_input:
-		Engine.time_scale = 0.01
+		core.get_tree().paused = true
 	else:
-		Engine.time_scale = 1.0
+		core.get_tree().paused = false
 	if unified_window_visibility:
 		core.windows_manager.visible = _is_gui_open
 
