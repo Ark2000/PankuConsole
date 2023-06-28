@@ -16,6 +16,7 @@ border_color = Color(0.639216, 0.639216, 0.639216, 0.501961)
 default_font_size = 14
 
 [node name="logger_view" type="Control" node_paths=PackedStringArray("search_box", "search_btn", "pin_btn", "cls_btn", "tags_container2", "tags_container", "rlabel")]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
