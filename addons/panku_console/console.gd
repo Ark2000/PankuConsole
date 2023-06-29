@@ -40,7 +40,6 @@ func _ready():
 	# you can add or remove any modules here as you wish
 	var modules:Array[PankuModule] = [
 		PankuModuleNativeLogger.new(),
-		PankuModuleSceneRootTracker.new(),
 		PankuModuleScreenNotifier.new(),
 		PankuModuleSystemReport.new(),
 		PankuModuleHistoryManager.new(),
@@ -52,6 +51,7 @@ func _ready():
 		PankuModuleDataController.new(),
 		PankuModuleScreenCrtEffect.new(),
 		PankuModuleExpressionMonitor.new(),
+		PankuModuleSceneRootTracker.new(),
 	]
 	module_manager.init_manager(self, modules)
 

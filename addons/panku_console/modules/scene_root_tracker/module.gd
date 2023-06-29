@@ -7,6 +7,13 @@ var _tween_loop:Tween
 func init_module():
 	setup_scene_root_tracker()
 
+	# print a tip to interacvite_shell module
+	# modules load order matters
+	var tip:String = "\n[tip] you can always access current scene by [b]current[/b]"
+	if core.module_manager.has_module("interactive_shell"):
+		var ishell = core.module_manager.get_module("interactive_shell")
+		ishell.interactive_shell.output(tip)
+
 # always register the current scene root as `current`
 func setup_scene_root_tracker():
 	_current_scene_root = get_scene_root()
