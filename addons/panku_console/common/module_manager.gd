@@ -19,7 +19,7 @@ func load_modules():
 		module.core = _core
 		module._init_module()
 
-	print("modules: ", _modules_table)
+	#print("modules: ", _modules_table)
 
 func update_modules(delta:float):
 	for _m in _modules:

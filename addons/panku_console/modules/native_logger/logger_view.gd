@@ -114,22 +114,16 @@ func update_view():
 	rlabel.text = content
 	content_updated.emit(content)
 
-func load_data(data:Dictionary):
-	var tags:PackedStringArray = data.get("tags", PackedStringArray(["[warning]", "[error]"]))
-	for item in tags:
+func load_data(data:Array):
+	for item in data:
 		var text:String = item
 		add_tag(text)
-	rlabel.theme.default_font_size = data.get("font_size", 14)
 
-func get_data() -> Dictionary:
+func get_data() -> Array:
 	var tags := PackedStringArray()
 	for tag in tags_container.get_children():
 		tags.push_back(tag.tag_text)
-
-	return {
-		"tags": tags,
-		"font_size": rlabel.theme.default_font_size
-	}
+	return tags
 
 func _ready():
 

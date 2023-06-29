@@ -27,17 +27,3 @@ func add_line(line:String):
 		content_prev = content_cur
 		content_cur += (line + "\n")
 		text = content_cur
-
-func load_data(data:Dictionary):
-	visible = data.get("visible", true)
-	modulate.a = data.get("alpha", 0.5)
-	theme.default_font_size = data.get("font_size", 14)
-	set("theme_override_colors/font_shadow_color", data.get("font_shadow", Color.BLACK))
-
-func get_data():
-	return {
-		"visible": visible,
-		"alpha": modulate.a,
-		"font_size": theme.default_font_size,
-		"font_shadow": get("theme_override_colors/font_shadow_color") != null
-	}

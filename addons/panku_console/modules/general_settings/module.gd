@@ -2,7 +2,9 @@ class_name PankuModuleGeneralSettings extends PankuModule
 
 func open_settings_window():
 	# create a new exporter window
-	core.create_data_controller_window.call(core.module_manager.get_module_option_objects())
+	var window:PankuLynxWindow = core.create_data_controller_window.call(core.module_manager.get_module_option_objects())
+	window.set_window_title_text("General Settings")
+
 
 func init_module():
 	# load settings

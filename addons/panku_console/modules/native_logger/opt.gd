@@ -7,10 +7,6 @@ var _module:PankuModule
 func open_window():
 	_module.open_window()
 
-@export var toggle_logger_overlay := "Toggle Overlay"
-func toggle_overlay():
-	_module.toggle_overlay()
-
 @export var export_comment_1 = "The logger is built upon the native engine file logging utility."
 
 @export var export_button_open_engine_log_folder:String = "Open Engine Logs Folder"
