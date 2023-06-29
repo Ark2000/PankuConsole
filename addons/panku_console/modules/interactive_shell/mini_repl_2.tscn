@@ -61,6 +61,7 @@ material = SubResource("ShaderMaterial_kt6ig")
 layout_mode = 2
 
 [node name="InputArea" parent="PanelContainer" instance=ExtResource("1_cerpp")]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
 [editable path="HintsList"]
