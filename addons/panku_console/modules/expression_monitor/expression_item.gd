@@ -9,10 +9,13 @@ signal removing
 
 func set_result(text:String):
 	label.text = text
-	label.visible = (text != "")
+	label.get_parent().visible = (text != "")
 
 func set_expr(text:String):
 	ledit.text = text
+
+func get_expr() -> String:
+	return ledit.text
 
 func _ready():
 	x_btn.pressed.connect(

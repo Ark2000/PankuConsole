@@ -17,7 +17,6 @@ const CFG_EXP_HISTORY = "exp_history"
 @export var last_page_button:Button
 @export var page_ledit:LineEdit
 @export var page_label:Label
-@export var timer:Timer
 
 var current_page := 1
 var all_pages := 1
@@ -62,8 +61,9 @@ func _ready():
 			current_page = page_ledit.text.to_int()
 			reload()
 	)
-	timer.timeout.connect(
+	create_tween().set_loops().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).tween_callback(
 		func():
+			if !is_visible_in_tree(): return
 			if item_container.get_child_count() < 1: return
 			var item_height = item_container.get_child(0).size.y
 			var item_gap = item_container.get("theme_override_constants/separation")
@@ -73,10 +73,7 @@ func _ready():
 			if _items_per_page != items_per_page:
 				items_per_page = _items_per_page
 				reload()
-	)
-	timer.wait_time = 1.0
-	timer.one_shot = false
-	timer.start()
+	).set_delay(0.1)
 
 	visibility_changed.connect(
 		func():

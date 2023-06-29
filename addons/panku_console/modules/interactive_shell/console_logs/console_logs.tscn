@@ -1,7 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://nynkaa0igrh5"]
+[gd_scene load_steps=7 format=3 uid="uid://nynkaa0igrh5"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/console_logs/console_logs.gd" id="1_3r4hk"]
 [ext_resource type="Script" path="res://addons/panku_console/common/smooth_scroll/smooth_scroll.gd" id="2_46ya8"]
+
+[sub_resource type="SystemFont" id="SystemFont_gfwak"]
+font_names = PackedStringArray("Consolas", "Monospace")
+multichannel_signed_distance_field = true
+
+[sub_resource type="SystemFont" id="SystemFont_oh6n8"]
+font_names = PackedStringArray("Consolas", "Monospace")
+font_weight = 700
+multichannel_signed_distance_field = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8eap"]
 
@@ -40,6 +49,8 @@ anchor_right = 1.0
 grow_horizontal = 2
 focus_mode = 2
 theme_override_colors/default_color = Color(1, 1, 1, 0.878431)
+theme_override_fonts/normal_font = SubResource("SystemFont_gfwak")
+theme_override_fonts/bold_font = SubResource("SystemFont_oh6n8")
 theme_override_font_sizes/normal_font_size = 14
 theme_override_styles/focus = SubResource("StyleBoxEmpty_g8eap")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_52ub2")

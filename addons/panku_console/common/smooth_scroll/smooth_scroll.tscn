@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyq4rjkkjs55d"]
+[gd_scene load_steps=3 format=3 uid="uid://dyq4rjkkjs55d"]
 
 [ext_resource type="Script" path="res://addons/panku_console/common/smooth_scroll/smooth_scroll.gd" id="1_ma8ku"]
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_pa7xs"]
 
 [node name="SmoothScrollContainer" type="PanelContainer" node_paths=PackedStringArray("clip_container", "scrollbar")]
 self_modulate = Color(1, 1, 1, 0)
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_pa7xs")
 script = ExtResource("1_ma8ku")
 clip_container = NodePath("HBoxContainer/Control")
 scrollbar = NodePath("HBoxContainer/VScrollBar")

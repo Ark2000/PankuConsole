@@ -12,7 +12,7 @@ size_flags_horizontal = 3
 script = ExtResource("1_dnu23")
 x_btn = NodePath("expression_item/Button")
 ledit = NodePath("expression_item/LineEdit")
-label = NodePath("Label")
+label = NodePath("HBoxContainer/Label")
 
 [node name="expression_item" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -26,6 +26,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Input expression here..."
 
-[node name="Label" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 visible = false
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+color = Color(0.239216, 0.533333, 0.886275, 0.752941)
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 1

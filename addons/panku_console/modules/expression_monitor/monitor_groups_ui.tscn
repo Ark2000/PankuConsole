@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctgf7kewoa1cn"]
+
+[ext_resource type="Script" path="res://addons/panku_console/modules/expression_monitor/monitor_groups_ui.gd" id="1_8ojgn"]
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_gc4dk"]
+[ext_resource type="PackedScene" uid="uid://dlnkho5p7p2aq" path="res://addons/panku_console/modules/expression_monitor/monitor_group_ui.tscn" id="1_l15o5"]
+[ext_resource type="Texture2D" uid="uid://dprpfr0l5xvmu" path="res://addons/panku_console/res/icons2/add.svg" id="4_utrvo"]
+
+[node name="MonitorGroupsUI" type="VBoxContainer"]
+offset_right = 411.0
+offset_bottom = 309.0
+theme = ExtResource("1_gc4dk")
+script = ExtResource("1_8ojgn")
+
+[node name="Groups" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MonitorGroupUI" parent="Groups" instance=ExtResource("1_l15o5")]
+layout_mode = 2
+
+[node name="MonitorGroupUI2" parent="Groups" instance=ExtResource("1_l15o5")]
+layout_mode = 2
+
+[node name="MonitorGroupUI3" parent="Groups" instance=ExtResource("1_l15o5")]
+layout_mode = 2
+
+[node name="AddGroupButton" type="Button" parent="."]
+layout_mode = 2
+text = "Add New Group"
+icon = ExtResource("4_utrvo")
+alignment = 0

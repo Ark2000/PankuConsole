@@ -68,7 +68,7 @@ func _init_module():
 		core.gd_exprenv.register_env(get_module_name(), _env)
 
 	if FileAccess.file_exists(opt_script_path):
-		print(opt_script_path)
+		#print(opt_script_path)
 		_opt = load(opt_script_path).new()
 		_opt._module = self
 

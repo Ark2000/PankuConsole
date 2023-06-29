@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=3 uid="uid://dlnkho5p7p2aq"]
+
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_5nvur"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/expression_monitor/monitor_group_ui.gd" id="1_b5egi"]
+[ext_resource type="Texture2D" uid="uid://ws58gucuygx1" path="res://addons/panku_console/res/icons2/chevron_right.svg" id="1_k5xby"]
+[ext_resource type="Texture2D" uid="uid://ecmevhk0tuas" path="res://addons/panku_console/res/icons2/play-1001-svgrepo-com.svg" id="2_wnb5s"]
+[ext_resource type="Texture2D" uid="uid://2cjvp0dp8ede" path="res://addons/panku_console/res/icons2/check-svgrepo-com.svg" id="3_h1h1v"]
+[ext_resource type="Texture2D" uid="uid://8g5afcuanbl6" path="res://addons/panku_console/res/icons2/close.svg" id="4_2d3kd"]
+[ext_resource type="Texture2D" uid="uid://brf6iwx4r6bdd" path="res://addons/panku_console/res/icons2/rename-svgrepo-com.svg" id="4_3tm8i"]
+[ext_resource type="Texture2D" uid="uid://d0k813mm5y0d5" path="res://addons/panku_console/res/icons2/arrow-up-md-svgrepo-com.svg" id="5_xed2e"]
+[ext_resource type="Texture2D" uid="uid://cdxbns8lyctqp" path="res://addons/panku_console/res/icons2/arrow-down-svgrepo-com.svg" id="6_168yw"]
+[ext_resource type="PackedScene" uid="uid://om8bp40jo1e" path="res://addons/panku_console/modules/expression_monitor/expression_item.tscn" id="9_2py4a"]
+[ext_resource type="Texture2D" uid="uid://cngs5d4uosvmt" path="res://addons/panku_console/res/icons2/bin-cancel-delete-remove-trash-garbage-svgrepo-com.svg" id="10_jdwtu"]
+[ext_resource type="Texture2D" uid="uid://dprpfr0l5xvmu" path="res://addons/panku_console/res/icons2/add.svg" id="10_l2ajq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdb5g"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.12549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.501961)
+
+[node name="MonitorGroupUI" type="VBoxContainer"]
+offset_right = 431.0
+offset_bottom = 124.0
+theme = ExtResource("1_5nvur")
+script = ExtResource("1_b5egi")
+
+[node name="GroupManager" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ToggleButton" type="Button" parent="GroupManager"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Default Group"
+icon = ExtResource("1_k5xby")
+alignment = 0
+
+[node name="RenameLineEdit" type="LineEdit" parent="GroupManager"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Default Group"
+
+[node name="StateControlButton" type="Button" parent="GroupManager"]
+layout_mode = 2
+icon = ExtResource("2_wnb5s")
+
+[node name="RenameButton" type="Button" parent="GroupManager"]
+layout_mode = 2
+icon = ExtResource("4_3tm8i")
+
+[node name="ConfirmRenameButton" type="Button" parent="GroupManager"]
+visible = false
+layout_mode = 2
+icon = ExtResource("3_h1h1v")
+
+[node name="CancelRenameButton" type="Button" parent="GroupManager"]
+visible = false
+layout_mode = 2
+icon = ExtResource("4_2d3kd")
+
+[node name="MoveUpButton" type="Button" parent="GroupManager"]
+visible = false
+layout_mode = 2
+icon = ExtResource("5_xed2e")
+
+[node name="MoveDownButton" type="Button" parent="GroupManager"]
+visible = false
+layout_mode = 2
+icon = ExtResource("6_168yw")
+
+[node name="RemoveButton" type="Button" parent="GroupManager"]
+layout_mode = 2
+icon = ExtResource("10_jdwtu")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fdb5g")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ExpressionContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" parent="PanelContainer/VBoxContainer/ExpressionContainer" instance=ExtResource("9_2py4a")]
+layout_mode = 2
+
+[node name="VBoxContainer2" parent="PanelContainer/VBoxContainer/ExpressionContainer" instance=ExtResource("9_2py4a")]
+layout_mode = 2
+
+[node name="AddNewExpressionButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Add New Expression"
+icon = ExtResource("10_l2ajq")
+alignment = 0

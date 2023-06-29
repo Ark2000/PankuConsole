@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/panku_console/modules/history_manager/exp_history.gd" id="2_kgk33"]
 [ext_resource type="PackedScene" uid="uid://dhsvbbxqlb1xy" path="res://addons/panku_console/modules/history_manager/exp_history_item.tscn" id="3_wac0s"]
 
-[node name="ExpHistory" type="Control" node_paths=PackedStringArray("item_container", "copy_button", "monitor_button", "favorite_button", "delete_button", "reverse_select_button", "prev_page_button", "next_page_button", "first_page_button", "last_page_button", "page_ledit", "page_label", "timer")]
+[node name="ExpHistory" type="Control" node_paths=PackedStringArray("item_container", "copy_button", "monitor_button", "favorite_button", "delete_button", "reverse_select_button", "prev_page_button", "next_page_button", "first_page_button", "last_page_button", "page_ledit", "page_label")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 0
@@ -26,11 +26,7 @@ first_page_button = NodePath("VBoxContainer2/HBoxContainer2/FirstpageButton")
 last_page_button = NodePath("VBoxContainer2/HBoxContainer2/LastPageButton")
 page_ledit = NodePath("VBoxContainer2/HBoxContainer2/PageNumberEdit")
 page_label = NodePath("VBoxContainer2/HBoxContainer2/TotalPageLabel")
-timer = NodePath("Timer")
 metadata/_edit_vertical_guides_ = [161.838]
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
 
 [node name="Panel" type="Panel" parent="."]
 visible = false
