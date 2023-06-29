@@ -1,12 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbtn0x604fx5o"]
+[gd_scene load_steps=7 format=3 uid="uid://dbtn0x604fx5o"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/hints_list/hint.gd" id="1_sa53g"]
-[ext_resource type="Shader" path="res://addons/panku_console/res/shader/simple_fast_blur.gdshader" id="2_wlxfn"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjrsv"]
-shader = ExtResource("2_wlxfn")
-shader_parameter/lod = 4.0
-shader_parameter/modulate = Color(0, 0, 0, 0.25098)
 
 [sub_resource type="SystemFont" id="SystemFont_tt6oo"]
 font_names = PackedStringArray("Consolas")
@@ -34,13 +28,13 @@ label = NodePath("RichTextLabel")
 bg2 = NodePath("Bg2")
 
 [node name="Blur" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_tjrsv")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.219608, 0.219608, 0.223529, 0.658824)
 
 [node name="Bg2" type="ColorRect" parent="."]
 layout_mode = 1
@@ -78,5 +72,4 @@ theme_override_font_sizes/bold_italics_font_size = 14
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
 text = "[color=cyan]w_button[/color][color=gray]([/color]display_name:[color=green]String[/color], env:[color=green]String[/color], exp:[color=green]String[/color][color=gray])[/color]"
-fit_content_height = true
 autowrap_mode = 0
