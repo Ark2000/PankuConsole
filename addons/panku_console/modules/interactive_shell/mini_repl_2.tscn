@@ -20,6 +20,7 @@ shader_parameter/lod = 4.0
 shader_parameter/modulate = Color(0, 0, 0, 0.25098)
 
 [node name="MiniREPL" type="VBoxContainer" node_paths=PackedStringArray("input_area", "repl")]
+z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

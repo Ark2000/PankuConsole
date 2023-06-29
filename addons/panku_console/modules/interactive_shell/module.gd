@@ -47,7 +47,10 @@ func init_module():
 	core.toggle_console_action_just_pressed.connect(
 		func():
 			if gui_mode == InputMode.Window:
-				window.visible = not window.visible
+				if window.visible:
+					window.hide_window()
+				else:
+					window.show_window()
 			elif gui_mode == InputMode.Launcher:
 				simple_launcher.visible = not simple_launcher.visible
 	)

@@ -117,6 +117,8 @@ func show_window():
 		return
 	show()
 	move_to_front()
+	modulate.a = 0.0
+	create_tween().tween_property(self, "modulate:a", 1.0, 0.2)
 
 func hide_window():
 	if _os_window and _os_window.visible:
