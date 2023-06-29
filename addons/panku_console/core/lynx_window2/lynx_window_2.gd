@@ -248,6 +248,7 @@ func _physics_process(_delta):
 		var window_rect = get_rect()
 		var screen_rect = get_viewport_rect()
 		var target_position = window_rect.position
+		var target_size = window_rect.size.clamp(Vector2.ZERO, screen_rect.size)
 		if window_rect.position.y < 0:
 			target_position.y = 0
 		if window_rect.end.y > screen_rect.end.y:
@@ -260,6 +261,7 @@ func _physics_process(_delta):
 			target_position.x = screen_rect.end.x - window_rect.size.x
 		var current_position = window_rect.position
 		current_position = lerp(current_position, target_position, 0.213)
+		size = lerp(size, target_size, 0.213)
 		position = current_position
 	if _size_animation:
 		if _target_size.is_equal_approx(size):
