@@ -2,7 +2,7 @@ extends Resource
 
 var _module:PankuModule
 
-@export_group("general_settings")
+@export_group("common_settings")
 
 @export var window_blur_effect:bool = true:
 	set(v):

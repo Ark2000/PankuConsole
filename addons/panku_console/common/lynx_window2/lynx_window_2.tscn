@@ -104,7 +104,7 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(1, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 
 [node name="LynxWindow2" type="ColorRect" node_paths=PackedStringArray("_window_title_container", "_title_btn", "_close_btn", "_options_btn", "_resize_btn", "_shadow_focus", "_shadow", "_container", "_pop_btn")]
 material = ExtResource("1_tvp6i")

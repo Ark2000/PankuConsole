@@ -18,9 +18,9 @@ var _is_gui_open:bool = false
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
-	intro.append("[font_size=64][color=#efefefbb][b][i]Panku Console[/i][/b][/color][/font_size]")
-	intro.append("[font_size=18][color=#f24b16dd]Feature-Packed Runtime Debugging Toolkit for Godot[/color][/font_size]")
-	intro.append("[font_size=18]Version: %s | Visit [color=#10a00c][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/font_size]" % PankuUtils.get_plugin_version())
+	intro.append("[font_size=56][color=#ffffff44][b][i]> Panku Console[/i][/b][/color][/font_size]")
+	intro.append("[font_size=18][color=#ffffff44]Feature-Packed Runtime Debugging Toolkit for Godot[/color][/font_size]")
+	intro.append("[font_size=18][color=#ffffff44]Version: %s | Visit [color=#10a00c][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/color][/font_size]" % PankuUtils.get_plugin_version())
 	return "\n".join(intro)
 
 func init_module():

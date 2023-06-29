@@ -9,7 +9,7 @@ func open_settings_window():
 func init_module():
 	# load settings
 	get_module_opt().window_blur_effect = load_module_data("lynx_window_blur_effect", true)
-	get_module_opt().window_color = load_module_data("lynx_window_base_color", Color("#111111aa"))
+	get_module_opt().window_color = load_module_data("lynx_window_base_color", Color("#000c1880"))
 	get_module_opt().enable_os_window = load_module_data("lynx_window_enable_os_window", false)
 	get_module_opt().os_window_bg_color = load_module_data("lynx_window_os_window_bg_color", Color(0, 0, 0, 0))
 

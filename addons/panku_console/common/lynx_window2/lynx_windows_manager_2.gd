@@ -35,6 +35,7 @@ func create_window(content:Control):
 	content.anchors_preset = Control.PRESET_FULL_RECT
 	new_window.set_content(content)
 	add_child(new_window)
+	new_window.show_window()
 	return new_window
 
 func enable_os_popup_btns(b:bool):
