@@ -18,16 +18,9 @@ var _is_gui_open:bool = false
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
-	intro.append("[font_size=24][b][color=#478cbf]Panku Console[/color] ~ [color=#478cbf]version %s[/color][/b][/font_size]" % PankuUtils.get_plugin_version())
-	intro.append("")
-	intro.append("All-in-One Godot 4 runtime debugging tool.")
-	intro.append("")
-	intro.append("[b][color=#478cbf]🌟Repo[/color][/b]: 🔗[url=https://github.com/Ark2000/PankuConsole]https://github.com/Ark2000/PankuConsole[/url]")
-	intro.append("")
-	intro.append("[b][color=#478cbf]❤️Contributors[/color][/b]: 🔗[url=https://github.com/Ark2000]Ark2000(Feo Wu)[/url], 🔗[url=https://github.com/scriptsengineer]scriptengineer(Rafael Correa)[/url], 🔗[url=https://github.com/winston-yallow]winston-yallow(Winston)[/url], 🔗[url=https://github.com/CheapMeow]CheapMeow[/url].")
-	intro.append("")
-	intro.append("> Tips: you can always access current scene root by `[b]current[/b]`.")
-	intro.append("")
+	intro.append("[font_size=64][color=#efefefbb][b][i]Panku Console[/i][/b][/color][/font_size]")
+	intro.append("[font_size=18][color=#f24b16dd]Feature-Packed Runtime Debugging Toolkit for Godot[/color][/font_size]")
+	intro.append("[font_size=18]Version: %s | Visit [color=#10a00c][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/font_size]" % PankuUtils.get_plugin_version())
 	return "\n".join(intro)
 
 func init_module():
