@@ -27,6 +27,7 @@ func _gui_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	content.size.y = 0
+	content.position.x = 0
 	scrollbar.max_value = content.size.y
 	var scrollbar_value_max = max(0, scrollbar.max_value - clip_container.size.y)
 	scrollbar.value = lerp(scrollbar.value, clampf(scrollbar.value, 0.0, scrollbar_value_max), 0.2)

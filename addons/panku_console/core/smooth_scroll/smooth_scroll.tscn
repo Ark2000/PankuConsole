@@ -4,6 +4,7 @@
 
 [node name="SmoothScrollContainer" type="PanelContainer" node_paths=PackedStringArray("clip_container", "scrollbar")]
 self_modulate = Color(1, 1, 1, 0)
+clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
