@@ -1,14 +1,14 @@
 [gd_scene load_steps=26 format=3 uid="uid://s88loppa6gja"]
 
-[ext_resource type="Material" uid="uid://dyipeqsa8lcpc" path="res://addons/panku_console/core/lynx_window2/lynx_window_shader_material.tres" id="1_tvp6i"]
-[ext_resource type="Script" path="res://addons/panku_console/core/lynx_window2/lynx_window_2.gd" id="2_1ul5o"]
+[ext_resource type="Material" uid="uid://dyipeqsa8lcpc" path="res://addons/panku_console/common/lynx_window2/lynx_window_shader_material.tres" id="1_tvp6i"]
+[ext_resource type="Script" path="res://addons/panku_console/common/lynx_window2/lynx_window_2.gd" id="2_1ul5o"]
 [ext_resource type="FontVariation" uid="uid://d2b8bo6ytpt2i" path="res://addons/panku_console/res/font/default_bold.tres" id="3_oes5e"]
 [ext_resource type="Texture2D" uid="uid://dosm26riekruh" path="res://addons/panku_console/res/icons2/menu.svg" id="4_4dlyn"]
 [ext_resource type="Texture2D" uid="uid://gav3m4qtvgje" path="res://addons/panku_console/res/icons2/pop-out-svgrepo-com.svg" id="4_im81u"]
 [ext_resource type="Texture2D" uid="uid://8g5afcuanbl6" path="res://addons/panku_console/res/icons2/close.svg" id="5_l4qpm"]
 [ext_resource type="Texture2D" uid="uid://dvr12fl5prm78" path="res://addons/panku_console/res/effect/square_shadow.png" id="6_mfp1h"]
 [ext_resource type="Texture2D" uid="uid://ciu5jiw4xmkq0" path="res://addons/panku_console/res/icons2/resize-svgrepo-com.svg" id="7_duwqn"]
-[ext_resource type="Script" path="res://addons/panku_console/core/lynx_window2/border.gd" id="8_gj3ji"]
+[ext_resource type="Script" path="res://addons/panku_console/common/lynx_window2/border.gd" id="8_gj3ji"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nef7"]
 content_margin_left = 8.0

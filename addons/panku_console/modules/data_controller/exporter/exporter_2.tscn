@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_3uypn"]
 [ext_resource type="PackedScene" uid="uid://cj0urmvj2rtas" path="res://addons/panku_console/modules/data_controller/exporter/row_vec_2.tscn" id="1_v4pbh"]
 [ext_resource type="PackedScene" uid="uid://b4jxqh4ysyodt" path="res://addons/panku_console/modules/data_controller/exporter/row_string.tscn" id="2_87515"]
-[ext_resource type="PackedScene" uid="uid://dyq4rjkkjs55d" path="res://addons/panku_console/core/smooth_scroll/smooth_scroll.tscn" id="3_gmdfh"]
+[ext_resource type="PackedScene" uid="uid://dyq4rjkkjs55d" path="res://addons/panku_console/common/smooth_scroll/smooth_scroll.tscn" id="3_gmdfh"]
 [ext_resource type="PackedScene" uid="uid://dal16suyx5int" path="res://addons/panku_console/modules/data_controller/exporter/row_read_only.tscn" id="3_r8k7l"]
 [ext_resource type="PackedScene" uid="uid://b6w4d5bsp0erj" path="res://addons/panku_console/modules/data_controller/exporter/row_range_number.tscn" id="4_ido8o"]
 [ext_resource type="PackedScene" uid="uid://cnsnrihcgjsa" path="res://addons/panku_console/modules/data_controller/exporter/row_int.tscn" id="5_ua2hx"]

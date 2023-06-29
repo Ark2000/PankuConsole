@@ -30,7 +30,7 @@ func _ready():
 	assert(get_tree().current_scene != self, "Do not run console.tscn as a scene!")
 
 	windows_manager = $LynxWindowsManager
-	var base_instance = preload("./core/repl_base_instance.gd").new()
+	var base_instance = preload("./common/repl_base_instance.gd").new()
 	base_instance._core = self
 	gd_exprenv.set_base_instance(base_instance)
 

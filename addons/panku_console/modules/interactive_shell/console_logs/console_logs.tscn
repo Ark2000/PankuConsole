@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://nynkaa0igrh5"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/console_logs/console_logs.gd" id="1_3r4hk"]
-[ext_resource type="Script" path="res://addons/panku_console/core/smooth_scroll/smooth_scroll.gd" id="2_46ya8"]
+[ext_resource type="Script" path="res://addons/panku_console/common/smooth_scroll/smooth_scroll.gd" id="2_46ya8"]
 
 [node name="ConsoleLogs" type="MarginContainer" node_paths=PackedStringArray("rlabel")]
 clip_contents = true

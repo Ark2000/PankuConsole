@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dyq4rjkkjs55d"]
 
-[ext_resource type="Script" path="res://addons/panku_console/core/smooth_scroll/smooth_scroll.gd" id="1_ma8ku"]
+[ext_resource type="Script" path="res://addons/panku_console/common/smooth_scroll/smooth_scroll.gd" id="1_ma8ku"]
 
 [node name="SmoothScrollContainer" type="PanelContainer" node_paths=PackedStringArray("clip_container", "scrollbar")]
 self_modulate = Color(1, 1, 1, 0)
