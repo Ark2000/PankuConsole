@@ -55,11 +55,13 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="CopyButton" type="Button" parent="VBoxContainer2/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Copy"
 
 [node name="MonitorButton" type="Button" parent="VBoxContainer2/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Monitor"
