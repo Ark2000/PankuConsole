@@ -3,7 +3,7 @@ class_name PankuConsole extends CanvasLayer
 # you can also use some of its members to interact with the console
  
 signal interactive_shell_visibility_changed(visible:bool)
-signal new_expression_entered(expression:String)
+signal new_expression_entered(expression:String, result)
 signal new_notification_created(bbcode:String)
 signal toggle_console_action_just_pressed()
 
@@ -52,6 +52,7 @@ func _ready():
 		PankuModuleScreenCrtEffect.new(),
 		PankuModuleExpressionMonitor.new(),
 		PankuModuleSceneRootTracker.new(),
+		PankuModuleTextureViewer.new()
 	]
 	module_manager.init_manager(self, modules)
 

@@ -30,7 +30,7 @@ func _input(e):
 			var forefront = get_child(get_child_count() - 1)
 			if forefront.has_method("highlight"): forefront.highlight(false)
 
-func create_window(content:Control):
+func create_window(content:Control) -> PankuLynxWindow:
 	var new_window:PankuLynxWindow = preload("lynx_window_2.tscn").instantiate()
 	content.anchors_preset = Control.PRESET_FULL_RECT
 	new_window.set_content(content)

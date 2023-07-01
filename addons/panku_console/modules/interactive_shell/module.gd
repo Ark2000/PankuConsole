@@ -26,6 +26,7 @@ func get_intro() -> String:
 func init_module():
 	interactive_shell = preload("./console_ui/panku_console_ui.tscn").instantiate()
 	window = core.windows_manager.create_window(interactive_shell)
+	interactive_shell._repl._module = self
 	window.queue_free_on_close = false
 	window.set_window_title_text("Interative Shell V2")
 	load_window_data(window)
@@ -36,6 +37,7 @@ func init_module():
 	simple_launcher = preload("./mini_repl_2.tscn").instantiate()
 	simple_launcher.console = core
 	core.add_child(simple_launcher)
+	simple_launcher.repl._module = self
 	simple_launcher.hide()
 
 	core.toggle_console_action_just_pressed.connect(

@@ -22,7 +22,6 @@ func on_text_submitted(s:String):
 		histories.push_back(text)
 	history_idx = histories.size()
 	clear()
-	console.new_expression_entered.emit(s)
 
 func _gui_input(e):
 	#navigate through histories

@@ -1,6 +1,6 @@
 extends Node
 
-@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
+var _module:PankuModule
 
 @export_subgroup("Dependency")
 @export var _input_area:Control
@@ -32,7 +32,7 @@ func _set_hint_idx(v):
 			_hints.selected = v
 			_input_area.input.text = k + ("()" if is_method else "")
 			_input_area.input.caret_column = k.length() + (1 if is_method else 0)
-			_helpbar_label.text = "[Help] %s" %  console.gd_exprenv.get_help_info(k)
+			_helpbar_label.text = "[Help] %s" %  _module.core.gd_exprenv.get_help_info(k)
 
 func execute(exp:String):
 	exp = exp.lstrip(" ").rstrip(" ")
@@ -41,7 +41,7 @@ func execute(exp:String):
 	var echo:String = "[b][You][/b] " + exp
 	output.emit(echo)
 	output_echo.emit(echo)
-	var result = console.gd_exprenv.execute(exp)
+	var result = _module.core.gd_exprenv.execute(exp)
 	if !result["failed"]:
 		# ignore the expression result if it is null
 		if result["result"] != null:
@@ -52,9 +52,10 @@ func execute(exp:String):
 		var error_str:String = "[color=red]%s[/color]"%(result["result"])
 		output.emit(error_str)
 		output_error.emit(error_str)
+	_module.core.new_expression_entered.emit(exp, result)
 
 func _update_hints(exp:String):
-	_current_hints = console.gd_exprenv.parse_exp(exp, show_all_hints_if_input_is_empty)
+	_current_hints = _module.core.gd_exprenv.parse_exp(exp, show_all_hints_if_input_is_empty)
 	_hints.visible = _current_hints["hints_value"].size() > 0
 	_helpbar.visible = _hints.visible
 	_input_area.input.hints = _current_hints["hints_value"]

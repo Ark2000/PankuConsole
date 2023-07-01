@@ -7,7 +7,7 @@ func init_module():
 	var ui = preload("./exp_history.tscn").instantiate()
 	ui.console = core
 	core.new_expression_entered.connect(
-		func(expression):
+		func(expression, result):
 			ui.add_history(expression)
 	)
 

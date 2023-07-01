@@ -19,7 +19,7 @@ func create_rows_from_object(index:int):
 
 	if obj == null:
 		return
-	
+
 
 	if !is_instance_valid(obj):
 		return
@@ -106,6 +106,9 @@ func init():
 	init_data()
 
 	create_tween().set_loops().tween_callback(update_rows).set_delay(0.1)
+
+func is_empty() -> bool:
+	return container.get_child_count() == 0
 
 func update_rows():
 	for i in range(rows_need_update.size()):
