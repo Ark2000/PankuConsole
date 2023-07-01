@@ -10,7 +10,7 @@ func init_module():
 	)
 
 func add_texture_viewer_window(expr:String):
-	print("add_texture_viewer_window(%s)"%expr)
+	#print("add_texture_viewer_window(%s)"%expr)
 	var texture_viewer := texture_viewer_prefab.instantiate()
 	texture_viewer.expr = expr
 	texture_viewer._module = self
