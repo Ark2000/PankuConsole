@@ -7,7 +7,8 @@ signal new_expression_entered(expression:String, result)
 signal new_notification_created(bbcode:String)
 signal toggle_console_action_just_pressed()
 
-const SingletonPath = "/root/Panku"
+const SingletonName = "Panku"
+const SingletonPath = "/root/" + SingletonName
 
 # create_data_controller(objs:Array[Object]) -> PankuLynxWindow
 var create_data_controller_window:Callable = func(objs:Array): return null
@@ -51,8 +52,8 @@ func _ready():
 		PankuModuleDataController.new(),
 		PankuModuleScreenCrtEffect.new(),
 		PankuModuleExpressionMonitor.new(),
-		PankuModuleSceneRootTracker.new(),
-		PankuModuleTextureViewer.new()
+		PankuModuleTextureViewer.new(),
+		PankuModuleVariableTracker.new(),
 	]
 	module_manager.init_manager(self, modules)
 
