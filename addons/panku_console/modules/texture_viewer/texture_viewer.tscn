@@ -1,7 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://diohs08jsami2"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/texture_viewer/texture_viewer.gd" id="1_vljdg"]
-[ext_resource type="Texture2D" uid="uid://cvjqqkymodlb6" path="res://test/img7.jpg" id="2_p8a4d"]
 
 [node name="TextureViewer" type="Control"]
 layout_mode = 3
@@ -19,5 +18,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_p8a4d")
 expand_mode = 1

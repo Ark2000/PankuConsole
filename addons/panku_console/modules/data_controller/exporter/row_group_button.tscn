@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://78evbpdhqe4b"]
+[gd_scene load_steps=8 format=3 uid="uid://78evbpdhqe4b"]
 
 [ext_resource type="Texture2D" uid="uid://ws58gucuygx1" path="res://addons/panku_console/res/icons2/chevron_right.svg" id="1_sddod"]
 [ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_group_button.gd" id="2_7jdni"]
+[ext_resource type="Gradient" uid="uid://nr65cgweqh8n" path="res://addons/panku_console/res/green_gradient_1d.tres" id="3_pgu63"]
 
 [sub_resource type="SystemFont" id="SystemFont_bascj"]
 font_names = PackedStringArray("Sans-Serif")
@@ -13,6 +14,9 @@ variation_embolden = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gpngf"]
 
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bolyj"]
+gradient = ExtResource("3_pgu63")
+
 [node name="GroupButton" type="Button"]
 custom_minimum_size = Vector2(0, 20)
 offset_right = 169.0
@@ -22,6 +26,19 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_gpngf")
 toggle_mode = true
 text = "Group_1"
 icon = ExtResource("1_sddod")
+flat = true
 alignment = 0
 expand_icon = true
 script = ExtResource("2_7jdni")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_bolyj")
+expand_mode = 1
