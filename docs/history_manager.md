@@ -1,12 +1,15 @@
 # History Manager
 
-![](assets/history.png)
+![](./assets/history_manager.png)
 
-Use this feature to view and manage the input history of the REPL Console, you can pin frequently used expressions, merge the string results of multiple expressions, etc.
+Use this tool to view and manage the input history of the developer console, you can pin frequently used expressions and edit which.
 
-They are two ways to history manager window:
+## Related Commands
 
-1. Click the `Open Expression History` button in REPL Console settings window.
-2. Execute `console.open_history` in REPL console to open it.
+- `history_manager.open()`
 
-The history input information will be saved to the configuration file.
+    Open the history manager window.
+
+## Related Files
+
+`panku_console/modules/history_manager/*`

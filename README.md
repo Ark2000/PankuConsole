@@ -1,39 +1,73 @@
-# **Panku Console**
-![](https://badgen.net/badge/Godot%20Compatible/4.0.stable%2B/cyan) ![](https://badgen.net/github/release/Ark2000/PankuConsole)
+![logo](./docs/assets/logo.png)
 
-![logo](docs/assets/title.png)
+---
 
-All-in-One [Godot Engine 4](https://godotengine.org/) runtime debugging tool.
+**Panku Console is a feature-packed real-time debugging toolkit for Godot Engine.** With Panku Console, you can easily interact with your scripts and objects at runtime, whether to cheat, debug, prototype, or just to have fun.
 
-# ✨ **Features**
+Panku Console is designed to be modular and extensible, and it is easy to add and maintain features. It is also designed to be as unobtrusive as possible, so you can use it in your project without worrying about the impact on the final product.
 
-In short, the core function of Panku Console is to dynamically execute some simple expressions while the game is running. Of course, it is much more than that, in fact, Panku Console is a collection of many practical tools. Here is a brief description of its features.
+# Features
 
-✅ **Flexible Multi-window System**. Any windows can be scaled, snapped, dragged and even become an independent os window.
+## Multi-window UI
 
-✅ **Out-of-the-box Developer Console**. No need to define complex commands, enter any expression, execute it and get the result.
+Any windows can be scaled, snapped, collapsed, dragged and even become an independent os window.
 
-✅ **Expression Monitoring**. Create windows to see the results of expressions in real time.
+![ui](./docs/assets/ui.png)
 
-✅ **Quick Key Binding**. Bind expressions to keys for quick cheating.
+## Developer Console
 
-✅ **Popup Notification**. Pop up any message that deserves your attention.
+Allows you to execute arbitrary code at runtime like if you were god.
 
-✅ **Powerful Inspector Generator**. Automatically convert all export properties in your script into an inspector window.
+![console](./docs/assets/console.png)
 
-✅ **History Management**. Manage all your input history, pin or merge history expressions.
+## Native Logger
 
-✅ **Logger System**. Powered by the native file logging system, simple yet powerful.
+View native logs (the same as the editor output panel) in an overlay or a separate window.
 
-![](docs/assets/preview.webp)
+![logger](./docs/assets/logger.png)
 
-# 🧪 **Installation**
+## Data Controller
 
-1. Download [Latest commit](https://github.com/Ark2000/PankuConsole/archive/refs/heads/master.zip) or the stable [Release](https://github.com/Ark2000/PankuConsole/releases) version.
+Automatically convert all export properties in your script into an inspector window.
 
-2. Copy the `addons` folder to your project root directory.
+![data_controller](./docs/assets/data_controller.png)
 
-3. Enable `PankuConsole` in the Godot project addon settings.
+## Expression Monitor
+
+Watch the results of expressions in real time.
+
+![expression_monitor](./docs/assets/expression_monitor.png)
+
+## And More...
+
+- **History Manager**: view history inputs. 
+- **Keyboard Shortcut**: bind expressions to keys for quick cheating.
+- **Screen Notifier**: display popup messages on the screen.
+- **Texture Viewer**: view textures in real time.
+
+Since Panku Console is modular, you can easily remove or add features to suit your needs. 
+
+![modular](./docs/assets/modular.png)
+
+For more detailed information, please read the following:
+
+- [Developer Console](./docs/developer_console.md)
+- [Native Logger](./docs/native_logger.md)
+- [Data Controller](./docs/data_controller.md)
+- [Expression Monitor](./docs/expression_monitor.md)
+- [History Manager](./docs/history_manager.md)
+- [Keyboard Shortcut](./docs/keyboard_shortcut.md)
+- [Texture Viewer](./docs/texture_viewer.md)
+- [Misc Commands](./docs/misc_commands.md)
+- [General Settings](./docs/general_settings.md)
+
+# Installation
+
+1. Download [Latest commit](https://github.com/Ark2000/PankuConsole/archive/refs/heads/master.zip) from Github
+
+2. Copy the `addons` folder to your project root directory
+
+3. Enable this addon within the Godot settings: `Project > Project Settings > Plugins`
 
 Or if you prefer to use git, you can add this [mirror repo](https://github.com/Ark2000/panku_console) as a submodule in your addons folder.
 
@@ -43,44 +77,16 @@ cd addons
 git submodule add https://github.com/Ark2000/panku_console
 ```
 
-
 For more information about plugin installation, you can visit the corresponding [Godot documentation](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html).
 
-> **Note**: Panku Console only supports Godot version 4.x, and I personally do not plan to provide support for 3.x.
+> **Note**: Panku Console currently only supports Godot version 4.x, 3.x support is still in progress.
 
-# 📚 **Quick Start**
+# Contribute
 
-Panku Console is designed to take advantage of Godot's native features as much as possible, to provide as little API as possible, to reduce the intrusiveness of the project, to allow most of the operations to be done at runtime without causing additional burden for the developer, and to use pure GDScript development to maximize applicability and maintenance efficiency.
+Do you want to contribute? Learn more in [the contribution section](./CONTRIBUTING.md).
 
-Panku Console is a collection of many tools, and each tool has its own documentation, so I will not go into details here. If you want to know more about the plugin, you can read the following documents.
+# License
 
-**Content:**
-
-- [Interactive Shell](docs/interactive_shell.md)
-- [Built-in Commands](docs/builtin_commands.md)
-- [Expression Monitor](docs/expression_monitor.md)
-- [Expression Shortcut](docs/expression_shortcut.md)
-- [Generating Inspector Panel](docs/generating_inspector_panel.md)
-- [History Manager](docs/history_manager.md)
-- [Logger](docs/logger.md)
-- [FAQ](docs/faq.md)
-
-> **Note**: if you want to include the plugin in your released game, you may need to make some modifications to avoid players directly accessing internal state.
-
-# **Contributors**
-
-Thanks to these nice [people who contributed to this project](https://github.com/Ark2000/PankuConsole/graphs/contributors), you can also participate in ways including but not limited to:
-
-1. if you find bugs or have any suggestions, you can submit [Issues](https://github.com/Ark2000/PankuConsole/issues)
-
-2. if you have questions, you can discuss them in the [Discussion](https://github.com/Ark2000/PankuConsole/discussions)
-
-3. You can also [Contribute Code](https://github.com/Ark2000/PankuConsole/pulls) directly to this project, please refer to [Recent Commits](https://github.com/Ark2000/PankuConsole/commits/master) for the specification of commit message or [here](https://www.conventionalcommits.org/en/v1.0.0/#summary)
-
-See [CONTRIBUTING](CONTRIBUTING.md) for more details.
-
-# **License**
-
-[MIT License](LICENSE)
+[MIT License](./LICENSE)
 
 Copyright (c) 2022-present, Feo (k2kra) Wu

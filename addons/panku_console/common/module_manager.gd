@@ -18,8 +18,7 @@ func load_modules():
 		var module:PankuModule = _m
 		module.core = _core
 		module._init_module()
-
-	#print("modules: ", _modules_table)
+		#print("[info] %s module loaded!" % module.get_module_name())
 
 func update_modules(delta:float):
 	for _m in _modules:

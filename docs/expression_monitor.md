@@ -1,17 +1,15 @@
 # Expression Monitor
 
-![](assets/monitor.png)
+![](assets/expression_monitor.png)
 
-With the expression monitor, you can watch the string result (or even textures) of an expression in real time.
+With this tool, you can monitor any expression's value in real time. Expressions are grouped to make it easier to manage. You can start/stop, rename and reorder groups.
 
-You can customize the update frequency, window title, etc.
+## Related Commands
 
-If you click on the title bar, the expression will be executed immediately. The update frequency of an expression monitor can be set to 0, so that it becomes a floating button.
+- `expression_monitor.open_window()`
 
-When the project starts running, the plugin will automatically load the status information of all expression monitors from the last run that were save to the configuration file.
+    Open the expression monitor window.
 
-There are two ways to create expression monitors at runtime.
+## Related Files
 
-1. Create it by entering an expression directly in the REPL console and clicking the button to the right of the input box.
-
-2. Create it via a predefined object, specifically `console.add_exp_monitor(...) `.
+`panku_console/modules/expression_monitor/*`
