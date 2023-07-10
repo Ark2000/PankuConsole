@@ -13,7 +13,6 @@ var gui_mode:InputMode = InputMode.Window
 var pause_if_input:bool = true
 var unified_window_visibility:bool = false
 var init_expr:String = ""
-
 var _is_gui_open:bool = false
 
 func get_intro() -> String:
@@ -65,6 +64,8 @@ func init_module():
 	# execute init_expr
 	if init_expr != "":
 		core.gd_exprenv.execute(init_expr)
+	
+	_input_histories = load_module_data("histories", [])
 
 func quit_module():
 	save_window_data(window)
@@ -72,6 +73,7 @@ func quit_module():
 	save_module_data("pause_if_input", pause_if_input)
 	save_module_data("unified_window_visibility", unified_window_visibility)
 	save_module_data("init_expr", init_expr)
+	save_module_data("histories", _input_histories)
 
 func update_gui_state():
 	var is_gui_open = window.visible or simple_launcher.visible
@@ -115,3 +117,14 @@ func set_unified_window_visibility(enabled:bool):
 func set_pause_if_popup(enabled:bool):
 	pause_if_input = enabled
 	update_gui_state()
+
+const MAX_HISTORY = 10
+var _input_histories := []
+
+func get_histories() -> Array:
+	return _input_histories
+
+func add_history(s:String) -> void:
+	_input_histories.append(s)
+	if _input_histories.size() > MAX_HISTORY:
+		_input_histories.remove_at(0)

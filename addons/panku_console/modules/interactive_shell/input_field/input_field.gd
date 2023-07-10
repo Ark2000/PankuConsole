@@ -1,11 +1,8 @@
 extends LineEdit
 
-@onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
-
-const MAX_HISTORY = 10
+var module:PankuModuleInteractiveShell
 
 #up/down history
-var histories := []
 var history_idx := 0
 
 var hints = []
@@ -14,17 +11,17 @@ func _ready():
 	text_submitted.connect(on_text_submitted)
 
 func on_text_submitted(s:String):
+	var histories = module.get_histories()
 	if histories.size() > 0 and history_idx < histories.size() and text == histories[history_idx]:
 		pass
 	else:
-		if histories.size() >= MAX_HISTORY:
-			histories.pop_front()
-		histories.push_back(text)
+		module.add_history(s)
 	history_idx = histories.size()
 	clear()
 
 func _gui_input(e):
 	#navigate through histories
+	var histories = module.get_histories()
 	if hints.is_empty():
 		if e is InputEventKey and e.keycode == KEY_UP and e.pressed:
 			if !histories.is_empty() :

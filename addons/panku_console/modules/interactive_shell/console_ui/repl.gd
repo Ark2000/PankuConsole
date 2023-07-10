@@ -1,6 +1,9 @@
 extends Node
 
-var _module:PankuModule
+var _module:PankuModule:
+	set(v):
+		_module = v
+		_input_area.input.module = v
 
 @export_subgroup("Dependency")
 @export var _input_area:Control
