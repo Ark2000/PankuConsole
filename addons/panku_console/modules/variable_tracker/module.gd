@@ -1,10 +1,14 @@
 class_name PankuModuleVariableTracker extends PankuModule
 
 # The current scene root node, which will be updated automatically when the scene changes.
+# current scene node was determined by node tree index at the beginning.
 var _current_scene_root:Node
+var _current_scene_index := 0
 var _tween_loop:Tween
 
+
 func init_module():
+	_current_scene_index = core.get_tree().root.get_child_count() - 1
 	await core.get_tree().process_frame
 	setup_scene_root_tracker()
 	setup_autoload_tracker()
@@ -24,7 +28,11 @@ func setup_scene_root_tracker():
 	).set_delay(0.1)
 
 func get_scene_root() -> Node:
-	return core.get_tree().root.get_child(core.get_tree().root.get_child_count() - 1)
+	var r := core.get_tree().root
+	if r.get_child_count() > _current_scene_index:
+		return r.get_child(_current_scene_index)
+	else:
+		return null
 
 func setup_autoload_tracker():
 	# read root children, the last child is considered as scene node while others are autoloads.
