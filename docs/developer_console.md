@@ -42,9 +42,9 @@ The auto-completion is currently limited to a single property or function, which
 
 ## Change Key Binding
 
-By default, the developer console is bound to the `toggle_console` action. You can change it in the **input map settings**.
+By default, the developer console is bound to the `~` key. You can change it in the **input map settings**.
 
-Currently there's a bug in Godot (See https://github.com/godotengine/godot/issues/25865). You have to add a random input action first to update the input map list, then you can change the default key binding by modifying the `toggle_console` action.
+Just add a new action named `toggle_console` and bind it to the input events you want like this:
 
 ![](./assets/change_key_binding.png)
 
