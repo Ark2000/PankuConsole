@@ -9,6 +9,7 @@ signal toggle_console_action_just_pressed()
 
 const SingletonName = "Panku"
 const SingletonPath = "/root/" + SingletonName
+const DefaultToggleConsoleAction = "toggle_console"
 
 # create_data_controller(objs:Array[Object]) -> PankuLynxWindow
 var create_data_controller_window:Callable = func(objs:Array): return null
@@ -22,9 +23,13 @@ func notify(any) -> void:
 	var text = str(any)
 	new_notification_created.emit(text)
 
-func _input(_e):
-	# change this to your own action, by default it is `toggle_console`(KEY_QUOTELEFT)
-	if Input.is_action_just_pressed("toggle_console"):
+func _input(e):
+	if InputMap.has_action(DefaultToggleConsoleAction):
+		if Input.is_action_just_pressed(DefaultToggleConsoleAction):
+			toggle_console_action_just_pressed.emit()
+		return
+	if e is InputEventKey and e.keycode == KEY_QUOTELEFT and e.pressed and !e.echo:
+		print("toggled")
 		toggle_console_action_just_pressed.emit()
 
 func _ready():
