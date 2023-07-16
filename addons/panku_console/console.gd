@@ -22,6 +22,13 @@ func notify(any) -> void:
 	var text = str(any)
 	new_notification_created.emit(text)
 
+func _init():
+	if not InputMap.has_action("toggle_console"):
+		InputMap.add_action("toggle_console")
+		var default_open_console_event = InputEventKey.new()
+		default_open_console_event.physical_keycode = KEY_QUOTELEFT
+		InputMap.action_add_event("toggle_console", default_open_console_event)
+
 func _input(_e):
 	# change this to your own action, by default it is `toggle_console`(KEY_QUOTELEFT)
 	if Input.is_action_just_pressed("toggle_console"):
