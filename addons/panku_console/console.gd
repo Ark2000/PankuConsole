@@ -9,7 +9,7 @@ signal toggle_console_action_just_pressed()
 
 const SingletonName = "Panku"
 const SingletonPath = "/root/" + SingletonName
-const DefaultToggleConsoleAction = "toggle_console"
+const ToggleConsoleAction = "toggle_console"
 
 # create_data_controller(objs:Array[Object]) -> PankuLynxWindow
 var create_data_controller_window:Callable = func(objs:Array): return null
@@ -24,12 +24,7 @@ func notify(any) -> void:
 	new_notification_created.emit(text)
 
 func _input(e):
-	if InputMap.has_action(DefaultToggleConsoleAction):
-		if Input.is_action_just_pressed(DefaultToggleConsoleAction):
-			toggle_console_action_just_pressed.emit()
-		return
-	if e is InputEventKey and e.keycode == KEY_QUOTELEFT and e.pressed and !e.echo:
-		print("toggled")
+	if Input.is_action_just_pressed(ToggleConsoleAction):
 		toggle_console_action_just_pressed.emit()
 
 func _ready():
@@ -39,6 +34,13 @@ func _ready():
 	var base_instance = preload("./common/repl_base_instance.gd").new()
 	base_instance._core = self
 	gd_exprenv.set_base_instance(base_instance)
+
+	# add default input action if not defined by user
+	if not InputMap.has_action(ToggleConsoleAction):
+		InputMap.add_action(ToggleConsoleAction)
+		var default_toggle_console_event = InputEventKey.new()
+		default_toggle_console_event.physical_keycode = KEY_QUOTELEFT
+		InputMap.action_add_event(ToggleConsoleAction, default_toggle_console_event)
 
 	# since panku console servers numerous purposes
 	# we use a module system to manage all different features
