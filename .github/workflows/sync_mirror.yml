@@ -1,0 +1,54 @@
+name: Sync archive folder
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+
+  build: 
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - uses: actions/checkout@v2
+
+    - name: Zip archive folder
+      run: |
+        zip -r ../archive.zip ./addons/panku_console
+  
+    - name: Create commit hash file
+      run: |
+        echo $GITHUB_SHA > ../COMMIT_SHA
+
+    - name: Get commit info
+      run: |
+        MSG=$(git log -1 --pretty=%B)
+        echo "::set-output name=commit::$MSG (https://github.com/Ark2000/PankuConsole/commit/$GITHUB_SHA)"
+      id: commit
+
+    - name: Extract archive 
+      uses: actions/checkout@v2
+      with:
+        repository: Ark2000/panku_console
+        token: ${{ secrets.TOKEN }}
+      
+    - run: |
+        rm -rf *
+        unzip ../archive.zip
+        cp -r archive/* ./
+        cp ../COMMIT_SHA ./
+        rm -rf archive
+        ls -a
+
+    - name: Commit and push
+      run: |
+        git config user.name k2kra
+        git config user.email ark2000@foxmail.com
+        git add .
+        git commit -m "SYNC: ${{ steps.commit.outputs.commit }}"
+        git push
+        echo "git push output: $?"
+  
