@@ -26,7 +26,8 @@ jobs:
     - name: Get commit info
       run: |
         MSG=$(git log -1 --pretty=%B)
-        echo "COMMIT_MSG=SYNC: $MSG (https://github.com/Ark2000/PankuConsole/commit/$GITHUB_SHA)" >> $GITHUB_ENV
+        LINK=https://github.com/Ark2000/PankuConsole/commit/
+        echo "SYNC: $MSG (LINK$GITHUB_SHA)" >> ../COMMIT_MSG
 
     - name: Extract archive 
       uses: actions/checkout@v2
@@ -47,7 +48,7 @@ jobs:
         git config user.name k2kra
         git config user.email ark2000@foxmail.com
         git add .
-        git commit -m "$ENV_COMMIT_MSG"
+        git commit -m "$(cat ../COMMIT_MSG))"
         git push
         echo "git push output: $?"
   
