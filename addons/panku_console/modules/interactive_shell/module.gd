@@ -19,7 +19,7 @@ func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
 	intro.append("[font_size=56][color=#ffffff44][b][i]> Panku Console[/i][/b][/color][/font_size]")
 	intro.append("[font_size=18][color=#ffffff44]Feature-Packed Runtime Debugging Toolkit for Godot[/color][/font_size]")
-	intro.append("[font_size=18][color=#ffffff44]Version: %s | Visit [color=#10a00c][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/color][/font_size]" % PankuUtils.get_plugin_version())
+	intro.append("[font_size=18][color=#ffffff44]Version: %s([url=%s][color=#10a00c]%s[/color][/url]) | Visit [color=#10a00c][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/color][/font_size]" % [PankuUtils.get_plugin_version(), PankuUtils.get_commit_url(), PankuUtils.get_commit_sha_short()])
 	return "\n".join(intro)
 
 func init_module():

@@ -69,7 +69,7 @@ For more detailed information, please read the following:
 
 3. Enable this addon within the Godot settings: `Project > Project Settings > Plugins`
 
-Or if you prefer to use git, you can add this [mirror repo](https://github.com/Ark2000/panku_console) as a submodule in your addons folder.
+Or if you prefer to use git(recommended), you can add this [mirror repo](https://github.com/Ark2000/panku_console) as a submodule in your addons folder which will automatically update the addon when you pull the latest changes.
 
 ```bash
 # in your project root directory
