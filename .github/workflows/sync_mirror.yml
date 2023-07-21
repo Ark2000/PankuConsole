@@ -38,9 +38,9 @@ jobs:
     - run: |
         rm -rf *
         unzip ../archive.zip
-        cp -r archive/* ./
+        cp -r addons/panku_console/* ./
         cp ../COMMIT_SHA ./
-        rm -rf archive
+        rm -rf addons
         ls -a
 
     - name: Commit and push
