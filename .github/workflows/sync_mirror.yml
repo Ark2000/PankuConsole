@@ -27,7 +27,7 @@ jobs:
       run: |
         MSG=$(git log -1 --pretty=%B)
         LINK=https://github.com/Ark2000/PankuConsole/commit/
-        echo "SYNC: $MSG (LINK$GITHUB_SHA)" >> ../COMMIT_MSG
+        echo "SYNC: $MSG ($LINK$GITHUB_SHA)" >> ../COMMIT_MSG
 
     - name: Extract archive 
       uses: actions/checkout@v2
