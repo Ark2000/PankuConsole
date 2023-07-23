@@ -1,0 +1,204 @@
+[gd_scene load_steps=26 format=3 uid="uid://dod5det6qv2c"]
+
+[ext_resource type="Texture2D" uid="uid://dm55kg6cqagpr" path="res://example/assets/bootsplash.png" id="1_47h81"]
+[ext_resource type="Script" path="res://example/main.gd" id="1_tbp4r"]
+[ext_resource type="Texture2D" uid="uid://bdb2hq5aehtww" path="res://example/assets/pictures/README/README-1.png" id="2_r8bth"]
+[ext_resource type="Texture2D" uid="uid://dmjrfxhyblam7" path="res://example/assets/pictures/README/README-2.png" id="3_7w8vt"]
+[ext_resource type="Texture2D" uid="uid://qp84pw3wu2q8" path="res://example/assets/pictures/README/README-3.png" id="4_t28a7"]
+[ext_resource type="Texture2D" uid="uid://3wdby0uhe50q" path="res://example/assets/pictures/README/README-4.png" id="5_yd1sh"]
+[ext_resource type="Texture2D" uid="uid://dihvfkemjfrpi" path="res://example/assets/pictures/README/README-5.png" id="6_reaey"]
+[ext_resource type="Texture2D" uid="uid://cudv1bf4cvdgj" path="res://example/assets/pictures/developer_console/developer_console-1.png" id="7_em1n2"]
+[ext_resource type="Texture2D" uid="uid://da42cuold316u" path="res://example/assets/pictures/developer_console/developer_console-2.png" id="8_u8txq"]
+[ext_resource type="Texture2D" uid="uid://bihn4t64p5wx" path="res://example/assets/pictures/developer_console/developer_console-3.png" id="9_w7cpi"]
+[ext_resource type="Texture2D" uid="uid://epserbnagg7b" path="res://example/assets/pictures/developer_console/developer_console-4.png" id="10_nq0vc"]
+[ext_resource type="Texture2D" uid="uid://d264eje3yx255" path="res://example/assets/pictures/native_logger/native_logger-1.png" id="11_l5rj8"]
+[ext_resource type="Texture2D" uid="uid://c0geo87aiwmwu" path="res://example/assets/pictures/native_logger/native_logger-2.png" id="12_m4gik"]
+[ext_resource type="Texture2D" uid="uid://fsjksqqt5pul" path="res://example/assets/pictures/data_controller/data_controller-1.png" id="13_vvkdu"]
+[ext_resource type="Texture2D" uid="uid://4cuulucsj637" path="res://example/assets/pictures/data_controller/data_controller-2.png" id="14_8w5dy"]
+[ext_resource type="Texture2D" uid="uid://3xmxenkkx5oa" path="res://example/assets/pictures/data_controller/data_controller-3.png" id="15_vfhkj"]
+[ext_resource type="Texture2D" uid="uid://bjd5ie54w02w5" path="res://example/assets/pictures/expression_monitor/expression_monitor-1.png" id="16_626au"]
+[ext_resource type="Texture2D" uid="uid://djpwf4ulikfhr" path="res://example/assets/pictures/history_manager/history_manager-1.png" id="17_3ys4b"]
+[ext_resource type="Texture2D" uid="uid://cw0bfqleyqcbr" path="res://example/assets/pictures/keyboard_shortcut/keyboard_shortcut-1.png" id="18_oupm8"]
+[ext_resource type="Texture2D" uid="uid://v45f7og2f5ap" path="res://example/assets/pictures/texture_viewer/texture_viewer-1.png" id="19_p7jhx"]
+[ext_resource type="Texture2D" uid="uid://cgl2jglpwkjj7" path="res://example/assets/pictures/misc_commands/misc_commands-1.png" id="20_cmnae"]
+[ext_resource type="Texture2D" uid="uid://dxotw3c1pa0ik" path="res://example/assets/pictures/misc_commands/misc_commands-2.png" id="21_1ofcl"]
+[ext_resource type="Texture2D" uid="uid://up0y84mpbovk" path="res://example/assets/pictures/general_settings/general_settings-1.png" id="22_teg2y"]
+
+[sub_resource type="GDScript" id="GDScript_8ucs3"]
+script/source = "#Use middle mouse to pan, scale
+extends Camera2D
+
+@export var zoom_speed := 3.0
+
+var pan_mode := false
+var zoom_level := 0.0
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index in [MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE]:
+			if event.pressed:
+				pan_mode = true
+			else:
+				pan_mode = false
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+			set_zoom_level(zoom_level + 0.1)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+			set_zoom_level(zoom_level - 0.1)
+	elif event is InputEventMouseMotion:
+		if pan_mode:
+			position -= event.relative * (1.0/zoom.x)
+
+func set_zoom_level(val:float):
+	var m = get_global_mouse_position()
+	var old_zoom_x = zoom.x
+	zoom_level = val
+	zoom = Vector2.ONE * pow(zoom_speed, zoom_level)
+	#zooming should keep global_mouse_position.
+	position = m - (m - position) * old_zoom_x / zoom.x
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_3sgpx"]
+font_size = 32
+font_color = Color(0.199219, 0.199219, 0.199219, 1)
+
+[node name="main" type="Node2D"]
+texture_filter = 4
+script = ExtResource("1_tbp4r")
+metadata/_edit_vertical_guides_ = [1730.0]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = SubResource("GDScript_8ucs3")
+
+[node name="Bootsplash" type="Sprite2D" parent="."]
+texture = ExtResource("1_47h81")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -420.0
+offset_top = 168.0
+offset_right = 416.0
+offset_bottom = 312.0
+text = "This is a live documentation & playground
+Use mouse button to pan, mouse wheel to zoom
+Press ~ to open dev console"
+label_settings = SubResource("LabelSettings_3sgpx")
+horizontal_alignment = 1
+
+[node name="Document" type="HBoxContainer" parent="."]
+offset_left = 641.0
+offset_top = -361.0
+offset_right = 17207.0
+offset_bottom = 11350.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_r8bth")
+
+[node name="TextureRect2" type="TextureRect" parent="Document/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_7w8vt")
+
+[node name="TextureRect3" type="TextureRect" parent="Document/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_t28a7")
+
+[node name="TextureRect4" type="TextureRect" parent="Document/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_yd1sh")
+
+[node name="TextureRect5" type="TextureRect" parent="Document/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_reaey")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("7_em1n2")
+
+[node name="TextureRect2" type="TextureRect" parent="Document/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("8_u8txq")
+
+[node name="TextureRect3" type="TextureRect" parent="Document/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("9_w7cpi")
+
+[node name="TextureRect4" type="TextureRect" parent="Document/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("10_nq0vc")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("11_l5rj8")
+
+[node name="TextureRect2" type="TextureRect" parent="Document/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("12_m4gik")
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("13_vvkdu")
+
+[node name="TextureRect2" type="TextureRect" parent="Document/VBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("14_8w5dy")
+
+[node name="TextureRect3" type="TextureRect" parent="Document/VBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("15_vfhkj")
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer5"]
+layout_mode = 2
+texture = ExtResource("16_626au")
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer6"]
+layout_mode = 2
+texture = ExtResource("17_3ys4b")
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer7"]
+layout_mode = 2
+texture = ExtResource("18_oupm8")
+
+[node name="VBoxContainer8" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer8"]
+layout_mode = 2
+texture = ExtResource("19_p7jhx")
+
+[node name="VBoxContainer9" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer9"]
+layout_mode = 2
+texture = ExtResource("20_cmnae")
+
+[node name="TextureRect2" type="TextureRect" parent="Document/VBoxContainer9"]
+layout_mode = 2
+texture = ExtResource("21_1ofcl")
+
+[node name="VBoxContainer10" type="VBoxContainer" parent="Document"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer10"]
+layout_mode = 2
+texture = ExtResource("22_teg2y")

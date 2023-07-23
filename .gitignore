@@ -1,12 +1,4 @@
 # Godot 4+ specific ignores
 .godot/
 
-# Others
-stats/
-test/
-icon.svg
-icon.svg.import
-project.godot
-.vscode/
-PankuConsole Plugin.csproj
-PankuConsole Plugin.sln
+export/

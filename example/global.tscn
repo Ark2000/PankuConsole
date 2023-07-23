@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://t73xtgmwoy82"]
+
+[ext_resource type="Script" path="res://example/global.gd" id="1_ghsse"]
+
+[node name="Global" type="CanvasLayer"]
+script = ExtResource("1_ghsse")
