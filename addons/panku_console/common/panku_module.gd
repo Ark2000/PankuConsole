@@ -3,7 +3,7 @@ class_name PankuModule
 var core:PankuConsole
 
 var _env:RefCounted = null
-var _opt:Resource = null
+var _opt:ModuleOptions = null
 
 # dir name of the module
 func get_module_name() -> String:
@@ -15,7 +15,8 @@ func init_module():
 
 # called when the module is unloaded (quit program)
 func quit_module():
-	pass
+	if _opt:
+		_opt.loaded = false
 
 # called at the start of each physics frame
 func update_module(delta:float):
@@ -54,7 +55,7 @@ func save_window_data(window:PankuLynxWindow):
 func get_module_env() -> RefCounted:
 	return _env
 
-func get_module_opt() -> Resource:
+func get_module_opt() -> ModuleOptions:
 	return _opt
 
 func _init_module():
@@ -69,7 +70,9 @@ func _init_module():
 
 	if FileAccess.file_exists(opt_script_path):
 		#print(opt_script_path)
-		_opt = load(opt_script_path).new()
+		_opt = load(opt_script_path).new() as ModuleOptions
 		_opt._module = self
 
 	init_module()
+	if _opt:
+		_opt.loaded = true

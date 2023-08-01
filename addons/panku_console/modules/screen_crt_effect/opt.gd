@@ -1,6 +1,4 @@
-extends Resource
-
-var _module:PankuModule
+extends ModuleOptions
 
 @export_group("screen_crt_effect")
 
