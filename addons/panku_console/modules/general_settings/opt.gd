@@ -1,8 +1,6 @@
-extends Resource
+extends ModuleOptions
 
-var _module:PankuModule
-
-@export_group("common_settings")
+@export_group("general_settings")
 
 @export var window_blur_effect:bool = true:
 	set(v):
