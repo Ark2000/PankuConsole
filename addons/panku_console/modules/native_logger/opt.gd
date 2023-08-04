@@ -21,16 +21,19 @@ func open_window():
 		_module.output_overlay.visible = v
 	get:
 		return _module.output_overlay.visible
+
 @export_range(0.0, 1.0, 0.01) var screen_overlay_alpha:float = 0.5:
 	set(v):
 		_module.output_overlay.modulate.a = v
 	get:
 		return _module.output_overlay.modulate.a
+
 @export_range(8, 24) var screen_overlay_font_size:int = 16:
 	set(v):
 		_module.output_overlay.theme.default_font_size = v
 	get:
 		return _module.output_overlay.theme.default_font_size
+
 @export var screen_overlay_font_shadow:bool = false:
 	set(v):
 		var val = Color.BLACK if v else null

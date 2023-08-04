@@ -53,13 +53,9 @@ func init_module():
 
 
 func quit_module():
+	super.quit_module()
 	save_window_data(window)
-	save_module_data("font_size", get_module_opt().font_size)
-	save_module_data("screen_overlay", get_module_opt().screen_overlay)
-	save_module_data("screen_overlay_alpha", get_module_opt().screen_overlay_alpha)
-	save_module_data("screen_overlay_font_size", get_module_opt().screen_overlay_font_size)
 	save_module_data("screen_overlay_font_shadow", get_module_opt().screen_overlay_font_shadow)
-	save_module_data("font_size", get_module_opt().font_size)
 	save_module_data("logger_tags", logger_ui.get_data())
 
 func open_window():
