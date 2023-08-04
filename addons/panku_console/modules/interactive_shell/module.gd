@@ -14,6 +14,7 @@ var pause_if_input:bool = true
 var unified_window_visibility:bool = false
 var init_expr:String = ""
 var _is_gui_open:bool = false
+var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
@@ -43,8 +44,11 @@ func init_module():
 		func():
 			if gui_mode == InputMode.Window:
 				if window.visible:
+					Input.mouse_mode = _previous_mouse_mode
 					window.hide_window()
 				else:
+					_previous_mouse_mode = Input.mouse_mode
+					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 					window.show_window()
 			elif gui_mode == InputMode.Launcher:
 				simple_launcher.visible = not simple_launcher.visible
