@@ -30,6 +30,10 @@ const lynx_window_shader_material:ShaderMaterial = preload("./lynx_window_shader
 @export var queue_free_on_close := true
 @export var flicker := true
 
+var transform_interp_speed := 40.0
+var bounds_interp_speed := 50.0
+var anim_interp_speed := 10.0
+
 var _is_dragging := false
 var _drag_start_position:Vector2
 var _drag_start_position_global:Vector2
@@ -234,23 +238,23 @@ func _input(e):
 			else:
 				hide()
 
-func _physics_process(_delta):
+func _process(delta: float) -> void:
 	if !no_move and _is_dragging:
-		var tp = position + get_local_mouse_position() - _drag_start_position
-		position = lerp(position, tp, 0.4)
+		var tp := position + get_local_mouse_position() - _drag_start_position
+		position = interp(position, tp, transform_interp_speed, delta)
 	elif !no_resize and _is_resizing:
-		var ts = size + _resize_btn.get_local_mouse_position() - _resize_start_position
+		var ts := size + _resize_btn.get_local_mouse_position() - _resize_start_position
 		ts.x = min(ts.x, get_viewport_rect().size.x)
 		ts.y = min(ts.y, get_viewport_rect().size.y)
 		if !no_resize_x:
-			size.x = lerp(size.x, ts.x, 0.4)
+			size.x = interp(size.x, ts.x, transform_interp_speed, delta)
 		if !no_resize_y:
-			size.y = lerp(size.y, ts.y, 0.4)
+			size.y = interp(size.y, ts.y, transform_interp_speed, delta)
 	elif !no_snap:
-		var window_rect = get_rect()
-		var screen_rect = get_viewport_rect()
-		var target_position = window_rect.position
-		var target_size = window_rect.size.clamp(Vector2.ZERO, screen_rect.size)
+		var window_rect := get_rect()
+		var screen_rect := get_viewport_rect()
+		var target_position := window_rect.position
+		var target_size := window_rect.size.clamp(Vector2.ZERO, screen_rect.size)
 		if window_rect.position.y < 0:
 			target_position.y = 0
 		if window_rect.end.y > screen_rect.end.y:
@@ -262,10 +266,15 @@ func _physics_process(_delta):
 		if window_rect.end.x > screen_rect.end.x:
 			target_position.x = screen_rect.end.x - window_rect.size.x
 		var current_position = window_rect.position
-		current_position = lerp(current_position, target_position, 0.213)
-		size = lerp(size, target_size, 0.213)
+		current_position = interp(current_position, target_position, bounds_interp_speed, delta)
+		size = interp(size, target_size, bounds_interp_speed, delta)
 		position = current_position
 	if _size_animation:
 		if _target_size.is_equal_approx(size):
 			_size_animation = false
-		size = lerp(size, _target_size, 0.2)
+		size = interp(size, _target_size, anim_interp_speed, delta)
+
+
+# Framerate-independent interpolation.
+func interp(from, to, lambda: float, delta: float):
+	return lerp(from, to, 1.0 - exp(-lambda * delta))
