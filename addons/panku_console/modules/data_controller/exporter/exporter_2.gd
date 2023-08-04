@@ -132,7 +132,10 @@ func init_data():
 				if !is_instance_valid(obj):
 					return
 				if prop_name in obj:
-					obj.set(prop_name, val)
+					if obj.has_method("update_setting"):
+						obj.update_setting(prop_name, val)
+					else:
+						obj.set(prop_name, val)
 		)
 
 func init_ui_row(ui_row:Control, property:Dictionary) -> Control:

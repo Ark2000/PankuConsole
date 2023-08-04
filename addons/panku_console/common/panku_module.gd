@@ -16,7 +16,7 @@ func init_module():
 # called when the module is unloaded (quit program)
 func quit_module():
 	if _opt:
-		_opt.loaded = false
+		_opt._loaded = false
 
 # called at the start of each physics frame
 func update_module(delta:float):
@@ -75,4 +75,4 @@ func _init_module():
 
 	init_module()
 	if _opt:
-		_opt.loaded = true
+		_opt._loaded = true
