@@ -15,6 +15,14 @@ func init_module():
 
 	load_window_data(window)
 	key_mapper.load_data(load_module_data("key_mapper", []))
+	key_mapper.key_binding_added.connect(
+		func(key: InputEventKey, expression: String):
+			save_module_data("key_mapper", key_mapper.get_data())
+	)
+	key_mapper.key_binding_changed.connect(
+		func(key: InputEventKey, expression: String):
+			save_module_data("key_mapper", key_mapper.get_data())
+	)
 
 func quit_module():
 	save_window_data(window)
