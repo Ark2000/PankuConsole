@@ -1,7 +1,5 @@
 extends ScrollContainer
 
-signal hint_button_clicked(idx:int)
-
 const hint_pck = preload("./hint.tscn")
 
 const MAX_HEIGHT = 400
@@ -11,8 +9,6 @@ const MAX_HEIGHT = 400
 @export var container:VBoxContainer
 
 var hints_count = 0
-
-var disable_buttons := false
 
 var selected:int = 0:
 	set(v):
@@ -47,7 +43,6 @@ func set_hints(texts:Array):
 			h = hint_pck.instantiate()
 			container.add_child(h)
 			h.set_meta("idx", i)
-			h.button_down.connect(func(): _on_btn_clicked(i))
 		h.label.text = texts[i]
 		h.set_highlight(false)
 	if texts.size() < container.get_child_count():
@@ -57,7 +52,3 @@ func set_hints(texts:Array):
 	if auto_resize:
 		await get_tree().process_frame
 		custom_minimum_size.y = min(MAX_HEIGHT, container.size.y)
-
-func _on_btn_clicked(i:int):
-	if !disable_buttons:
-		hint_button_clicked.emit(i)
