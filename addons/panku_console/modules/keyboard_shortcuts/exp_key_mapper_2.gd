@@ -1,5 +1,8 @@
 extends Control
 
+signal key_binding_added(key: InputEventKey, expression: String)
+signal key_binding_changed(key: InputEventKey, expression: String)
+
 var console:PankuConsole
 
 const exp_key_item := preload("./exp_key_item.tscn")
@@ -10,7 +13,6 @@ const exp_key_item := preload("./exp_key_item.tscn")
 var mapping_data = []
 
 func _ready():
-
 	#when clicking the button, add a new exp key mapping item
 	add_btn.pressed.connect(
 		func():
@@ -48,10 +50,14 @@ func add_item(exp:String, event:InputEventKey):
 	item.exp_edit_submitted.connect(
 		func(new_exp:String):
 			mapping_data[item.get_index()][0] = new_exp
+			if(key_binding_added.get_connections().size() > 0):
+				key_binding_added.emit(event, new_exp)
 	)
 	item.remap_button.key_event_changed.connect(
 		func(new_event:InputEventKey):
 			mapping_data[item.get_index()][1] = new_event
+			if(key_binding_changed.get_connections().size() > 0):
+				key_binding_changed.emit(new_event, mapping_data[item.get_index()][0])
 	)
 	item.tree_exiting.connect(
 		func():
