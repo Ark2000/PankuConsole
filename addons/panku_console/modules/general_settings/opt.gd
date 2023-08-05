@@ -8,7 +8,7 @@ extends ModuleOptions
 	get:
 		return PankuLynxWindow.lynx_window_shader_material.get("shader_parameter/lod") > 0.0
 
-@export var window_color:Color = Color(0.0, 0.0, 0.0, 0.1):
+@export var window_base_color:Color = Color(0.0, 0.0, 0.0, 0.1):
 	set(v):
 		PankuLynxWindow.lynx_window_shader_material.set("shader_parameter/modulate", v)
 	get:
