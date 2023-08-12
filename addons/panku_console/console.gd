@@ -24,7 +24,7 @@ func notify(any) -> void:
 	new_notification_created.emit(text)
 
 func _input(event: InputEvent):
-	if event.is_action(ToggleConsoleAction) and Input.is_action_just_pressed(ToggleConsoleAction):
+	if event.is_action_pressed(ToggleConsoleAction):
 		toggle_console_action_just_pressed.emit()
 
 func _ready():
