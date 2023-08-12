@@ -17,6 +17,6 @@ func add_data_controller_window(objs:Array) -> PankuLynxWindow:
 	var data_controller = exporter_prefab.instantiate()
 	data_controller.objects = objs
 	var new_window:PankuLynxWindow = core.windows_manager.create_window(data_controller)
-	new_window.centered()
+	new_window.position = new_window.get_layout_position(Control.PRESET_BOTTOM_RIGHT)
 	new_window.move_to_front()
 	return new_window

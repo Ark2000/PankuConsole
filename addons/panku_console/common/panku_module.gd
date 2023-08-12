@@ -43,7 +43,17 @@ func has_module_data(key:String) -> bool:
 	return module_data.has(key)
 
 func load_window_data(window:PankuLynxWindow):
-	window.position = load_module_data("window_position", window.get_centered_position())
+	window.position = load_module_data("window_position", window.get_layout_position([
+		Control.PRESET_TOP_LEFT,
+		Control.PRESET_CENTER_TOP,
+		Control.PRESET_TOP_RIGHT,
+		Control.PRESET_CENTER_LEFT,
+		Control.PRESET_CENTER,
+		Control.PRESET_CENTER_RIGHT,
+		Control.PRESET_BOTTOM_LEFT,
+		Control.PRESET_CENTER_BOTTOM,
+		Control.PRESET_BOTTOM_RIGHT,
+	][randi()%9]))
 	window.size = load_module_data("window_size", window.get_normal_window_size())
 	window.set_window_visibility(load_module_data("window_visibility", false))
 

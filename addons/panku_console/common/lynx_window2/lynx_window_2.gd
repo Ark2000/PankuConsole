@@ -50,15 +50,33 @@ func add_options_button(callback:Callable):
 	_options_btn.show()
 	_options_btn.pressed.connect(callback)
 
-func centered():
+func get_layout_position(layout:Control.LayoutPreset) -> Vector2:
 	var window_rect = get_rect()
 	var screen_rect = get_viewport_rect()
-	position = (screen_rect.size - window_rect.size) / 2
-
-func get_centered_position():
-	var window_rect = get_rect()
-	var screen_rect = get_viewport_rect()
-	return (screen_rect.size - window_rect.size) / 2
+	var new_position = Vector2.ZERO
+	var end_position = screen_rect.size - window_rect.size
+	var center_position = end_position / 2
+	if layout == PRESET_TOP_LEFT:
+		pass
+	elif layout == PRESET_CENTER_TOP:
+		new_position.x = center_position.x
+	elif layout == PRESET_TOP_RIGHT:
+		new_position.x = end_position.x
+	elif layout == PRESET_CENTER_LEFT:
+		new_position.y = center_position.y
+	elif layout == PRESET_CENTER:
+		new_position = center_position
+	elif layout == PRESET_CENTER_RIGHT:
+		new_position.x = end_position.x
+		new_position.y = center_position.y
+	elif layout == PRESET_BOTTOM_LEFT:
+		new_position.y = end_position.y
+	elif layout == PRESET_CENTER_BOTTOM:
+		new_position.x = center_position.x
+		new_position.y = end_position.y
+	elif layout == PRESET_BOTTOM_RIGHT:
+		new_position = end_position
+	return new_position
 
 func get_content():
 	return _content

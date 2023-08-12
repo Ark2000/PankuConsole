@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://diohs08jsami2"]
+[gd_scene load_steps=2 format=3 uid="uid://diohs08jsami2"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/texture_viewer/texture_viewer.gd" id="1_vljdg"]
 
