@@ -12,6 +12,7 @@ bg_color = Color(1, 1, 1, 0.12549)
 [node name="LogItem" type="HBoxContainer" node_paths=PackedStringArray("content_label", "amount_label", "amount_panel", "progress_a", "progress_b")]
 offset_right = 320.0
 offset_bottom = 26.0
+mouse_filter = 2
 theme_override_constants/separation = 2
 script = ExtResource("1_2q8bu")
 content_label = NodePath("Content/MarginContainer/RichTextLabel")
@@ -26,11 +27,13 @@ metadata/amount_panel = NodePath("Amount")
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
+mouse_filter = 2
 color = Color(0, 0.752941, 0, 1)
 
 [node name="Content" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1ons3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content"]
@@ -53,20 +56,24 @@ mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 8
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Content/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 text = "yoooooooooo~"
 fit_content = true
 
 [node name="Amount" type="PanelContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1ons3")
 
 [node name="MarginContainer" type="MarginContainer" parent="Amount"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 

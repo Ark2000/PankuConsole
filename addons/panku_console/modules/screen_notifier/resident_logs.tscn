@@ -1,27 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccr06ddwa73ca"]
+[gd_scene load_steps=3 format=3 uid="uid://ccr06ddwa73ca"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/screen_notifier/resident_logs.gd" id="1_uq2bh"]
 
-[node name="ScreenNotifier" type="CanvasLayer" node_paths=PackedStringArray("area_indicator", "container")]
+[sub_resource type="GDScript" id="GDScript_p8loh"]
+script/source = "extends ColorRect
+
+func _ready():
+	queue_free()
+"
+
+[node name="ScreenNotifier" type="CanvasLayer" node_paths=PackedStringArray("named_container", "unnamed_container")]
 script = ExtResource("1_uq2bh")
-area_indicator = NodePath("ResidentLogs/AreaIndicator")
-container = NodePath("ResidentLogs")
+named_container = NodePath("ResidentLogs/Named")
+unnamed_container = NodePath("ResidentLogs/Unnamed")
 
 [node name="ResidentLogs" type="VBoxContainer" parent="."]
-offset_top = 150.0
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -193.0
 offset_right = 244.0
-offset_bottom = 536.0
+offset_bottom = 193.0
+grow_vertical = 0
 mouse_filter = 2
 alignment = 2
 
-[node name="AreaIndicator" type="ColorRect" parent="ResidentLogs"]
+[node name="Indicator" type="ColorRect" parent="ResidentLogs"]
 layout_mode = 2
 size_flags_vertical = 3
-color = Color(1, 0, 0, 0.117647)
+color = Color(1, 0.345098, 0.34902, 1)
+script = SubResource("GDScript_p8loh")
 
-[node name="Label" type="Label" parent="ResidentLogs/AreaIndicator"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-scale = Vector2(1.5, 1.5)
-text = "Notifications Area"
+[node name="Unnamed" type="VBoxContainer" parent="ResidentLogs"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="Named" type="VBoxContainer" parent="ResidentLogs"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
