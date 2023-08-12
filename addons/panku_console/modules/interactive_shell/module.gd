@@ -55,28 +55,28 @@ func init_module():
 	)
 
 	gui_mode = load_module_data("gui_mode", InputMode.Window)
-	pause_if_input = load_module_data("pause_if_input", true)
-	unified_window_visibility = load_module_data("unified_window_visibility", false)
-	init_expr = load_module_data("init_expr", "")
+	pause_if_input = load_module_data("pause_if_popup", true)
+	unified_window_visibility = load_module_data("unified_visibility", false)
+	init_expr = load_module_data("init_expression", "")
 
 	window.visibility_changed.connect(update_gui_state)
 	simple_launcher.visibility_changed.connect(update_gui_state)
 	_is_gui_open = not (window.visible or simple_launcher.visible)
 	update_gui_state()
 
-	get_module_opt().init_expression = load_module_data("init_expr", "")
-	# execute init_expr
+	# execute init_expr after a short delay
 	if init_expr != "":
-		core.gd_exprenv.execute(init_expr)
+		core.create_tween().tween_callback(
+			func():
+				var result = core.gd_exprenv.execute(init_expr)
+				core.new_expression_entered.emit(init_expr, result)
+		).set_delay(0.1)
 	
 	_input_histories = load_module_data("histories", [])
 
 func quit_module():
 	save_window_data(window)
 	save_module_data("gui_mode", gui_mode)
-	save_module_data("pause_if_input", pause_if_input)
-	save_module_data("unified_window_visibility", unified_window_visibility)
-	save_module_data("init_expr", init_expr)
 	save_module_data("histories", _input_histories)
 
 func update_gui_state():

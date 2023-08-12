@@ -23,4 +23,8 @@ extends ModuleOptions
 		return _module.interactive_shell._console_logs.get_font_size()
 
 @export var export_comment_init_expression = "init_expression will be executed when the project starts"
-@export var init_expression:String = ""
+@export var init_expression:String = "":
+	get:
+		return _module.init_expr
+	set(v):
+		_module.init_expr = v

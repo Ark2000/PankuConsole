@@ -15,3 +15,11 @@ static func get_config() -> Dictionary:
 		var config:Dictionary = str_to_var(content)
 		if config: return config
 	return {}
+
+static func get_value(key:String, default:Variant) -> Variant:
+	return get_config().get(key, default)
+	
+static func set_value(key:String, val:Variant) -> void:
+	var config = get_config()
+	config[key] = val
+	set_config(config)

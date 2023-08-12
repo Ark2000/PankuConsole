@@ -32,6 +32,7 @@ expand_icon = true
 script = ExtResource("2_7jdni")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
