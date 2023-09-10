@@ -118,8 +118,14 @@ func update_rows():
 
 		if !row.visible: continue
 		if row.is_active(): continue
-		
-		row.update_ui(obj.get(prop_name))
+
+		if is_instance_valid(obj):
+			row.update_ui(obj.get(prop_name))
+		else:
+			if row.name_label.text.begins_with("(missing)"):
+				continue
+			row.name_label.text = "(missing)" + row.name_label.text
+			row.name_label.modulate=Color("#ae5464")
 
 func init_data():
 	for i in range(rows_need_update.size()):
