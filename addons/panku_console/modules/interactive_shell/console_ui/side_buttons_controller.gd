@@ -10,13 +10,15 @@ func _ready():
 	var unfold_icon = ImageTexture.create_from_image(img)
 	var fold_icon = icon
 	
+	icon = unfold_icon
+	
 	toggled.connect(
 		func(button_pressed:bool):
 			
 			if button_pressed:
-				icon = unfold_icon
-			else:
 				icon = fold_icon
+			else:
+				icon = unfold_icon
 				
 			for node in get_parent().get_children():
 				if not (node is Button):

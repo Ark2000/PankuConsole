@@ -15,6 +15,7 @@ var unified_window_visibility:bool = false
 var init_expr:String = ""
 var _is_gui_open:bool = false
 var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
+var _show_side_menu:bool
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
@@ -58,6 +59,9 @@ func init_module():
 	pause_if_input = load_module_data("pause_if_popup", true)
 	unified_window_visibility = load_module_data("unified_visibility", false)
 	init_expr = load_module_data("init_expression", "")
+	
+	_show_side_menu = load_module_data("show_side_menu", true)
+	set_side_menu_visible(_show_side_menu)
 
 	window.visibility_changed.connect(update_gui_state)
 	simple_launcher.visibility_changed.connect(update_gui_state)
@@ -78,6 +82,7 @@ func quit_module():
 	save_window_data(window)
 	save_module_data("gui_mode", gui_mode)
 	save_module_data("histories", _input_histories)
+	save_module_data("show_side_menu", _show_side_menu)
 
 func update_gui_state():
 	var is_gui_open = window.visible or simple_launcher.visible
@@ -113,6 +118,10 @@ func open_launcher():
 		else:
 			core.notify("The launcher is alreay opened.")
 
+func set_side_menu_visible(enabled:bool):
+	_show_side_menu = enabled
+	interactive_shell.side_buttons.visible = enabled
+	interactive_shell.side_separator.visible = enabled
 
 func set_unified_window_visibility(enabled:bool):
 	unified_window_visibility = enabled

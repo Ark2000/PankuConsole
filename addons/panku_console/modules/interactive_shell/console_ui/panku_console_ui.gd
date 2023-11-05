@@ -3,18 +3,23 @@ extends Control
 @onready var _console_logs = $HBoxContainer/Control/VBoxContainer/ConsoleLogs
 @onready var _repl := $REPL
 @onready var side_button_separator:Node = $HBoxContainer/SideButtons/Space
+@onready var side_buttons:Control = $HBoxContainer/SideButtons
+@onready var side_separator:Control = $HBoxContainer/VSeparator
 
 const side_button_packed := preload("res://addons/panku_console/modules/interactive_shell/console_ui/side_button.tscn")
+const side_menu_config_file_path := "res://addons/panku_console/modules/interactive_shell/side_menu_config.json"
 
 func _ready() -> void:
 	_repl.output.connect(output)
 	
-	add_side_button("native_logger.open()", preload("res://addons/panku_console/res/icons2/info2.svg"), "Debug Logs")
-	add_side_button("expression_monitor.open_window()", preload("res://addons/panku_console/res/icons2/eye.svg"), "Watch Exp")
-	add_side_button("keyboard_shortcuts.open()", preload("res://addons/panku_console/res/icons2/keyboard.svg"), "Shortcut")
-	add_side_button("history_manager.open()", preload("res://addons/panku_console/res/icons2/history.svg"), "History")
+	var config_str := FileAccess.get_file_as_string(side_menu_config_file_path)
+	var cfg:Dictionary = JSON.parse_string(config_str)
 	
-	add_side_button("general_settings.open()", preload("res://addons/panku_console/res/icons2/gear.svg"), "Settings", false)
+	for item in cfg["items.top"]:
+		add_side_button(item["command"], load(item["icon"]), item["text"])
+	for item in cfg["items.bottom"]:
+		add_side_button(item["command"], load(item["icon"]), item["text"], false)
+
 
 ## Output [code]any[/code] to the console
 func output(any):
