@@ -22,7 +22,7 @@ func open_window():
 #	get:
 #		return _module.output_overlay.visible
 
-@export_enum("Always Show", "ShowIfShellVisible", "NeverShow") var screen_overlay:int:
+@export_enum("Always Show", "Show If Shell Visible", "Never Show") var screen_overlay:int:
 	set(v):
 		_module.set_overlay_display_mode(v)
 	get:
