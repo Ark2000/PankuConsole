@@ -28,12 +28,17 @@
 script/source = "#Use middle mouse to pan, scale
 extends Camera2D
 
+@export var input_area:Control
+
 @export var zoom_speed := 3.0
 
 var pan_mode := false
 var zoom_level := 0.0
 
-func _input(event):
+func _ready():
+	input_area.gui_input.connect(handle_input)
+
+func handle_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index in [MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE]:
 			if event.pressed:
@@ -66,8 +71,9 @@ texture_filter = 4
 script = ExtResource("1_tbp4r")
 metadata/_edit_vertical_guides_ = [1730.0]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("input_area")]
 script = SubResource("GDScript_8ucs3")
+input_area = NodePath("../CanvasLayer/Control")
 
 [node name="Bootsplash" type="Sprite2D" parent="."]
 texture = ExtResource("1_47h81")
@@ -202,3 +208,13 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="Document/VBoxContainer10"]
 layout_mode = 2
 texture = ExtResource("22_teg2y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
