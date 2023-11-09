@@ -87,6 +87,7 @@ func quit_module():
 func update_gui_state():
 	var is_gui_open = window.visible or simple_launcher.visible
 	if _is_gui_open != is_gui_open:
+		core._shell_visibility = is_gui_open
 		core.interactive_shell_visibility_changed.emit(is_gui_open)
 		_is_gui_open = is_gui_open
 	if _is_gui_open and pause_if_input:
