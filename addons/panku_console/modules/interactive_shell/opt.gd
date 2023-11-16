@@ -2,6 +2,13 @@ extends ModuleOptions
 
 @export_group("interactive_shell")
 
+@export var export_comment_show_side_menu = "config file at side_menu_config.json"
+@export var show_side_menu:bool:
+	get:
+		return _module._show_side_menu
+	set(v):
+		_module.set_side_menu_visible(v)
+
 @export var export_comment_unified_visibility = "unified_visibility will keep all windows' visibility the same as interative shell"
 @export var unified_visibility:bool = false:
 	get:

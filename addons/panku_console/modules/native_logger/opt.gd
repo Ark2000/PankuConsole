@@ -16,11 +16,18 @@ func open_window():
 	get:
 		return _module.logger_ui.rlabel.theme.default_font_size
 
-@export var screen_overlay:bool = true:
+#@export var screen_overlay:bool = true:
+#	set(v):
+#		_module.output_overlay.visible = v
+#	get:
+#		return _module.output_overlay.visible
+
+@export_enum("Always Show", "Show If Shell Visible", "Never Show") var screen_overlay:int:
 	set(v):
-		_module.output_overlay.visible = v
+		_module.set_overlay_display_mode(v)
 	get:
-		return _module.output_overlay.visible
+		return _module.output_overlay_display_mode
+
 
 @export_range(0.0, 1.0, 0.01) var screen_overlay_alpha:float = 0.5:
 	set(v):

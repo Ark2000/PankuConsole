@@ -15,12 +15,13 @@ var unified_window_visibility:bool = false
 var init_expr:String = ""
 var _is_gui_open:bool = false
 var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
+var _show_side_menu:bool
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
 	intro.append("[font_size=56][color=#ffffff44][b][i]> Panku Console[/i][/b][/color][/font_size]")
 	intro.append("[font_size=18][color=#ffffff44]Feature-Packed Runtime Debugging Toolkit for Godot[/color][/font_size]")
-	intro.append("[font_size=18][color=#ffffff44]Version: %s([url=%s][color=#10a00c]%s[/color][/url]) | Visit [color=#10a00c][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/color][/font_size]" % [PankuUtils.get_plugin_version(), PankuUtils.get_commit_url(), PankuUtils.get_commit_sha_short()])
+	intro.append("[font_size=18][color=#ffffff44]Version: %s([url=%s][color=#10a00c]%s[/color][/url]) | Visit [color=#3feeb6][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/color][/font_size]" % [PankuUtils.get_plugin_version(), PankuUtils.get_commit_url(), PankuUtils.get_commit_sha_short()])
 	return "\n".join(intro)
 
 func init_module():
@@ -58,6 +59,9 @@ func init_module():
 	pause_if_input = load_module_data("pause_if_popup", true)
 	unified_window_visibility = load_module_data("unified_visibility", false)
 	init_expr = load_module_data("init_expression", "")
+	
+	_show_side_menu = load_module_data("show_side_menu", true)
+	set_side_menu_visible(_show_side_menu)
 
 	window.visibility_changed.connect(update_gui_state)
 	simple_launcher.visibility_changed.connect(update_gui_state)
@@ -78,10 +82,12 @@ func quit_module():
 	save_window_data(window)
 	save_module_data("gui_mode", gui_mode)
 	save_module_data("histories", _input_histories)
+	save_module_data("show_side_menu", _show_side_menu)
 
 func update_gui_state():
 	var is_gui_open = window.visible or simple_launcher.visible
 	if _is_gui_open != is_gui_open:
+		core._shell_visibility = is_gui_open
 		core.interactive_shell_visibility_changed.emit(is_gui_open)
 		_is_gui_open = is_gui_open
 	if _is_gui_open and pause_if_input:
@@ -113,6 +119,10 @@ func open_launcher():
 		else:
 			core.notify("The launcher is alreay opened.")
 
+func set_side_menu_visible(enabled:bool):
+	_show_side_menu = enabled
+	interactive_shell.enable_side_menu = enabled
+	interactive_shell.resized.emit()
 
 func set_unified_window_visibility(enabled:bool):
 	unified_window_visibility = enabled

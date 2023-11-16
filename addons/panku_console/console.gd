@@ -17,6 +17,7 @@ var create_data_controller_window:Callable = func(objs:Array): return null
 var windows_manager:PankuLynxWindowsManager
 var module_manager:PankuModuleManager = PankuModuleManager.new()
 var gd_exprenv:PankuGDExprEnv = PankuGDExprEnv.new()
+var _shell_visibility := false
 
 # notification whose id>=0 will be fixed to the bottom of the notification list
 # useful for loop print
@@ -24,6 +25,9 @@ var gd_exprenv:PankuGDExprEnv = PankuGDExprEnv.new()
 func notify(any, id=-1) -> void:
 	var text = str(any)
 	new_notification_created.emit(text, id)
+
+func get_shell_visibility() -> bool:
+	return _shell_visibility
 
 func _input(event: InputEvent):
 	if event.is_action_pressed(ToggleConsoleAction):
@@ -63,6 +67,7 @@ func _ready():
 		PankuModuleExpressionMonitor.new(),
 		PankuModuleTextureViewer.new(),
 		PankuModuleVariableTracker.new(),
+		PankuModuleAbout.new(),
 	]
 	module_manager.init_manager(self, modules)
 

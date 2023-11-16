@@ -1,0 +1,36 @@
+{
+	"items.top":[
+		{
+			"text": "Debug Logs",
+			"icon": "res://addons/panku_console/res/icons2/info2.svg",
+			"command": "native_logger.open()"
+		},
+		{
+			"text": "Watch Exp",
+			"icon": "res://addons/panku_console/res/icons2/eye.svg",
+			"command": "expression_monitor.open_window()"
+		},
+		{
+			"text": "Shortcut",
+			"icon": "res://addons/panku_console/res/icons2/keyboard.svg",
+			"command": "keyboard_shortcuts.open()"
+		},
+		{
+			"text": "History",
+			"icon": "res://addons/panku_console/res/icons2/history.svg",
+			"command": "history_manager.open()"
+		}
+	],
+	"items.bottom":[
+		{
+			"text": "Settings",
+			"icon": "res://addons/panku_console/res/icons2/gear.svg",
+			"command": "general_settings.open()"
+		},
+		{
+			"text": "About",
+			"icon": "res://addons/panku_console/res/icons2/question.svg",
+			"command": "about.open()"
+		}
+	]
+}

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=25 format=3 uid="uid://bk18yfu0d77wk"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://bk18yfu0d77wk"]
 
 [ext_resource type="Texture2D" uid="uid://bua84a0uv8ntw" path="res://addons/panku_console/res/icons2/checkbox_checked.svg" id="1_pq2ss"]
 [ext_resource type="Texture2D" uid="uid://dkiyle8rjahmw" path="res://addons/panku_console/res/icons2/checkbox_unchecked.svg" id="2_svie5"]
@@ -87,6 +87,9 @@ draw_center = false
 border_width_left = 2
 border_color = Color(0.8, 0.8, 0.8, 0.12549)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcc4x"]
+bg_color = Color(0.317647, 0.317647, 0.317647, 0.901961)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37w0u"]
 bg_color = Color(1, 1, 1, 0.501961)
 
@@ -127,6 +130,9 @@ LineEdit/font_sizes/font_size = 14
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_36yn6")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_1hrnt")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_xot6g")
+PopupMenu/icons/radio_checked = ExtResource("1_pq2ss")
+PopupMenu/icons/radio_unchecked = ExtResource("2_svie5")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_bcc4x")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_37w0u")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_mhjmb")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_iamty")

@@ -1,5 +1,21 @@
 # Change Log
 
+## [1.7.0] - 2023-11-16
+
+### Added
+
+- Track autoload variables and current scene automatically.
+- Resident nofitications with id.
+- Add side menu to dev console.
+
+### Changed
+
+- Better support for FPS-like games.
+
+### Fixed
+
+- Tons of bug fix.
+
 ## [1.5.161] - 2023-07-01
 
 A total refactor of previous version by modularizing the code and adding more features. Now the project is much more readable, maintainable and extensible.

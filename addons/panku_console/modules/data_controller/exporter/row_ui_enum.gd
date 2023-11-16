@@ -13,6 +13,11 @@ func _ready():
 		func(index:int):
 			ui_val_changed.emit(index)
 	)
+	
+	# wtf, transparent background is a mess
+	var popup := opt_btn.get_popup()
+	popup.transparent_bg = true
+	popup.transparent = true
 
 func setup(params := []):
 	opt_btn.clear()
