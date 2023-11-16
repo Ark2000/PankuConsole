@@ -121,8 +121,8 @@ func open_launcher():
 
 func set_side_menu_visible(enabled:bool):
 	_show_side_menu = enabled
-	interactive_shell.side_buttons.visible = enabled
-	interactive_shell.side_separator.visible = enabled
+	interactive_shell.enable_side_menu = enabled
+	interactive_shell.resized.emit()
 
 func set_unified_window_visibility(enabled:bool):
 	unified_window_visibility = enabled

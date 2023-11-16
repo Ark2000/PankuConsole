@@ -9,6 +9,8 @@ extends Control
 const side_button_packed := preload("res://addons/panku_console/modules/interactive_shell/console_ui/side_button.tscn")
 const side_menu_config_file_path := "res://addons/panku_console/modules/interactive_shell/side_menu_config.json"
 
+var enable_side_menu := true
+
 func _ready() -> void:
 	_repl.output.connect(output)
 	
@@ -20,6 +22,13 @@ func _ready() -> void:
 	for item in cfg["items.bottom"]:
 		add_side_button(item["command"], load(item["icon"]), item["text"], false)
 
+	resized.connect(
+		func():
+			var vis := side_buttons.get_minimum_size().y < size.y
+			vis = vis and enable_side_menu
+			side_buttons.visible = vis
+			side_separator.visible = vis
+	)
 
 ## Output [code]any[/code] to the console
 func output(any):
