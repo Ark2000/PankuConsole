@@ -26,6 +26,11 @@
 			"text": "Settings",
 			"icon": "res://addons/panku_console/res/icons2/gear.svg",
 			"command": "general_settings.open()"
+		},
+		{
+			"text": "About",
+			"icon": "res://addons/panku_console/res/icons2/question.svg",
+			"command": "about.open()"
 		}
 	]
 }

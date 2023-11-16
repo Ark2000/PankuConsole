@@ -67,6 +67,7 @@ func _ready():
 		PankuModuleExpressionMonitor.new(),
 		PankuModuleTextureViewer.new(),
 		PankuModuleVariableTracker.new(),
+		PankuModuleAbout.new(),
 	]
 	module_manager.init_manager(self, modules)
 
