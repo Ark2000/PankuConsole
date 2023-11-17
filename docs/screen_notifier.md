@@ -2,7 +2,11 @@
 
 Here's a short video demonstrating its functionalities.
 
-![screen notifier demo](./assets/screen_notifier_demo.mp4)
+
+
+https://github.com/Ark2000/PankuConsole/assets/21126555/c0f116c7-8d6d-4383-817d-b28858aca138
+
+
 
 You can use screen notifier to send one-off popup style notifications or durable resident notifications, simple yet powerful.
 
