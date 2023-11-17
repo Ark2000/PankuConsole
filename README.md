@@ -64,6 +64,7 @@ For more detailed information, please read the following:
 - [Texture Viewer](./docs/texture_viewer.md)
 - [Misc Commands](./docs/misc_commands.md)
 - [General Settings](./docs/general_settings.md)
+- [Screen Notifier](./docs/screen_notifier.md)
 
 # Installation 🚀
 
