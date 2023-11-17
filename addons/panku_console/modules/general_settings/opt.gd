@@ -1,8 +1,6 @@
-extends Resource
+extends ModuleOptions
 
-var _module:PankuModule
-
-@export_group("common_settings")
+@export_group("general_settings")
 
 @export var window_blur_effect:bool = true:
 	set(v):
@@ -10,7 +8,7 @@ var _module:PankuModule
 	get:
 		return PankuLynxWindow.lynx_window_shader_material.get("shader_parameter/lod") > 0.0
 
-@export var window_color:Color = Color(0.0, 0.0, 0.0, 0.1):
+@export var window_base_color:Color = Color(0.0, 0.0, 0.0, 0.1):
 	set(v):
 		PankuLynxWindow.lynx_window_shader_material.set("shader_parameter/modulate", v)
 	get:

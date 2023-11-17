@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://drn5t13m088fb"]
+
+[ext_resource type="Texture2D" uid="uid://dxvodkcmn4pa8" path="res://addons/panku_console/res/icons2/info.svg" id="1_xgo55"]
+[ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/console_ui/side_button.gd" id="2_qwmig"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(32, 32)
+icon = ExtResource("1_xgo55")
+script = ExtResource("2_qwmig")

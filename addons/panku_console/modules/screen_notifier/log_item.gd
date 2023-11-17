@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-var life = 3.0
+var life = 2.0
 
 var amount := 1:
 	set(v):

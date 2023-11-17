@@ -3,7 +3,7 @@ class_name PankuModule
 var core:PankuConsole
 
 var _env:RefCounted = null
-var _opt:Resource = null
+var _opt:ModuleOptions = null
 
 # dir name of the module
 func get_module_name() -> String:
@@ -15,7 +15,8 @@ func init_module():
 
 # called when the module is unloaded (quit program)
 func quit_module():
-	pass
+	if _opt:
+		_opt._loaded = false
 
 # called at the start of each physics frame
 func update_module(delta:float):
@@ -42,7 +43,17 @@ func has_module_data(key:String) -> bool:
 	return module_data.has(key)
 
 func load_window_data(window:PankuLynxWindow):
-	window.position = load_module_data("window_position", window.get_centered_position())
+	window.position = load_module_data("window_position", window.get_layout_position([
+		Control.PRESET_TOP_LEFT,
+		Control.PRESET_CENTER_TOP,
+		Control.PRESET_TOP_RIGHT,
+		Control.PRESET_CENTER_LEFT,
+		Control.PRESET_CENTER,
+		Control.PRESET_CENTER_RIGHT,
+		Control.PRESET_BOTTOM_LEFT,
+		Control.PRESET_CENTER_BOTTOM,
+		Control.PRESET_BOTTOM_RIGHT,
+	][randi()%9]))
 	window.size = load_module_data("window_size", window.get_normal_window_size())
 	window.set_window_visibility(load_module_data("window_visibility", false))
 
@@ -54,7 +65,7 @@ func save_window_data(window:PankuLynxWindow):
 func get_module_env() -> RefCounted:
 	return _env
 
-func get_module_opt() -> Resource:
+func get_module_opt() -> ModuleOptions:
 	return _opt
 
 func _init_module():
@@ -69,7 +80,9 @@ func _init_module():
 
 	if FileAccess.file_exists(opt_script_path):
 		#print(opt_script_path)
-		_opt = load(opt_script_path).new()
+		_opt = load(opt_script_path).new() as ModuleOptions
 		_opt._module = self
 
 	init_module()
+	if _opt:
+		_opt._loaded = true

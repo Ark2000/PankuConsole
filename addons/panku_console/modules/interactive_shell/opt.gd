@@ -1,8 +1,13 @@
-extends Resource
-
-var _module:PankuModule
+extends ModuleOptions
 
 @export_group("interactive_shell")
+
+@export var export_comment_show_side_menu = "config file at side_menu_config.json"
+@export var show_side_menu:bool:
+	get:
+		return _module._show_side_menu
+	set(v):
+		_module.set_side_menu_visible(v)
 
 @export var export_comment_unified_visibility = "unified_visibility will keep all windows' visibility the same as interative shell"
 @export var unified_visibility:bool = false:
@@ -25,4 +30,8 @@ var _module:PankuModule
 		return _module.interactive_shell._console_logs.get_font_size()
 
 @export var export_comment_init_expression = "init_expression will be executed when the project starts"
-@export var init_expression:String = ""
+@export var init_expression:String = "":
+	get:
+		return _module.init_expr
+	set(v):
+		_module.init_expr = v

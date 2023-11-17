@@ -17,5 +17,5 @@ func add_texture_viewer_window(expr:String):
 	var window:PankuLynxWindow = core.windows_manager.create_window(texture_viewer)
 	window.queue_free_on_close = true
 	window.set_window_title_text("Texture: " + expr)
-	window.centered()
+	window.position = window.get_layout_position(Control.PRESET_BOTTOM_LEFT)
 	window.move_to_front()

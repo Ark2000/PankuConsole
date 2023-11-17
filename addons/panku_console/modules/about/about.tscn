@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgwg3foes57mq"]
+
+[ext_resource type="Script" path="res://addons/panku_console/modules/about/about.gd" id="1_kpix3"]
+[ext_resource type="PackedScene" uid="uid://dyq4rjkkjs55d" path="res://addons/panku_console/common/smooth_scroll/smooth_scroll.tscn" id="2_sev6e"]
+[ext_resource type="Texture2D" uid="uid://rkxm4c3bbf34" path="res://addons/panku_console/logo.svg" id="3_eycho"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x88v0"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="about" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kpix3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.12549)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_eycho")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="SmoothScrollContainer" parent="." instance=ExtResource("2_sev6e")]
+layout_mode = 1
+follow_content = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SmoothScrollContainer/HBoxContainer/Control" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_x88v0")
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Project Page"
+
+[node name="Button2" type="Button" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Check Update"
+
+[editable path="SmoothScrollContainer"]

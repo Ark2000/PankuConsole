@@ -4,7 +4,7 @@ class_name PankuConsole extends CanvasLayer
  
 signal interactive_shell_visibility_changed(visible:bool)
 signal new_expression_entered(expression:String, result)
-signal new_notification_created(bbcode:String)
+signal new_notification_created(bbcode:String, id:int)
 signal toggle_console_action_just_pressed()
 
 const SingletonName = "Panku"
@@ -17,14 +17,20 @@ var create_data_controller_window:Callable = func(objs:Array): return null
 var windows_manager:PankuLynxWindowsManager
 var module_manager:PankuModuleManager = PankuModuleManager.new()
 var gd_exprenv:PankuGDExprEnv = PankuGDExprEnv.new()
+var _shell_visibility := false
 
-# generate a notification, the notification may be displayed in the console or in the game depending on the module's implementation
-func notify(any) -> void:
+# notification whose id>=0 will be fixed to the bottom of the notification list
+# useful for loop print
+# you can use `get_instance_id()` as notification's unique id
+func notify(any, id=-1) -> void:
 	var text = str(any)
-	new_notification_created.emit(text)
+	new_notification_created.emit(text, id)
 
-func _input(e):
-	if Input.is_action_just_pressed(ToggleConsoleAction):
+func get_shell_visibility() -> bool:
+	return _shell_visibility
+
+func _input(event: InputEvent):
+	if event.is_action_pressed(ToggleConsoleAction):
 		toggle_console_action_just_pressed.emit()
 
 func _ready():
@@ -61,6 +67,7 @@ func _ready():
 		PankuModuleExpressionMonitor.new(),
 		PankuModuleTextureViewer.new(),
 		PankuModuleVariableTracker.new(),
+		PankuModuleAbout.new(),
 	]
 	module_manager.init_manager(self, modules)
 

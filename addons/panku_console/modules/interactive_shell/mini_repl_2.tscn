@@ -52,6 +52,8 @@ layout_mode = 2
 
 [node name="Label" parent="HelpBar" index="0"]
 layout_mode = 1
+anchors_preset = 15
+offset_left = 0.0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2

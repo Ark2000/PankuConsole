@@ -2,7 +2,7 @@
 class_name PankuLynxWindowsManager extends Control
 
 const CFG_ENABLE_OS_WINDOW = "enable_os_window"
-const CFG_OS_WINDOW_BGCOLOR = "os_window_bgcolor"
+const CFG_OS_WINDOW_BGCOLOR = "os_window_bg_color"
 
 @onready var console:PankuConsole = get_node(PankuConsole.SingletonPath)
 
