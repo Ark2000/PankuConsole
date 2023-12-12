@@ -1,3 +1,5 @@
+signal game_over
+
 const MAP_SIZE = 24
 
 const DIR_REV = {
@@ -5,12 +7,6 @@ const DIR_REV = {
 	Vector2.RIGHT: Vector2.LEFT,
 	Vector2.UP: Vector2.DOWN,
 	Vector2.DOWN: Vector2.UP,
-}
-
-enum MapMatrixCell {
-	EMPTY,
-	APPLE,
-	SNAKE,
 }
 
 var snake_dict:Dictionary
@@ -60,9 +56,10 @@ func tick(input_dir:Vector2):
 	# check if collide with self
 	if snake_dict.has(new_head):
 		# game over, restart
+		game_over.emit()
 		init()
 		return
-	
+
 	# add new head
 	snake_arr.push_front(new_head)
 	snake_dict[new_head] = 0

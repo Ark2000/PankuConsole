@@ -1,7 +1,7 @@
 extends Control
 
 const CELL_SIZE = 12
-const COLOR_EMPTY = Color(0.0, 0.0, 0.0, 0.5)
+const COLOR_EMPTY = Color(0.0, 0.0, 0.0, 0.0)
 const COLOR_APPLE = Color8(255, 112, 133)
 const COLOR_SNAKE = preload("./snake_gradient.tres")
 
