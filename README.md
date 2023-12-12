@@ -90,7 +90,7 @@ For more information about plugin installation, you can visit the corresponding 
 
 Do you want to contribute? Learn more in [the contribution section](./CONTRIBUTING.md). 🌟🙌
 
-Also, see [Project Roadmap]([./docs/roadmap.md](https://github.com/Ark2000/PankuConsole/discussions/152)) for more information about the development plan of this project.
+Also, see [Project Roadmap](https://github.com/Ark2000/PankuConsole/discussions/152) for more information about the development plan.
 
 # License 📜
 
