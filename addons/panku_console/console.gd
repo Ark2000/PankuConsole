@@ -68,6 +68,7 @@ func _ready():
 		PankuModuleTextureViewer.new(),
 		PankuModuleVariableTracker.new(),
 		PankuModuleAbout.new(),
+		PankuModuleSnakeGame.new(),
 	]
 	module_manager.init_manager(self, modules)
 

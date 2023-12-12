@@ -25,11 +25,10 @@ const CFG_LOGGER_OUTPUT_FONT_SIZE = "logger_output_font_size"
 func add_log(message:String, level:int):
 	#add prefix
 	if level == 2:
-		message = "[warning] " + message
+		message = "[bgcolor=yellow][color=black][warning][/color][/bgcolor] " + message
 	elif level == 3:
-		message = "[error] " + message
-	
-	
+		message = "[bgcolor=red][error][/bgcolor] " + message
+
 	#update tags
 	for tag in tags_container.get_children():
 		tag.check(message)

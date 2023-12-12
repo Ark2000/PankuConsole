@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://du6m05vxpcubk"]
+
+[ext_resource type="Script" path="res://addons/panku_console/modules/snake/snake_ui.gd" id="1_0yq81"]
+
+[node name="SnakeUI" type="Control" node_paths=PackedStringArray("tex_rect")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0yq81")
+tex_rect = NodePath("Snake")
+
+[node name="Snake" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
