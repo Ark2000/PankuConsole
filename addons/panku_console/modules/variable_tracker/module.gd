@@ -91,7 +91,7 @@ func _check_current_scene() -> void:
 ## Find the root node of current active scene.
 func get_scene_root() -> Node:
 	# Assuming current scene is the first node in tree that is not autoload singleton.
-	for node:Node in core.get_tree().root.get_children():
+	for node in core.get_tree().root.get_children():
 		if not _is_singleton(node):
 			return node
 
@@ -102,7 +102,7 @@ func get_scene_root() -> Node:
 func _check_autoloads() -> void:
 	var _user_singleton_names := []
 
-	for node:Node in core.get_tree().root.get_children():
+	for node in core.get_tree().root.get_children():
 		if node.name == core.SingletonName:
 			# skip panku plugin itself
 			continue
