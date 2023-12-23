@@ -3,6 +3,7 @@ class_name PankuModuleGeneralSettings extends PankuModule
 var window:PankuLynxWindow
 
 func open_settings_window():
+	if window: return
 	# create a new exporter window
 	window = core.create_data_controller_window.call(
 		core.module_manager.get_module_option_objects()
