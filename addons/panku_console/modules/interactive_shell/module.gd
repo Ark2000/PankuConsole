@@ -88,6 +88,7 @@ func init_module():
 	_input_histories = load_module_data("histories", [])
 
 func quit_module():
+	super.quit_module()
 	save_window_data(window)
 	save_module_data("gui_mode", gui_mode)
 	save_module_data("histories", _input_histories)

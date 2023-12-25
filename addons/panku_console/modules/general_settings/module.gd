@@ -25,6 +25,6 @@ func init_module():
 	get_module_opt().os_window_bg_color = load_module_data("os_window_bg_color", Color(0, 0, 0, 0))
 
 func quit_module():
-	super._init_module()
+	super.quit_module()
 	if window:
 		save_window_data(window)

@@ -12,6 +12,7 @@ func init_module():
 	}]))
 
 func quit_module():
+	super.quit_module()
 	save_window_data(monitor_window)
 	save_module_data("monitor_data", monitor.monitor_groups_ui.get_persistent_data())
 

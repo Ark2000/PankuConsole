@@ -25,6 +25,7 @@ func init_module():
 	)
 
 func quit_module():
+	super.quit_module()
 	save_window_data(window)
 	save_module_data("key_mapper", key_mapper.get_data())
 

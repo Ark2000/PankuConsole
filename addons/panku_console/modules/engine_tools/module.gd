@@ -23,6 +23,7 @@ func take_screenshot() -> void:
 	core.notify("[b]Screenshot[/b] saved at [color=green][url=%s]%s[/url][/color]" % [real_path, real_path])
 
 func quit() -> void:
+	core.get_tree().root.propagate_notification(core.NOTIFICATION_WM_CLOSE_REQUEST)
 	core.get_tree().quit()
 
 # Currently godot can't toggle visibility of 2D collision shapes at runtime, this is a workaround.

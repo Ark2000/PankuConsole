@@ -10,9 +10,18 @@ func init_manager(_core:PankuConsole, _modules:Array[PankuModule]):
 	load_modules()
 
 func load_modules():
+
+	# The extra tree structure is purely used for avoiding using RefCounted which may cause uncessary leaked instance warnings.
+	var manager_node:Node = Node.new()
+	manager_node.name = "_Modules_"
+	_core.add_child(manager_node)
+
 	for _m in _modules:
 		var module:PankuModule = _m
 		_modules_table[module.get_module_name()] = module
+
+		module.name = module.get_module_name()
+		manager_node.add_child(module)
 
 	for _m in _modules:
 		var module:PankuModule = _m

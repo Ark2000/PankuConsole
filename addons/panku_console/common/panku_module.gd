@@ -1,4 +1,5 @@
-class_name PankuModule
+class_name PankuModule extends Node
+# extends Node: A hacky way to avoid cyclic RefCounted verbose warnings which is uncessary to worry about.
 
 var core:PankuConsole
 
