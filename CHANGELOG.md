@@ -1,5 +1,23 @@
 # Change Log
 
+## [1.7.7] - 2024-01-07
+
+- [x] **Feat: a snake game?**
+See dc5d180, d08b9d6
+- [x] **Improve: reworked variable tracker to adapt to more complicated scenarios**
+See  #153  
+#154
+- [x] **Bugfix: uncaptured mouse in FPS games.**
+See #147 
+- [x] **Bugfix: ObjectDB instances leaked at exit.**
+See #150 
+- [x] **Bugfix: `Panku.notify` invalid tween.**
+See #139 
+- [x] **Bugfix: Assigning a key to an expression will trigger immediately.**
+See #155 
+- [x] **Bugfix: Open settings window twice and close then will cause crash**
+See #156 
+
 ## [1.7.0] - 2023-11-16
 
 ### Added
