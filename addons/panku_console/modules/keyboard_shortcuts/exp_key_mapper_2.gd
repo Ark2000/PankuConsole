@@ -21,7 +21,7 @@ func _ready():
 			add_item(default_exp, default_event)
 			mapping_data.push_back([default_exp, default_event])
 	)
-	
+
 #handle input here.
 func _unhandled_input(e):
 	if e is InputEventKey:
@@ -55,6 +55,7 @@ func add_item(exp:String, event:InputEventKey):
 	)
 	item.remap_button.key_event_changed.connect(
 		func(new_event:InputEventKey):
+			await get_tree().process_frame
 			mapping_data[item.get_index()][1] = new_event
 			if(key_binding_changed.get_connections().size() > 0):
 				key_binding_changed.emit(new_event, mapping_data[item.get_index()][0])

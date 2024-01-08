@@ -3,6 +3,7 @@ class_name PankuModuleGeneralSettings extends PankuModule
 var window:PankuLynxWindow
 
 func open_settings_window():
+	if window: return
 	# create a new exporter window
 	window = core.create_data_controller_window.call(
 		core.module_manager.get_module_option_objects()
@@ -24,6 +25,6 @@ func init_module():
 	get_module_opt().os_window_bg_color = load_module_data("os_window_bg_color", Color(0, 0, 0, 0))
 
 func quit_module():
-	super._init_module()
+	super.quit_module()
 	if window:
 		save_window_data(window)

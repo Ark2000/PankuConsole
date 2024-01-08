@@ -1,54 +1,128 @@
 class_name PankuModuleVariableTracker extends PankuModule
+## Module to register and update some common environments.
+##
+## On module startup current scene root node registered as 'current' environment var,
+## for more convenient access from interactive shell. Module constantly monitoring node
+## tree afterwards and auto rebind 'current' environment in case of current scene changed.
+## Also all user autoload singletons registered with its root node names.
 
-# The current scene root node, which will be updated automatically when the scene changes.
-# current scene node was determined by node tree index at the beginning.
+const PROJECT_AUTOLOAD_PREFIX := "autoload/"
+const CURRENT_SCENE_ENV := "current"
+const SHELL_MODULE_NAME := "interactive_shell"
+const DEFAULT_TRACKING_DELAY := 0.5
+
+const CURRENT_REGISTERED_TIP := "[tip] Node '%s' registered as current scene, you can access it by [b]%s[/b]."
+const CURRENT_REMOVED_TIP := "[tip] No current scene found, [b]%s[/b] keyword is no longer available."
+const USER_AUTOLOADS_TIP := "[tip] Accessible user singleton modules: [b]%s[/b]"
+
 var _current_scene_root:Node
-var _current_scene_index := 0
+var _user_singleton_files := []
 var _tween_loop:Tween
+var _loop_call_back:CallbackTweener
 
 
 func init_module():
-	_current_scene_index = core.get_tree().root.get_child_count() - 1
-	await core.get_tree().process_frame
-	setup_scene_root_tracker()
-	setup_autoload_tracker()
-	print_to_interactive_shell_window()
+	get_module_opt().tracking_delay = load_module_data("tracking_delay", DEFAULT_TRACKING_DELAY)
+	await core.get_tree().process_frame # not sure if it is necessary
 
-# always register the current scene root as `current`
-func setup_scene_root_tracker():
-	_current_scene_root = get_scene_root()
-	core.gd_exprenv.register_env("current", _current_scene_root)
+	_update_project_singleton_files()
+	_setup_scene_root_tracker()
+	_check_autoloads()
+
+
+# Parse project setting and collect and autoload files.
+func _update_project_singleton_files() -> void:
+	_user_singleton_files.clear()
+	for property in ProjectSettings.get_property_list():
+		if property.name.begins_with(PROJECT_AUTOLOAD_PREFIX):
+			_user_singleton_files.append(ProjectSettings.get_setting(property.name).trim_prefix("*"))
+
+
+# Check if given node is autoload singleton.
+func _is_singleton(node: Node) -> bool:
+	# Comparing scene file and script file with list of autoload files
+	# from project settings. I'm not sure that approach hundred percent perfect,
+	# but it works so far.
+	if node.scene_file_path in _user_singleton_files:
+		return true
+
+	var script = node.get_script()
+	if script and (script.get_path() in _user_singleton_files):
+		return true
+
+	return false
+
+
+# Setup monitoring loop for current scene root node.
+func _setup_scene_root_tracker() -> void:
+	_check_current_scene()
+	# The whole idea looping something in the background
+	# while dev console is not even opened does not feel so right.
+	# Have no idea how to make it more elegant way,
+	# so lets make loop interval user controllable at least.
+	var tracking_delay = get_module_opt().tracking_delay
+
 	_tween_loop = core.create_tween()
-	_tween_loop.set_loops().tween_callback(
-		func(): 
-			var r = get_scene_root()
-			if r != _current_scene_root:
-				_current_scene_root = r
-				core.gd_exprenv.register_env("current", _current_scene_root)
-	).set_delay(0.1)
+	_loop_call_back = _tween_loop.set_loops().tween_callback(_check_current_scene).set_delay(tracking_delay)
 
-func get_scene_root() -> Node:
-	var r := core.get_tree().root
-	if r.get_child_count() > _current_scene_index:
-		return r.get_child(_current_scene_index)
+
+## Set current scene root node monitoring interval.
+func change_tracking_delay(delay: float) -> void:
+	if _loop_call_back:
+		_loop_call_back.set_delay(delay)
+
+
+# Update current scene root node environment.
+func _check_current_scene() -> void:
+	var scene_root_found: Node = get_scene_root()
+
+	if scene_root_found:
+		if scene_root_found != _current_scene_root:
+			core.gd_exprenv.register_env(CURRENT_SCENE_ENV, scene_root_found)
+			_print_to_interactive_shell(CURRENT_REGISTERED_TIP % [scene_root_found.name, CURRENT_SCENE_ENV])
+
 	else:
-		return null
+		if _current_scene_root:
+			core.gd_exprenv.remove_env(CURRENT_SCENE_ENV)
+			_print_to_interactive_shell(CURRENT_REMOVED_TIP % CURRENT_SCENE_ENV)
 
-func setup_autoload_tracker():
-	# read root children, the last child is considered as scene node while others are autoloads.
-	var root:Node = core.get_tree().root
-	for i in range(root.get_child_count() - 1):
-		if root.get_child(i).name == core.SingletonName:
-			# skip the plugin singleton
+	_current_scene_root = scene_root_found
+
+## Find the root node of current active scene.
+func get_scene_root() -> Node:
+	# Assuming current scene is the first node in tree that is not autoload singleton.
+	for node in core.get_tree().root.get_children():
+		if not _is_singleton(node):
+			return node
+
+	return null
+
+
+# Find all autoload singletons and bind its to environment vars.
+func _check_autoloads() -> void:
+	var _user_singleton_names := []
+
+	for node in core.get_tree().root.get_children():
+		if node.name == core.SingletonName:
+			# skip panku plugin itself
 			continue
-		# register user singletons
-		var user_singleton:Node = root.get_child(i)
-		core.gd_exprenv.register_env(user_singleton.name, user_singleton)
 
-func print_to_interactive_shell_window():
-	# print a tip to interacvite_shell module
-	# modules load order matters
-	var tip:String = "\n[tip] you can always access current scene by [b]current[/b]"
-	if core.module_manager.has_module("interactive_shell"):
-		var ishell = core.module_manager.get_module("interactive_shell")
-		ishell.interactive_shell.output(tip)
+		if _is_singleton(node):
+			# register user singleton
+			_user_singleton_names.append(node.name)
+			core.gd_exprenv.register_env(node.name, node)
+
+	if not _user_singleton_names.is_empty():
+		_print_to_interactive_shell(USER_AUTOLOADS_TIP % ",".join(_user_singleton_names))
+
+
+# Print a tip to interactive shell module, modules load order does matter.
+func _print_to_interactive_shell(message: String) -> void:
+	if core.module_manager.has_module(SHELL_MODULE_NAME):
+		var ishell = core.module_manager.get_module(SHELL_MODULE_NAME)
+		ishell.interactive_shell.output(message)
+
+
+func quit_module():
+	_tween_loop.kill()
+	super.quit_module()

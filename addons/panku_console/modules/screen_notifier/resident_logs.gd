@@ -31,7 +31,7 @@ func add_log(bbcode:String, id:=-1):
 			)
 		var log_node = named_logs[id]
 		named_logs[id].content_label.text = bbcode
-		log_node.tween3.stop(); log_node.tween3.play()
+		log_node.play_lifespan_animation()
 		return
 
 	#see the new log if can be combined with previous one
@@ -40,7 +40,7 @@ func add_log(bbcode:String, id:=-1):
 		prev_node.amount += 1
 		prev_node.amount_label.text = "x" + str(prev_node.amount)
 		prev_node.amount_panel.show()
-		prev_node.tween3.stop(); prev_node.tween3.play()
+		prev_node.play_lifespan_animation()
 	#create new log node
 	else:
 		if unnamed_container.get_child_count() >= MAX_LOGS:

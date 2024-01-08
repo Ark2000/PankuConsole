@@ -45,14 +45,23 @@ func init_module():
 		func():
 			if gui_mode == InputMode.Window:
 				if window.visible:
-					Input.mouse_mode = _previous_mouse_mode
 					window.hide_window()
 				else:
-					_previous_mouse_mode = Input.mouse_mode
-					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 					window.show_window()
 			elif gui_mode == InputMode.Launcher:
 				simple_launcher.visible = not simple_launcher.visible
+	)
+
+	# Grab the mouse when the dev console is visible (e.g. FPS games)
+	window.visibility_changed.connect(
+		func():
+			# the mouse is grabbed when the window is visible
+			if window.visible:
+				_previous_mouse_mode = Input.mouse_mode
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			# restore the mouse mode when the window is hidden
+			else:
+				Input.mouse_mode = _previous_mouse_mode
 	)
 
 	gui_mode = load_module_data("gui_mode", InputMode.Window)
@@ -79,6 +88,7 @@ func init_module():
 	_input_histories = load_module_data("histories", [])
 
 func quit_module():
+	super.quit_module()
 	save_window_data(window)
 	save_module_data("gui_mode", gui_mode)
 	save_module_data("histories", _input_histories)

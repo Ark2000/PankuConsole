@@ -18,6 +18,7 @@ func init_module():
 	load_window_data(window)
 
 func quit_module():
+	super.quit_module()
 	save_window_data(window)
 
 func open_window():
