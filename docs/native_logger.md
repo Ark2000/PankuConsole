@@ -6,6 +6,8 @@ With this logger, there's no need to modify any code. It's built upon Godot's na
 
 To help you easily filter through logs, you can use tags.
 
+known issue: [Does not support `print_rich`](https://github.com/Ark2000/PankuConsole/issues/133)
+
 ## Related Commands
 
 - `native_logger.open_window()`

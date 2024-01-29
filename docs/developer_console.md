@@ -1,6 +1,6 @@
 # Developer Console
 
-![](./assets/console_window.png)
+![](./assets/console_window_explained.png)
 
 The developer console is a tool that allows you to execute arbitrary GD expressions at runtime. You can bring it up by pressing the `~` key in the game by default. It is very useful for debugging and testing.
 
@@ -68,7 +68,7 @@ Just add a new action named `toggle_console` and bind it to the input events you
 
     Set whether the game should pause when the developer console window is opened.
 
-You can change more settings in [general settings](./general_settings.md).
+You can tweak more settings in [general settings](./general_settings.md).
 
 ## Related Files
 

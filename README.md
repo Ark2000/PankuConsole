@@ -6,7 +6,7 @@
 
 Panku Console is designed to be modular and extensible, and it is easy to add and maintain features. It is also designed to be as unobtrusive as possible, so you can use it in your project without worrying about the impact on the final product 🧩🚀.
 
-# ✨ Features
+# ✨ Highlights
 
 ## 📦 Tiny Footprint - Less than 256KB!
 
@@ -14,57 +14,47 @@ Panku Console is and will always be as lite as possible.
 
 ## 🖼️ Multi-window UI - Arrange your layout however you want!
 
-Any windows can be scaled, snapped, collapsed, dragged and even become an independent OS window.
+Any windows can be scaled, snapped, collapsed, dragged and even become an [independent OS window](./docs/faq.md).
 
 ![ui](./docs/assets/ui.png)
 
-## 💻🔮 Developer Console - Execute Arbitrary Code at runtime with hints!
+## 💻🔮 [Developer Console](./docs/developer_console.md) - Execute Arbitrary Code at runtime with hints!
 
-Allows you to execute arbitrary expressions (such as function calls) at runtime like if you were god 🧙‍♂️. 
+Allows you to execute arbitrary [expressions](https://docs.godotengine.org/en/stable/tutorials/scripting/evaluating_expressions.html) (such as function calls) at runtime like if you were god 🧙‍♂️. 
 
 ![console](./docs/assets/console.png)
 
-## 📝🕹️ Native Logger - Display native logs just in your game!
+## 📝🕹️ [Native Logger](./docs/native_logger.md) - Display native logs just in your game!
 
 View native logs (the same as the editor output panel) in an overlay or a separate window 📋.
 
 ![logger](./docs/assets/logger.png)
 
-## 🛠️🔧 Data Controller - Turn Any Object into a Tweakable Property Panel!
+## 🛠️🔧 [Data Controller](./docs/data_controller.md) - Turn Any Object into a Tweakable Property Panel!
 
 Automatically convert all export properties in your script into an inspector window.
 
 ![data_controller](./docs/assets/data_controller.png)
 
-## 👀🎮 Expression Monitor
+## 👀🎮 [Expression Monitor](./docs/expression_monitor.md)
 
-Watch the results of expressions at runtime just in your game.
+Watch the results of [expressions](https://docs.godotengine.org/en/stable/tutorials/scripting/evaluating_expressions.html) at runtime just in your game.
 
 ![expression_monitor](./docs/assets/expression_monitor.png)
 
 ## And More... 🌟
 
-- **History Manager**: view history inputs. ⏪
-- **Keyboard Shortcut**: bind expressions to keys for quick cheating. ⌨️🕹️
-- **Screen Notifier**: display popup messages on the screen. 💬📢
-- **Texture Viewer**: view textures in real time. 🖼️👁️
+- [History Manager](./docs/history_manager.md): view history inputs. ⏪
+- [Keyboard Shortcut](./docs/keyboard_shortcut.md): bind expressions to keys for quick cheating. ⌨️🕹️
+- [Screen Notifier](./docs/screen_notifier.md): display popup messages on the screen. 💬📢
+- [Texture Viewer](./docs/texture_viewer.md): view textures in real time. 🖼️👁️
+- [Misc Commands](./docs/misc_commands.md): provide some useful commands. 🛠️🔧
+- [General Settings](./docs/general_settings.md): customize the console to your liking. ⚙️🔧
+- [FAQ](./docs/faq.md): frequently asked questions. 🙋‍♂️🙋‍♀️
 
 Since Panku Console is modular, you can easily remove or add features to suit your needs. 🧩🔧
 
 ![modular](./docs/assets/modular.png)
-
-For more detailed information, please read the following:
-
-- [Developer Console](./docs/developer_console.md)
-- [Native Logger](./docs/native_logger.md)
-- [Data Controller](./docs/data_controller.md)
-- [Expression Monitor](./docs/expression_monitor.md)
-- [History Manager](./docs/history_manager.md)
-- [Keyboard Shortcut](./docs/keyboard_shortcut.md)
-- [Texture Viewer](./docs/texture_viewer.md)
-- [Misc Commands](./docs/misc_commands.md)
-- [General Settings](./docs/general_settings.md)
-- [Screen Notifier](./docs/screen_notifier.md)
 
 # Installation 🚀
 

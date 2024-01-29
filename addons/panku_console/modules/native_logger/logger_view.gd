@@ -27,7 +27,7 @@ func add_log(message:String, level:int):
 	if level == 2:
 		message = "[bgcolor=yellow][color=black][warning][/color][/bgcolor] " + message
 	elif level == 3:
-		message = "[bgcolor=red][error][/bgcolor] " + message
+		message = "[bgcolor=red][color=white][error][/color][/bgcolor] " + message
 
 	#update tags
 	for tag in tags_container.get_children():
