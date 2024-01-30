@@ -27,6 +27,7 @@ func get_intro() -> String:
 func init_module():
 	interactive_shell = preload("./console_ui/panku_console_ui.tscn").instantiate()
 	window = core.windows_manager.create_window(interactive_shell)
+	add_auto_save_hook(window)
 	interactive_shell._repl._module = self
 	window.queue_free_on_close = false
 	window.set_window_title_text("Interative Shell V2")
@@ -68,7 +69,7 @@ func init_module():
 	pause_if_input = load_module_data("pause_if_popup", true)
 	unified_window_visibility = load_module_data("unified_visibility", false)
 	init_expr = load_module_data("init_expression", "")
-	
+
 	_show_side_menu = load_module_data("show_side_menu", true)
 	set_side_menu_visible(_show_side_menu)
 
@@ -84,7 +85,7 @@ func init_module():
 				var result = core.gd_exprenv.execute(init_expr)
 				core.new_expression_entered.emit(init_expr, result)
 		).set_delay(0.1)
-	
+
 	_input_histories = load_module_data("histories", [])
 
 func quit_module():
