@@ -14,6 +14,7 @@ var pause_if_input:bool = true
 var unified_window_visibility:bool = false
 var init_expr:String = ""
 var _is_gui_open:bool = false
+var _was_tree_paused: bool = false
 var _previous_mouse_mode := Input.MOUSE_MODE_VISIBLE
 var _show_side_menu:bool
 
@@ -68,7 +69,7 @@ func init_module():
 	pause_if_input = load_module_data("pause_if_popup", true)
 	unified_window_visibility = load_module_data("unified_visibility", false)
 	init_expr = load_module_data("init_expression", "")
-	
+
 	_show_side_menu = load_module_data("show_side_menu", true)
 	set_side_menu_visible(_show_side_menu)
 
@@ -84,7 +85,7 @@ func init_module():
 				var result = core.gd_exprenv.execute(init_expr)
 				core.new_expression_entered.emit(init_expr, result)
 		).set_delay(0.1)
-	
+
 	_input_histories = load_module_data("histories", [])
 
 func quit_module():
@@ -101,9 +102,11 @@ func update_gui_state():
 		core.interactive_shell_visibility_changed.emit(is_gui_open)
 		_is_gui_open = is_gui_open
 	if _is_gui_open and pause_if_input:
+		_was_tree_paused = core.get_tree().paused
 		core.get_tree().paused = true
 	else:
-		core.get_tree().paused = false
+		if core.get_tree().paused:
+			core.get_tree().paused = _was_tree_paused
 	if unified_window_visibility:
 		core.windows_manager.visible = _is_gui_open
 
