@@ -28,6 +28,7 @@ func init_module():
 	logger_ui.console = core
 
 	window = core.windows_manager.create_window(logger_ui)
+	add_auto_save_hook(window)
 	window.queue_free_on_close = false
 	window.set_window_title_text("Native Logger")
 
@@ -47,7 +48,7 @@ func init_module():
 		func(bbcode:String):
 			output_overlay.text = bbcode
 	)
-	
+
 	core.interactive_shell_visibility_changed.connect(
 		func(v:bool):
 			if output_overlay_display_mode == ScreenOverlayDisplayMode.ShowIfShellVisible:

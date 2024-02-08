@@ -21,6 +21,7 @@ func init_monitor_window():
 	monitor._module = self
 #	monitor.set_data(load_module_data("exprs", []))
 	monitor_window = core.windows_manager.create_window(monitor)
+	add_auto_save_hook(monitor_window)
 	monitor_window.queue_free_on_close = false
 	monitor_window.set_window_title_text("Expression Monitor")
 

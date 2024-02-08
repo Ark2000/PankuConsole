@@ -59,9 +59,21 @@ func load_window_data(window:PankuLynxWindow):
 	window.set_window_visibility(load_module_data("window_visibility", false))
 
 func save_window_data(window:PankuLynxWindow):
+	_save_window_geometry(window)
+	save_module_data("window_visibility", window.visible)
+
+
+func _save_window_geometry(window:PankuLynxWindow):
 	save_module_data("window_position", window.position)
 	save_module_data("window_size", window.get_normal_window_size())
-	save_module_data("window_visibility", window.visible)
+
+
+# Add hook to window to auto save its geometry on close.
+func add_auto_save_hook(window: PankuLynxWindow) -> void:
+	# Here some global settings check can be implemented,
+	# if we decide to make "save on close" feature optional
+	window.window_closed.connect(_save_window_geometry.bind(window))
+
 
 func get_module_env() -> RefCounted:
 	return _env
@@ -73,7 +85,7 @@ func _init_module():
 	var module_script_dir:String = get_script().resource_path.get_base_dir()
 	var env_script_path = module_script_dir + "/env.gd"
 	var opt_script_path = module_script_dir + "/opt.gd"
-	
+
 	if FileAccess.file_exists(env_script_path):
 		_env = load(env_script_path).new()
 		_env._module = self

@@ -28,6 +28,7 @@ func get_intro() -> String:
 func init_module():
 	interactive_shell = preload("./console_ui/panku_console_ui.tscn").instantiate()
 	window = core.windows_manager.create_window(interactive_shell)
+	add_auto_save_hook(window)
 	interactive_shell._repl._module = self
 	window.queue_free_on_close = false
 	window.set_window_title_text("Interative Shell V2")
