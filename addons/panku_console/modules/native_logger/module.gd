@@ -5,6 +5,7 @@ var native_logs_monitor:Node
 var window:PankuLynxWindow
 var logger_ui:Node
 var output_overlay_display_mode:ScreenOverlayDisplayMode
+var show_timestamp:bool
 
 enum ScreenOverlayDisplayMode {
 	AlwaysShow,
@@ -19,12 +20,12 @@ func init_module():
 
 	# add output overlay
 	output_overlay = preload("./log_overlay.tscn").instantiate()
-	output_overlay._module = self
 	output_overlay.clear()
 	core.add_child(output_overlay)
 
 	# add logger window
 	logger_ui = preload("./logger_view.tscn").instantiate()
+	logger_ui._module = self
 	logger_ui.console = core
 
 	window = core.windows_manager.create_window(logger_ui)
@@ -62,8 +63,8 @@ func init_module():
 	get_module_opt().screen_overlay_alpha = load_module_data("screen_overlay_alpha", 0.3)
 	get_module_opt().screen_overlay_font_size = load_module_data("screen_overlay_font_size", 13)
 	get_module_opt().screen_overlay_font_shadow = load_module_data("screen_overlay_font_shadow", false)
+	get_module_opt().show_timestamp = load_module_data("show_timestamp", true)
 	logger_ui.load_data(load_module_data("logger_tags", ["[error]", "[warning]"]))
-
 
 func quit_module():
 	super.quit_module()
@@ -76,12 +77,12 @@ func open_window():
 	window.show_window()
 
 func toggle_overlay():
-	if output_overlay_display_mode == ScreenOverlayDisplayMode.AlwaysShow:
-		output_overlay_display_mode = ScreenOverlayDisplayMode.NeverShow
-	elif output_overlay_display_mode == ScreenOverlayDisplayMode.ShowIfShellVisible:
-		output_overlay_display_mode = ScreenOverlayDisplayMode.NeverShow
-	elif output_overlay_display_mode == ScreenOverlayDisplayMode.NeverShow:
-		output_overlay_display_mode = ScreenOverlayDisplayMode.AlwaysShow
+	var next = {
+		ScreenOverlayDisplayMode.AlwaysShow: ScreenOverlayDisplayMode.NeverShow,
+		ScreenOverlayDisplayMode.ShowIfShellVisible: ScreenOverlayDisplayMode.NeverShow,
+		ScreenOverlayDisplayMode.NeverShow: ScreenOverlayDisplayMode.AlwaysShow
+	}
+	output_overlay_display_mode = next[output_overlay_display_mode]
 	set_overlay_display_mode(output_overlay_display_mode)
 
 func set_overlay_display_mode(mode:ScreenOverlayDisplayMode):
@@ -92,3 +93,7 @@ func set_overlay_display_mode(mode:ScreenOverlayDisplayMode):
 		output_overlay.visible = core.get_shell_visibility()
 	elif output_overlay_display_mode == ScreenOverlayDisplayMode.NeverShow:
 		output_overlay.visible = false
+
+func set_show_timestamp(v:bool):
+	show_timestamp = v
+	logger_ui.update_view()

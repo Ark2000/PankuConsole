@@ -28,6 +28,11 @@ func open_window():
 	get:
 		return _module.output_overlay_display_mode
 
+@export var show_timestamp:bool = true:
+	set(v):
+		_module.set_show_timestamp(v)
+	get:
+		return _module.show_timestamp
 
 @export_range(0.0, 1.0, 0.01) var screen_overlay_alpha:float = 0.5:
 	set(v):

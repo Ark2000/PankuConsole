@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://clwb00tc8ogtr"]
-
-[ext_resource type="Script" path="res://addons/panku_console/modules/native_logger/log_overlay.gd" id="1_638j8"]
+[gd_scene load_steps=2 format=3 uid="uid://clwb00tc8ogtr"]
 
 [sub_resource type="Theme" id="Theme_dksur"]
 default_font_size = 16
@@ -22,4 +20,3 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 shortcut_keys_enabled = false
-script = ExtResource("1_638j8")
