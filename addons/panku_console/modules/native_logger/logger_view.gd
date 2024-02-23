@@ -109,7 +109,7 @@ func update_view():
 			s = "[b](%d)[/b] %s" % [log["count"], s]
 		# add timestamp prefix
 		if _module.show_timestamp:
-			var time_str := Time.get_time_string_from_unix_time(log["timestamp"])
+			var time_str := Time.get_time_string_from_unix_time(log["timestamp"] + Time.get_time_zone_from_system()['bias'] * 60)
 			s = "[color=#a0a0a0][%s][/color] %s" % [time_str, s]
 		result.append(s)
 
