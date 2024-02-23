@@ -57,16 +57,18 @@ func safe_remove_singleton() -> void:
 		remove_autoload_singleton(SINGLETON_NAME)
 
 
-func _enable_plugin() -> void:
-	ProjectSettings.set_setting(panku_option(OPTIONS.DISABLE_ON_RELEASE), false)
-	ProjectSettings.set_initial_value(panku_option(OPTIONS.DISABLE_ON_RELEASE), false)
-	ProjectSettings.save()
+func create_setting() -> void:
+	if not ProjectSettings.has_setting(panku_option(OPTIONS.DISABLE_ON_RELEASE)):
+		ProjectSettings.set_setting(panku_option(OPTIONS.DISABLE_ON_RELEASE), false)
+		ProjectSettings.set_initial_value(panku_option(OPTIONS.DISABLE_ON_RELEASE), false)
+		ProjectSettings.save()
 
 
 func _enter_tree() -> void:
 	exporter = PankuExporter.new()
 	exporter.owner = self
 	add_export_plugin(exporter)
+	create_setting()
 
 	safe_add_singleton()
 	print("Panku Console initialized! Project page: https://github.com/Ark2000/PankuConsole")
