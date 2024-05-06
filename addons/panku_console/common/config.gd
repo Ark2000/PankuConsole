@@ -23,9 +23,10 @@ static func get_config() -> Dictionary:
 	if not user_config.is_empty():
 		return user_config
 	# if no user config, return default config, which is read-only
-	var default_config:Dictionary = _get_config(PankuConsolePlugin.get_custom_default_config_path())
-	print(PankuConsolePlugin.get_custom_default_config_path())
-	return default_config
+	if PankuConsolePlugin.is_custom_default_config_exists():
+		return _get_config(PankuConsolePlugin.get_custom_default_config_path())
+		
+	return _get_config(PankuConsolePlugin.INITIAL_DEFAULT_CONFIG_FILE_PATH)
 
 static func get_value(key:String, default:Variant) -> Variant:
 	return get_config().get(key, default)
