@@ -1,24 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbtn0x604fx5o"]
+[gd_scene load_steps=5 format=3 uid="uid://dbtn0x604fx5o"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/hints_list/hint.gd" id="1_sa53g"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wylp8"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_56dbv"]
 
-[sub_resource type="SystemFont" id="SystemFont_tt6oo"]
-font_names = PackedStringArray("Consolas")
-
-[sub_resource type="SystemFont" id="SystemFont_uw5w1"]
-font_names = PackedStringArray("", "Consolas")
-font_weight = 900
-
-[sub_resource type="SystemFont" id="SystemFont_ln5si"]
-font_italic = true
-
-[sub_resource type="SystemFont" id="SystemFont_fvi77"]
-font_italic = true
-font_weight = 900
-
-[sub_resource type="SystemFont" id="SystemFont_75v2u"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xc2u"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ganpp"]
 content_margin_left = 4.0
@@ -30,7 +16,7 @@ content_margin_bottom = 4.0
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_wylp8")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_56dbv")
 script = ExtResource("1_sa53g")
 label = NodePath("RichTextLabel")
 bg2 = NodePath("Bg2")
@@ -49,16 +35,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 2
-theme_override_fonts/normal_font = SubResource("SystemFont_tt6oo")
-theme_override_fonts/bold_font = SubResource("SystemFont_uw5w1")
-theme_override_fonts/italics_font = SubResource("SystemFont_ln5si")
-theme_override_fonts/bold_italics_font = SubResource("SystemFont_fvi77")
-theme_override_fonts/mono_font = SubResource("SystemFont_75v2u")
-theme_override_font_sizes/normal_font_size = 14
-theme_override_font_sizes/bold_font_size = 14
-theme_override_font_sizes/italics_font_size = 14
-theme_override_font_sizes/bold_italics_font_size = 14
-theme_override_font_sizes/mono_font_size = 14
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6xc2u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ganpp")
 bbcode_enabled = true
 text = "[color=cyan]w_button[/color][color=gray]([/color]display_name:[color=green]String[/color], env:[color=green]String[/color], exp:[color=green]String[/color][color=gray])[/color]"

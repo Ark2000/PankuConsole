@@ -23,12 +23,6 @@ extends ModuleOptions
 	set(v):
 		_module.set_pause_if_popup(v)
 
-@export_range(12,20) var output_font_size:int:
-	set(v):
-		_module.interactive_shell._console_logs.set_font_size(v)
-	get:
-		return _module.interactive_shell._console_logs.get_font_size()
-
 @export var export_comment_init_expression = "init_expression will be executed when the project starts"
 @export var init_expression:String = "":
 	get:

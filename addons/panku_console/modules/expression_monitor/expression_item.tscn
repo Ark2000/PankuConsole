@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://om8bp40jo1e"]
+[gd_scene load_steps=4 format=3 uid="uid://om8bp40jo1e"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/expression_monitor/expression_item.gd" id="1_dnu23"]
-[ext_resource type="Texture2D" uid="uid://ttbgv1vr1xsc" path="res://addons/panku_console/res/icons2/close_20x.svg" id="1_reta7"]
+[ext_resource type="Texture2D" uid="uid://8g5afcuanbl6" path="res://addons/panku_console/res/icons2/close.svg" id="2_bc3ds"]
+[ext_resource type="PackedScene" uid="uid://drn5t13m088fb" path="res://addons/panku_console/common/panku_button.tscn" id="3_n03xa"]
 
 [node name="VBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("x_btn", "ledit", "label")]
 anchors_preset = 10
@@ -10,16 +11,18 @@ offset_bottom = 31.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_dnu23")
-x_btn = NodePath("expression_item/Button")
+x_btn = NodePath("expression_item/PankuButton/Button")
 ledit = NodePath("expression_item/LineEdit")
 label = NodePath("HBoxContainer/Label")
 
 [node name="expression_item" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="expression_item"]
+[node name="PankuButton" parent="expression_item" instance=ExtResource("3_n03xa")]
 layout_mode = 2
-icon = ExtResource("1_reta7")
+
+[node name="TextureRect" parent="expression_item/PankuButton/HBoxContainer" index="0"]
+texture = ExtResource("2_bc3ds")
 
 [node name="LineEdit" type="LineEdit" parent="expression_item"]
 layout_mode = 2
@@ -39,3 +42,5 @@ color = Color(0.239216, 0.533333, 0.886275, 0.752941)
 layout_mode = 2
 size_flags_horizontal = 3
 autowrap_mode = 1
+
+[editable path="expression_item/PankuButton"]

@@ -9,7 +9,7 @@ signal prev_hint()
 signal navigate_histories(histories:Array, cur:int)
 
 @export var input:LineEdit
-@export var btn:Button
+@export var btn:PankuButton
 
 func _ready():
 	input.text_submitted.connect(

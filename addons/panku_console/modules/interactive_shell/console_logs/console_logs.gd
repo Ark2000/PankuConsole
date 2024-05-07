@@ -25,4 +25,5 @@ func set_font_size(sz:int):
 	rlabel.set("theme_override_font_sizes/mono_font_size", sz)
 
 func get_font_size() -> int:
-	return rlabel.get("theme_override_font_sizes/normal_font_size")
+	#return rlabel.get("theme_override_font_sizes/normal_font_size")
+	return 12

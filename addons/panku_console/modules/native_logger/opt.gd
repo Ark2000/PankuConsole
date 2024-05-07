@@ -10,18 +10,6 @@ func open_window():
 
 @export var export_button_open_engine_log_folder:String = "Open Engine Logs Folder"
 
-@export_range(12, 20) var font_size:int = 14:
-	set(v):
-		_module.logger_ui.rlabel.theme.default_font_size = v
-	get:
-		return _module.logger_ui.rlabel.theme.default_font_size
-
-#@export var screen_overlay:bool = true:
-#	set(v):
-#		_module.output_overlay.visible = v
-#	get:
-#		return _module.output_overlay.visible
-
 @export_enum("Always Show", "Show If Shell Visible", "Never Show") var screen_overlay:int:
 	set(v):
 		_module.set_overlay_display_mode(v)
@@ -40,11 +28,27 @@ func open_window():
 	get:
 		return _module.output_overlay.modulate.a
 
-@export_range(8, 24) var screen_overlay_font_size:int = 16:
+@export var screen_overlay_override_font_size:int = 0:
 	set(v):
-		_module.output_overlay.theme.default_font_size = v
+		var overlay:RichTextLabel = _module.output_overlay
+		if (v <= 0):
+			overlay.remove_theme_font_size_override("normal_font_size")
+			overlay.remove_theme_font_size_override("bold_font_size")
+			overlay.remove_theme_font_size_override("italics_font_size")
+			overlay.remove_theme_font_size_override("bold_italics_font_size")
+			overlay.remove_theme_font_size_override("mono_font_size")
+		else:
+			overlay.add_theme_font_size_override("normal_font_size", v)
+			overlay.add_theme_font_size_override("bold_font_size", v)
+			overlay.add_theme_font_size_override("italics_font_size", v)
+			overlay.add_theme_font_size_override("bold_italics_font_size", v)
+			overlay.add_theme_font_size_override("mono_font_size", v)
 	get:
-		return _module.output_overlay.theme.default_font_size
+		#return _module.output_overlay.theme.default_font_size
+		var overlay:RichTextLabel = _module.output_overlay
+		if overlay.has_theme_font_size_override("normal_font_size"):
+			return overlay.get("theme_override_font_sizes/normal_font_size")
+		return 0
 
 @export var screen_overlay_font_shadow:bool = false:
 	set(v):

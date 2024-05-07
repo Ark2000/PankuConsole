@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bneg4nt6ryuuj"]
+[gd_scene load_steps=5 format=3 uid="uid://bneg4nt6ryuuj"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_ui_float.gd" id="1_8dioj"]
+[ext_resource type="PackedScene" uid="uid://drn5t13m088fb" path="res://addons/panku_console/common/panku_button.tscn" id="2_5rj7f"]
 [ext_resource type="Texture2D" uid="uid://bc2g8vv0x3d8y" path="res://addons/panku_console/res/icons2/swap_horiz.svg" id="2_lyxit"]
 [ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/joystick_button.gd" id="3_ee2gx"]
 
 [node name="RowFloat" type="HBoxContainer" node_paths=PackedStringArray("line_edit", "joystick_button")]
 script = ExtResource("1_8dioj")
 line_edit = NodePath("LineEdit")
-joystick_button = NodePath("Button")
+joystick_button = NodePath("PankuButton")
 
 [node name="VName" type="Label" parent="."]
 custom_minimum_size = Vector2(80, 0)
@@ -19,10 +20,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "433.24"
 
-[node name="Button" type="Button" parent="."]
-texture_filter = 4
-custom_minimum_size = Vector2(20, 0)
+[node name="PankuButton" parent="." instance=ExtResource("2_5rj7f")]
 layout_mode = 2
-icon = ExtResource("2_lyxit")
-expand_icon = true
 script = ExtResource("3_ee2gx")
+
+[node name="TextureRect" parent="PankuButton/HBoxContainer" index="0"]
+texture = ExtResource("2_lyxit")
+
+[node name="Label" parent="PankuButton/HBoxContainer" index="1"]
+text = ""
+
+[editable path="PankuButton"]

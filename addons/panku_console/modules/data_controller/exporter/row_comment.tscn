@@ -1,43 +1,30 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxnpwuiumbs85"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_ui_comment.gd" id="1_dvooy"]
-[ext_resource type="Texture2D" uid="uid://dxvodkcmn4pa8" path="res://addons/panku_console/res/icons2/info.svg" id="2_4ydeb"]
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_wu8ma"]
+[ext_resource type="PackedScene" uid="uid://drn5t13m088fb" path="res://addons/panku_console/common/panku_button.tscn" id="3_wi42w"]
+[ext_resource type="Texture2D" uid="uid://b6jt0ggmuoyeb" path="res://addons/panku_console/res/icons2/info2.svg" id="4_o8r6v"]
 
-[sub_resource type="FontVariation" id="FontVariation_aaho5"]
-variation_transform = Transform2D(1, 0.28, 0, 1, 0, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_3tgnd"]
-font = SubResource("FontVariation_aaho5")
-font_size = 14
-font_color = Color(0.784314, 0.784314, 0.784314, 1)
-
-[node name="RowComment" type="HBoxContainer" node_paths=PackedStringArray("container", "label")]
+[node name="RowComment" type="HBoxContainer" node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(20, 20)
-offset_right = 226.0
-offset_bottom = 20.0
+offset_right = 148.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
+theme = ExtResource("1_wu8ma")
 script = ExtResource("1_dvooy")
-container = NodePath("Control")
-label = NodePath("Control/Label")
+label = NodePath("PankuButton/HBoxContainer/Label")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-texture = ExtResource("2_4ydeb")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Control" type="Control" parent="."]
-clip_contents = true
+[node name="PankuButton" parent="." instance=ExtResource("3_wi42w")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 1.0
-grow_vertical = 2
-text = "aaa"
-label_settings = SubResource("LabelSettings_3tgnd")
-vertical_alignment = 1
+[node name="TextureRect" parent="PankuButton/HBoxContainer" index="0"]
+texture = ExtResource("4_o8r6v")
+
+[node name="Label" parent="PankuButton/HBoxContainer" index="1"]
+modulate = Color(0.598845, 0.764704, 0.931026, 0.529412)
+size_flags_horizontal = 3
+text = "Comment"
+clip_text = true
+
+[editable path="PankuButton"]

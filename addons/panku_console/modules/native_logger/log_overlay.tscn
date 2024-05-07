@@ -1,7 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://clwb00tc8ogtr"]
 
-[sub_resource type="Theme" id="Theme_dksur"]
-default_font_size = 16
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_2qqxo"]
 
 [node name="LogOverlay" type="RichTextLabel"]
 modulate = Color(1, 1, 1, 0.501961)
@@ -13,7 +12,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-theme = SubResource("Theme_dksur")
+theme = ExtResource("1_2qqxo")
 bbcode_enabled = true
 text = "Output Area"
 scroll_active = false

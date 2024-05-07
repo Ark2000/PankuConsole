@@ -1,8 +1,8 @@
 extends "./row_ui.gd"
 
 @export var line_edit:LineEdit
-@export var button_inc:Button
-@export var button_dec:Button
+@export var button_inc:PankuButton
+@export var button_dec:PankuButton
 
 func get_ui_val(): 
 	return line_edit.text.to_int()

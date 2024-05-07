@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://drn5t13m088fb"]
+
+[ext_resource type="Script" path="res://addons/panku_console/common/panku_button.gd" id="1_7kf5f"]
+[ext_resource type="Texture2D" uid="uid://dchvk7qgfe37m" path="res://addons/panku_console/res/icons2/fold-svgrepo-com.svg" id="2_su653"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3kpx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cwnaw"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+
+[node name="PankuButton" type="PanelContainer" node_paths=PackedStringArray("button", "trect", "label")]
+editor_description = "Godot's Button can't handle scaling icons properly as descripted in https://github.com/godotengine/godot-proposals/issues/660, so I have to make a new one."
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 112.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v3kpx")
+script = ExtResource("1_7kf5f")
+button = NodePath("Button")
+trect = NodePath("HBoxContainer/TextureRect")
+label = NodePath("HBoxContainer/Label")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_su653")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cwnaw")
+vertical_alignment = 1
