@@ -31,7 +31,7 @@ func init_module():
 	add_auto_save_hook(window)
 	interactive_shell._repl._module = self
 	window.queue_free_on_close = false
-	window.set_window_title_text("Interative Shell V2")
+	window.set_window_title_text("Interactive Shell V2")
 	load_window_data(window)
 	window.hide_window()
 

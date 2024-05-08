@@ -9,7 +9,7 @@ extends ModuleOptions
 	set(v):
 		_module.set_side_menu_visible(v)
 
-@export var export_comment_unified_visibility = "unified_visibility will keep all windows' visibility the same as interative shell"
+@export var export_comment_unified_visibility = "unified_visibility will keep all windows' visibility the same as interactive shell"
 @export var unified_visibility:bool = false:
 	get:
 		return _module.unified_window_visibility

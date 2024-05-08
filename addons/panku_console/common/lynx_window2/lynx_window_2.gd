@@ -170,6 +170,9 @@ func get_normal_window_size():
 	if _folded: return _size_before_folded
 	return size
 
+func get_title_bar_height():
+	return _window_title_container.size.y
+
 func _ready():
 	custom_minimum_size = _window_title_container.get_minimum_size()
 
@@ -278,7 +281,7 @@ func _process(delta: float) -> void:
 		if window_rect.end.y > screen_rect.end.y:
 			target_position.y = screen_rect.end.y - window_rect.size.y
 		if window_rect.end.y > screen_rect.end.y + window_rect.size.y / 2:
-			target_position.y = screen_rect.end.y - 25
+			target_position.y = screen_rect.end.y - get_title_bar_height()
 		if window_rect.position.x < 0:
 			target_position.x = 0
 		if window_rect.end.x > screen_rect.end.x:

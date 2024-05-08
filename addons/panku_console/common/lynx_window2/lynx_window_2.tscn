@@ -101,7 +101,6 @@ texture = ExtResource("4_im81u")
 
 [node name="Label" parent="VBoxContainer/Up/PopupButton/HBoxContainer" index="1"]
 visible = false
-text = ""
 
 [node name="MenuButton" parent="VBoxContainer/Up" instance=ExtResource("4_dnesi")]
 layout_mode = 2
@@ -112,7 +111,6 @@ texture = ExtResource("4_4dlyn")
 
 [node name="Label" parent="VBoxContainer/Up/MenuButton/HBoxContainer" index="1"]
 visible = false
-text = ""
 
 [node name="CloseButton" parent="VBoxContainer/Up" instance=ExtResource("4_dnesi")]
 layout_mode = 2
@@ -123,7 +121,6 @@ texture = ExtResource("5_l4qpm")
 
 [node name="Label" parent="VBoxContainer/Up/CloseButton/HBoxContainer" index="1"]
 visible = false
-text = ""
 
 [node name="Down" type="Panel" parent="VBoxContainer"]
 layout_mode = 2

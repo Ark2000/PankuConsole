@@ -107,4 +107,5 @@ script = ExtResource("11_epqvn")
 target_control = NodePath("../../VBoxContainer/InputArea")
 
 [editable path="HBoxContainer/Control/VBoxContainer/InputArea"]
+[editable path="HBoxContainer/Control/VBoxContainer/InputArea/Button"]
 [editable path="HBoxContainer/Control/Layer2/HelpBar"]
