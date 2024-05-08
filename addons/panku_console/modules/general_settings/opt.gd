@@ -38,7 +38,7 @@ extends ModuleOptions
 
 @export var export_button_auto_global_font_size := "Auto Global Font Size"
 func auto_global_font_size():
-	global_font_size = int(16 * _module.calculate_auto_scale())
+	global_font_size = int(16 * _module.get_auto_display_scale())
 
 @export var export_button_report_bugs := "Report Bugs"
 func report_bugs():

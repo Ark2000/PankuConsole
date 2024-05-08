@@ -17,32 +17,41 @@ func open_settings_window():
 			window = null
 	)
 
-# See https://github.com/MewPurPur/GodSVG/blob/main/src/HandlerGUI.gd
-static func calculate_auto_scale() -> int:
+# Taken from https://github.com/godotengine/godot/blob/master/editor/editor_settings.cpp#L1539
+static func get_auto_display_scale() -> float:
+	var flag := false
+	match OS.get_name():
+		"macOS":
+			flag = true
+		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+			if DisplayServer.get_name() == "Wayland":
+				flag = true
+		"Android":
+			flag = true
+		"iOS":
+			flag = true
+	if flag:
+		return DisplayServer.screen_get_max_scale()
+		
 	var screen := DisplayServer.window_get_current_screen()
-	if DisplayServer.screen_get_size(screen) == Vector2i():
-		return 1.0
-	# Use the smallest dimension to use a correct display scale on portrait displays.
-	var smallest_dimension := mini(
-		DisplayServer.screen_get_size(screen).x,
-		DisplayServer.screen_get_size(screen).y
-	)
 	
-	var dpi :=  DisplayServer.screen_get_dpi(screen)
-	if dpi != 72:
-		if dpi < 72: 		return 0.75
-		elif dpi <= 96: 	return 1.0
-		elif dpi <= 120:	return 1.25
-		elif dpi <= 160:	return 1.5
-		elif dpi <= 200:	return 2.0
-		elif dpi <= 240:	return 2.5
-		elif dpi <= 320:	return 3.0
-		elif dpi <= 480:	return 4.0
-		else:  				return 5.0
+	if (DisplayServer.screen_get_size(screen) == Vector2i()):
+		# Invalid screen size, skip.
+		return 1.0
+	
+	# Use the smallest dimension to use a correct display scale on portrait displays.
+	var smallest_dimension = min(DisplayServer.screen_get_size().x, DisplayServer.screen_get_size().y)
+	if DisplayServer.screen_get_dpi(screen) >= 192 and smallest_dimension >= 1400:
+		# hiDPI display.
+		return 2.0
 	elif smallest_dimension >= 1700:
 		# Likely a hiDPI display, but we aren't certain due to the returned DPI.
 		# Use an intermediate scale to handle this situation.
 		return 1.5
+	elif smallest_dimension <= 800:
+		# Small loDPI display. Use a smaller display scale so that editor elements fit more easily.
+		# Icons won't look great, but this is better than having editor elements overflow from its window.
+		return 0.75
 	return 1.0
 
 func init_module():
@@ -51,7 +60,7 @@ func init_module():
 	get_module_opt().window_base_color = load_module_data("window_base_color", Color("#000c1880"))
 	get_module_opt().enable_os_window = load_module_data("enable_os_window", false)
 	get_module_opt().os_window_bg_color = load_module_data("os_window_bg_color", Color(0, 0, 0, 0))
-	get_module_opt().global_font_size = load_module_data("global_font_size", int(16 * calculate_auto_scale()))
+	get_module_opt().global_font_size = load_module_data("global_font_size", int(16 * get_auto_display_scale()))
 
 func quit_module():
 	super.quit_module()
