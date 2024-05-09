@@ -1,17 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgwg3foes57mq"]
+[gd_scene load_steps=10 format=3 uid="uid://cgwg3foes57mq"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/about/about.gd" id="1_kpix3"]
 [ext_resource type="PackedScene" uid="uid://dyq4rjkkjs55d" path="res://addons/panku_console/common/smooth_scroll/smooth_scroll.tscn" id="2_sev6e"]
 [ext_resource type="Texture2D" uid="uid://rkxm4c3bbf34" path="res://addons/panku_console/logo.svg" id="3_eycho"]
+[ext_resource type="PackedScene" uid="uid://cxmplwhfv5l88" path="res://addons/panku_console/modules/about/url_button.tscn" id="4_cqu2c"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x88v0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knn3o"]
 content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(0, 0, 0, 0.270588)
 
-[node name="about" type="Control"]
+[sub_resource type="FontVariation" id="FontVariation_v70xy"]
+variation_embolden = 0.5
+
+[sub_resource type="FontVariation" id="FontVariation_wgi7f"]
+variation_embolden = 0.5
+
+[sub_resource type="SystemFont" id="SystemFont_6on77"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqcex"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.25098)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="about" type="Control" node_paths=PackedStringArray("intro", "project_page_button", "check_update_button")]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,47 +41,175 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kpix3")
+intro = NodePath("VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer/Label")
+project_page_button = NodePath("VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/ProjectPageButton")
+check_update_button = NodePath("VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/CheckUpdateButton")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.12549)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_eycho")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="SmoothScrollContainer" parent="." instance=ExtResource("2_sev6e")]
-layout_mode = 1
+[node name="SmoothScrollContainer" parent="VBoxContainer" instance=ExtResource("2_sev6e")]
+layout_mode = 2
+size_flags_vertical = 3
 follow_content = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SmoothScrollContainer/HBoxContainer/Control" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control" index="0"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 995.0
 grow_horizontal = 2
-grow_vertical = 2
 
-[node name="Label" type="Label" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_x88v0")
-autowrap_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_knn3o")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_eycho")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Panku Console <version> [<commit>]
+© 2022-present Panku Console contributors.
+© 2022 Ark2000.
+"
+
+[node name="Label" type="Label" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+text = "Panku Console is a feature-packed real-time debugging toolkit for Godot Engine."
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="ProjectPageButton" type="Button" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontVariation_v70xy")
 text = "Project Page"
 
-[node name="Button2" type="Button" parent="SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+[node name="CheckUpdateButton" type="Button" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontVariation_v70xy")
 text = "Check Update"
 
-[editable path="SmoothScrollContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_wgi7f")
+text = "Project Manager"
+
+[node name="Button" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "Feo Wu (Ark2000)"
+url = "https://github.com/Ark2000"
+
+[node name="Label2" type="Label" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_wgi7f")
+text = "Contributors"
+
+[node name="Button2" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "Feo Wu (Ark2000)"
+url = "https://github.com/Ark2000"
+
+[node name="Button3" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "Rafael Correa (scriptsengineer)"
+url = "https://github.com/scriptsengineer"
+
+[node name="Button4" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "worron"
+url = "https://github.com/worron"
+
+[node name="Button5" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "mieldepoche"
+url = "https://github.com/mieldepoche"
+
+[node name="Button6" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "Eggbertx"
+url = "https://github.com/Eggbertx"
+
+[node name="Button7" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "univeous"
+url = "https://github.com/univeous"
+
+[node name="Button8" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "CheapMeow"
+url = "https://github.com/CheapMeow"
+
+[node name="Button9" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "winston-yallow (Winston)"
+url = "https://github.com/winston-yallow"
+
+[node name="Label3" type="Label" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_wgi7f")
+text = "Icons"
+
+[node name="Button10" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer" instance=ExtResource("4_cqu2c")]
+layout_mode = 2
+text = "SVG Repo"
+url = "https://www.svgrepo.com/page/licensing/"
+
+[node name="Label4" type="Label" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_wgi7f")
+text = "License"
+
+[node name="Label5" type="Label" parent="VBoxContainer/SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_6on77")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cqcex")
+text = "The MIT License (MIT)
+
+Copyright (c) 2022-present Panku Console contributors.
+Copyright (c) 2022 Ark2000
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the \"Software\"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+clip_text = true
+
+[editable path="VBoxContainer/SmoothScrollContainer"]

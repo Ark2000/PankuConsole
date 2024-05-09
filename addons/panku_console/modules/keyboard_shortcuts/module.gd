@@ -10,6 +10,7 @@ func init_module():
 
 	# bind window
 	window = core.windows_manager.create_window(key_mapper)
+	add_auto_save_hook(window)
 	window.queue_free_on_close = false
 	window.set_window_title_text("Keyboard Shortcuts")
 

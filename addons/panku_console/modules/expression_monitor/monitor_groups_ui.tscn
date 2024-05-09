@@ -28,3 +28,4 @@ layout_mode = 2
 text = "Add New Group"
 icon = ExtResource("4_utrvo")
 alignment = 0
+expand_icon = true

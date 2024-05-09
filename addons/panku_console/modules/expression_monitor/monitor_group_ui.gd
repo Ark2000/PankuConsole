@@ -11,17 +11,17 @@ const collapse_icon:Texture2D = preload("res://addons/panku_console/res/icons2/e
 
 @onready var group_toggle_button:Button = $GroupManager/ToggleButton
 @onready var rename_line_edit:LineEdit = $GroupManager/RenameLineEdit
-@onready var state_control_button:Button = $GroupManager/StateControlButton
-@onready var rename_button:Button = $GroupManager/RenameButton
-@onready var confirm_rename_button:Button = $GroupManager/ConfirmRenameButton
-@onready var cancel_rename_button:Button = $GroupManager/CancelRenameButton
-@onready var move_up_button:Button = $GroupManager/MoveUpButton
-@onready var move_down_button:Button = $GroupManager/MoveDownButton
+@onready var state_control_button:PankuButton = $GroupManager/StateControlButton
+@onready var rename_button:PankuButton = $GroupManager/RenameButton
+@onready var confirm_rename_button:PankuButton = $GroupManager/ConfirmRenameButton
+@onready var cancel_rename_button:PankuButton = $GroupManager/CancelRenameButton
+@onready var move_up_button:PankuButton = $GroupManager/MoveUpButton
+@onready var move_down_button:PankuButton = $GroupManager/MoveDownButton
 
 @onready var exp_body_container:Control = $PanelContainer
 @onready var exp_container:Control = $PanelContainer/VBoxContainer/ExpressionContainer
 @onready var add_exp_button:Button = $PanelContainer/VBoxContainer/AddNewExpressionButton
-@onready var remove_this_group_button:Button = $GroupManager/RemoveButton
+@onready var remove_this_group_button:PankuButton = $GroupManager/RemoveButton
 
 @onready var normal_ui_group:Array = [
 	group_toggle_button, 
@@ -57,9 +57,9 @@ func _ready():
 			exp_container.add_child(exp_item)
 	)
 	
-	state_control_button.toggle_mode = true
-	state_control_button.button_pressed = false
-	state_control_button.toggled.connect(
+	state_control_button.button.toggle_mode = true
+	state_control_button.button.button_pressed = false
+	state_control_button.button.toggled.connect(
 		func(button_pressed:bool):
 			state_control_button.icon = pause_icon if button_pressed else play_icon
 	)
@@ -104,7 +104,7 @@ func _ready():
 func get_expressions(show_hidden := false) -> Array:
 	# optimization?
 	var exps = []
-	if state_control_button.button_pressed or show_hidden:
+	if state_control_button.button.button_pressed or show_hidden:
 		for child in exp_container.get_children():
 			exps.append(child.get_expr())
 	return exps

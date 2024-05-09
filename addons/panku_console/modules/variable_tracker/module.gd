@@ -15,6 +15,10 @@ const CURRENT_REGISTERED_TIP := "[tip] Node '%s' registered as current scene, yo
 const CURRENT_REMOVED_TIP := "[tip] No current scene found, [b]%s[/b] keyword is no longer available."
 const USER_AUTOLOADS_TIP := "[tip] Accessible user singleton modules: [b]%s[/b]"
 
+var _raw_exceptions_string: String = ""
+var _nodes_exception_regexp: RegEx
+
+var _reverse_root_nodes_order: bool
 var _current_scene_root:Node
 var _user_singleton_files := []
 var _tween_loop:Tween
@@ -23,11 +27,27 @@ var _loop_call_back:CallbackTweener
 
 func init_module():
 	get_module_opt().tracking_delay = load_module_data("tracking_delay", DEFAULT_TRACKING_DELAY)
+	_reverse_root_nodes_order = load_module_data("use_last_as_current", true)
+	_raw_exceptions_string = load_module_data("root_node_exceptions", _raw_exceptions_string)
+
 	await core.get_tree().process_frame # not sure if it is necessary
 
+	update_exceptions_regexp()
 	_update_project_singleton_files()
 	_setup_scene_root_tracker()
 	_check_autoloads()
+
+
+# Build root node exceptions regular expression
+func update_exceptions_regexp() -> void:
+	if _raw_exceptions_string.is_empty():
+		_nodes_exception_regexp = RegEx.new() # not valid expression
+		return
+
+	_nodes_exception_regexp = RegEx.create_from_string(_raw_exceptions_string)
+
+	if not _nodes_exception_regexp.is_valid():
+		push_error("Can't parse '%s' expression for variable tracker" % _raw_exceptions_string)
 
 
 # Parse project setting and collect and autoload files.
@@ -88,25 +108,45 @@ func _check_current_scene() -> void:
 
 	_current_scene_root = scene_root_found
 
+
 ## Find the root node of current active scene.
 func get_scene_root() -> Node:
 	# Assuming current scene is the first node in tree that is not autoload singleton.
-	for node in core.get_tree().root.get_children():
+	for node in _get_valid_root_nodes():
 		if not _is_singleton(node):
 			return node
 
 	return null
 
 
+# Get list of tree root nodes filtered and sorted according module settings
+func _get_valid_root_nodes() -> Array:
+	var nodes: Array = core.get_tree().root.get_children().filter(_root_nodes_filter)
+
+	if _reverse_root_nodes_order:
+		nodes.reverse()
+
+	return nodes
+
+
+# Filter function for tree root nodes
+func _root_nodes_filter(node: Node) -> bool:
+	# skip panku plugin itself
+	if node.name == core.SingletonName:
+		return false
+
+	# skip user defined exceptions
+	if _nodes_exception_regexp.is_valid() and _nodes_exception_regexp.search(node.name):
+		return false
+
+	return true
+
+
 # Find all autoload singletons and bind its to environment vars.
 func _check_autoloads() -> void:
 	var _user_singleton_names := []
 
-	for node in core.get_tree().root.get_children():
-		if node.name == core.SingletonName:
-			# skip panku plugin itself
-			continue
-
+	for node in _get_valid_root_nodes():
 		if _is_singleton(node):
 			# register user singleton
 			_user_singleton_names.append(node.name)

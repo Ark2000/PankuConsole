@@ -3,6 +3,7 @@ extends Control
 signal content_updated(bbcode:String)
 
 var console:PankuConsole
+var _module:PankuModule
 
 const MAX_LOGS = 128
 
@@ -27,7 +28,7 @@ func add_log(message:String, level:int):
 	if level == 2:
 		message = "[bgcolor=yellow][color=black][warning][/color][/bgcolor] " + message
 	elif level == 3:
-		message = "[bgcolor=red][error][/bgcolor] " + message
+		message = "[bgcolor=red][color=white][error][/color][/bgcolor] " + message
 
 	#update tags
 	for tag in tags_container.get_children():
@@ -105,7 +106,11 @@ func update_view():
 		elif log["level"] == 3:
 			s = "[color=#dd7085]%s[/color]" % log["message"]
 		if log["count"] > 1:
-			s = "[b](%d)[/b]%s" % [log["count"], s]
+			s = "[b](%d)[/b] %s" % [log["count"], s]
+		# add timestamp prefix
+		if _module.show_timestamp:
+			var time_str := Time.get_time_string_from_unix_time(log["timestamp"] + Time.get_time_zone_from_system()['bias'] * 60)
+			s = "[color=#a0a0a0][%s][/color] %s" % [time_str, s]
 		result.append(s)
 
 	var content:String = "\n".join(result)

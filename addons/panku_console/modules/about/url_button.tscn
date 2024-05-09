@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxmplwhfv5l88"]
+
+[ext_resource type="Script" path="res://addons/panku_console/modules/about/url_button.gd" id="1_01blg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivnlg"]
+content_margin_left = 8.0
+bg_color = Color(0, 0, 0, 0.243137)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Button" type="Button"]
+theme_override_styles/normal = SubResource("StyleBoxFlat_ivnlg")
+text = "Button Text"
+alignment = 0
+script = ExtResource("1_01blg")

@@ -1,17 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://78evbpdhqe4b"]
+[gd_scene load_steps=5 format=3 uid="uid://78evbpdhqe4b"]
 
 [ext_resource type="Texture2D" uid="uid://ws58gucuygx1" path="res://addons/panku_console/res/icons2/chevron_right.svg" id="1_sddod"]
 [ext_resource type="Script" path="res://addons/panku_console/modules/data_controller/exporter/row_group_button.gd" id="2_7jdni"]
-
-[sub_resource type="SystemFont" id="SystemFont_bascj"]
-font_names = PackedStringArray("Sans-Serif")
-subpixel_positioning = 0
-
-[sub_resource type="FontVariation" id="FontVariation_laq2y"]
-base_font = SubResource("SystemFont_bascj")
-variation_embolden = 1.0
-spacing_top = 4
-spacing_bottom = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gpngf"]
 
@@ -27,8 +17,6 @@ border_color = Color(0, 0.596078, 0.85098, 0.25098)
 custom_minimum_size = Vector2(0, 20)
 offset_right = 169.0
 offset_bottom = 27.0
-theme_override_fonts/font = SubResource("FontVariation_laq2y")
-theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gpngf")
 toggle_mode = true
 text = "Group_1"
