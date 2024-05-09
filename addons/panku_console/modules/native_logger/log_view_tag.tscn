@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpurdc5me82ds"]
+[gd_scene load_steps=6 format=3 uid="uid://dpurdc5me82ds"]
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_e0ejw"]
 [ext_resource type="Script" path="res://addons/panku_console/modules/native_logger/log_view_tag.gd" id="2_ia8vx"]
-[ext_resource type="Texture2D" uid="uid://ttbgv1vr1xsc" path="res://addons/panku_console/res/icons2/close_20x.svg" id="3_ydxim"]
+[ext_resource type="PackedScene" uid="uid://drn5t13m088fb" path="res://addons/panku_console/common/panku_button.tscn" id="3_cc2ep"]
+[ext_resource type="Texture2D" uid="uid://8g5afcuanbl6" path="res://addons/panku_console/res/icons2/close.svg" id="4_msugh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvhll"]
 bg_color = Color(1, 1, 1, 1)
@@ -16,14 +17,14 @@ shadow_offset = Vector2(1, 1)
 
 [node name="LoggerViewTag" type="PanelContainer" node_paths=PackedStringArray("tag_btn", "rm_btn")]
 self_modulate = Color(0.027451, 0.490196, 0.333333, 1)
-offset_right = 109.0
-offset_bottom = 24.0
+offset_right = 123.0
+offset_bottom = 31.0
 size_flags_vertical = 4
 theme = ExtResource("1_e0ejw")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvhll")
 script = ExtResource("2_ia8vx")
 tag_btn = NodePath("HBoxContainer/Button")
-rm_btn = NodePath("HBoxContainer/Button2")
+rm_btn = NodePath("HBoxContainer/Button2/Button")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -34,7 +35,13 @@ layout_mode = 2
 text = "[info] (428)"
 flat = true
 
-[node name="Button2" type="Button" parent="HBoxContainer"]
+[node name="Button2" parent="HBoxContainer" instance=ExtResource("3_cc2ep")]
 layout_mode = 2
-icon = ExtResource("3_ydxim")
+
+[node name="Button" parent="HBoxContainer/Button2" index="0"]
 flat = true
+
+[node name="TextureRect" parent="HBoxContainer/Button2/HBoxContainer" index="0"]
+texture = ExtResource("4_msugh")
+
+[editable path="HBoxContainer/Button2"]
