@@ -58,11 +58,15 @@ Since Panku Console is modular, you can easily remove or add features to suit yo
 
 # Installation 🚀
 
+## A. Downloading GitHub `master` branch directly
+
 1. Download [Latest commit](https://github.com/Ark2000/PankuConsole/archive/refs/heads/master.zip) from Github 📥.
 
 2. Copy the `addons` folder to your project root directory 📂.
 
 3. Enable this addon within the Godot settings ⚙️: `Project > Project Settings > Plugins`
+
+## B. Using mirror repo as git submodule
 
 Or if you prefer to use git(recommended), you can add this [mirror repo](https://github.com/Ark2000/panku_console) as a submodule in your addons folder which will automatically update the addon when you pull the latest changes 🔄.
 
@@ -71,6 +75,12 @@ Or if you prefer to use git(recommended), you can add this [mirror repo](https:/
 cd addons
 git submodule add https://github.com/Ark2000/panku_console
 ```
+
+## C. Downloading from [Godot Asset Library](https://godotengine.org/asset-library/asset/1558)
+
+Which is the same as downloading `godot4_asset_library` branch (always points to latest stable release version and only contains `addons` folder)
+
+---
 
 For more information about plugin installation, you can visit the corresponding [Godot documentation 📚](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html).
 
