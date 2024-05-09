@@ -20,9 +20,9 @@ var _show_side_menu:bool
 
 func get_intro() -> String:
 	var intro:PackedStringArray = PackedStringArray()
-	intro.append("[font_size=56][color=#ffffff44][b][i]> Panku Console[/i][/b][/color][/font_size]")
-	intro.append("[font_size=18][color=#ffffff44]Feature-Packed Runtime Debugging Toolkit for Godot[/color][/font_size]")
-	intro.append("[font_size=18][color=#ffffff44]Version: %s([url=%s][color=#10a00c]%s[/color][/url]) | Visit [color=#3feeb6][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/color][/font_size]" % [PankuUtils.get_plugin_version(), PankuUtils.get_commit_url(), PankuUtils.get_commit_sha_short()])
+	intro.append("[color=#ffffff44][b][i]> Panku Console[/i][/b][/color]")
+	intro.append("[color=#ffffff44]Feature-Packed Runtime Debugging Toolkit for Godot[/color]")
+	intro.append("[color=#ffffff44]Version: %s([url=%s][color=#10a00c]%s[/color][/url]) | Visit [color=#3feeb6][url=https://github.com/Ark2000/PankuConsole]github repo[/url][/color] for more info[/color]" % [PankuUtils.get_plugin_version(), PankuUtils.get_commit_url(), PankuUtils.get_commit_sha_short()])
 	return "\n".join(intro)
 
 func init_module():
@@ -31,7 +31,7 @@ func init_module():
 	add_auto_save_hook(window)
 	interactive_shell._repl._module = self
 	window.queue_free_on_close = false
-	window.set_window_title_text("Interative Shell V2")
+	window.set_window_title_text("Interactive Shell V2")
 	load_window_data(window)
 	window.hide_window()
 
@@ -69,7 +69,7 @@ func init_module():
 	gui_mode = load_module_data("gui_mode", InputMode.Window)
 	pause_if_input = load_module_data("pause_if_popup", true)
 	unified_window_visibility = load_module_data("unified_visibility", false)
-	init_expr = load_module_data("init_expression", "")
+	init_expr = load_module_data("init_expression", "print('Panku Console Loaded!')")
 
 	_show_side_menu = load_module_data("show_side_menu", true)
 	set_side_menu_visible(_show_side_menu)
@@ -78,6 +78,12 @@ func init_module():
 	simple_launcher.visibility_changed.connect(update_gui_state)
 	_is_gui_open = not (window.visible or simple_launcher.visible)
 	update_gui_state()
+
+	# TODO: this signal is emitted twice when the window is shown, investigate
+	# window.visibility_changed.connect(
+	# 	func():
+	# 		print("window visibility changed: ", window.visible)
+	# )
 
 	# execute init_expr after a short delay
 	if init_expr != "":
@@ -98,16 +104,22 @@ func quit_module():
 
 func update_gui_state():
 	var is_gui_open = window.visible or simple_launcher.visible
+
+	if is_gui_open == _is_gui_open:
+		return
+	
 	if _is_gui_open != is_gui_open:
 		core._shell_visibility = is_gui_open
 		core.interactive_shell_visibility_changed.emit(is_gui_open)
 		_is_gui_open = is_gui_open
+
 	if _is_gui_open and pause_if_input:
 		_was_tree_paused = core.get_tree().paused
 		core.get_tree().paused = true
 	else:
 		if core.get_tree().paused:
 			core.get_tree().paused = _was_tree_paused
+	
 	if unified_window_visibility:
 		core.windows_manager.visible = _is_gui_open
 

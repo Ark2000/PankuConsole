@@ -2,26 +2,18 @@ extends Control
 
 var _module:PankuModule
 
-@onready var intro := $SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/Label
-@onready var project_page_button := $SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/Button
-@onready var check_update_button := $SmoothScrollContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer/Button2
+@export var intro:Label
+@export var project_page_button:Button
+@export var check_update_button:Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	intro.text += "Version: " + PankuUtils.get_plugin_version() + "\n"
-	var sha = PankuUtils.get_commit_sha_short()
-	intro.text += "Commit: " + (sha if sha != "" else "Unknown") + "\n"
-	intro.text += "Godot Engine: " + Engine.get_version_info().string + "\n"
+	var version:String = PankuUtils.get_plugin_version()
+	var sha:String = PankuUtils.get_commit_sha_short()
+	if sha == "": sha = "Unknown"
 
-	intro.text += "\nPanku Console is a community driven project under MIT license, thanks to everyone who have contributed to this project:\n"
-	intro.text += "(Contact me if you don't see your name)\n\n"
-	intro.text += "Ark2000 (Feo Wu)\n"
-	intro.text += "scriptsengineer (Rafael Correa)\n"
-	intro.text += "mieldepoche\n"
-	intro.text += "Eggbertx\n"
-	intro.text += "univeous\n"
-	intro.text += "CheapMeow\n"
-	intro.text += "winston-yallow (Winston)\n"
+	intro.text = intro.text.replace("<version>", version)
+	intro.text = intro.text.replace("<commit>", sha)
 
 	project_page_button.pressed.connect(
 		func():

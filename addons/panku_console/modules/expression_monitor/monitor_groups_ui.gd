@@ -46,6 +46,5 @@ func load_persistent_data(data:Array):
 	for child in groups_container.get_children():
 		child.queue_free()
 	for group_data in data:
-		var group_ui = group_prefab.instantiate()
-		groups_container.add_child(group_ui)
+		var group_ui = add_group()
 		group_ui.load_persistent_data(group_data)

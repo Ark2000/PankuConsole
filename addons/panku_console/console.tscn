@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyftuo4syatlv"]
+[gd_scene load_steps=4 format=3 uid="uid://cyftuo4syatlv"]
 
 [ext_resource type="Script" path="res://addons/panku_console/console.gd" id="1_dohs1"]
+[ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="2_wxhx6"]
 [ext_resource type="Script" path="res://addons/panku_console/common/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 
 [node name="Console" type="CanvasLayer"]
@@ -17,4 +18,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2_wxhx6")
 script = ExtResource("10_f7qaq")

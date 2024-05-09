@@ -1,10 +1,8 @@
 extends "./row_ui.gd"
 
-const JoystickButton = preload("./joystick_button.gd")
-
 @export var line_edit_x:LineEdit
 @export var line_edit_y:LineEdit
-@export var joystick_button:Button
+@export var joystick_button:PankuButton
 
 func get_ui_val():
 	return Vector2(
@@ -34,7 +32,7 @@ func _ready():
 	line_edit_y.focus_exited.connect(
 		func(): ui_val_changed.emit(get_ui_val())
 	)
-	var j_button:JoystickButton = joystick_button
+	var j_button = joystick_button
 	j_button.value_changed.connect(
 		func(delta:Vector2): 
 			update_ui(get_ui_val() + delta)

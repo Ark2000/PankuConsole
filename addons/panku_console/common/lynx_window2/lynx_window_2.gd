@@ -7,14 +7,14 @@ signal window_closed
 const lynx_window_shader_material:ShaderMaterial = preload("./lynx_window_shader_material.tres")
 
 @export var _window_title_container:HBoxContainer
-@export var _title_btn:Button
-@export var _close_btn:Button
-@export var _options_btn:Button
+@export var _title_btn:PankuButton
+@export var _close_btn:PankuButton
+@export var _options_btn:PankuButton
 @export var _resize_btn:Button
 @export var _shadow_focus:Panel
 @export var _shadow:NinePatchRect
 @export var _container:Panel
-@export var _pop_btn:Button
+@export var _pop_btn:PankuButton
 
 @export var no_resize := false
 @export var no_resize_x := false
@@ -164,11 +164,14 @@ func set_window_title_text(text:String):
 	if _os_window and _os_window.visible:
 		_os_window.title = text
 	else:
-		_title_btn.text = text
+		_title_btn.text = " " + text
 
 func get_normal_window_size():
 	if _folded: return _size_before_folded
 	return size
+
+func get_title_bar_height():
+	return _window_title_container.size.y
 
 func _ready():
 	custom_minimum_size = _window_title_container.get_minimum_size()
@@ -203,7 +206,7 @@ func _ready():
 				hide()
 	)
 	
-	_title_btn.gui_input.connect(
+	_title_btn.button.gui_input.connect(
 		func(e):
 			if e is InputEventMouseButton and !e.pressed:
 				if e.button_index != MOUSE_BUTTON_NONE:
@@ -278,7 +281,7 @@ func _process(delta: float) -> void:
 		if window_rect.end.y > screen_rect.end.y:
 			target_position.y = screen_rect.end.y - window_rect.size.y
 		if window_rect.end.y > screen_rect.end.y + window_rect.size.y / 2:
-			target_position.y = screen_rect.end.y - 25
+			target_position.y = screen_rect.end.y - get_title_bar_height()
 		if window_rect.position.x < 0:
 			target_position.x = 0
 		if window_rect.end.x > screen_rect.end.x:
@@ -291,7 +294,6 @@ func _process(delta: float) -> void:
 		if _target_size.is_equal_approx(size):
 			_size_animation = false
 		size = interp(size, _target_size, anim_interp_speed, delta)
-
 
 # Framerate-independent interpolation.
 func interp(from, to, lambda: float, delta: float):

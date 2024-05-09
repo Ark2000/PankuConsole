@@ -2,11 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_rocdy"]
 [ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/input_field/input_area.gd" id="2_6g40s"]
+[ext_resource type="PackedScene" uid="uid://drn5t13m088fb" path="res://addons/panku_console/common/panku_button.tscn" id="4_6t5yf"]
 [ext_resource type="Script" path="res://addons/panku_console/modules/interactive_shell/input_field/input_field.gd" id="4_xjt2l"]
 [ext_resource type="Texture2D" uid="uid://b4jd6tqlie0wx" path="res://addons/panku_console/res/icons2/reply.svg" id="6_w88f1"]
-
-[sub_resource type="SystemFont" id="SystemFont_104sb"]
-font_names = PackedStringArray("Consolas")
 
 [node name="InputArea" type="HBoxContainer" node_paths=PackedStringArray("input", "btn")]
 offset_right = 277.0
@@ -26,17 +24,18 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
-theme_override_fonts/font = SubResource("SystemFont_104sb")
-theme_override_font_sizes/font_size = 14
 placeholder_text = "Input expression here..."
 clear_button_enabled = true
 caret_blink = true
 script = ExtResource("4_xjt2l")
 
-[node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(24, 0)
+[node name="Button" parent="." instance=ExtResource("4_6t5yf")]
 layout_mode = 2
-tooltip_text = "Confirm"
-icon = ExtResource("6_w88f1")
-icon_alignment = 1
-expand_icon = true
+
+[node name="TextureRect" parent="Button/HBoxContainer" index="0"]
+texture = ExtResource("6_w88f1")
+
+[node name="Label" parent="Button/HBoxContainer" index="1"]
+text = ""
+
+[editable path="Button"]
