@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.7.8] Maintenance Update
+
+- [x] **Feat: scalable UI.**
+See #165 #166 #169 #174 
+
+- [x] **Feat: custom default config.**
+See #173 
+
+- [x] **Feat: disable plugin on release.**
+See #159
+
+- Others.
+See #161 #162 #172
+
 ## [1.7.7] - 2024-01-07
 
 - [x] **Feat: a snake game?**
