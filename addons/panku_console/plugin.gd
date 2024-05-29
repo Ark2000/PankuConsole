@@ -5,15 +5,7 @@ extends EditorPlugin
 const SINGLETON_NAME = "Panku"
 const SINGLETON_PATH = "res://addons/panku_console/console.tscn"
 const SINGLETON_OPTION = "autoload/" + SINGLETON_NAME
-const INITIAL_DEFAULT_CONFIG_FILE_PATH = "res://addons/panku_console/default_panku_config.cfg"
 
-const CONFIG_SECTION = "panku"
-const OPTIONS = {
-	# See https://github.com/Ark2000/PankuConsole/issues/170
-	DISABLE_ON_RELEASE = 'disable_on_release',
-	# See https://github.com/Ark2000/PankuConsole/issues/173
-	CUSTOM_DEFAULT_CONFIG = 'custom_default_config',
-}
 
 var exporter: PankuExporter
 
@@ -32,7 +24,9 @@ class PankuExporter extends EditorExportPlugin:
 
 	func _export_begin(_features: PackedStringArray, is_debug: bool, _path: String, _flags: int) -> void:
 		need_restore_singleton = false
-		var disable_activated: bool = ProjectSettings.get_setting(owner.panku_option(OPTIONS.DISABLE_ON_RELEASE))
+		var disable_activated: bool = ProjectSettings.get_setting(
+			PankuConfig.panku_option(PankuConfig.OPTIONS.DISABLE_ON_RELEASE)
+		)
 
 		if not is_debug and disable_activated:
 			need_restore_singleton = ProjectSettings.has_setting(SINGLETON_OPTION)
@@ -60,15 +54,6 @@ static func add_custom_project_setting(name: String, default_value, type: int, h
 	ProjectSettings.set_initial_value(name, default_value)
 	ProjectSettings.set_as_basic(name, true)
 
-# Full option name in project settings.
-static func panku_option(option: String) -> String:
-	return CONFIG_SECTION + "/" + option
-
-static func get_custom_default_config_path() -> String:
-	return ProjectSettings.get_setting(panku_option(OPTIONS.CUSTOM_DEFAULT_CONFIG), INITIAL_DEFAULT_CONFIG_FILE_PATH)
-
-static func is_custom_default_config_exists() -> bool:
-	return FileAccess.file_exists(get_custom_default_config_path())
 
 # Adding singleton with preliminary check to avoid any conflicts.
 func safe_add_singleton() -> void:
@@ -86,15 +71,15 @@ func create_setting() -> void:
 
 	# Disable Panku Console in release builds
 	add_custom_project_setting(
-		panku_option(OPTIONS.DISABLE_ON_RELEASE), 
-		false, 
+		PankuConfig.panku_option(PankuConfig.OPTIONS.DISABLE_ON_RELEASE),
+		false,
 		TYPE_BOOL
 	)
 	# Path to the custom `res://` path default config file, useful if you are going to keep panku console in release builds.
 	add_custom_project_setting(
-		panku_option(OPTIONS.CUSTOM_DEFAULT_CONFIG), 
-		INITIAL_DEFAULT_CONFIG_FILE_PATH, 
-		TYPE_STRING, 
+		PankuConfig.panku_option(PankuConfig.OPTIONS.CUSTOM_DEFAULT_CONFIG),
+		PankuConfig.INITIAL_DEFAULT_CONFIG_FILE_PATH,
+		TYPE_STRING,
 		PROPERTY_HINT_FILE,
 		"*.cfg"
 	)
@@ -113,7 +98,7 @@ func _enter_tree() -> void:
 	safe_add_singleton()
 	print("[Panku Console] initialized! Project page: https://github.com/Ark2000/PankuConsole")
 
-	if not is_custom_default_config_exists():
+	if not PankuConfig.is_custom_default_config_exists():
 		push_warning("[Panku Console] Default config file not found. Using code-level default config.")
 
 func _exit_tree() -> void:
@@ -123,8 +108,8 @@ func _exit_tree() -> void:
 func _disable_plugin() -> void:
 	safe_remove_singleton()
 
-	for option in OPTIONS.values():
-		var opt: String = panku_option(option)
+	for option in PankuConfig.OPTIONS.values():
+		var opt: String = PankuConfig.panku_option(option)
 		if ProjectSettings.has_setting(opt):
 			ProjectSettings.clear(opt)
 	ProjectSettings.save()
