@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.7.9] Maintenance Update
+
+- [X] **Bugfix: Config loading does not work in exported projects**
+See #178 #180
+
 ## [1.7.8] Maintenance Update
 
 - [x] **Feat: scalable UI.**
