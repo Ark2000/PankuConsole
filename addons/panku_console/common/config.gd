@@ -8,8 +8,12 @@ const OPTIONS = {
 	CUSTOM_DEFAULT_CONFIG = 'custom_default_config',
 }
 
-const INITIAL_DEFAULT_CONFIG_FILE_PATH = "res://addons/panku_console/default_panku_config.cfg"
-const USER_CONFIG_FILE_PATH = "user://panku_config.cfg"
+const INITIAL_DEFAULT_CONFIG_FILE_PATH = "res://addons/panku_console/default_panku_config.tres"
+const USER_CONFIG_FILE_PATH = "user://panku_config.tres"
+const SAVE_DELAY := 0.2
+
+static var _cfg:Dictionary = {}
+static var _timer:SceneTreeTimer
 
 # Get custom config file path from project settings
 static func get_custom_default_config_path() -> String:
@@ -26,35 +30,49 @@ static func panku_option(option: String) -> String:
 
 
 # load config from file, always return a dictionary
-static func _get_config(file_path:String) -> Dictionary:
+static func _load_config_file(file_path:String) -> Dictionary:
 	if FileAccess.file_exists(file_path):
-		var file = FileAccess.open(file_path, FileAccess.READ)
-		var content := file.get_as_text()
-		var config:Dictionary = str_to_var(content)
-		if config: return config
+		var res := load(file_path) as PankuConsoleSimpleRes
+		if res == null: return {}
+		return res.data
 	return {}
 
-# save user config to file
-static func set_config(config:Dictionary):
-	var file = FileAccess.open(USER_CONFIG_FILE_PATH, FileAccess.WRITE)
-	var content = var_to_str(config)
-	file.store_string(content)
+# save user config to file with a time delay
+static func save_config_with_delay() -> void:
+	if _timer: _timer.timeout.disconnect(save_config_immediately)
+	_timer = (Engine.get_main_loop() as SceneTree).create_timer(SAVE_DELAY, true, false, true)
+	_timer.timeout.connect(save_config_immediately)
+	
+static func save_config_immediately() -> void:
+	var res := PankuConsoleSimpleRes.new()
+	res.data = _cfg
+	var status = ResourceSaver.save(res, USER_CONFIG_FILE_PATH)
+	if status != OK: push_error("Failed to save panku config.")
+	# print("Saved to ", USER_CONFIG_FILE_PATH)
 
 # get config, if user config exists, return user config, otherwise return default config configured by plugin user
-static func get_config() -> Dictionary:
-	var user_config:Dictionary = _get_config(USER_CONFIG_FILE_PATH)
+static func _get_config() -> Dictionary:
+	if not _cfg.is_empty(): return _cfg
+	var user_config:Dictionary = _load_config_file(USER_CONFIG_FILE_PATH)
 	if not user_config.is_empty():
-		return user_config
+		_cfg = user_config
 	# if no user config, return default config, which is read-only
-	if is_custom_default_config_exists():
-		return _get_config(get_custom_default_config_path())
+	elif is_custom_default_config_exists():
+		_cfg = _load_config_file(get_custom_default_config_path())
+	else:
+		_cfg = _load_config_file(INITIAL_DEFAULT_CONFIG_FILE_PATH)
+	return _cfg
 
-	return _get_config(INITIAL_DEFAULT_CONFIG_FILE_PATH)
+static func _get_key(keys:Array[String]) -> String:
+	return ".".join(keys)
+	
+static func get_value(keys:Array[String], default:Variant = null) -> Variant:
+	var key := _get_key(keys)
+	var cfg := _get_config()
+	return cfg.get(key, default)
 
-static func get_value(key:String, default:Variant) -> Variant:
-	return get_config().get(key, default)
-
-static func set_value(key:String, val:Variant) -> void:
-	var config = _get_config(USER_CONFIG_FILE_PATH)
-	config[key] = val
-	set_config(config)
+static func set_value(keys:Array[String], val:Variant) -> void:
+	var key := _get_key(keys)
+	var cfg := _get_config()
+	cfg[key] = val
+	save_config_with_delay()

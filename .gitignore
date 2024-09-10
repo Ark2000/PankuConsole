@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
-
+# misc
 export/
-
 test/
+.vscode/
+addons/lua-gdextension/

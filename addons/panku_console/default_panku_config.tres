@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="PankuConsoleSimpleRes" load_steps=2 format=3 uid="uid://carjqi7cx353a"]
+
+[ext_resource type="Script" path="res://addons/panku_console/dict_res.gd" id="1_8qd6x"]
+
+[resource]
+script = ExtResource("1_8qd6x")
+data = {
+"enable_os_window": false,
+"engine_tools": {
+"time_scale": "1"
+},
+"engine_tools.time_scale": "1",
+"exp_history": [[false, false, "print('Panku Console Loaded!')"]],
+"expression_monitor.monitor_data": [{
+"expressions": [],
+"group_name": "default group"
+}],
+"expression_monitor.window_position": Vector2(433.5, 415),
+"expression_monitor.window_size": Vector2(413, 305),
+"expression_monitor.window_visibility": false,
+"general_settings": {
+"window_blur_effect": true,
+"window_position": Vector2(213.215, 75.1716),
+"window_size": Vector2(709.046, 563.371),
+"window_visibility": true
+},
+"general_settings.global_font_size": 14,
+"general_settings.window_blur_effect": true,
+"general_settings.window_position": Vector2(584.001, 161.779),
+"general_settings.window_size": Vector2(555.042, 397.87),
+"general_settings.window_visibility": true,
+"history_manager.window_position": Vector2(867, 415),
+"history_manager.window_size": Vector2(413, 305),
+"history_manager.window_visibility": false,
+"interactive_shell": {
+"pause_if_popup": true,
+"show_side_menu": true,
+"unified_visibility": false
+},
+"interactive_shell.gui_mode": 0,
+"interactive_shell.histories": [],
+"interactive_shell.pause_if_popup": true,
+"interactive_shell.show_side_menu": true,
+"interactive_shell.unified_visibility": true,
+"interactive_shell.window_position": Vector2(255.736, 71.0109),
+"interactive_shell.window_size": Vector2(615.07, 443.081),
+"interactive_shell.window_visibility": true,
+"keyboard_shortcuts": {
+"window_position": Vector2(617.943, 228.155),
+"window_size": Vector2(412.999, 305)
+},
+"keyboard_shortcuts.key_mapper": [],
+"keyboard_shortcuts.window_position": Vector2(867, 0),
+"keyboard_shortcuts.window_size": Vector2(413, 305),
+"keyboard_shortcuts.window_visibility": false,
+"native_logger": {
+"screen_overlay": 0,
+"screen_overlay_alpha": 1.0,
+"screen_overlay_font_shadow": true,
+"screen_overlay_override_font_size": 14,
+"show_timestamp": true
+},
+"native_logger.logger_tags": ["[error]", "[warning]"],
+"native_logger.screen_overlay_alpha": 0.13,
+"native_logger.screen_overlay_font_shadow": true,
+"native_logger.screen_overlay_override_font_size": 9,
+"native_logger.show_timestamp": true,
+"native_logger.window_position": Vector2(314.725, 167.815),
+"native_logger.window_size": Vector2(481.089, 317.56),
+"native_logger.window_visibility": false,
+"os_window_bg_color": Color(0.129412, 0.14902, 0.180392, 1),
+"variable_tracker": {
+"tracking_delay": 0.5,
+"use_last_as_current": true
+}
+}

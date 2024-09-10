@@ -76,3 +76,4 @@ func _notification(what):
 	# quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		module_manager.quit_modules()
+		PankuConfig.save_config_immediately()
