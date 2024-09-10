@@ -5,7 +5,7 @@ var name_label:Label:
 
 signal ui_val_changed(val)
 
-func get_ui_val():
+func get_ui_val() -> Variant:
 	return null
 
 func update_ui(val):
