@@ -10,8 +10,28 @@ func toggle_fullscreen() -> void:
 func set_time_scale(val:float) -> void:
 	Engine.time_scale = val
 
-func get_performance_info() -> String:
-	return "FPS: %d | Mem: %.2fMB | Objs: %d" % [Engine.get_frames_per_second(), OS.get_static_memory_usage()/1048576.0, Performance.get_monitor(Performance.OBJECT_COUNT)]
+class ClsCountNodesInTree:
+	func calc_children_count(core: PankuConsole, node_path: String) -> int:
+		var nd: Node = core.get_tree().current_scene.get_node(node_path)
+		return count_all_children(nd)
+	func count_all_children(nd: Node) -> int:
+		var count: int = nd.get_children().size()
+		for child: Node in nd.get_children():
+			count += count_all_children(child)
+		return count
+
+func get_performance_info(count_nodes:bool) -> String:
+	var result = "FPS: %d | Mem: %.2fMB | Objs: %d" % [
+		Engine.get_frames_per_second(),
+		OS.get_static_memory_usage()/1048576.0,
+		Performance.get_monitor(Performance.OBJECT_COUNT)
+	]
+	if count_nodes:
+		var cls_count: ClsCountNodesInTree = ClsCountNodesInTree.new()
+		var root_count: int = cls_count.calc_children_count(core, "/root")
+		var panku_count: int = cls_count.calc_children_count(core, "/root/Panku")
+		result += " | Nodes: %d" % [root_count - panku_count]
+	return result
 
 func take_screenshot() -> void:
 	var image = core.get_viewport().get_texture().get_image()

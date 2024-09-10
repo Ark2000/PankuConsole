@@ -9,8 +9,8 @@ func set_time_scale(val:float) -> void:
 	_module.set_time_scale(val)
 
 const _HELP_get_performance_info = "Show performance info"
-func get_performance_info() -> String:
-	return _module.get_performance_info()
+func get_performance_info(count_nodes := false) -> String:
+	return _module.get_performance_info(count_nodes)
 
 const _HELP_take_screenshot = "Take a screenshot of current window"
 func take_screenshot() -> void:
