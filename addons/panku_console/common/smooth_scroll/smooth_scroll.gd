@@ -26,8 +26,16 @@ func _gui_input(event: InputEvent) -> void:
 			scrollbar.value += step
 
 func _process(delta: float) -> void:
-	content.size = Vector2(clip_container.size.x, 0)
-	content.position = Vector2.ZERO
+	# add a tiny optimization here
+	if not is_visible_in_tree(): return
+	
+	# See https://github.com/Ark2000/PankuConsole/issues/183, looks quirky
+	# content.size = Vector2(clip_container.size.x, 0)
+	# content.position = Vector2.ZERO
+	content.size.x = clip_container.size.x
+	content.size.y = 0
+	content.position.y = 0
+
 	scrollbar.max_value = content.size.y
 	var scrollbar_value_max = max(0, scrollbar.max_value - clip_container.size.y)
 	scrollbar.value = lerp(scrollbar.value, clampf(scrollbar.value, 0.0, scrollbar_value_max), 0.2)
