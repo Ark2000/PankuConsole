@@ -1,10 +1,11 @@
 class_name PankuModuleHistoryManager extends PankuModule
 
 var window:PankuLynxWindow
+var ui:Control
 
 func init_module():
 	# setup ui
-	var ui = preload("./exp_history.tscn").instantiate()
+	ui = preload("./exp_history.tscn").instantiate()
 	ui.console = core
 	core.new_expression_entered.connect(
 		func(expression, result):
@@ -21,6 +22,7 @@ func init_module():
 func quit_module():
 	super.quit_module()
 	save_window_data(window)
+	ui.save_data()
 
 func open_window():
 	window.show_window()
