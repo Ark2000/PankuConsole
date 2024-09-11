@@ -64,17 +64,9 @@ func get_os_window_bg_color() -> Color:
 	return os_window_bg_color
 
 func save_data():
-	var cfg = PankuConfig.get_config()
-	cfg[CFG_ENABLE_OS_WINDOW] = os_popup_btn_enabled
-	cfg[CFG_OS_WINDOW_BGCOLOR] = os_window_bg_color
-	PankuConfig.set_config(cfg)
+	PankuConfig.set_value(CFG_ENABLE_OS_WINDOW, os_popup_btn_enabled)
+	PankuConfig.set_value(CFG_OS_WINDOW_BGCOLOR, os_window_bg_color)
 
 func load_data():
-	var cfg = PankuConfig.get_config()
-	enable_os_popup_btns(cfg.get(CFG_ENABLE_OS_WINDOW, false))
-	set_os_window_bg_color(cfg.get(CFG_OS_WINDOW_BGCOLOR, Color("#2b2e32")))
-
-func _notification(what):
-	#quit event
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_data()
+	enable_os_popup_btns(PankuConfig.get_value(CFG_ENABLE_OS_WINDOW, false))
+	set_os_window_bg_color(PankuConfig.get_value(CFG_OS_WINDOW_BGCOLOR, Color("#2b2e32")))

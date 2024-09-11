@@ -23,25 +23,17 @@ func quit_module():
 func update_module(delta:float):
 	pass
 
+func _get_module_key(key:String) -> String:
+	return ".".join([get_module_name(), key])
+
 func save_module_data(key:String, value:Variant):
-	var cfg:Dictionary = PankuConfig.get_config()
-	var module_name:String = get_module_name()
-	if !cfg.has(module_name):
-		cfg[module_name] = {}
-	cfg[module_name][key] = value
-	PankuConfig.set_config(cfg)
+	PankuConfig.set_value(_get_module_key(key), value)
 
 func load_module_data(key:String, default_value:Variant = null) -> Variant:
-	var cfg:Dictionary = PankuConfig.get_config()
-	var module_name:String = get_module_name()
-	var module_data = cfg.get(module_name, {})
-	return module_data.get(key, default_value)
+	return PankuConfig.get_value(_get_module_key(key), default_value)
 
 func has_module_data(key:String) -> bool:
-	var cfg:Dictionary = PankuConfig.get_config()
-	var module_name:String = get_module_name()
-	var module_data = cfg.get(module_name, {})
-	return module_data.has(key)
+	return PankuConfig.get_value(_get_module_key(key)) == null
 
 func load_window_data(window:PankuLynxWindow):
 	window.position = load_module_data("window_position", window.get_layout_position([

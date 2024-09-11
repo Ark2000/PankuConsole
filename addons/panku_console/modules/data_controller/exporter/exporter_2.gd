@@ -138,6 +138,7 @@ func init_data():
 				if !is_instance_valid(obj):
 					return
 				if prop_name in obj:
+					# used to auto save settings panel data
 					if obj.has_method("update_setting"):
 						obj.update_setting(prop_name, val)
 					else:
