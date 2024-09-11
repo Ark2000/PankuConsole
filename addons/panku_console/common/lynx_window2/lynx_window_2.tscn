@@ -35,13 +35,13 @@ draw_center = false
 shadow_color = Color(0, 0, 0, 0.0627451)
 shadow_size = 16
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5muk4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p3y6j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r0x7y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7tml"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p3y6j"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5muk4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uldta"]
 draw_center = false
@@ -53,22 +53,30 @@ border_color = Color(1, 1, 1, 1)
 
 [node name="LynxWindow2" type="ColorRect" node_paths=PackedStringArray("_window_title_container", "_title_btn", "_close_btn", "_options_btn", "_resize_btn", "_shadow_focus", "_shadow", "_container", "_pop_btn")]
 material = ExtResource("1_tvp6i")
-clip_contents = true
 offset_right = 413.0
 offset_bottom = 305.0
 theme = ExtResource("2_3fhqk")
 script = ExtResource("2_1ul5o")
-_window_title_container = NodePath("VBoxContainer/Up")
-_title_btn = NodePath("VBoxContainer/Up/TitleButton")
-_close_btn = NodePath("VBoxContainer/Up/CloseButton")
-_options_btn = NodePath("VBoxContainer/Up/MenuButton")
+_window_title_container = NodePath("MainBody/VBoxContainer/Up")
+_title_btn = NodePath("MainBody/VBoxContainer/Up/TitleButton")
+_close_btn = NodePath("MainBody/VBoxContainer/Up/CloseButton")
+_options_btn = NodePath("MainBody/VBoxContainer/Up/MenuButton")
 _resize_btn = NodePath("Button")
 _shadow_focus = NodePath("Shadow2")
 _shadow = NodePath("Shadow")
-_container = NodePath("VBoxContainer/Down")
-_pop_btn = NodePath("VBoxContainer/Up/PopupButton")
+_container = NodePath("MainBody/VBoxContainer/Down")
+_pop_btn = NodePath("MainBody/VBoxContainer/Up/PopupButton")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainBody" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainBody"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,58 +85,58 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Up" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Up" type="HBoxContainer" parent="MainBody/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TitleButton" parent="VBoxContainer/Up" instance=ExtResource("4_dnesi")]
+[node name="TitleButton" parent="MainBody/VBoxContainer/Up" instance=ExtResource("4_dnesi")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_hv45g")
 
-[node name="TextureRect" parent="VBoxContainer/Up/TitleButton/HBoxContainer" index="0"]
+[node name="TextureRect" parent="MainBody/VBoxContainer/Up/TitleButton/HBoxContainer" index="0"]
 texture = null
 
-[node name="Label" parent="VBoxContainer/Up/TitleButton/HBoxContainer" index="1"]
+[node name="Label" parent="MainBody/VBoxContainer/Up/TitleButton/HBoxContainer" index="1"]
 text = "Window Title"
 
-[node name="PopupButton" parent="VBoxContainer/Up" instance=ExtResource("4_dnesi")]
+[node name="PopupButton" parent="MainBody/VBoxContainer/Up" instance=ExtResource("4_dnesi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hv45g")
 
-[node name="TextureRect" parent="VBoxContainer/Up/PopupButton/HBoxContainer" index="0"]
+[node name="TextureRect" parent="MainBody/VBoxContainer/Up/PopupButton/HBoxContainer" index="0"]
 texture = ExtResource("4_im81u")
 
-[node name="Label" parent="VBoxContainer/Up/PopupButton/HBoxContainer" index="1"]
+[node name="Label" parent="MainBody/VBoxContainer/Up/PopupButton/HBoxContainer" index="1"]
 visible = false
 
-[node name="MenuButton" parent="VBoxContainer/Up" instance=ExtResource("4_dnesi")]
+[node name="MenuButton" parent="MainBody/VBoxContainer/Up" instance=ExtResource("4_dnesi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hv45g")
 
-[node name="TextureRect" parent="VBoxContainer/Up/MenuButton/HBoxContainer" index="0"]
+[node name="TextureRect" parent="MainBody/VBoxContainer/Up/MenuButton/HBoxContainer" index="0"]
 texture = ExtResource("4_4dlyn")
 
-[node name="Label" parent="VBoxContainer/Up/MenuButton/HBoxContainer" index="1"]
+[node name="Label" parent="MainBody/VBoxContainer/Up/MenuButton/HBoxContainer" index="1"]
 visible = false
 
-[node name="CloseButton" parent="VBoxContainer/Up" instance=ExtResource("4_dnesi")]
+[node name="CloseButton" parent="MainBody/VBoxContainer/Up" instance=ExtResource("4_dnesi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hv45g")
 
-[node name="TextureRect" parent="VBoxContainer/Up/CloseButton/HBoxContainer" index="0"]
+[node name="TextureRect" parent="MainBody/VBoxContainer/Up/CloseButton/HBoxContainer" index="0"]
 texture = ExtResource("5_l4qpm")
 
-[node name="Label" parent="VBoxContainer/Up/CloseButton/HBoxContainer" index="1"]
+[node name="Label" parent="MainBody/VBoxContainer/Up/CloseButton/HBoxContainer" index="1"]
 visible = false
 
-[node name="Down" type="Panel" parent="VBoxContainer"]
+[node name="Down" type="Panel" parent="MainBody/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_6i67d")
 
 [node name="Shadow" type="NinePatchRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.501961)
+modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -170,10 +178,10 @@ offset_top = -12.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_default_cursor_shape = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_5muk4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_p3y6j")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_r0x7y")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_p7tml")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_p3y6j")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5muk4")
 icon = ExtResource("7_duwqn")
 flat = true
 expand_icon = true
@@ -190,7 +198,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_uldta")
 script = ExtResource("8_gj3ji")
 
-[editable path="VBoxContainer/Up/TitleButton"]
-[editable path="VBoxContainer/Up/PopupButton"]
-[editable path="VBoxContainer/Up/MenuButton"]
-[editable path="VBoxContainer/Up/CloseButton"]
+[editable path="MainBody/VBoxContainer/Up/TitleButton"]
+[editable path="MainBody/VBoxContainer/Up/PopupButton"]
+[editable path="MainBody/VBoxContainer/Up/MenuButton"]
+[editable path="MainBody/VBoxContainer/Up/CloseButton"]
