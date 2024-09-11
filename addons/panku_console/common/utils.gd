@@ -27,6 +27,15 @@ static func get_commit_url() -> String:
 		return "https://github.com/Ark2000/PankuConsole/commit/" + sha
 	return ""
 
+# Framerate-independent interpolation.
+static func interp(from, to, lambda: float, delta: float):
+	if from is Vector2:
+		if abs(from.x - to.x) < 1.0: from.x = to.x
+		if abs(from.y - to.y) < 1.0: from.y = to.y
+	if from is float:
+		if abs(from - to) < 0.01: from = to
+	return lerp(from, to, 1.0 - exp(-lambda * delta))
+
 #func _run():
 #	print("plugin_version: ", get_plugin_version())
 #	print("commit_sha: ", get_commit_sha())

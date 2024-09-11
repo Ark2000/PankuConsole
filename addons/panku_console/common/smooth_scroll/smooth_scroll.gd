@@ -39,11 +39,11 @@ func _process(delta: float) -> void:
 
 	scrollbar.max_value = content.size.y
 	var scrollbar_value_max = max(0, scrollbar.max_value - clip_container.size.y)
-	scrollbar.value = lerp(scrollbar.value, clampf(scrollbar.value, 0.0, scrollbar_value_max), 0.2)
+	scrollbar.value = PankuUtils.interp(scrollbar.value, clampf(scrollbar.value, 0.0, scrollbar_value_max), 10, delta)
 	scrollbar.page = clip_container.size.y
 	scrollbar.visible = content.size.y > clip_container.size.y
 
-	scroll_progress = lerp(scroll_progress, scrollbar.value, 0.2)
+	scroll_progress = PankuUtils.interp(scroll_progress, scrollbar.value, 10, delta)
 	content.position.y = - scroll_progress
 
 	if !follow_content: return

@@ -262,15 +262,15 @@ func _input(e):
 func _process(delta: float) -> void:
 	if !no_move and _is_dragging:
 		var tp := position + get_local_mouse_position() - _drag_start_position
-		position = interp(position, tp, transform_interp_speed, delta)
+		position = PankuUtils.interp(position, tp, transform_interp_speed, delta)
 	elif !no_resize and _is_resizing:
 		var ts := size + _resize_btn.get_local_mouse_position() - _resize_start_position
 		ts.x = min(ts.x, get_viewport_rect().size.x)
 		ts.y = min(ts.y, get_viewport_rect().size.y)
 		if !no_resize_x:
-			size.x = interp(size.x, ts.x, transform_interp_speed, delta)
+			size.x = PankuUtils.interp(size.x, ts.x, transform_interp_speed, delta)
 		if !no_resize_y:
-			size.y = interp(size.y, ts.y, transform_interp_speed, delta)
+			size.y = PankuUtils.interp(size.y, ts.y, transform_interp_speed, delta)
 	elif !no_snap:
 		var window_rect := get_rect()
 		var screen_rect := get_viewport_rect()
@@ -287,14 +287,10 @@ func _process(delta: float) -> void:
 		if window_rect.end.x > screen_rect.end.x:
 			target_position.x = screen_rect.end.x - window_rect.size.x
 		var current_position = window_rect.position
-		current_position = interp(current_position, target_position, bounds_interp_speed, delta)
-		size = interp(size, target_size, bounds_interp_speed, delta)
+		current_position = PankuUtils.interp(current_position, target_position, bounds_interp_speed, delta)
+		size = PankuUtils.interp(size, target_size, bounds_interp_speed, delta)
 		position = current_position
 	if _size_animation:
 		if _target_size.is_equal_approx(size):
 			_size_animation = false
-		size = interp(size, _target_size, anim_interp_speed, delta)
-
-# Framerate-independent interpolation.
-func interp(from, to, lambda: float, delta: float):
-	return lerp(from, to, 1.0 - exp(-lambda * delta))
+		size = PankuUtils.interp(size, _target_size, anim_interp_speed, delta)
