@@ -35,6 +35,7 @@ func _process(delta: float) -> void:
 	content.size.x = clip_container.size.x
 	content.size.y = 0
 	content.position.y = 0
+	content.position.x = 0
 
 	scrollbar.max_value = content.size.y
 	var scrollbar_value_max = max(0, scrollbar.max_value - clip_container.size.y)
