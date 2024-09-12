@@ -32,6 +32,9 @@ func reload_current_scene():
 		time_scale = v
 		_module.set_time_scale(time_scale)
 
+@export var export_comment_count_nodes = "Show node count in performance info (can issue extra performance hit)."
+@export var count_nodes := false
+
 @export var readonly_performance_info:String:
 	get:
-		return _module.get_performance_info(false)
+		return _module.get_performance_info(count_nodes)

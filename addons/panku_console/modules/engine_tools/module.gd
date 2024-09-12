@@ -1,5 +1,9 @@
 class_name PankuModuleEngineTools extends PankuModule
 
+func init_module():
+	get_module_opt().count_nodes = load_module_data("count_nodes", false)
+	super.init_module()
+
 func toggle_fullscreen() -> void:
 	if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_WINDOWED:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
