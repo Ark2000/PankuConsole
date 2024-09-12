@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://oylhbfsjajv7"]
+
+[ext_resource type="Script" path="res://addons/panku_console/modules/expression_monitor_2/exp_monitor.gd" id="1_fxbyh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovoqj"]
+resource_local_to_scene = true
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.690196)
+
+[sub_resource type="LabelSettings" id="LabelSettings_x6rju"]
+resource_local_to_scene = true
+font_size = 14
+
+[node name="ExpMonitor" type="PanelContainer"]
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ovoqj")
+script = ExtResource("1_fxbyh")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "hello world"
+label_settings = SubResource("LabelSettings_x6rju")

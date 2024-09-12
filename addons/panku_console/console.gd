@@ -54,6 +54,7 @@ func _ready():
 	# you can add or remove any modules here as you wish
 	var modules:Array[PankuModule] = [
 		PankuModuleNativeLogger.new(),
+		PankuModuleExpressionMonitor2.new(),
 		PankuModuleScreenNotifier.new(),
 		PankuModuleSystemReport.new(),
 		PankuModuleHistoryManager.new(),
@@ -72,9 +73,11 @@ func _ready():
 	]
 	module_manager.init_manager(self, modules)
 
+func _physics_process(delta:float):
+	module_manager.update_modules(delta)
+
 func _notification(what):
 	# quit event
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		module_manager.quit_modules()
-		windows_manager.save_data()
 		PankuConfig.save_config_immediately()

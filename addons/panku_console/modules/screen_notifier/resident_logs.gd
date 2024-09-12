@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 const logitem2_proto := preload("./log_item.tscn")
 

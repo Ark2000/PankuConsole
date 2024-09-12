@@ -10,12 +10,20 @@ func _ready():
 	queue_free()
 "
 
-[node name="ScreenNotifier" type="CanvasLayer" node_paths=PackedStringArray("named_container", "unnamed_container")]
+[node name="ScreenNotifier" type="Control" node_paths=PackedStringArray("named_container", "unnamed_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_uq2bh")
 named_container = NodePath("ResidentLogs/Named")
 unnamed_container = NodePath("ResidentLogs/Unnamed")
 
 [node name="ResidentLogs" type="VBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -30,6 +38,8 @@ alignment = 2
 [node name="Indicator" type="ColorRect" parent="ResidentLogs"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
 color = Color(1, 0.345098, 0.34902, 1)
 script = SubResource("GDScript_p8loh")
 
