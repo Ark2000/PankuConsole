@@ -81,7 +81,7 @@ func create_setting() -> void:
 		PankuConfig.INITIAL_DEFAULT_CONFIG_FILE_PATH,
 		TYPE_STRING,
 		PROPERTY_HINT_FILE,
-		"*.cfg"
+		"*.tres"
 	)
 
 	var error:int = ProjectSettings.save()
