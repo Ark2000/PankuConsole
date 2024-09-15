@@ -1,5 +1,8 @@
 extends Node2D
 
+func e():
+	return Panku.module_manager.get_module("expression_monitor_2")
+
 func say_hello():
 	print("hello!")
 

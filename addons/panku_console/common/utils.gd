@@ -36,6 +36,25 @@ static func interp(from, to, lambda: float, delta: float):
 		if abs(from - to) < 0.01: from = to
 	return lerp(from, to, 1.0 - exp(-lambda * delta))
 
+# Serialize simple objects, the object must have SERIALIZABLE_PROPERTIES, and the properties should be simple types.
+
+static func serialize_simple_object(obj: Object) -> Dictionary:
+	var data = {}
+	for prop in obj.SERIALIZABLE_PROPERTIES:
+		var field:String = prop[0]
+		data[field] = obj.get(field)
+	return data
+
+static func deserialize_simple_object(obj: Object, data: Dictionary):
+	for prop in obj.SERIALIZABLE_PROPERTIES:
+		var field:String = prop[0]
+		var default_value = prop[1]
+		if data.has(field):
+			var value = data[field]
+			obj.set(field, value)
+		else:
+			obj.set(field, default_value)
+
 #func _run():
 #	print("plugin_version: ", get_plugin_version())
 #	print("commit_sha: ", get_commit_sha())

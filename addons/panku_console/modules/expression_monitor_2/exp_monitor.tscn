@@ -1,25 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://oylhbfsjajv7"]
+[gd_scene load_steps=14 format=3 uid="uid://oylhbfsjajv7"]
 
 [ext_resource type="Script" path="res://addons/panku_console/modules/expression_monitor_2/exp_monitor.gd" id="1_fxbyh"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovoqj"]
-resource_local_to_scene = true
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0, 0.690196)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_56gk3"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_x6rju"]
-resource_local_to_scene = true
-font_size = 14
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtc58"]
 
-[node name="ExpMonitor" type="PanelContainer"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ll6he"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_732pw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfg2w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w4iwu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4nuf2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fujll"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vkqr3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lmbnw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ernu"]
+resource_local_to_scene = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c148p"]
+
+[node name="ExpMonitor" type="Button"]
+offset_right = 95.0
+offset_bottom = 23.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ovoqj")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxEmpty_56gk3")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_wtc58")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ll6he")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_732pw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jfg2w")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_w4iwu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4nuf2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_fujll")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vkqr3")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_lmbnw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2ernu")
+text = "Hello World!"
 script = ExtResource("1_fxbyh")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-text = "hello world"
-label_settings = SubResource("LabelSettings_x6rju")
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c148p")
+flat = true

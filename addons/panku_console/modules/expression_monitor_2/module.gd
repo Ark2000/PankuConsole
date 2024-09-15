@@ -18,30 +18,31 @@ func quit_module():
 	super.quit_module()
 	save_module_data("monitors", get_data())
 
+func update_module(delta:float):
+	# if further optimization is needed, we can use priority queue
+	for monitor in monitors: monitor.update_monitor(delta)
+
+func add_monitor(data = null):
+	var monitor:ExpMonitor = ExpMonitorWidget.instantiate()
+	overlay.add_child(monitor)
+	monitor.set_eval_env(core.gd_exprenv)
+	if data: monitor.load(data)
+	monitors.append(monitor)
+
 # return: Array[Dictionary]
 func get_data() -> Array:
 	var data = []
 	for monitor_data in monitors:
-		data.append(monitor_data.get_dict())
+		data.append(monitor_data.save())
 	return data
 
 # data:Array[Dictionary]
 func set_data(data:Array):
 	monitors.clear()
-	for monitor_dict in data:
-		var monitor:ExpMonitor = ExpMonitorWidget.instantiate()
-		overlay.add_child(monitor)
-		monitor.load_dict(monitor_dict)
-		monitors.append(monitor)
+	for monitor_dict in data: add_monitor(monitor_dict)
 
-func update_module(delta:float):
-	for monitor in monitors:
-		monitor.remaining_time -= delta
-		if monitor.remaining_time > 0: continue
-		
-		monitor.remaining_time = monitor.update_interval
-		var eval_result_dict:Dictionary = core.gd_exprenv.execute(monitor.expression_string)
-		var eval_result:String = str(eval_result_dict["result"])
-		monitor.set_label_text(eval_result)
-		monitor.size = monitor.get_minimum_size()
-		monitor.update_position()
+func test_add():
+	add_monitor()
+
+func test_get(i):
+	return monitors[i]
