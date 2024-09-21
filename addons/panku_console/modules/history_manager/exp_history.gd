@@ -89,7 +89,7 @@ func reload():
 	
 	#remove existing list items
 	var start_idx := (current_page - 1) * items_per_page
-	var end_idx := min(start_idx + items_per_page, item_data.size())
+	var end_idx := mini(start_idx + items_per_page, item_data.size())
 	for c in item_container.get_children():
 		c.queue_free()
 	
