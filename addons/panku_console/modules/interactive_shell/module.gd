@@ -107,19 +107,20 @@ func update_gui_state():
 
 	if is_gui_open == _is_gui_open:
 		return
-	
+
 	if _is_gui_open != is_gui_open:
 		core._shell_visibility = is_gui_open
 		core.interactive_shell_visibility_changed.emit(is_gui_open)
 		_is_gui_open = is_gui_open
 
-	if _is_gui_open and pause_if_input:
-		_was_tree_paused = core.get_tree().paused
-		core.get_tree().paused = true
-	else:
-		if core.get_tree().paused:
-			core.get_tree().paused = _was_tree_paused
-	
+	if pause_if_input:
+		if _is_gui_open:
+			_was_tree_paused = core.get_tree().paused
+			core.get_tree().paused = true
+		else:
+			if core.get_tree().paused:
+				core.get_tree().paused = _was_tree_paused
+
 	if unified_window_visibility:
 		core.windows_manager.visible = _is_gui_open
 
