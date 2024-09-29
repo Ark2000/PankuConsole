@@ -135,6 +135,10 @@ func _root_nodes_filter(node: Node) -> bool:
 	if node.name == core.SingletonName:
 		return false
 
+	# skip os window
+	if node.get_meta(PankuLynxWindow.OS_WINDOW_MARKER, false):
+		return false
+
 	# skip user defined exceptions
 	if _nodes_exception_regexp.is_valid() and _nodes_exception_regexp.search(node.name):
 		return false
