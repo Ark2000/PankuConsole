@@ -5,6 +5,7 @@ signal title_btn_clicked
 signal window_closed
 
 const lynx_window_shader_material:ShaderMaterial = preload("./lynx_window_shader_material.tres")
+const OS_WINDOW_MARKER = "PankuOSWindow"
 
 @export var _window_title_container:HBoxContainer
 @export var _title_btn:PankuButton
@@ -99,6 +100,7 @@ func highlight(v:bool):
 
 func _init_os_window():
 	_os_window = Window.new()
+	_os_window.set_meta(OS_WINDOW_MARKER, true)
 	var color_rect = ColorRect.new()
 	color_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_os_window.add_child(color_rect)
@@ -205,7 +207,7 @@ func _ready():
 			else:
 				hide()
 	)
-	
+
 	_title_btn.button.gui_input.connect(
 		func(e):
 			if e is InputEventMouseButton and !e.pressed:
@@ -223,13 +225,13 @@ func _ready():
 		$Border.hey_i_am_here()
 
 	_pop_btn.pressed.connect(switch_to_os_window)
-	
+
 	if _container.get_child_count() > 0:
 		_content = _container.get_child(0)
-		
+
 	if get_parent().has_method("get_enable_os_popup_btns"):
 		_pop_btn.visible = get_parent().get_enable_os_popup_btns()
-	
+
 	# feature: foldable window
 	title_btn_clicked.connect(
 		func():
