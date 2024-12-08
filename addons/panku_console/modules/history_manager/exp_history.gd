@@ -185,18 +185,10 @@ func remove_selected():
 	reload()
 
 func load_data():
-	#get saved data from cfg
-	var cfg = PankuConfig.get_config()
-	item_data = cfg.get(CFG_EXP_HISTORY, [])
+	item_data = PankuConfig.get_value(CFG_EXP_HISTORY, [])
 
 func save_data():
-	var cfg = PankuConfig.get_config()
-	cfg[CFG_EXP_HISTORY] = item_data
-	PankuConfig.set_config(cfg)
-
-func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_data()
+	PankuConfig.set_value(CFG_EXP_HISTORY, item_data)
 
 func add_history(exp:String):
 	#ignore consecutive same

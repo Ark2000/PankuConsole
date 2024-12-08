@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="PankuConsoleSimpleRes" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/panku_console/common/dict_res.gd" id="1_xmc1q"]
+
+[resource]
+script = ExtResource("1_xmc1q")
+data = {
+"enable_os_window": false,
+"exp_history": [[false, false, "print('Panku Console Loaded!')"]],
+"expression_monitor.monitor_data": [{
+"expressions": [],
+"group_name": "default group"
+}],
+"general_settings.global_font_size": 12,
+"general_settings.os_window_bg_color": Color(0, 0, 0, 1),
+"general_settings.window_base_color": Color(0, 0.0470588, 0.0941176, 0.678431),
+"general_settings.window_blur_effect": true,
+"interactive_shell.gui_mode": 0,
+"interactive_shell.histories": [],
+"interactive_shell.pause_if_popup": true,
+"interactive_shell.show_side_menu": true,
+"interactive_shell.unified_visibility": true,
+"keyboard_shortcuts.key_mapper": [],
+"native_logger.logger_tags": ["[error]", "[warning]"],
+"native_logger.screen_overlay_alpha": 0.5,
+"native_logger.screen_overlay_font_shadow": true,
+"native_logger.screen_overlay_override_font_size": 0,
+"native_logger.show_timestamp": true,
+"os_window_bg_color": Color(0, 0, 0, 1),
+"variable_tracker.tracking_delay": 0.5,
+"variable_tracker.use_last_as_current": true
+}
