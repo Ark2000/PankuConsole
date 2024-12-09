@@ -12,8 +12,6 @@ var prev_log = ""
 # logs whose id >= 0
 var named_logs := {}
 
-func _ready():
-	$ResidentLogs.size = get_viewport().size * 0.5
 
 func add_log(bbcode:String, id:=-1):
 	# logs whose id>=0 will be fixed to the bottom of the log list
