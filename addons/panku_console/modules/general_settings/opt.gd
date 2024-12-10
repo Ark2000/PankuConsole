@@ -25,12 +25,12 @@ extends ModuleOptions
 		_module.core.windows_manager.set_os_window_bg_color(v)
 	get:
 		return _module.core.windows_manager.os_window_bg_color
-		
+
 @export var global_font_size:int:
 	set(v):
-		Panku.windows_manager.theme.default_font_size = v
+		_module.core.windows_manager.theme.default_font_size = v
 	get:
-		return Panku.windows_manager.theme.default_font_size
+		return _module.core.windows_manager.theme.default_font_size
 
 @export var export_comment_auto_global_font_size = (
 	"Adjust global font size automatically according to your device DPI"

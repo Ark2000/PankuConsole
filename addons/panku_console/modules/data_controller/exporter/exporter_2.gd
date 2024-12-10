@@ -5,6 +5,7 @@ const TEXT_LABEL_MIN_X = 120
 
 @export var container:VBoxContainer
 
+var console: PankuConsole
 var objects := []
 var rows_need_update:Array = []
 var row_objects:Array[Object] = []
@@ -99,7 +100,7 @@ func init():
 	for child in container.get_children():
 		container.remove_child(child)
 		child.queue_free()
-	
+
 	for i in range(objects.size()):
 		create_rows_from_object(i)
 
@@ -188,8 +189,9 @@ func create_ui_row_read_only(property:Dictionary) -> Control:
 	return init_ui_row(ui_row, property)
 
 func create_ui_row_comment(comment:String) -> Control:
-	var ui_row = preload("./row_comment.tscn").instantiate()
-	ui_row.label.text = comment
+	var ui_row: PankuCommentRow = preload("./row_comment.tscn").instantiate()
+	ui_row.console = console
+	ui_row.button.label.text = comment
 	return ui_row
 
 func create_ui_row_func_button(property:Dictionary, object:Object) -> Control:

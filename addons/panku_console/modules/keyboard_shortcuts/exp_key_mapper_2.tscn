@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6hm8vweq0j4f"]
+[gd_scene load_steps=6 format=3 uid="uid://c6hm8vweq0j4f"]
 
 [ext_resource type="Theme" uid="uid://bk18yfu0d77wk" path="res://addons/panku_console/res/panku_console_theme.tres" id="1_0xd5p"]
 [ext_resource type="Script" path="res://addons/panku_console/modules/keyboard_shortcuts/exp_key_mapper_2.gd" id="2_vxcow"]
@@ -10,16 +10,6 @@ content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-
-[sub_resource type="GDScript" id="GDScript_xeow3"]
-script/source = "extends Button
-
-func _ready():
-	pressed.connect(
-		func():
-			Panku.notify(\"Yes, I know it.\")
-	)
-"
 
 [node name="ExpKeyMapper" type="Control" node_paths=PackedStringArray("add_btn", "container")]
 clip_contents = true
@@ -52,13 +42,13 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_i7jk5")
 [node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ScrollContainer/PanelContainer/VBoxContainer2"]
+[node name="InfoButton" type="Button" parent="ScrollContainer/PanelContainer/VBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Edit expression key bindings here."
 icon = ExtResource("3_ofrgs")
 alignment = 0
 expand_icon = true
-script = SubResource("GDScript_xeow3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/PanelContainer/VBoxContainer2"]
 layout_mode = 2
