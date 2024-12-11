@@ -31,6 +31,7 @@ Global="*res://example/global.tscn"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
@@ -42,5 +43,6 @@ import/blender/enabled=false
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_clear_color=Color(1, 1, 1, 1)
-anti_aliasing/quality/msaa_2d=3
