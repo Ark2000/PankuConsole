@@ -5,14 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://drn5t13m088fb" path="res://addons/panku_console/common/panku_button.tscn" id="3_wi42w"]
 [ext_resource type="Texture2D" uid="uid://b6jt0ggmuoyeb" path="res://addons/panku_console/res/icons2/info2.svg" id="4_o8r6v"]
 
-[node name="RowComment" type="HBoxContainer" node_paths=PackedStringArray("label")]
+[node name="RowComment" type="HBoxContainer" node_paths=PackedStringArray("button")]
 custom_minimum_size = Vector2(20, 20)
 offset_right = 148.0
 offset_bottom = 31.0
 size_flags_horizontal = 3
 theme = ExtResource("1_wu8ma")
 script = ExtResource("1_dvooy")
-label = NodePath("PankuButton/HBoxContainer/Label")
+button = NodePath("PankuButton")
 
 [node name="PankuButton" parent="." instance=ExtResource("3_wi42w")]
 layout_mode = 2

@@ -3,16 +3,22 @@ extends Control
 signal key_binding_added(key: InputEventKey, expression: String)
 signal key_binding_changed(key: InputEventKey, expression: String)
 
-var console:PankuConsole
-
+const INFO_STRING := "Yes, I know it."
 const exp_key_item := preload("./exp_key_item.tscn")
 
-@export var add_btn:Button
-@export var container:VBoxContainer
+var console: PankuConsole
+
+@export var add_btn: Button
+@export var container: VBoxContainer
 
 var mapping_data = []
 
+@onready var info_btn: Button = %InfoButton
+
+
 func _ready():
+	info_btn.pressed.connect(_console_notify.bind(INFO_STRING))
+
 	#when clicking the button, add a new exp key mapping item
 	add_btn.pressed.connect(
 		func():
@@ -21,6 +27,12 @@ func _ready():
 			add_item(default_exp, default_event)
 			mapping_data.push_back([default_exp, default_event])
 	)
+
+
+func _console_notify(txt: String) -> void:
+	if console:
+		console.notify(txt)
+
 
 #handle input here.
 func _unhandled_input(e):
@@ -34,11 +46,12 @@ func _unhandled_input(e):
 				#execute the exp
 				var result = console.gd_exprenv.execute(exp)
 				if result.failed:
-					console.notify("[color=red]%s[/color]" % result.result)
+					_console_notify("[color=red]%s[/color]" % result.result)
 				else:
 					#ignore null result
 					if result.result:
-						console.notify(str(result.result))
+						_console_notify(str(result.result))
+
 
 func add_item(exp:String, event:InputEventKey):
 	var item = exp_key_item.instantiate()
@@ -46,7 +59,7 @@ func add_item(exp:String, event:InputEventKey):
 	container.move_child(item, container.get_child_count() - 2)
 	item.exp_edit.text = exp
 	item.remap_button.key_event = event
-	
+
 	item.exp_edit_submitted.connect(
 		func(new_exp:String):
 			mapping_data[item.get_index()][0] = new_exp
