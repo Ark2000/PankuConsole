@@ -9,22 +9,41 @@ const UPDATE_INTERVAL := 0.1
 const ERROR_MSG_PREFIX := "USER ERROR: "
 const WARNING_MSG_PREFIX := "USER WARNING: "
 #Any logs with three spaces at the beginning will be ignored.
-const IGNORE_PREFIX := "   " 
+const IGNORE_PREFIX := "   "
 
-var godot_log:FileAccess
+var godot_log: FileAccess
+var godot_log_path: String
+
 
 func _ready():
-	var file_logging_enabled = ProjectSettings.get("debug/file_logging/enable_file_logging") or ProjectSettings.get("debug/file_logging/enable_file_logging.pc")
-	if !file_logging_enabled:
+	if not _is_log_enabled():
 		push_warning("You have to enable file logging in order to use engine log monitor!")
 		return
-	
-	var log_path = ProjectSettings.get("debug/file_logging/log_path")
-	godot_log = FileAccess.open(log_path, FileAccess.READ)
 
-	create_tween().set_loops(
-	).tween_callback(_read_data
-	).set_delay(UPDATE_INTERVAL)
+	godot_log_path = ProjectSettings.get("debug/file_logging/log_path")
+	if not FileAccess.file_exists(godot_log_path):
+		push_warning("Log file not fount by path " + godot_log_path)
+		return
+
+	_start_watching()
+
+
+func _start_watching() -> void:
+	godot_log = FileAccess.open(godot_log_path, FileAccess.READ)
+	create_tween().set_loops().tween_callback(_read_data).set_delay(UPDATE_INTERVAL)
+
+
+func _is_log_enabled() -> bool:
+
+	if ProjectSettings.get("debug/file_logging/enable_file_logging"):
+		return true
+
+	# this feels so weird and wrong
+	# what about other platforms?
+	if OS.has_feature("pc") and ProjectSettings.get("debug/file_logging/enable_file_logging.pc"):
+		return true
+
+	return false
 
 
 func _read_data():
