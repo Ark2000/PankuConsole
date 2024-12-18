@@ -1,7 +1,7 @@
 class_name PankuConsole extends CanvasLayer
 # `console.gd` is a global singleton that provides all modules with a common interface
 # you can also use some of its members to interact with the console
- 
+
 signal interactive_shell_visibility_changed(visible:bool)
 signal new_expression_entered(expression:String, result)
 signal new_notification_created(bbcode:String, id:int)
@@ -35,6 +35,14 @@ func _input(event: InputEvent):
 
 func _ready():
 	assert(get_tree().current_scene != self, "Do not run console.tscn as a scene!")
+
+	# Yep, seems like double check project settings in the main singleton
+	# is the only "correct" way to work with custom project setting
+	# https://github.com/godotengine/godot/issues/56598#issuecomment-1904100640
+	PankuConfig.init_all_project_settings()
+
+	if not PankuConfig.is_custom_default_config_exists():
+		push_warning("[Panku Console] Default config file not found. Using code-level default config.")
 
 	windows_manager = $LynxWindowsManager
 	var base_instance = preload("./common/repl_base_instance.gd").new()

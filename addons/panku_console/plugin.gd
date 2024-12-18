@@ -6,12 +6,12 @@ const SINGLETON_NAME = "Panku"
 const SINGLETON_PATH = "res://addons/panku_console/console.tscn"
 const SINGLETON_OPTION = "autoload/" + SINGLETON_NAME
 
-
 var exporter: PankuExporter
+
 
 # Custom export plugin to automatically disable console in release builds
 class PankuExporter extends EditorExportPlugin:
-	const NAME = "Panku"
+	const NAME = "PankuReleaseExporter"
 	var owner: EditorPlugin
 	var need_restore_singleton: bool
 
@@ -37,22 +37,18 @@ class PankuExporter extends EditorExportPlugin:
 		if need_restore_singleton:
 			owner.safe_add_singleton()
 
-# A helper function to add custom project settings
-# See https://dfaction.net/handling-custom-project-settings-using-gdscript/
-static func add_custom_project_setting(name: String, default_value, type: int, hint: int = PROPERTY_HINT_NONE, hint_string: String = "") -> void:
-	if ProjectSettings.has_setting(name): return
 
-	var setting_info: Dictionary = {
-		"name": name,
-		"type": type,
-		"hint": hint,
-		"hint_string": hint_string
-	}
+func _enable_exporter() -> void:
+	if not exporter:
+		# See https://github.com/godotengine/godot/issues/73525
+		exporter = (PankuExporter as Variant).new()
+		exporter.owner = self
+	add_export_plugin(exporter)
 
-	ProjectSettings.set_setting(name, default_value)
-	ProjectSettings.add_property_info(setting_info)
-	ProjectSettings.set_initial_value(name, default_value)
-	ProjectSettings.set_as_basic(name, true)
+
+func _disable_exporter() -> void:
+	if exporter:
+		remove_export_plugin(exporter)
 
 
 # Adding singleton with preliminary check to avoid any conflicts.
@@ -66,52 +62,28 @@ func safe_remove_singleton() -> void:
 	if ProjectSettings.has_setting(SINGLETON_OPTION):
 		remove_autoload_singleton(SINGLETON_NAME)
 
-func create_setting() -> void:
-	# Seems we can't add descriptions to custom settings now.
 
-	# Disable Panku Console in release builds
-	add_custom_project_setting(
-		PankuConfig.panku_option(PankuConfig.OPTIONS.DISABLE_ON_RELEASE),
-		false,
-		TYPE_BOOL
-	)
-	# Path to the custom `res://` path default config file, useful if you are going to keep panku console in release builds.
-	add_custom_project_setting(
-		PankuConfig.panku_option(PankuConfig.OPTIONS.CUSTOM_DEFAULT_CONFIG),
-		PankuConfig.INITIAL_DEFAULT_CONFIG_FILE_PATH,
-		TYPE_STRING,
-		PROPERTY_HINT_FILE,
-		"*.cfg"
-	)
-
-	var error:int = ProjectSettings.save()
-	if error != OK:
-		push_error("Encountered error %d when saving project settings." % error)
-
-func _enter_tree() -> void:
-	# See https://github.com/godotengine/godot/issues/73525
-	exporter = (PankuExporter as Variant).new()
-	exporter.owner = self
-	add_export_plugin(exporter)
-	create_setting()
-
+func _enable_plugin() -> void:
 	safe_add_singleton()
-	print("[Panku Console] initialized! Project page: https://github.com/Ark2000/PankuConsole")
 
-	if not PankuConfig.is_custom_default_config_exists():
-		push_warning("[Panku Console] Default config file not found. Using code-level default config.")
-
-func _exit_tree() -> void:
-	remove_export_plugin(exporter)
+	print("[Panku Console] enabled.")
 
 
 func _disable_plugin() -> void:
 	safe_remove_singleton()
-
-	for option in PankuConfig.OPTIONS.values():
-		var opt: String = PankuConfig.panku_option(option)
-		if ProjectSettings.has_setting(opt):
-			ProjectSettings.clear(opt)
-	ProjectSettings.save()
+	PankuConfig.clear_all_project_settings()
 
 	print("[Panku Console] disabled.")
+
+
+func _enter_tree() -> void:
+	PankuConfig.init_all_project_settings()
+	_enable_exporter()
+
+	print("[Panku Console] initialized! Project page: https://github.com/Ark2000/PankuConsole")
+
+
+func _exit_tree() -> void:
+	_disable_exporter()
+
+
