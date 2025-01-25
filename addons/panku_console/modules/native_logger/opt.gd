@@ -28,6 +28,12 @@ func open_window():
 	get:
 		return _module.output_overlay.modulate.a
 
+@export var screen_overlay_color:Color:
+	set(v):
+		_module.output_overlay["theme_override_colors/default_color"] = v
+	get:
+		return _module.output_overlay["theme_override_colors/default_color"]
+
 @export var screen_overlay_override_font_size:int = 0:
 	set(v):
 		var overlay:RichTextLabel = _module.output_overlay

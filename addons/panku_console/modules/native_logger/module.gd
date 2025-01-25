@@ -60,6 +60,7 @@ func init_module():
 	load_window_data(window)
 	get_module_opt().screen_overlay = load_module_data("screen_overlay", ScreenOverlayDisplayMode.AlwaysShow)
 	get_module_opt().screen_overlay_alpha = load_module_data("screen_overlay_alpha", 0.3)
+	get_module_opt().screen_overlay_color = load_module_data("screen_overlay_color", Color(1, 1, 1, 0.878))
 	get_module_opt().screen_overlay_font_shadow = load_module_data("screen_overlay_font_shadow", false)
 	get_module_opt().screen_overlay_override_font_size = load_module_data("screen_overlay_override_font_size", 0)
 	get_module_opt().show_timestamp = load_module_data("show_timestamp", true)
